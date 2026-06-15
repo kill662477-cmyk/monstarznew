@@ -5,6 +5,20 @@
 (function () {
   const MOBILE_PATH = "/mobile/";
   const params = new URLSearchParams(window.location.search);
+  const oauthState = params.get("state") || "";
+  const oauthCode = params.get("authCode") || params.get("code");
+  const oauthError = params.get("error");
+
+  if (oauthState.startsWith("kammon_") && (oauthCode || oauthError)) {
+    const target = new URL("https://kill662477-cmyk.github.io/calmmongrow/");
+    if (oauthCode) target.searchParams.set(params.has("authCode") ? "authCode" : "code", oauthCode);
+    if (oauthError) target.searchParams.set("error", oauthError);
+    const message = params.get("message") || params.get("error_description");
+    if (message) target.searchParams.set("message", message);
+    target.searchParams.set("state", oauthState);
+    window.location.replace(target.href);
+    return;
+  }
 
   // 모바일에서도 PC 버전을 직접 열고 싶을 때 사용:
   // https://monstarznew.vercel.app/?desktop=1
@@ -7463,7 +7477,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="game-wrap">
           <iframe id="arcadeFrameGrow" class="game-embed-frame" data-arcade-game="grow" src="https://kill662477-cmyk.github.io/calmmongrow/" title="캄몬키우기" loading="lazy" allow="fullscreen; gamepad" allowfullscreen></iframe>
-          <iframe id="arcadeFrameSurvivors" class="game-embed-frame" data-arcade-game="survivors" data-src="https://kill662477-cmyk.github.io/mstzsv/" title="MONSTARZ Survivors" loading="lazy" allow="fullscreen; gamepad" allowfullscreen hidden></iframe>
+          <iframe id="arcadeFrameSurvivors" class="game-embed-frame" data-arcade-game="survivors" data-src="https://kill662477-cmyk.github.io/mstzsv/?v=619cde5" title="MONSTARZ Survivors" loading="lazy" allow="fullscreen; gamepad" allowfullscreen hidden></iframe>
           <iframe id="arcadeFrameRun" class="game-embed-frame" data-arcade-game="run" data-src="https://monstarzrun.vercel.app/" title="캄몬런" loading="lazy" allow="fullscreen; gamepad" allowfullscreen hidden></iframe>
         </div>
       </section>
@@ -12413,7 +12427,7 @@ window.__DUCK_ROULETTE_CONFIG__=${configJson};
       tabId: "arcadeTabSurvivors",
       frameId: "arcadeFrameSurvivors",
       subtitle: "MONSTARZ SURVIVORS GAME",
-      url: "https://kill662477-cmyk.github.io/mstzsv/"
+      url: "https://kill662477-cmyk.github.io/mstzsv/?v=619cde5"
     }
   };
 
