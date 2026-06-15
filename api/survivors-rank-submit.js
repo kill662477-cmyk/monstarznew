@@ -2,7 +2,7 @@ const DATABASE_URL = (
   process.env.FIREBASE_DATABASE_URL ||
   "https://jddcontens-default-rtdb.asia-southeast1.firebasedatabase.app"
 ).replace(/\/+$/, "");
-const RANK_ROOT = process.env.SURVIVORS_RANK_ROOT || "starcraftTier/current/survivorsRankings";
+const RANK_ROOT = process.env.SURVIVORS_RANK_ROOT || "monstarzSurvivors/rankings";
 const SOOP_STATION_INFO_URL = "https://openapi.sooplive.com/user/stationinfo";
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const SCOPE = "https://www.googleapis.com/auth/firebase.database https://www.googleapis.com/auth/userinfo.email";
@@ -17,11 +17,7 @@ function setCors(res) {
 
 function serviceAccount() {
   const rawJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON || process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
-  if (rawJson) {
-    const parsed = JSON.parse(rawJson);
-    if (parsed.private_key) parsed.private_key = parsed.private_key.replace(/\\n/g, "\n");
-    return parsed;
-  }
+  if (rawJson) return JSON.parse(rawJson);
 
   if (
     process.env.FIREBASE_PROJECT_ID &&
@@ -35,7 +31,7 @@ function serviceAccount() {
     };
   }
 
-  throw new Error("Firebase service account env is missing. Add FIREBASE_SERVICE_ACCOUNT_JSON to Vercel.");
+  throw new Error("Firebase service account env is missing.");
 }
 
 function base64url(value) {
@@ -183,7 +179,6 @@ export default async function handler(req, res) {
         updatedAt: now,
         updatedAtIso: new Date(now).toISOString(),
       };
-
       await dbFetch(path, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
