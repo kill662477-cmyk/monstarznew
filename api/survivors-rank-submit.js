@@ -6,6 +6,7 @@ const RANK_ROOT = process.env.SURVIVORS_RANK_ROOT || "starcraftTier/current/surv
 const SOOP_STATION_INFO_URL = "https://openapi.sooplive.com/user/stationinfo";
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const SCOPE = "https://www.googleapis.com/auth/firebase.database https://www.googleapis.com/auth/userinfo.email";
+const DATABASE_SECRET = process.env.FIREBASE_DATABASE_SECRET || process.env.RTDB_SECRET || "";
 
 let cachedToken = null;
 
@@ -82,12 +83,13 @@ async function getAccessToken() {
 }
 
 async function dbFetch(path, options = {}) {
-  const token = await getAccessToken();
-  const response = await fetch(`${DATABASE_URL}/${path}.json`, {
+  const token = DATABASE_SECRET ? "" : await getAccessToken();
+  const authQuery = DATABASE_SECRET ? `?auth=${encodeURIComponent(DATABASE_SECRET)}` : "";
+  const response = await fetch(`${DATABASE_URL}/${path}.json${authQuery}`, {
     ...options,
     headers: {
       ...(options.headers || {}),
-      Authorization: `Bearer ${token}`,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
   const data = await response.json().catch(() => null);
