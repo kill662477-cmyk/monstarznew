@@ -1,3 +1,5 @@
+const crypto = require("crypto");
+
 const DATABASE_URL = (
   process.env.FIREBASE_DATABASE_URL ||
   "https://jddcontens-default-rtdb.asia-southeast1.firebasedatabase.app"
@@ -38,11 +40,6 @@ function base64url(value) {
   return Buffer.from(value).toString("base64url");
 }
 
-async function signJwt(unsigned, privateKey) {
-  const { createSign } = await import("node:crypto");
-  return createSign("RSA-SHA256").update(unsigned).sign(privateKey, "base64url");
-}
-
 async function getAccessToken() {
   if (cachedToken && cachedToken.expiresAt > Date.now() + 60000) return cachedToken.token;
 
@@ -57,7 +54,7 @@ async function getAccessToken() {
     exp: now + 3600,
   };
   const unsigned = `${base64url(JSON.stringify(header))}.${base64url(JSON.stringify(claim))}`;
-  const signature = await signJwt(unsigned, sa.private_key);
+  const signature = crypto.createSign("RSA-SHA256").update(unsigned).sign(sa.private_key, "base64url");
   const assertion = `${unsigned}.${signature}`;
 
   const response = await fetch(TOKEN_URL, {
@@ -133,7 +130,7 @@ async function getSoopProfile(accessToken) {
   };
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   setCors(res);
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ error: "method_not_allowed" });
@@ -193,4 +190,4 @@ export default async function handler(req, res) {
       message: err.message || String(err),
     });
   }
-}
+};
