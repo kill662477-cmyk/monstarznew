@@ -5,6 +5,20 @@
 (function () {
   const MOBILE_PATH = "/mobile/";
   const params = new URLSearchParams(window.location.search);
+  const mstzsvState = params.get("state") || "";
+  const mstzsvCode = params.get("authCode") || params.get("code");
+  const mstzsvError = params.get("error");
+
+  if (mstzsvState.startsWith("mstzsv_") && (mstzsvCode || mstzsvError)) {
+    const target = new URL("https://kill662477-cmyk.github.io/mstzsv/");
+    if (mstzsvCode) target.searchParams.set(params.has("authCode") ? "authCode" : "code", mstzsvCode);
+    if (mstzsvError) target.searchParams.set("error", mstzsvError);
+    const message = params.get("message") || params.get("error_description");
+    if (message) target.searchParams.set("message", message);
+    target.searchParams.set("state", mstzsvState);
+    window.location.replace(target.href);
+    return;
+  }
 
   // 모바일에서도 PC 버전을 직접 열고 싶을 때 사용:
   // https://monstarznew.vercel.app/?desktop=1
