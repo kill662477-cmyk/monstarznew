@@ -5,22 +5,17 @@
 (function () {
   const MOBILE_PATH = "/mobile/";
   const params = new URLSearchParams(window.location.search);
-  const oauthState = params.get("state") || "";
-  const oauthCode = params.get("authCode") || params.get("code");
-  const oauthError = params.get("error");
-  const oauthBridgeTargets = [
-    { prefix: "mstzsv_", url: "https://kill662477-cmyk.github.io/mstzsv/" },
-    { prefix: "kammon_", url: "https://kill662477-cmyk.github.io/calmmongrow/" }
-  ];
-  const oauthBridgeTarget = oauthBridgeTargets.find((target) => oauthState.startsWith(target.prefix));
+  const mstzsvState = params.get("state") || "";
+  const mstzsvCode = params.get("authCode") || params.get("code");
+  const mstzsvError = params.get("error");
 
-  if (oauthBridgeTarget && (oauthCode || oauthError)) {
-    const target = new URL(oauthBridgeTarget.url);
-    if (oauthCode) target.searchParams.set(params.has("authCode") ? "authCode" : "code", oauthCode);
-    if (oauthError) target.searchParams.set("error", oauthError);
+  if (mstzsvState.startsWith("mstzsv_") && (mstzsvCode || mstzsvError)) {
+    const target = new URL("https://kill662477-cmyk.github.io/mstzsv/");
+    if (mstzsvCode) target.searchParams.set(params.has("authCode") ? "authCode" : "code", mstzsvCode);
+    if (mstzsvError) target.searchParams.set("error", mstzsvError);
     const message = params.get("message") || params.get("error_description");
     if (message) target.searchParams.set("message", message);
-    target.searchParams.set("state", oauthState);
+    target.searchParams.set("state", mstzsvState);
     window.location.replace(target.href);
     return;
   }
