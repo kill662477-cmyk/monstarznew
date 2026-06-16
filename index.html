@@ -8191,10 +8191,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const today = new Date();
     const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     const diffDays = Math.floor((todayDate - joinDate) / 86400000);
+    const joinDayCount = diffDays >= 0 ? diffDays + 1 : diffDays;
     const yy = String(year).slice(2);
     const mm = String(month).padStart(2, "0");
     const dd = String(day).padStart(2, "0");
-    const dText = diffDays >= 0 ? `D+${diffDays}` : `D${diffDays}`;
+    const dText = joinDayCount >= 0 ? `D+${joinDayCount}` : `D${joinDayCount}`;
 
     return `${yy}.${mm}.${dd}(${dText})`;
   }
