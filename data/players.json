@@ -969,9 +969,9 @@
       "name": "김민철",
       "description": "",
       "race": "Z",
-      "tierCode": "K",
-      "tierId": "tier-K",
-      "tier": "킹티어",
+      "tierCode": "G",
+      "tierId": "tier-G",
+      "tier": "갓티어",
       "sortOrder": 6,
       "eloboardKey": "P_15_Z",
       "elo": "https://eloboard.com/men/bbs/board.php?bo_table=bj_list&wr_id=15",
@@ -980,10 +980,10 @@
       "station": "https://www.sooplive.com/station/minchul",
       "stationStatus": 200,
       "academy": {
-        "id": 40,
-        "name": "무창클럽(2)",
-        "image": "assets/academy/40.jpg",
-        "position": "교수"
+        "id": 22,
+        "name": "캄몬스타즈",
+        "image": "assets/academy/22.jpg",
+        "position": "코치"
       },
       "monthWinRate": 49.3,
       "yearWinRate": 48.3,

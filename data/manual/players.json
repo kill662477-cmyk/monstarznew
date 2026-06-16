@@ -4384,11 +4384,11 @@
     "station": "https://www.sooplive.com/station/minchul",
     "stationStatus": 200,
     "academy": {
-      "id": 40,
-      "name": "무창클럽(2)",
-      "image": "https://dn.cnine.kr/file/20260506/c85518ac13484947a54b31edfd79602e.webp",
-      "sourceImage": "https://dn.cnine.kr/file/20260506/c85518ac13484947a54b31edfd79602e.webp",
-      "position": "교수"
+      "id": 22,
+      "name": "캄몬스타즈",
+      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "position": "코치"
     },
     "monthWinRate": 49.3,
     "yearWinRate": 48.3,
