@@ -8135,17 +8135,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const players = list.filter((m) => m.type === "player").length;
 
     const cards = [
-      { label: "전체 인원", value: total, sub: "감독 · 코치 · 학생 포함" },
-      { label: "방송중", value: live, sub: "현재 LIVE 표시 인원" },
-      { label: "학생", value: players, sub: "티어 등록 학생" },
-      { label: "방송 체크", value: formatCheckedAt(lastCheckedAt), sub: "숲 ON 갱신" }
+      { label: "전체 인원", value: total, sub: "" },
+      { label: "방송중", value: live, sub: "" },
+      { label: "학생", value: players, sub: "" },
+      { label: "방송 체크", value: formatCheckedAt(lastCheckedAt), sub: "" }
     ];
 
     summaryGrid.innerHTML = cards.map(card => `
       <div class="summary-card ${card.label === "방송 체크" ? "summary-check-card" : ""}">
         <div class="label">${card.label}</div>
         <div class="value">${card.value}</div>
-        <div class="sub">${card.sub}</div>
+        ${card.sub ? `<div class="sub">${card.sub}</div>` : ""}
       </div>
     `).join("");
   }
