@@ -5701,6 +5701,8 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       searchB:'',
       simMode:'bo7',
       recordCache:new Map(),
+      h2hCache:new Map(),
+      modelCache:new Map(),
       loadingRecords:new Set(),
       simulation:null,
       defaultAcademyAApplied:false
@@ -5771,7 +5773,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     function isRecordInactiveHidden(player){ if(!player || isYouthTier(player)) return false; if(player.hiddenByRecordInactivity===true) return true; if(String(player.recordVisibility||'')==='hidden-inactive-records') return true; if(player.recordInactive===true) return true; const hasRecordStatus=hasOwn(player,'lastRecordDate') || hasOwn(player,'latestRecordDate') || hasOwn(player,'lastPlayedAt') || hasOwn(player,'recordCount'); if(!hasRecordStatus) return false; return isOlderThanMonths(recordStatusDate(player),4); }
     function visibleTierData(){ return (tierData||[]).filter(player=>!isRecordInactiveHidden(player)); }
 
-    function applyFirebasePlayers(players){ if(Array.isArray(players)&&players.length) tierData=applyLiveStatus(players,firebaseState.liveStatus); else tierData=applyLiveStatus(tierData,firebaseState.liveStatus); rebuildPlayerIndexes(); }
+    function applyFirebasePlayers(players){ if(Array.isArray(players)&&players.length) tierData=applyLiveStatus(players,firebaseState.liveStatus); else tierData=applyLiveStatus(tierData,firebaseState.liveStatus); clearEntryDerivedCache(); rebuildPlayerIndexes(); }
     function refreshFirebaseView(opts={}){ if(!firebasePlayersLoaded && !booted) return; booted=true; render(); if(entryState.view==='entry') renderEntry(); if(activeRecordKey && opts.reloadRecord!==false) loadRecord(); if(activeRecordKey && selectedOpponentKey && opts.reloadHead!==false) loadHeadToHead(); }
     function initFirebaseTierData(){ if(!window.firebase||!window.firebase.database) return; try{ if(!window.firebase.apps.length) window.firebase.initializeApp(firebaseConfig); firebaseDb=window.firebase.database(); firebaseState.ready=true; const rootRef=firebaseDb.ref(FIREBASE_ROOT); rootRef.child('meta').on('value',snapshot=>{firebaseState.meta=snapshot.val()||{}; refreshFirebaseView({reloadRecord:false,reloadHead:false});}); rootRef.child('players').on('value',snapshot=>{ const players=normalizeList(snapshot.val()); applyFirebasePlayers(players); firebasePlayersLoaded=true; refreshFirebaseView({reloadRecord:false,reloadHead:false});}); rootRef.child('liveStatus').on('value',snapshot=>{firebaseState.liveStatus=snapshot.val()||{}; applyFirebasePlayers(tierData); refreshFirebaseView({reloadRecord:false,reloadHead:false});}); rootRef.child('winRates').on('value',snapshot=>{firebaseState.winRates=snapshot.val()||{};}); /* headToHead 전체 구독 금지: 상대 선택 시 필요한 키만 once('value')로 지연 조회 */ }catch(e){firebaseState.ready=false;} }
 
@@ -5943,10 +5945,19 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const item=entryState.recordCache.get(playerKey(player));
       return item?item.rows:null;
     }
+    function clearEntryDerivedCache(){
+      entryState.h2hCache.clear();
+      entryState.modelCache.clear();
+    }
     function entryPairRowId(row){
       return [rowDate(row),rowWinnerId(row)||rowWinnerName(row),rowLoserId(row)||rowLoserName(row),row.map||row.mapName||''].join('|');
     }
+    function entryHeadToHeadCacheKey(playerA,playerB,period){
+      return [playerKey(playerA),playerKey(playerB),period].join('||');
+    }
     function entryHeadToHeadStats(playerA,playerB,period){
+      const cacheKey=entryHeadToHeadCacheKey(playerA,playerB,period);
+      if(entryState.h2hCache.has(cacheKey)) return entryState.h2hCache.get(cacheKey);
       const rowsA=entryRowsForPlayer(playerA);
       const rowsB=entryRowsForPlayer(playerB);
       if(!rowsA&&!rowsB) return null;
@@ -5968,6 +5979,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       addRows(rowsA,playerA,playerB,false);
       addRows(rowsB,playerB,playerA,true);
       stats.rate=stats.total?(stats.wins/stats.total)*100:0;
+      entryState.h2hCache.set(cacheKey,stats);
       return stats;
     }
     function formatEntryHeadStat(stat,loading){
@@ -6057,7 +6069,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const lineB=entryLineup('B');
       if(!lineA.length||!lineB.length){ entryMatchTable.innerHTML='<div class="entry-empty">양 팀 선수를 선택하면 매치별 확률이 표시됩니다.</div>'; return; }
       const config=entryModeConfig(entryState.simMode);
-      const modelCache=new Map();
+      const modelCache=entryState.modelCache;
       const rows=[];
       const maxSlots=entryModeSlots(config);
       const randomAverage=entryAverageRandomProbability(lineA,lineB,modelCache);
@@ -6113,20 +6125,26 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       try{
         const rows=(await ensureRecordBucket(player,player.race)).slice().sort((a,b)=>rowDate(b).localeCompare(rowDate(a)));
         entryState.recordCache.set(key,{rows,loadedAt:Date.now()});
+        clearEntryDerivedCache();
         return rows;
       }catch(e){
         entryState.recordCache.set(key,{rows:[],loadedAt:Date.now()});
+        clearEntryDerivedCache();
         return [];
       }finally{
         entryState.loadingRecords.delete(key);
       }
     }
+    function entryYield(){ return new Promise(resolve=>setTimeout(resolve,0)); }
     async function loadEntryRecordsFor(keys=selectedEntryKeys()){
       const players=Array.from(new Set(keys)).map(key=>playerByKey(key)).filter(Boolean);
       if(!players.length){ renderEntry(); return; }
-      const promises=players.map(player=>loadEntryPlayerRecords(player));
       renderEntry();
-      await Promise.all(promises);
+      for(let i=0;i<players.length;i+=2){
+        await Promise.all(players.slice(i,i+2).map(player=>loadEntryPlayerRecords(player)));
+        renderEntryStatus();
+        await entryYield();
+      }
       renderEntry();
     }
     function parseEntryRate(value){ const match=String(value||'').match(/(\d+(?:\.\d+)?)/); return match?Number(match[1]):null; }
@@ -6266,7 +6284,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const config=entryModeConfig(entryState.simMode);
       const seedText=entryState.simMode+'|'+entryState.teamA.join('|')+'|'+entryState.teamB.join('|');
       const rng=entrySeededRandom(entrySeedFromText(seedText));
-      const ratingCache=new Map();
+      const ratingCache=entryState.modelCache;
       const scoreMap=new Map();
       let aWins=0,bWins=0,ties=0,sumA=0,sumB=0;
       const trials=4000;
@@ -6336,7 +6354,6 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
         else entryState.teamB.push(key);
         entryState.simulation=null;
         renderEntry();
-        loadEntryRecordsFor([key]);
         return;
       }
       const remove=e.target.closest('[data-entry-remove]');
