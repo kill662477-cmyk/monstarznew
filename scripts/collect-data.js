@@ -8,6 +8,11 @@ const {
   downloadGzJson,
   DEFAULT_BUCKET,
 } = require("../lib/supabase/storage");
+const supabaseAdmin = require("../lib/supabase/admin");
+const {
+  buildHeadToHeadSummaries,
+  summaryToDbRow,
+} = require("../lib/tier-head-to-head-summary");
 
 const root = path.resolve(__dirname, "..");
 const dataDir = path.join(root, "data");
@@ -62,6 +67,18 @@ const TIER_RECORD_STORAGE_PREFIX = normalizeStoragePrefix(
 const FIREBASE_RECORD_ROWS_UPLOAD =
   process.env.FIREBASE_RECORD_ROWS_UPLOAD !== "false" &&
   process.env.UPLOAD_FIREBASE_RECORD_ROWS !== "false";
+const TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD =
+  process.env.TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD === "true" ||
+  process.env.TIER_H2H_SUMMARY_UPLOAD === "true";
+const TIER_HEAD_TO_HEAD_SUMMARY_REQUIRED =
+  process.env.TIER_HEAD_TO_HEAD_SUMMARY_REQUIRED === "true" ||
+  process.env.TIER_H2H_SUMMARY_REQUIRED === "true";
+const TIER_HEAD_TO_HEAD_SUMMARY_REBUILD_ALL =
+  process.env.TIER_HEAD_TO_HEAD_SUMMARY_REBUILD_ALL !== "false";
+const TIER_HEAD_TO_HEAD_SUMMARY_READ_CONCURRENCY = Math.max(
+  1,
+  Number(process.env.TIER_HEAD_TO_HEAD_SUMMARY_READ_CONCURRENCY || 8)
+);
 
 function normalizeStoragePrefix(value) {
   return String(value || "")
@@ -1944,6 +1961,107 @@ async function uploadRecordStorageFiles(recordStorageUploads) {
   return stats;
 }
 
+async function upsertHeadToHeadSummaryRows(rows) {
+  const chunkSize = Math.max(1, Number(process.env.TIER_HEAD_TO_HEAD_SUMMARY_CHUNK_SIZE || 500));
+  let succeeded = 0;
+
+  for (let i = 0; i < rows.length; i += chunkSize) {
+    const chunk = rows.slice(i, i + chunkSize);
+    await supabaseAdmin.rest("POST", "tier_head_to_head_summaries", {
+      query: "?on_conflict=pair_key",
+      body: chunk,
+      prefer: "resolution=merge-duplicates,return=minimal",
+    });
+    succeeded += chunk.length;
+    console.log(
+      `[supabase] h2h summaries upserted ${Math.min(i + chunk.length, rows.length)}/${rows.length}`
+    );
+  }
+
+  return succeeded;
+}
+
+async function collectHeadToHeadRecordInputs(players, recordStorageUploads, stats) {
+  const recordsByKey = { ...(recordStorageUploads || {}) };
+
+  if (!TIER_HEAD_TO_HEAD_SUMMARY_REBUILD_ALL) return recordsByKey;
+
+  await mapLimit(players, TIER_HEAD_TO_HEAD_SUMMARY_READ_CONCURRENCY, async (player, index) => {
+    const key = safeKey(`${player.userId}_${player.race}`);
+    if (!key || recordsByKey[key]) return;
+
+    try {
+      const value = await downloadGzJson(
+        TIER_RECORD_STORAGE_BUCKET,
+        tierRecordStoragePath(key)
+      );
+      const rows = normalizeRecordRows(value);
+      if (rows.length) {
+        recordsByKey[key] = rows;
+        stats.storageReadSucceeded += 1;
+      } else {
+        stats.storageReadEmpty += 1;
+      }
+    } catch (error) {
+      stats.storageReadFailed += 1;
+      console.warn(`[supabase] h2h records/${key} read failed: ${error.message}`);
+      if (TIER_HEAD_TO_HEAD_SUMMARY_REQUIRED) throw error;
+    }
+
+    if ((index + 1) % 50 === 0 || index + 1 === players.length) {
+      console.log(`[supabase] h2h source records prepared ${index + 1}/${players.length}`);
+    }
+  });
+
+  return recordsByKey;
+}
+
+async function uploadHeadToHeadSummaries(players, recordStorageUploads) {
+  const stats = {
+    enabled: TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD,
+    rebuildAll: TIER_HEAD_TO_HEAD_SUMMARY_REBUILD_ALL,
+    attempted: 0,
+    succeeded: 0,
+    failed: 0,
+    storageReadSucceeded: 0,
+    storageReadEmpty: 0,
+    storageReadFailed: 0,
+  };
+
+  if (!TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD) {
+    console.log("[supabase] h2h summary upload disabled");
+    return stats;
+  }
+
+  try {
+    const recordsByKey = await collectHeadToHeadRecordInputs(
+      players,
+      recordStorageUploads,
+      stats
+    );
+    const summaries = buildHeadToHeadSummaries(players, recordsByKey);
+    const updatedAt = new Date().toISOString();
+    const rows = summaries.map((summary) => ({
+      ...summaryToDbRow(summary, updatedAt),
+      source: "collect-data",
+    }));
+    stats.attempted = rows.length;
+
+    if (!rows.length) {
+      console.log("[supabase] h2h summaries empty");
+      return stats;
+    }
+
+    stats.succeeded = await upsertHeadToHeadSummaryRows(rows);
+    return stats;
+  } catch (error) {
+    stats.failed = Math.max(stats.attempted, 1);
+    console.warn(`[supabase] h2h summary upload failed: ${error.message}`);
+    if (TIER_HEAD_TO_HEAD_SUMMARY_REQUIRED) throw error;
+    return stats;
+  }
+}
+
 async function readExistingLiveState(rootRef) {
   console.log("[firebase] read existing liveStatus");
 
@@ -2090,6 +2208,8 @@ async function main(run = {}) {
     RECORD_META_RECENT_ID_LIMIT,
     CACHE_LOCAL_JSON,
     CACHE_LOCAL_ASSETS,
+    TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD,
+    TIER_HEAD_TO_HEAD_SUMMARY_REQUIRED,
   });
 
   console.log("[1/6] 수동 플레이어 데이터 로드 시작");
@@ -2494,11 +2614,28 @@ async function main(run = {}) {
 
   console.log("[5.5/6] Supabase Storage 전적 gzip 업로드");
   const recordStorageUploadStats = await uploadRecordStorageFiles(recordStorageUploads);
+  console.log("[5.6/6] Supabase 상대전적 요약 인덱스 업로드");
+  const headToHeadSummaryStats = await uploadHeadToHeadSummaries(
+    visiblePlayers,
+    recordStorageUploads
+  );
   Object.assign(meta, {
     recordStorageUploadAttempted: recordStorageUploadStats.attempted,
     recordStorageUploadSucceeded: recordStorageUploadStats.succeeded,
     recordStorageUploadFailed: recordStorageUploadStats.failed,
     recordStorageUploadGzipBytes: recordStorageUploadStats.totalGzipBytes,
+    headToHeadMode: TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD
+      ? "supabase-db-summary-with-storage-fallback"
+      : "frontend-computed-from-selected-player-records",
+    headToHeadSummaryUploadEnabled: TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD,
+    headToHeadSummaryRebuildAll: headToHeadSummaryStats.rebuildAll,
+    headToHeadSummaryUploadAttempted: headToHeadSummaryStats.attempted,
+    headToHeadSummaryUploadSucceeded: headToHeadSummaryStats.succeeded,
+    headToHeadSummaryUploadFailed: headToHeadSummaryStats.failed,
+    headToHeadSummaryStorageReadSucceeded: headToHeadSummaryStats.storageReadSucceeded,
+    headToHeadSummaryStorageReadEmpty: headToHeadSummaryStats.storageReadEmpty,
+    headToHeadSummaryStorageReadFailed: headToHeadSummaryStats.storageReadFailed,
+    headToHeadCount: headToHeadSummaryStats.succeeded,
   });
 
   const payload = {
@@ -2523,15 +2660,23 @@ async function main(run = {}) {
   const uploadedMeta = await uploadToFirebase(payload);
 
   run.status =
-    recordFailCount > 0 || recordStorageUploadStats.failed > 0 ? "partial" : "success";
+    recordFailCount > 0 ||
+    recordStorageUploadStats.failed > 0 ||
+    headToHeadSummaryStats.failed > 0
+      ? "partial"
+      : "success";
   run.itemsFound = players.length;
   run.itemsWritten =
-    visiblePlayers.length + recordUploadRowCount + recordStorageUploadStats.succeeded;
+    visiblePlayers.length +
+    recordUploadRowCount +
+    recordStorageUploadStats.succeeded +
+    headToHeadSummaryStats.succeeded;
   run.itemsSkipped =
     recordSkipCount +
     recordFailCount +
     hiddenInactivePlayers.length +
-    recordStorageUploadStats.failed;
+    recordStorageUploadStats.failed +
+    headToHeadSummaryStats.failed;
   run.meta = {
     firebaseRoot: FIREBASE_ROOT,
     recordSyncMode: RECORD_SYNC_MODE,
@@ -2542,6 +2687,12 @@ async function main(run = {}) {
     recordUploadRowCount,
     recordStorageUploadSucceeded: recordStorageUploadStats.succeeded,
     recordStorageUploadFailed: recordStorageUploadStats.failed,
+    headToHeadSummaryRebuildAll: headToHeadSummaryStats.rebuildAll,
+    headToHeadSummaryUploadSucceeded: headToHeadSummaryStats.succeeded,
+    headToHeadSummaryUploadFailed: headToHeadSummaryStats.failed,
+    headToHeadSummaryStorageReadSucceeded: headToHeadSummaryStats.storageReadSucceeded,
+    headToHeadSummaryStorageReadEmpty: headToHeadSummaryStats.storageReadEmpty,
+    headToHeadSummaryStorageReadFailed: headToHeadSummaryStats.storageReadFailed,
     firebaseRecordRowsUpload: FIREBASE_RECORD_ROWS_UPLOAD,
     recordFailCount,
     recordSkipCount,

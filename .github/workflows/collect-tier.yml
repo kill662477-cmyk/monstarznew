@@ -61,6 +61,10 @@ jobs:
           TIER_RECORD_STORAGE_REQUIRED: "true"
           TIER_RECORD_STORAGE_BUCKET: tier-records
           TIER_RECORD_STORAGE_PREFIX: records
+          TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD: "true"
+          TIER_HEAD_TO_HEAD_SUMMARY_REQUIRED: "false"
+          TIER_HEAD_TO_HEAD_SUMMARY_REBUILD_ALL: "true"
+          TIER_HEAD_TO_HEAD_SUMMARY_READ_CONCURRENCY: "8"
           FIREBASE_RECORD_ROWS_UPLOAD: "false"
 
           CACHE_LOCAL_JSON: "false"

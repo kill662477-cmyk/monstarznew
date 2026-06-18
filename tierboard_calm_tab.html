@@ -199,6 +199,7 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .entry-stat-scroll tr:last-child td{border-bottom:0}
 .entry-record-loading{color:#7f97b2}
 .entry-rate-high{color:#69ef91!important}.entry-rate-mid{color:#ffd36a!important}.entry-rate-low{color:#ff8f8f!important}
+.entry-win-mark{display:inline-flex;align-items:center;height:20px;margin-left:6px;padding:0 7px;border-radius:999px;background:rgba(105,239,145,.14);border:1px solid rgba(105,239,145,.32);color:#69ef91;font-size:11px;font-weight:950;vertical-align:middle}
 .entry-match-badge{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:900}
 .entry-match-badge.fixed{color:#bfe0ff;background:rgba(90,167,255,.14);border:1px solid rgba(90,167,255,.28)}
 .entry-match-badge.random{color:#ffd8aa;background:rgba(255,166,64,.14);border:1px solid rgba(255,166,64,.28)}
@@ -334,7 +335,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
           </div>
           <div class="entry-toolbar-right">
             <button class="entry-btn warn" id="entryClear" type="button">초기화</button>
-            <button class="entry-btn" id="entryLoadRecords" type="button">전적 조회</button>
+            <button class="entry-btn" id="entryLoadRecords" type="button">원본 전적 조회</button>
             <button class="entry-btn primary" id="entryRunSim" type="button">시뮬레이션</button>
           </div>
         </div>
@@ -5681,6 +5682,8 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     let h2hVisibleCount = H2H_PAGE_SIZE;
     let searchRenderTimer = 0;
     let entryRenderTimer = 0;
+    let entryRecordAutoTimer = 0;
+    let entryRecordAutoSeq = 0;
     function requestedMainView(){
       try{
         const value = new URLSearchParams(window.location.search || '').get('view');
@@ -5701,9 +5704,11 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       searchB:'',
       simMode:'bo7',
       recordCache:new Map(),
+      summaryCache:new Map(),
       h2hCache:new Map(),
       modelCache:new Map(),
       loadingRecords:new Set(),
+      loadingSummaries:new Set(),
       simulation:null,
       defaultAcademyAApplied:false
     };
@@ -5955,12 +5960,56 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     function entryHeadToHeadCacheKey(playerA,playerB,period){
       return [playerKey(playerA),playerKey(playerB),period].join('||');
     }
+    function entrySummaryPairKey(playerA,playerB){
+      return [playerKey(playerA),playerKey(playerB)].join('||');
+    }
+    function entryRecordStorageKey(player){
+      return recordKeysFor(player,player.race)[0] || playerDataKey(player);
+    }
+    function entrySummaryRequestPair(playerA,playerB){
+      return {
+        pairKey:entrySummaryPairKey(playerA,playerB),
+        keyA:entryRecordStorageKey(playerA),
+        keyB:entryRecordStorageKey(playerB),
+        userIdA:extractSoopUserId(playerA)||playerA.userId||'',
+        userIdB:extractSoopUserId(playerB)||playerB.userId||'',
+        nameA:playerA.name||'',
+        nameB:playerB.name||'',
+        raceA:playerA.race||'',
+        raceB:playerB.race||''
+      };
+    }
+    function entryNeededSummaryPairs(){
+      const lineA=entryLineup('A');
+      const lineB=entryLineup('B');
+      const pairCount=Math.min(lineA.length,lineB.length);
+      return Array.from({length:pairCount},(_,index)=>({
+        playerA:lineA[index],
+        playerB:lineB[index],
+        pairKey:entrySummaryPairKey(lineA[index],lineB[index])
+      }));
+    }
+    function entryRemoteHeadToHeadStats(playerA,playerB,period){
+      const item=entryState.summaryCache.get(entrySummaryPairKey(playerA,playerB));
+      const stat=item&&item.periods?item.periods[period]:null;
+      if(!stat) return null;
+      return {
+        total:Number(stat.total||0),
+        wins:Number(stat.wins||0),
+        losses:Number(stat.losses||0),
+        rate:Number(stat.rate||0)
+      };
+    }
     function entryHeadToHeadStats(playerA,playerB,period){
       const cacheKey=entryHeadToHeadCacheKey(playerA,playerB,period);
       if(entryState.h2hCache.has(cacheKey)) return entryState.h2hCache.get(cacheKey);
       const rowsA=entryRowsForPlayer(playerA);
       const rowsB=entryRowsForPlayer(playerB);
-      if(!rowsA&&!rowsB) return null;
+      if(!rowsA&&!rowsB){
+        const remote=entryRemoteHeadToHeadStats(playerA,playerB,period);
+        if(remote) entryState.h2hCache.set(cacheKey,remote);
+        return remote;
+      }
       const seen=new Set();
       const stats={total:0,wins:0,losses:0,rate:0};
       function addRows(rows,owner,opponent,invert){
@@ -5998,7 +6047,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
         Array.from({length:pairCount},(_,index)=>{
           const playerA=lineA[index];
           const playerB=lineB[index];
-          const loading=entryState.loadingRecords.has(playerKey(playerA))||entryState.loadingRecords.has(playerKey(playerB));
+          const loading=entryState.loadingSummaries.has(entrySummaryPairKey(playerA,playerB))||entryState.loadingRecords.has(playerKey(playerA))||entryState.loadingRecords.has(playerKey(playerB));
           const cells=entryPeriods.map(period=>'<td>'+formatEntryHeadStat(entryHeadToHeadStats(playerA,playerB,period.key),loading)+'</td>').join('');
           return '<tr><td>'+(index+1)+'매치</td><td>'+escapeHtml(playerA.name)+' <span class="race-badge '+escapeAttr(playerA.race)+'">'+escapeHtml(playerA.race)+'</span></td><td>'+escapeHtml(playerB.name)+' <span class="race-badge '+escapeAttr(playerB.race)+'">'+escapeHtml(playerB.race)+'</span></td>'+cells+'</tr>';
         }).join('')+'</tbody></table></div>'+note;
@@ -6085,7 +6134,12 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       entryMatchTable.innerHTML='<div class="entry-stat-scroll"><table><thead><tr><th>매치</th><th>A팀</th><th>B팀</th><th>A 승률</th><th>B 승률</th><th>방식</th></tr></thead><tbody>'+
         rows.map(row=>{
           const prob=row.prob===null?null:row.prob*100;
-          return '<tr><td>'+escapeHtml(row.label)+'</td><td>'+escapeHtml(row.a)+'</td><td>'+escapeHtml(row.b)+'</td><td>'+(prob===null?'-':'<span class="'+entryStatClass(prob)+'">'+prob.toFixed(1)+'%</span>')+'</td><td>'+(prob===null?'-':(100-prob).toFixed(1)+'%')+'</td><td><span class="entry-match-badge '+row.kind+'">'+(row.kind==='fixed'?'고정':'랜덤')+'</span></td></tr>';
+          const bProb=prob===null?null:100-prob;
+          const aWin=prob!==null&&prob>bProb;
+          const bWin=prob!==null&&bProb>prob;
+          const aCell=prob===null?'-':'<span class="'+entryStatClass(prob)+'">'+prob.toFixed(1)+'%</span>'+(aWin?'<span class="entry-win-mark">승</span>':'');
+          const bCell=prob===null?'-':'<span class="'+entryStatClass(bProb)+'">'+bProb.toFixed(1)+'%</span>'+(bWin?'<span class="entry-win-mark">승</span>':'');
+          return '<tr><td>'+escapeHtml(row.label)+'</td><td>'+escapeHtml(row.a)+'</td><td>'+escapeHtml(row.b)+'</td><td>'+aCell+'</td><td>'+bCell+'</td><td><span class="entry-match-badge '+row.kind+'">'+(row.kind==='fixed'?'고정':'랜덤')+'</span></td></tr>';
         }).join('')+'</tbody></table></div>';
     }
     function renderEntrySimulation(){
@@ -6095,9 +6149,12 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     }
     function renderEntryStatus(){
       const keys=selectedEntryKeys();
-      const loaded=keys.filter(key=>entryState.recordCache.has(key)).length;
-      const loading=keys.filter(key=>entryState.loadingRecords.has(key)).length;
-      entryDataStatus.textContent=keys.length?('선택 '+keys.length+'명 · 전적 '+loaded+'/'+keys.length+'명'+(loading?' 조회중':'')):'대기중';
+      const pairs=entryNeededSummaryPairs();
+      const loaded=pairs.filter(pair=>entryState.summaryCache.has(pair.pairKey)).length;
+      const loading=pairs.filter(pair=>entryState.loadingSummaries.has(pair.pairKey)).length;
+      const originalLoaded=keys.filter(key=>entryState.recordCache.has(key)).length;
+      const pending=pairs.length-loaded-loading;
+      entryDataStatus.textContent=keys.length?('선택 '+keys.length+'명 · 상대전적 '+loaded+'/'+pairs.length+'쌍'+(loading?' 조회중':pending?' 자동조회 대기':'')+(originalLoaded?' · 원본 '+originalLoaded+'/'+keys.length+'명':'')):'대기중';
     }
     function renderEntry(){
       cleanEntryTeams();
@@ -6136,16 +6193,53 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       }
     }
     function entryYield(){ return new Promise(resolve=>setTimeout(resolve,0)); }
-    async function loadEntryRecordsFor(keys=selectedEntryKeys()){
+    async function loadEntryRecordsFor(keys=selectedEntryKeys(),opts={}){
       const players=Array.from(new Set(keys)).map(key=>playerByKey(key)).filter(Boolean);
       if(!players.length){ renderEntry(); return; }
+      const targets=opts.missingOnly?players.filter(player=>!entryState.recordCache.has(playerKey(player))&&!entryState.loadingRecords.has(playerKey(player))):players;
+      if(!targets.length){ renderEntry(); return; }
       renderEntry();
-      for(let i=0;i<players.length;i+=2){
-        await Promise.all(players.slice(i,i+2).map(player=>loadEntryPlayerRecords(player)));
+      const chunkSize=opts.background?1:2;
+      for(let i=0;i<targets.length;i+=chunkSize){
+        await Promise.all(targets.slice(i,i+chunkSize).map(player=>loadEntryPlayerRecords(player)));
         renderEntryStatus();
         await entryYield();
       }
       renderEntry();
+    }
+    async function loadEntrySummariesForPairs(pairs=entryNeededSummaryPairs()){
+      const targets=(pairs||[]).filter(pair=>pair&&pair.playerA&&pair.playerB&&!entryState.summaryCache.has(pair.pairKey)&&!entryState.loadingSummaries.has(pair.pairKey));
+      if(!targets.length){ renderEntryStatus(); return; }
+      targets.forEach(pair=>entryState.loadingSummaries.add(pair.pairKey));
+      renderEntry();
+      try{
+        const response=await fetch('/api/tier-head-to-head',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({pairs:targets.map(pair=>entrySummaryRequestPair(pair.playerA,pair.playerB))})
+        });
+        const payload=response.ok?await response.json():null;
+        (payload&&Array.isArray(payload.pairs)?payload.pairs:[]).forEach(item=>{
+          if(item&&item.pairKey) entryState.summaryCache.set(item.pairKey,{periods:item.periods||{},source:item.source||'api',loadedAt:Date.now()});
+        });
+        entryState.h2hCache.clear();
+        entryState.modelCache.clear();
+      }catch(e){
+      }finally{
+        targets.forEach(pair=>entryState.loadingSummaries.delete(pair.pairKey));
+        renderEntry();
+      }
+    }
+    function scheduleEntrySummaryAutoLoad(){
+      clearTimeout(entryRecordAutoTimer);
+      const seq=++entryRecordAutoSeq;
+      entryRecordAutoTimer=setTimeout(async()=>{
+        if(seq!==entryRecordAutoSeq) return;
+        const missing=entryNeededSummaryPairs().filter(pair=>!entryState.summaryCache.has(pair.pairKey)&&!entryState.loadingSummaries.has(pair.pairKey));
+        if(!missing.length) return;
+        renderEntryStatus();
+        await loadEntrySummariesForPairs(missing);
+      },300);
     }
     function parseEntryRate(value){ const match=String(value||'').match(/(\d+(?:\.\d+)?)/); return match?Number(match[1]):null; }
     function entryClamp(value,min,max){ return Math.max(min,Math.min(max,value)); }
@@ -6280,7 +6374,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const lineA=entryState.teamA.map(key=>playerByKey(key)).filter(Boolean);
       const lineB=entryState.teamB.map(key=>playerByKey(key)).filter(Boolean);
       if(!lineA.length||!lineB.length){ entryState.simulation=null; renderEntrySimulation(); return; }
-      await loadEntryRecordsFor(selectedEntryKeys());
+      await loadEntrySummariesForPairs(entryNeededSummaryPairs());
       const config=entryModeConfig(entryState.simMode);
       const seedText=entryState.simMode+'|'+entryState.teamA.join('|')+'|'+entryState.teamB.join('|');
       const rng=entrySeededRandom(entrySeedFromText(seedText));
@@ -6354,6 +6448,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
         else entryState.teamB.push(key);
         entryState.simulation=null;
         renderEntry();
+        scheduleEntrySummaryAutoLoad();
         return;
       }
       const remove=e.target.closest('[data-entry-remove]');
@@ -6362,10 +6457,13 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
         if(remove.dataset.entryRemove==='A') entryState.teamA=entryState.teamA.filter(item=>item!==key);
         else entryState.teamB=entryState.teamB.filter(item=>item!==key);
         entryState.simulation=null;
+        clearTimeout(entryRecordAutoTimer);
+        entryRecordAutoSeq++;
         renderEntry();
+        scheduleEntrySummaryAutoLoad();
       }
     });
-    entryClear.addEventListener('click',()=>{ entryState.teamA=[]; entryState.teamB=[]; entryState.simulation=null; renderEntry(); });
+    entryClear.addEventListener('click',()=>{ entryState.teamA=[]; entryState.teamB=[]; entryState.simulation=null; clearTimeout(entryRecordAutoTimer); entryRecordAutoSeq++; entryState.loadingSummaries.clear(); renderEntry(); });
     entryLoadRecords.addEventListener('click',()=>{ loadEntryRecordsFor(selectedEntryKeys()); });
     entryRunSim.addEventListener('click',async()=>{ entrySimulation.innerHTML='<div class="entry-empty">시뮬레이션 계산중</div>'; await runEntrySimulation(); });
     document.getElementById('closeRecord').addEventListener('click',()=>{ activeRecordKey=''; opponentCandidateCache=null; headToHeadMatchCache=null; recordLoadSeq++; headLoadSeq++; recordDialog.close(); });

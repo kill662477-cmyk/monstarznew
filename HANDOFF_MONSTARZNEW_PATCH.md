@@ -935,3 +935,119 @@ Final response should briefly include:
 5. Remaining TODO
 6. Recommended next step
 ```
+
+---
+
+## 2026-06-18 Entry / Supabase Pro Handoff
+
+Context:
+- User upgraded Supabase to Pro and asked to set up the optimized Entry tab flow.
+- Current branch: `entry-performance-test` tracking `origin/test-deploy`.
+- Worktree is intentionally dirty. Do not revert unrelated/user changes.
+- This work has NOT been committed or pushed yet.
+
+Completed in this pass:
+- Installed Supabase CLI as a repo dev dependency: `supabase@^2.107.0`.
+- Ran `npx.cmd supabase init`.
+- User logged into Supabase CLI from local terminal.
+- Linked project `rljvzultuyiudhjjfotg` (`monstarznew`, ap-northeast-2).
+- Applied migrations with `npx.cmd supabase db push --linked --yes`.
+  - Applied `0001_initial_admin_tables.sql` through `0004_tier_head_to_head_summaries.sql`.
+  - Docker warning at end was only local catalog cache; remote migrations applied.
+- Added `public.tier_head_to_head_summaries`.
+  - RLS enabled.
+  - No public select policy.
+  - Public UI reads only via server API using service key.
+- Seeded head-to-head summary DB:
+  - Command: `npm.cmd run seed-h2h-summary -- --apply --concurrency 8`
+  - Storage read: 358 players, 325 ok, 33 empty, 0 fail.
+  - Upserted: 12,330 summary rows.
+- Verified DB table responds through service REST:
+  - `tier_head_to_head_summaries?select=pair_key&limit=1`
+  - Returned first key: `suhi370erw_Z__tndkekdy_P`.
+- Build/validation passed:
+  - `npm.cmd run build`
+  - `Static site validation passed.`
+- Node syntax checks passed:
+  - `api/tier-head-to-head.js`
+  - `lib/tier-head-to-head-summary.js`
+  - `scripts/seed-tier-head-to-head-summaries.js`
+  - `scripts/collect-data.js`
+
+Main changed/added files:
+- `.github/workflows/collect-tier.yml`
+- `api/tier-head-to-head.js`
+- `lib/tier-head-to-head-summary.js`
+- `package.json`
+- `package-lock.json`
+- `scripts/collect-data.js`
+- `scripts/seed-tier-head-to-head-summaries.js`
+- `supabase/.gitignore`
+- `supabase/config.toml`
+- `supabase/migrations/0004_tier_head_to_head_summaries.sql`
+- `tierboard_calm_tab.html`
+- `vercel.json`
+
+Entry behavior now:
+- Player selection in Entry no longer auto-downloads full raw records.
+- Player selection auto-loads compact head-to-head summaries via `/api/tier-head-to-head`.
+- Match table shows a green `승` marker on the higher win-probability side.
+- The old button label changed to `원본 전적 조회`.
+- Raw records are now manual/optional; simulation no longer forces full raw-record download.
+- Simulation uses summary H2H first, so browser freezing risk is reduced.
+
+Data architecture:
+- Raw records remain in private Supabase Storage:
+  - bucket: `tier-records`
+  - prefix: `records`
+- H2H summaries live in Supabase DB:
+  - table: `tier_head_to_head_summaries`
+- `/api/tier-head-to-head` reads DB first.
+- If DB summary is missing/unavailable, API falls back to Storage calculation.
+- API response exposes only summary wins/losses/rates, not raw match rows.
+
+Scheduled refresh:
+- `.github/workflows/collect-tier.yml` now sets:
+  - `TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD=true`
+  - `TIER_HEAD_TO_HEAD_SUMMARY_REQUIRED=false`
+  - `TIER_HEAD_TO_HEAD_SUMMARY_REBUILD_ALL=true`
+  - `TIER_HEAD_TO_HEAD_SUMMARY_READ_CONCURRENCY=8`
+- `scripts/collect-data.js` rebuilds H2H summaries from Storage on each collect run by default.
+- This matters because 1-month/3-month windows change as time passes, even without new games.
+
+Important caveat:
+- `TIER_HEAD_TO_HEAD_SUMMARY_REQUIRED=false` is deliberate for now.
+- If the summary upload fails, collect should not destroy the whole public data update.
+- Once stable in production, consider setting it to true.
+
+Remaining immediate tasks:
+1. Run one more final local build after any edits:
+   - `npm.cmd run build`
+2. Verify API after deployment or local server:
+   - `/api/tier-head-to-head` returns `source: "supabase-db"` for seeded pairs.
+3. Commit current changes on `entry-performance-test`.
+4. Push to test deploy branch.
+5. Cherry-pick or merge the same commit onto main for monstarznew production when ready.
+6. Confirm Vercel has these env vars:
+   - `SUPABASE_URL`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - existing public anon/publishable vars
+7. Run GitHub collect workflow once after deploy and inspect logs:
+   - should show h2h summary rebuild/upload stats.
+8. In browser Entry tab:
+   - add A/B players.
+   - verify H2H table fills automatically without pressing raw record button.
+   - verify no browser freeze when adding several players.
+   - verify `승` marker appears on the higher probability side.
+
+Commands already run successfully:
+```powershell
+npm.cmd install --save-dev supabase
+npx.cmd supabase init
+npx.cmd supabase projects list
+npx.cmd supabase link --project-ref rljvzultuyiudhjjfotg
+npx.cmd supabase db push --linked --dry-run
+npx.cmd supabase db push --linked --yes
+npm.cmd run seed-h2h-summary -- --apply --concurrency 8
+npm.cmd run build
+```

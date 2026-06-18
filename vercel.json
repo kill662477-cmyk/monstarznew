@@ -22,6 +22,9 @@
     },
     "api/tier-records.js": {
       "maxDuration": 10
+    },
+    "api/tier-head-to-head.js": {
+      "maxDuration": 10
     }
   },
   "rewrites": [
