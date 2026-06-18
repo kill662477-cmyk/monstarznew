@@ -10305,11 +10305,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const count = allMembers.filter(member => String(member.tier) === tier).length;
         return `${tier === "9" ? "유스" : tier + "티어"} ${count}명`;
       });
-      const latestJoin = Object.entries(JOIN_DATES)
-        .sort((a, b) => String(b[1]).localeCompare(String(a[1])))[0];
       homeTierList.innerHTML = [
         renderInternalHubItem("티어 분포", tiers.join(" · "), "tier", "표"),
-        latestJoin ? renderInternalHubItem("최근 합류", `${latestJoin[1]} · ${latestJoin[0]}`, "inout", "IN") : "",
+        renderInternalHubItem("엔트리 바로가기", "상대전적 · 최근 1년 전적 · 승부 예측", "entry", "예측"),
         renderInternalHubItem("전적/랭킹", "", "links", "외부")
       ].filter(Boolean).join("");
     }
