@@ -52,25 +52,13 @@ jobs:
             databaseURL,
           });
 
-          async function shallowCount() {
-            const url =
-              databaseURL.replace(/\/+$/, "") +
-              "/" +
-              rootPath.replace(/^\/+|\/+$/g, "") +
-              "/records.json?shallow=true";
-            const response = await fetch(url, { cache: "no-store" });
-            if (!response.ok) throw new Error("shallow read failed: " + response.status);
-            const value = await response.json();
-            return value && typeof value === "object" ? Object.keys(value).length : 0;
-          }
-
           (async () => {
             const db = admin.database();
             const rootRef = db.ref(rootPath);
             const recordsRef = rootRef.child("records");
-            const beforeCount = await shallowCount();
+            const beforeSnap = await recordsRef.limitToFirst(1).once("value");
 
-            console.log("Before records key count:", beforeCount);
+            console.log("Before records exists:", beforeSnap.exists());
             await recordsRef.remove();
 
             const afterSnap = await recordsRef.once("value");
