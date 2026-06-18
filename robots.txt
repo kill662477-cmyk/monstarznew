@@ -4,4 +4,4 @@ Disallow: /api/admin/
 Disallow: /api/soop-token
 Disallow: /api/soop-refresh
 
-Sitemap: https://monstarz-kappa.vercel.app/sitemap.xml
+Sitemap: https://monstarznew.vercel.app/sitemap.xml

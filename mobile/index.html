@@ -9,7 +9,7 @@
   <meta name="description" content="모바일에서 캄몬스타즈 방송 현황, 오늘 일정, 공지, 팬튜브, IN&amp;OUT, 티어표와 방송도구를 빠르게 확인합니다.">
   <meta name="keywords" content="캄몬스타즈, MONSTARZ, 캄몬, 스타크래프트, SOOP, 숲, 방송 현황, 티어표, 팬튜브">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <link rel="canonical" href="https://monstarz-kappa.vercel.app/mobile/">
+  <link rel="canonical" href="https://monstarznew.vercel.app/mobile/">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/png" href="/assets/monstarz-favicon.png?v=20260618">
   <link rel="shortcut icon" type="image/png" href="/assets/monstarz-favicon.png?v=20260618">
@@ -19,14 +19,14 @@
   <meta property="og:site_name" content="캄몬스타즈 팬페이지">
   <meta property="og:title" content="캄몬스타즈 팬페이지">
   <meta property="og:description" content="방송 현황, 오늘 일정, 공지, 팬튜브, IN&amp;OUT, 티어표와 방송도구를 모바일에서 빠르게 확인합니다.">
-  <meta property="og:url" content="https://monstarz-kappa.vercel.app/mobile/">
-  <meta property="og:image" content="https://monstarz-kappa.vercel.app/assets/og-default.png">
+  <meta property="og:url" content="https://monstarznew.vercel.app/mobile/">
+  <meta property="og:image" content="https://monstarznew.vercel.app/assets/og-default.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="캄몬스타즈 팬페이지">
   <meta name="twitter:description" content="방송 현황, 오늘 일정, 공지, 팬튜브, IN&amp;OUT, 티어표와 방송도구를 모바일에서 빠르게 확인합니다.">
-  <meta name="twitter:image" content="https://monstarz-kappa.vercel.app/assets/og-default.png">
+  <meta name="twitter:image" content="https://monstarznew.vercel.app/assets/og-default.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="MONSTARZ">
@@ -251,7 +251,7 @@
   const OTHER_VIDEO_PLATFORM="기타영상";
   const MAIN_PAGES=["dashboard","tier","info","videos","tools"];
   const PAGE_TITLES={dashboard:"현황판",members:"멤버 현황판",info:"정보",profile:"프로필",tier:"티어표",notice:"공지",schedule:"일정표",inout:"IN&OUT",videos:"영상",boja:"보자충",fantube:"팬튜브",otherVideos:"기타영상",tools:"방송도구",pinball:"핀볼연동",funding:"펀딩",duck:"덕몽어스",cctv:"CCTV",arcade:"오락실",links:"외부 링크",admin:"관리 구조"};
-  const SITE_META={url:"https://monstarz-kappa.vercel.app/mobile/",image:"https://monstarz-kappa.vercel.app/assets/og-default.png",description:"모바일에서 캄몬스타즈 방송 현황, 오늘 일정, 공지, 팬튜브, IN&OUT, 티어표와 방송도구를 빠르게 확인합니다."};
+  const SITE_META={url:"https://monstarznew.vercel.app/mobile/",image:"https://monstarznew.vercel.app/assets/og-default.png",description:"모바일에서 캄몬스타즈 방송 현황, 오늘 일정, 공지, 팬튜브, IN&OUT, 티어표와 방송도구를 빠르게 확인합니다."};
   const PAGE_META={dashboard:{title:"캄몬스타즈 팬페이지",description:"방송, 일정, 공지, 팬튜브, IN&OUT, 티어표를 모바일 홈에서 빠르게 확인합니다."},members:{title:"캄몬스타즈 멤버 현황판",description:"멤버 방송 상태와 SOOP 바로가기를 모바일에서 확인합니다."},info:{title:"캄몬스타즈 정보",description:"일정, 프로필, 공지, IN&OUT 정보 메뉴입니다."},profile:{title:"캄몬스타즈 프로필",description:"멤버 프로필과 기본 정보를 확인합니다."},tier:{title:"캄몬스타즈 티어표",description:"티어표와 Firebase 전적을 모바일에서 확인합니다."},schedule:{title:"캄몬스타즈 일정표",description:"외부 일정표와 오늘 일정을 앱 안에서 확인합니다."},notice:{title:"캄몬스타즈 공지",description:"SOOP 방송국 공지를 확인합니다."},inout:{title:"캄몬스타즈 IN&OUT",description:"합류와 이탈 히스토리를 확인합니다."},videos:{title:"캄몬스타즈 영상",description:"보자충, 팬튜브, 기타영상 메뉴로 이동합니다."},boja:{title:"캄몬스타즈 보자충",description:"보자충 큐레이션 영상을 확인합니다."},fantube:{title:"캄몬스타즈 팬튜브",description:"팬튜브 최신 영상을 확인합니다."},otherVideos:{title:"캄몬스타즈 기타영상",description:"관리자가 수동 등록한 영상을 확인합니다."},tools:{title:"캄몬스타즈 방송도구",description:"CCTV, 핀볼, 펀딩, 덕몽어스, 오락실 메뉴입니다."},cctv:{title:"캄몬스타즈 CCTV",description:"SOOP 라이브 여러 명을 동시에 확인합니다.",robots:"noindex, nofollow"},pinball:{title:"캄몬스타즈 핀볼연동",description:"방송 운영용 핀볼연동 도구입니다.",robots:"noindex, nofollow"},funding:{title:"캄몬스타즈 펀딩",description:"방송 펀딩 집계 도구입니다.",robots:"noindex, nofollow"},duck:{title:"캄몬스타즈 덕몽어스 계산기",description:"덕몽어스 계산기 도구입니다.",robots:"noindex, nofollow"},arcade:{title:"캄몬스타즈 오락실",description:"팬게임과 오락실 콘텐츠를 실행합니다."},links:{title:"캄몬스타즈 외부 링크",description:"캄몬스타즈 관련 외부 링크 모음입니다."},admin:{title:"캄몬스타즈 관리자",description:"데이터 관리와 운영 상태를 확인합니다.",robots:"noindex, nofollow"}};
   function setMetaContent(selector,value){const el=document.querySelector(selector);if(el&&value)el.setAttribute("content",value)}
   function applyPageMeta(name){const meta=PAGE_META[name]||PAGE_META.dashboard;document.title=meta.title||"캄몬스타즈 팬페이지";setMetaContent('meta[name="description"]',meta.description||SITE_META.description);setMetaContent('meta[property="og:title"]',meta.title);setMetaContent('meta[property="og:description"]',meta.description||SITE_META.description);setMetaContent('meta[property="og:url"]',SITE_META.url);setMetaContent('meta[property="og:image"]',SITE_META.image);setMetaContent('meta[name="twitter:title"]',meta.title);setMetaContent('meta[name="twitter:description"]',meta.description||SITE_META.description);setMetaContent('meta[name="twitter:image"]',SITE_META.image);setMetaContent('meta[name="robots"]',meta.robots||"index, follow, max-image-preview:large")}
