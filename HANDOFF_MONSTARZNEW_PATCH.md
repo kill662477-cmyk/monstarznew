@@ -4,6 +4,49 @@ Checkpoint date: 2026-06-17
 
 This file is intentionally ASCII-only so Claude Code can read it cleanly in any terminal encoding.
 
+## 최신 푸시 로그 (Entry H2H + 전적 Storage 배포)
+
+배포 대상: GitHub `kill662477-cmyk/monstarz` (브랜치 main) → Vercel `monstarz`
+(prod https://monstarz-kappa.vercel.app/). 원본 `monstarznew`(origin)는 안 건드림.
+
+### 이번에 한 것
+- 로컬 브랜치 `entry-performance-test`(Codex의 H2H/전적 Storage 작업 포함)를 커밋(`ca3f2f7`)
+  하고 **`git push --force monstarz HEAD:main`** 로 푸시함.
+  - 푸시 전 비교: HEAD가 monstarz/main 대비 4 앞 / 2 뒤. 뒤처진 2커밋(`9da8430` 전적 Storage,
+    `9a031fc` 핸드오프)은 HEAD 쪽 동등/최신 버전으로 대체되어 **유실 작업 없음** 확인 후 force.
+  - 스테이징 시 워크트리 삭제(data/records 등)는 제외(테스트 스냅샷 보존), 삭제 0건 검증.
+- 그 직전 단계(내가 직접): 전적을 Supabase Storage(.json.gz)로 이전하는 백엔드
+  (`lib/supabase/storage.js`, `api/tier-records.js`, `scripts/seed-tier-records-storage.js`,
+  `vercel.json` 등록) 작성 + **RTDB 전적 348개를 `tier-records` 버킷에 gzip 시딩(348/348 성공, ~149MB)**.
+- 포함된 Codex 작업: `tier_head_to_head_summaries` 테이블 + 시드 12,330행,
+  `api/tier-head-to-head.js`(DB 우선, Storage fallback), Entry 탭 H2H 요약 자동로드 + `승` 표시,
+  `collect-data.js` H2H rebuild, `.github/workflows/collect-tier.yml` env, supabase 0004.
+
+### 검증 보류 (수정 아님, 확인만 — Codex/사용자)
+- 푸시 직후 사이트가 잠시 404(빌드 롤오버)일 수 있음 → 1~2분 후 확인. 계속 404면 Vercel
+  Deployments 빌드 로그(빌드 실패 여부) 확인.
+- Vercel env: `NEXT_PUBLIC_SUPABASE_URL`(또는 `SUPABASE_URL`) + `SUPABASE_SERVICE_ROLE_KEY`
+  있어야 `/api/tier-records`·`/api/tier-head-to-head` 동작.
+- `GET /api/tier-records?key=h78ert_Z` → records 배열 반환 확인.
+- `GET /api/tier-head-to-head?...` → 시드 pair 는 `source:"supabase-db"` 확인.
+- Entry 탭: A/B 선수 추가 → H2H 자동 채움, 프리징 없음, 승률 높은 쪽 `승` 표시.
+- collect 워크플로우 1회 수동 실행 → h2h rebuild/업로드 로그 확인. (Actions secret:
+  `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` 등록 필요)
+
+### 아직 미완 (다음 작업, 수정 필요)
+1. **프론트 전적 모달 → `/api/tier-records` 연결 확인/마무리**: 원본 전적 조회 시 RTDB 대신
+   Storage API 경유. (Codex가 tierboard 쪽 작업했으나 배포 검증 필요. key=`userId_race`,
+   실패 시 RTDB fallback.)
+2. **collect-data.js: 수집 후 records gzip 업로드** 동작 + RTDB의 무거운 records 쓰기 축소(요약만)
+   → RTDB 2.5GB 부담 해소. (Codex가 일부 반영했을 수 있음 — 워크플로우 실제 실행으로 확인.)
+3. **프로필 분리 마무리(사용자 직접)**: `supabase/migrations/0003_member_profiles.sql` 실행 +
+   `node scripts/import-supabase-profiles.js --apply`(env 셸 로드) 해야 프로필 관리/탭이 Supabase로 동작.
+4. **홈 소제목 설명문구 일괄 삭제 요청 — 미반영**: 예 "방송 썸네일 기준으로 LIVE…".
+   대상 `.hub-panel-head .hub-panel-copy > p`, `.inout-title-sub` 등 → CSS `display:none` 또는 마크업 제거.
+5. (권장) secret 키 재발급 + `ADMIN_SECRET` 강화. 루트 `Publishable key *.txt` 정리(현재 .gitignore됨).
+
+---
+
 ## 배포/테스트 진행 로그 (2026-06-17 저녁)
 
 (한글. 비밀 값은 적지 않음.)
