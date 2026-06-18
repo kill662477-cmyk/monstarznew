@@ -19,6 +19,26 @@ function recordPath(key) {
   return prefix ? prefix + "/" + fileName : fileName;
 }
 
+function rowDate(row) {
+  return String((row && (row.date || row.standardDate || row.playedAt || row.createdAt)) || "").slice(0, 10);
+}
+
+function rowTime(row) {
+  const date = rowDate(row).replace(/[./]/g, "-");
+  if (!/^\d{4}-\d{2}-\d{2}/.test(date)) return 0;
+  const time = new Date(date.slice(0, 10) + "T00:00:00+09:00").getTime();
+  return Number.isFinite(time) ? time : 0;
+}
+
+function filterRecentRows(data, days) {
+  if (!Array.isArray(data) || !days) return data;
+  const cutoff = Date.now() - days * 86400000;
+  return data.filter((row) => {
+    const time = rowTime(row);
+    return time && time >= cutoff;
+  });
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
@@ -30,13 +50,22 @@ module.exports = async function handler(req, res) {
 
   try {
     const bucket = process.env.TIER_RECORD_STORAGE_BUCKET || DEFAULT_BUCKET;
+    const days = Math.max(0, Math.min(3650, Number(req.query && req.query.days) || 0));
     const data = await downloadGzJson(bucket, recordPath(key));
     if (data === null) {
       res.setHeader("Cache-Control", "s-maxage=30");
       return res.status(404).json({ key: key, data: null, isEmpty: true, error: "not_found" });
     }
+    const filtered = filterRecentRows(data, days);
     res.setHeader("Cache-Control", "s-maxage=120, stale-while-revalidate=600");
-    return res.status(200).json({ key: key, data: data, isEmpty: Array.isArray(data) ? data.length === 0 : !data });
+    return res.status(200).json({
+      key: key,
+      data: filtered,
+      isEmpty: Array.isArray(filtered) ? filtered.length === 0 : !filtered,
+      totalCount: Array.isArray(data) ? data.length : null,
+      filteredCount: Array.isArray(filtered) ? filtered.length : null,
+      days: days || null
+    });
   } catch (e) {
     if (e && e.code === "supabase_not_configured") {
       return res.status(503).json({ error: "supabase_not_configured", key: key, data: null, isEmpty: true });

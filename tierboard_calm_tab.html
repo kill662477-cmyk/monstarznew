@@ -335,7 +335,6 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
           </div>
           <div class="entry-toolbar-right">
             <button class="entry-btn warn" id="entryClear" type="button">초기화</button>
-            <button class="entry-btn" id="entryLoadRecords" type="button">원본 전적 조회</button>
             <button class="entry-btn primary" id="entryRunSim" type="button">시뮬레이션</button>
           </div>
         </div>
@@ -5595,7 +5594,6 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     const entryDataStatus = document.getElementById('entryDataStatus');
     const entrySimMode = document.getElementById('entrySimMode');
     const entryClear = document.getElementById('entryClear');
-    const entryLoadRecords = document.getElementById('entryLoadRecords');
     const entryRunSim = document.getElementById('entryRunSim');
     const entryStatsTable = document.getElementById('entryStatsTable');
     const entryMatchTable = document.getElementById('entryMatchTable');
@@ -5678,6 +5676,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     let headLoadSeq = 0;
     const RECORD_PAGE_SIZE = 24;
     const H2H_PAGE_SIZE = 12;
+    const ENTRY_RECORD_LOOKBACK_DAYS = 365;
     let recordVisibleCount = RECORD_PAGE_SIZE;
     let h2hVisibleCount = H2H_PAGE_SIZE;
     let searchRenderTimer = 0;
@@ -5837,7 +5836,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       {key:'m1',label:'최근 1개월'},
       {key:'m3',label:'최근 3개월'},
       {key:'y2026',label:'2026년'},
-      {key:'all',label:'전체'}
+      {key:'all',label:'최근 1년'}
     ];
     function setMainView(view){
       const entry=view==='entry';
@@ -5969,6 +5968,20 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     }
     function entryRecordStorageKey(player){
       return recordKeysFor(player,player.race)[0] || playerDataKey(player);
+    }
+    async function fetchEntryRecordRows(player){
+      const keys=Array.from(new Set(recordKeysFor(player,player.race)));
+      for(const key of keys){
+        if(!key) continue;
+        try{
+          const response=await fetch('/api/tier-records?key='+encodeURIComponent(key)+'&days='+ENTRY_RECORD_LOOKBACK_DAYS,{cache:'no-store'});
+          if(!response.ok) continue;
+          const payload=await response.json();
+          const rows=normalizeRecordEntry(payload&&payload.data,player.race);
+          if(rows.length || (payload&&Array.isArray(payload.data))) return rows;
+        }catch(e){}
+      }
+      return [];
     }
     function entrySummaryRequestPair(playerA,playerB){
       return {
@@ -6157,8 +6170,9 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const loaded=pairs.filter(pair=>entryState.summaryCache.has(pair.pairKey)).length;
       const loading=pairs.filter(pair=>entryState.loadingSummaries.has(pair.pairKey)).length;
       const originalLoaded=keys.filter(key=>entryState.recordCache.has(key)).length;
+      const originalLoading=keys.filter(key=>entryState.loadingRecords.has(key)).length;
       const pending=pairs.length-loaded-loading;
-      entryDataStatus.textContent=keys.length?('선택 '+keys.length+'명 · 상대전적 '+loaded+'/'+pairs.length+'쌍'+(loading?' 조회중':pending?' 자동조회 대기':'')+(originalLoaded?' · 원본 '+originalLoaded+'/'+keys.length+'명':'')):'대기중';
+      entryDataStatus.textContent=keys.length?('선택 '+keys.length+'명 · 상대전적 '+loaded+'/'+pairs.length+'쌍'+(loading?' 조회중':pending?' 자동조회 대기':'')+' · 1년전적 '+originalLoaded+'/'+keys.length+'명'+(originalLoading?' 조회중':'')):'대기중';
     }
     function renderEntry(){
       cleanEntryTeams();
@@ -6184,12 +6198,14 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       if(entryState.loadingRecords.has(key)) return null;
       entryState.loadingRecords.add(key);
       try{
-        const rows=(await ensureRecordBucket(player,player.race)).slice().sort((a,b)=>rowDate(b).localeCompare(rowDate(a)));
+        const rows=(await fetchEntryRecordRows(player)).slice().sort((a,b)=>rowDate(b).localeCompare(rowDate(a)));
         entryState.recordCache.set(key,{rows,loadedAt:Date.now()});
+        entryState.simulation=null;
         clearEntryDerivedCache();
         return rows;
       }catch(e){
         entryState.recordCache.set(key,{rows:[],loadedAt:Date.now()});
+        entryState.simulation=null;
         clearEntryDerivedCache();
         return [];
       }finally{
@@ -6239,10 +6255,15 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const seq=++entryRecordAutoSeq;
       entryRecordAutoTimer=setTimeout(async()=>{
         if(seq!==entryRecordAutoSeq) return;
+        const keys=selectedEntryKeys();
         const missing=entryNeededSummaryPairs().filter(pair=>!entryState.summaryCache.has(pair.pairKey)&&!entryState.loadingSummaries.has(pair.pairKey));
-        if(!missing.length) return;
+        const missingRecords=keys.filter(key=>!entryState.recordCache.has(key)&&!entryState.loadingRecords.has(key));
+        if(!missing.length&&!missingRecords.length) return;
         renderEntryStatus();
-        await loadEntrySummariesForPairs(missing);
+        await Promise.all([
+          loadEntryRecordsFor(missingRecords,{missingOnly:true,background:true}),
+          loadEntrySummariesForPairs(missing)
+        ]);
       },300);
     }
     function parseEntryRate(value){ const match=String(value||'').match(/(\d+(?:\.\d+)?)/); return match?Number(match[1]):null; }
@@ -6378,7 +6399,10 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const lineA=entryState.teamA.map(key=>playerByKey(key)).filter(Boolean);
       const lineB=entryState.teamB.map(key=>playerByKey(key)).filter(Boolean);
       if(!lineA.length||!lineB.length){ entryState.simulation=null; renderEntrySimulation(); return; }
-      await loadEntrySummariesForPairs(entryNeededSummaryPairs());
+      await Promise.all([
+        loadEntryRecordsFor(selectedEntryKeys(),{missingOnly:true,background:true}),
+        loadEntrySummariesForPairs(entryNeededSummaryPairs())
+      ]);
       const config=entryModeConfig(entryState.simMode);
       const seedText=entryState.simMode+'|'+entryState.teamA.join('|')+'|'+entryState.teamB.join('|');
       const rng=entrySeededRandom(entrySeedFromText(seedText));
@@ -6468,7 +6492,6 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       }
     });
     entryClear.addEventListener('click',()=>{ entryState.teamA=[]; entryState.teamB=[]; entryState.simulation=null; clearTimeout(entryRecordAutoTimer); entryRecordAutoSeq++; entryState.loadingSummaries.clear(); renderEntry(); });
-    entryLoadRecords.addEventListener('click',()=>{ loadEntryRecordsFor(selectedEntryKeys()); });
     entryRunSim.addEventListener('click',async()=>{ entrySimulation.innerHTML='<div class="entry-empty">시뮬레이션 계산중</div>'; await runEntrySimulation(); });
     document.getElementById('closeRecord').addEventListener('click',()=>{ activeRecordKey=''; opponentCandidateCache=null; headToHeadMatchCache=null; recordLoadSeq++; headLoadSeq++; recordDialog.close(); });
     tabOverall.addEventListener('click',()=>setTab('overall')); tabHead.addEventListener('click',()=>setTab('head'));
