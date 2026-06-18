@@ -5722,6 +5722,8 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     let booted = false;              // 첫 렌더 완료 여부 (깜빡임 방지)
     let firebasePlayersLoaded = false; // Firebase 최신 선수 데이터 수신 여부
 
+    let tierStateLoadedFromSupabase = false;
+    let tierStatePollTimer = 0;
     function safeKey(value){ return String(value||'').replace(/[.#$/\[\]]/g,'_'); }
     function normalizeList(value){ if(Array.isArray(value)) return value; if(!value || typeof value !== 'object') return []; if(Array.isArray(value.data)) return value.data; if(Array.isArray(value.rows)) return value.rows; return Object.values(value); }
     function playerDataKey(player){ return safeKey([player.userId || player.name, player.race || ''].join('_')); }
@@ -5782,6 +5784,8 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     function refreshFirebaseView(opts={}){ if(!firebasePlayersLoaded && !booted) return; booted=true; render(); if(entryState.view==='entry') renderEntry(); if(activeRecordKey && opts.reloadRecord!==false) loadRecord(); if(activeRecordKey && selectedOpponentKey && opts.reloadHead!==false) loadHeadToHead(); }
     function initFirebaseTierData(){ if(!window.firebase||!window.firebase.database) return; try{ if(!window.firebase.apps.length) window.firebase.initializeApp(firebaseConfig); firebaseDb=window.firebase.database(); firebaseState.ready=true; const rootRef=firebaseDb.ref(FIREBASE_ROOT); rootRef.child('meta').on('value',snapshot=>{firebaseState.meta=snapshot.val()||{}; refreshFirebaseView({reloadRecord:false,reloadHead:false});}); rootRef.child('players').on('value',snapshot=>{ const players=normalizeList(snapshot.val()); applyFirebasePlayers(players); firebasePlayersLoaded=true; refreshFirebaseView({reloadRecord:false,reloadHead:false});}); rootRef.child('liveStatus').on('value',snapshot=>{firebaseState.liveStatus=snapshot.val()||{}; applyFirebasePlayers(tierData); refreshFirebaseView({reloadRecord:false,reloadHead:false});}); rootRef.child('winRates').on('value',snapshot=>{firebaseState.winRates=snapshot.val()||{};}); /* headToHead 전체 구독 금지: 상대 선택 시 필요한 키만 once('value')로 지연 조회 */ }catch(e){firebaseState.ready=false;} }
 
+    function applyTierStateSnapshot(payload){ if(!payload||!Array.isArray(payload.players)||!payload.players.length) return false; firebaseState.meta=payload.meta||{}; firebaseState.liveStatus=payload.liveStatus||{}; firebaseState.winRates=payload.winRates||{}; firebaseState.recordMeta=payload.recordMeta||{}; applyFirebasePlayers(payload.players); firebasePlayersLoaded=true; tierStateLoadedFromSupabase=true; refreshFirebaseView({reloadRecord:false,reloadHead:false}); return true; }
+    async function initSupabaseTierState(){ try{ const response=await fetch('/api/tier-state',{cache:'no-store'}); if(!response.ok) return false; const payload=await response.json(); const ok=applyTierStateSnapshot(payload); if(ok&&!tierStatePollTimer){ tierStatePollTimer=setInterval(()=>{ initSupabaseTierState(); },90000); } return ok; }catch(e){ return false; } }
     function playerKey(player){ return [player.tier,player.name,player.station||player.elo||player.image].join('|'); }
     function rebuildPlayerIndexes(){
       const visiblePlayers=visibleTierData();
@@ -6481,7 +6485,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     renderEntry();
     tierStack.innerHTML='<div class="loading-note">티어표를 불러오는 중입니다…</div>';
     if(requestedView==='entry') setMainView('entry');
-    initFirebaseTierData();
+    initSupabaseTierState().then(ok=>{ if(!ok) initFirebaseTierData(); });
     setTimeout(function(){ if(!booted){ booted=true; render(); if(entryState.view==='entry') renderEntry(); } }, 3500); // Firebase 응답이 없을 때만 embedded 데이터로 표시
   </script>
 <script id="thumb-preview-js">

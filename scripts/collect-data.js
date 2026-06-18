@@ -13,6 +13,7 @@ const {
   buildHeadToHeadSummaries,
   summaryToDbRow,
 } = require("../lib/tier-head-to-head-summary");
+const { upsertTierStateSnapshots } = require("../lib/tier-state-snapshots");
 
 const root = path.resolve(__dirname, "..");
 const dataDir = path.join(root, "data");
@@ -79,6 +80,12 @@ const TIER_HEAD_TO_HEAD_SUMMARY_READ_CONCURRENCY = Math.max(
   1,
   Number(process.env.TIER_HEAD_TO_HEAD_SUMMARY_READ_CONCURRENCY || 8)
 );
+const TIER_STATE_SNAPSHOT_UPLOAD =
+  process.env.TIER_STATE_SNAPSHOT_UPLOAD === "true" ||
+  process.env.SUPABASE_TIER_STATE_UPLOAD === "true";
+const TIER_STATE_SNAPSHOT_REQUIRED =
+  process.env.TIER_STATE_SNAPSHOT_REQUIRED === "true" ||
+  process.env.SUPABASE_TIER_STATE_REQUIRED === "true";
 
 function normalizeStoragePrefix(value) {
   return String(value || "")
@@ -2062,6 +2069,41 @@ async function uploadHeadToHeadSummaries(players, recordStorageUploads) {
   }
 }
 
+async function uploadTierStateSnapshotPayload(payload) {
+  const stats = {
+    enabled: TIER_STATE_SNAPSHOT_UPLOAD,
+    attempted: 0,
+    succeeded: 0,
+    failed: 0,
+  };
+
+  if (!TIER_STATE_SNAPSHOT_UPLOAD) {
+    console.log("[supabase] tier state snapshot upload disabled");
+    return stats;
+  }
+
+  try {
+    const result = await upsertTierStateSnapshots(
+      {
+        meta: payload.meta || {},
+        players: payload.players || [],
+        recordMeta: payload.recordMeta || {},
+        winRates: payload.winRates || {},
+      },
+      "collect-data"
+    );
+    stats.attempted = result.attempted;
+    stats.succeeded = result.succeeded;
+    console.log(`[supabase] tier state snapshots upserted ${stats.succeeded}/${stats.attempted}`);
+    return stats;
+  } catch (error) {
+    stats.failed = Math.max(stats.attempted, 1);
+    console.warn(`[supabase] tier state snapshot upload failed: ${error.message}`);
+    if (TIER_STATE_SNAPSHOT_REQUIRED) throw error;
+    return stats;
+  }
+}
+
 async function readExistingLiveState(rootRef) {
   console.log("[firebase] read existing liveStatus");
 
@@ -2210,6 +2252,8 @@ async function main(run = {}) {
     CACHE_LOCAL_ASSETS,
     TIER_HEAD_TO_HEAD_SUMMARY_UPLOAD,
     TIER_HEAD_TO_HEAD_SUMMARY_REQUIRED,
+    TIER_STATE_SNAPSHOT_UPLOAD,
+    TIER_STATE_SNAPSHOT_REQUIRED,
   });
 
   console.log("[1/6] 수동 플레이어 데이터 로드 시작");
@@ -2647,6 +2691,15 @@ async function main(run = {}) {
     winRates,
   };
 
+  console.log("[5.7/6] Supabase 공개 티어 상태 스냅샷 업로드");
+  const tierStateSnapshotStats = await uploadTierStateSnapshotPayload(payload);
+  Object.assign(meta, {
+    tierStateSnapshotUploadEnabled: TIER_STATE_SNAPSHOT_UPLOAD,
+    tierStateSnapshotUploadAttempted: tierStateSnapshotStats.attempted,
+    tierStateSnapshotUploadSucceeded: tierStateSnapshotStats.succeeded,
+    tierStateSnapshotUploadFailed: tierStateSnapshotStats.failed,
+  });
+
   if (CACHE_LOCAL_JSON) {
     await fs.writeFile(path.join(dataDir, "players.json"), JSON.stringify({ meta, players: visiblePlayers }, null, 2));
     await fs.writeFile(path.join(dataDir, "record-meta.json"), JSON.stringify(recordMetaState, null, 2));
@@ -2662,7 +2715,8 @@ async function main(run = {}) {
   run.status =
     recordFailCount > 0 ||
     recordStorageUploadStats.failed > 0 ||
-    headToHeadSummaryStats.failed > 0
+    headToHeadSummaryStats.failed > 0 ||
+    tierStateSnapshotStats.failed > 0
       ? "partial"
       : "success";
   run.itemsFound = players.length;
@@ -2670,13 +2724,15 @@ async function main(run = {}) {
     visiblePlayers.length +
     recordUploadRowCount +
     recordStorageUploadStats.succeeded +
-    headToHeadSummaryStats.succeeded;
+    headToHeadSummaryStats.succeeded +
+    tierStateSnapshotStats.succeeded;
   run.itemsSkipped =
     recordSkipCount +
     recordFailCount +
     hiddenInactivePlayers.length +
     recordStorageUploadStats.failed +
-    headToHeadSummaryStats.failed;
+    headToHeadSummaryStats.failed +
+    tierStateSnapshotStats.failed;
   run.meta = {
     firebaseRoot: FIREBASE_ROOT,
     recordSyncMode: RECORD_SYNC_MODE,
@@ -2693,6 +2749,8 @@ async function main(run = {}) {
     headToHeadSummaryStorageReadSucceeded: headToHeadSummaryStats.storageReadSucceeded,
     headToHeadSummaryStorageReadEmpty: headToHeadSummaryStats.storageReadEmpty,
     headToHeadSummaryStorageReadFailed: headToHeadSummaryStats.storageReadFailed,
+    tierStateSnapshotUploadSucceeded: tierStateSnapshotStats.succeeded,
+    tierStateSnapshotUploadFailed: tierStateSnapshotStats.failed,
     firebaseRecordRowsUpload: FIREBASE_RECORD_ROWS_UPLOAD,
     recordFailCount,
     recordSkipCount,

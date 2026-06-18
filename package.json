@@ -9,7 +9,8 @@
     "sync-live": "node scripts/sync-soop-live-to-firebase.js",
     "export-players": "node scripts/export-manual-players.js",
     "seed-record-storage": "node scripts/seed-tier-records-storage.js",
-    "seed-h2h-summary": "node scripts/seed-tier-head-to-head-summaries.js"
+    "seed-h2h-summary": "node scripts/seed-tier-head-to-head-summaries.js",
+    "seed-tier-state": "node scripts/seed-tier-state-snapshots.js"
   },
   "dependencies": {
     "firebase-admin": "^13.5.0"

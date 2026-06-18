@@ -2,6 +2,7 @@ const fs = require("fs/promises");
 const path = require("path");
 const admin = require("firebase-admin");
 const { withAutomationLog } = require("./lib/automationLogger");
+const { upsertTierStateSnapshots } = require("../lib/tier-state-snapshots");
 
 const root = path.resolve(__dirname, "..");
 const manualPlayersPath = path.join(root, "data", "manual", "players.json");
@@ -17,6 +18,12 @@ const SOOP_CLIENT_ID = process.env.SOOP_CLIENT_ID || "";
 const FETCH_TIMEOUT_MS = Math.max(3000, Number(process.env.FETCH_TIMEOUT_MS || 8000));
 const SOOP_LIVE_MAX_PAGES = Math.max(1, Number(process.env.SOOP_LIVE_MAX_PAGES || 300));
 const SOOP_LIVE_PAGE_BATCH = Math.max(1, Number(process.env.SOOP_LIVE_PAGE_BATCH || 3));
+const TIER_STATE_SNAPSHOT_UPLOAD =
+  process.env.TIER_STATE_SNAPSHOT_UPLOAD === "true" ||
+  process.env.SUPABASE_TIER_STATE_UPLOAD === "true";
+const TIER_STATE_SNAPSHOT_REQUIRED =
+  process.env.TIER_STATE_SNAPSHOT_REQUIRED === "true" ||
+  process.env.SUPABASE_TIER_STATE_REQUIRED === "true";
 let lastSoopFetchStats = { pagesChecked: 0, failedPages: 0 };
 
 function safeKey(value) {
@@ -308,12 +315,47 @@ function buildLiveStatus(players, liveMap) {
   return liveStatus;
 }
 
+async function uploadTierLiveSnapshot(liveStatus, liveMeta) {
+  const stats = {
+    enabled: TIER_STATE_SNAPSHOT_UPLOAD,
+    attempted: 0,
+    succeeded: 0,
+    failed: 0,
+  };
+
+  if (!TIER_STATE_SNAPSHOT_UPLOAD) {
+    console.log("[supabase] tier live snapshot upload disabled");
+    return stats;
+  }
+
+  try {
+    const result = await upsertTierStateSnapshots(
+      {
+        liveStatus,
+        liveMeta,
+      },
+      "sync-soop-live"
+    );
+    stats.attempted = result.attempted;
+    stats.succeeded = result.succeeded;
+    console.log(`[supabase] tier live snapshots upserted ${stats.succeeded}/${stats.attempted}`);
+    return stats;
+  } catch (error) {
+    stats.failed = Math.max(stats.attempted, 1);
+    console.warn(`[supabase] tier live snapshot upload failed: ${error.message}`);
+    if (TIER_STATE_SNAPSHOT_REQUIRED) throw error;
+    return stats;
+  }
+}
+
 async function main(run = {}) {
   console.log("[config]", {
     FIREBASE_TIER_ROOT,
     FETCH_TIMEOUT_MS,
     SOOP_LIVE_MAX_PAGES,
     SOOP_LIVE_PAGE_BATCH,
+    TIER_STATE_SNAPSHOT_UPLOAD,
+    TIER_STATE_SNAPSHOT_REQUIRED,
   });
 
   const db = initFirebase();
@@ -346,9 +388,19 @@ async function main(run = {}) {
     source: "soop-openapi-broad-list",
   });
 
+  const liveMeta = {
+    liveSyncedAt: checkedAt,
+    checkedAt,
+    root: FIREBASE_TIER_ROOT,
+    playerCount: players.length,
+    liveCount: liveMap.size,
+    source: "soop-openapi-broad-list",
+  };
+  const tierStateSnapshotStats = await uploadTierLiveSnapshot(liveStatus, liveMeta);
+
   run.status = "success";
   run.itemsFound = players.length;
-  run.itemsWritten = Object.keys(liveStatus).length + 3;
+  run.itemsWritten = Object.keys(liveStatus).length + 3 + tierStateSnapshotStats.succeeded;
   run.itemsSkipped = Math.max(0, players.length - liveMap.size);
   run.meta = {
     firebaseRoot: FIREBASE_TIER_ROOT,
@@ -356,7 +408,9 @@ async function main(run = {}) {
     liveCount: liveMap.size,
     checkedAt,
     pagesChecked: lastSoopFetchStats.pagesChecked,
-    failedPages: lastSoopFetchStats.failedPages
+    failedPages: lastSoopFetchStats.failedPages,
+    tierStateSnapshotUploadSucceeded: tierStateSnapshotStats.succeeded,
+    tierStateSnapshotUploadFailed: tierStateSnapshotStats.failed
   };
 
   console.log(

@@ -25,6 +25,9 @@
     },
     "api/tier-head-to-head.js": {
       "maxDuration": 10
+    },
+    "api/tier-state.js": {
+      "maxDuration": 10
     }
   },
   "rewrites": [
