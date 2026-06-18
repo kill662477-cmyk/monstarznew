@@ -643,6 +643,9 @@
   const raceCode=v=>{const x=String(v||"").toUpperCase();if(x.startsWith("P"))return"P";if(x.startsWith("T"))return"T";if(x.startsWith("Z"))return"Z";return x||"-"};
   const raceName=v=>({P:"Protoss",T:"Terran",Z:"Zerg"})[raceCode(v)]||String(v||"-");
   const raceClass=v=>"race-"+raceCode(v).toLowerCase();
+  function profileTierRank(item){const name=String(item&&item.name||"").trim(),roleRaw=String(item&&item.role||""),tierRaw=String(item&&item.tier||"").trim(),tierText=(roleRaw+" "+tierRaw).toUpperCase(),numericTier=Number(tierRaw),roleTier=roleRaw.match(/([0-9])\s*티어/);if(name==="김윤환")return-1000;if(tierText.includes("GOD")||roleRaw.includes("갓"))return 0;if(tierText.includes("KING")||roleRaw.includes("킹"))return 1;if(tierText.includes("JACK")||roleRaw.includes("잭"))return 2;if(tierText.includes("JOKER")||roleRaw.includes("조커"))return 3;if(tierText.includes("SPADE")||roleRaw.includes("스페이드"))return 4;if(Number.isFinite(numericTier))return 10+numericTier;if(roleTier)return 10+Number(roleTier[1]);if(tierText.includes("YOUTH")||roleRaw.includes("유스")||tierRaw==="유스")return 19;return 80}
+  PROFILE_MEMBERS.sort((a,b)=>profileTierRank(a)-profileTierRank(b)||String(a.name||"").localeCompare(String(b.name||""),"ko"));
+  selectedProfileName=PROFILE_MEMBERS[0]?.name||selectedProfileName;
   const memberTier=m=>m.name==="낭니"?"유스":(typeof m.tier==="number"?m.tier+"티어":String(m.tier||m.role||"-"));
   const coachTierOrder={God:0,King:1,Jack:2,Joker:3,"조커티어":3,Spade:4};
   const homeLiveTierOrder={GOD:0,KING:1,JACK:2,JOKER:3,SPADE:4,"0":5,"1":6,"2":7,"3":8,"4":9,"5":10,"6":11,"7":12,"8":13,YOUTH:14};

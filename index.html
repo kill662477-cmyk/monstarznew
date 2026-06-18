@@ -15590,21 +15590,40 @@ window.__DUCK_ROULETTE_CONFIG__=${configJson};
     {name:"낭니", role:"유스 · Player", tier:9, image:"https://stimg.sooplive.com/COMMENT/0/12635700/62001780139184566.jpg", fallbackImage:"https://stimg.sooplive.com/LOGO/sk/sksmsskdsl10/m/sksmsskdsl10.webp", imagePos:"50% 50%", birth:"1999.08.11", blood:"B형", mbti:"ISTP", height:"166cm", debut:"", awards:[]}
   ];
   function profileTierRank(item) {
-    var role = String(item && item.role || "").toUpperCase();
-    if (role.indexOf("HEAD COACH") !== -1) return -100;
-    if (role.indexOf("GOD") !== -1) return 0;
-    if (role.indexOf("KING") !== -1) return 1;
-    if (role.indexOf("JACK") !== -1) return 2;
-    if (role.indexOf("JOKER") !== -1) return 3;
-    if (role.indexOf("SPADE") !== -1) return 4;
-    var tier = Number(item && item.tier);
-    if (Number.isFinite(tier)) return 10 + tier;
-    if (role.indexOf("YOUTH") !== -1) return 99;
+    var name = String(item && item.name || "").trim();
+    var roleRaw = String(item && item.role || "");
+    var tierRaw = String(item && item.tier || "").trim();
+    var tierText = (roleRaw + " " + tierRaw).toUpperCase();
+    var numericTier = Number(tierRaw);
+    var roleTier = roleRaw.match(/([0-9])\s*티어/);
+    if (name === "김윤환") return -1000;
+    if (tierText.indexOf("GOD") !== -1 || roleRaw.indexOf("갓") !== -1) return 0;
+    if (tierText.indexOf("KING") !== -1 || roleRaw.indexOf("킹") !== -1) return 1;
+    if (tierText.indexOf("JACK") !== -1 || roleRaw.indexOf("잭") !== -1) return 2;
+    if (tierText.indexOf("JOKER") !== -1 || roleRaw.indexOf("조커") !== -1) return 3;
+    if (tierText.indexOf("SPADE") !== -1 || roleRaw.indexOf("스페이드") !== -1) return 4;
+    if (Number.isFinite(numericTier)) return 10 + numericTier;
+    if (roleTier) return 10 + Number(roleTier[1]);
+    if (tierText.indexOf("YOUTH") !== -1 || roleRaw.indexOf("유스") !== -1 || tierRaw === "유스") return 19;
     return 80;
   }
-  PROFILE_MEMBERS.sort(function(a,b){
-    return profileTierRank(a) - profileTierRank(b) || String(a.name || "").localeCompare(String(b.name || ""), "ko");
-  });
+  function profileSortOrder(item) {
+    var n = Number(item && item.sortOrder);
+    return Number.isFinite(n) ? n : Number.POSITIVE_INFINITY;
+  }
+  function sortProfileMembers(list) {
+    return list.map(function(item, index) {
+      return { item: item, index: index };
+    }).sort(function(a, b) {
+      return profileTierRank(a.item) - profileTierRank(b.item) ||
+        profileSortOrder(a.item) - profileSortOrder(b.item) ||
+        a.index - b.index ||
+        String(a.item.name || "").localeCompare(String(b.item.name || ""), "ko");
+    }).map(function(entry) {
+      return entry.item;
+    });
+  }
+  PROFILE_MEMBERS = sortProfileMembers(PROFILE_MEMBERS);
   // 관리자 화면(다른 스크립트 스코프)에서 프로필 목록 fallback 으로 사용
   try { window.PROFILE_MEMBERS = PROFILE_MEMBERS; } catch (e) {}
   var activeProfileIndex = 0;
@@ -15622,9 +15641,11 @@ window.__DUCK_ROULETTE_CONFIG__=${configJson};
           image: r.image || '', fallbackImage: r.fallback_image || '',
           imagePos: r.image_pos || '', birth: r.birth || '', blood: r.blood || '',
           mbti: r.mbti || '', height: r.height || '', debut: r.debut || '',
-          awards: r.awards ? String(r.awards).split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean) : []
+          awards: r.awards ? String(r.awards).split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean) : [],
+          sortOrder: Number(r.sort_order)
         };
       });
+      PROFILE_MEMBERS = sortProfileMembers(PROFILE_MEMBERS);
       try { window.PROFILE_MEMBERS = PROFILE_MEMBERS; } catch (e) {}
       activeProfileIndex = 0;
       renderProfile(0);
