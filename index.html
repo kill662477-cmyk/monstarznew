@@ -7571,6 +7571,24 @@ body.funding-overlay-host .funding-temp-frame {
   border-radius: 9px;
 }
 
+.video-thumb-fallback {
+  position: relative;
+  background: linear-gradient(135deg, #142236, #0c1725);
+}
+
+.video-thumb-fallback::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-35%, -50%);
+  border-style: solid;
+  border-width: 7px 0 7px 12px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, .82);
+}
+
 .home-inout-item {
   display: grid;
   grid-template-columns: 104px minmax(0, 1fr) auto;
@@ -10571,7 +10589,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       return `<img class="${escapeHtml(className)}" src="${safeLink(thumbnail)}" alt="${alt} 썸네일" loading="lazy" decoding="async">`;
     }
     if (isDirectVideoUrl(url)) {
-      return `<video class="${escapeHtml(className)}" src="${safeLink(url)}#t=0.1" muted playsinline preload="metadata" aria-label="${alt} 미리보기"></video>`;
+      // fmkorea 등 외부 .mp4는 핫링크 보호로 <video> 프레임 로드가 간헐 실패→재시도하며 썸네일이 깜빡인다.
+      // 깜빡임 제거를 위해 정적 재생-아이콘 플레이스홀더로 렌더한다. 실제 재생은 클릭 시 플레이어에서 처리.
+      return `<div class="${escapeHtml(className)} video-thumb-fallback" role="img" aria-label="${alt} 영상"></div>`;
     }
     return `<div class="${escapeHtml(className)}"></div>`;
   }
@@ -10758,7 +10778,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     if (homeToolList) {
-      homeToolList.innerHTML = BROADCAST_TOOLS.slice(0, 3)
+      homeToolList.innerHTML = BROADCAST_TOOLS
         .map(tool => renderInternalHubItem(tool.title, "", tool.key, tool.status))
         .join("");
     }
@@ -12368,10 +12388,13 @@ function createMemberCard(member) {
       .sort((a, b) => {
         const pinDiff = Number(Boolean(b.isPinned || b.is_pinned)) - Number(Boolean(a.isPinned || a.is_pinned));
         if (pinDiff) return pinDiff;
-        const manualSortDiff = Number(a.sortOrder || 0) - Number(b.sortOrder || 0);
-        if (manualSortDiff) return manualSortDiff;
+        // 날짜(최신순) 우선. sort_order 는 동일 날짜의 보조 정렬로만 사용한다.
+        // (큐레이션 영상의 sort_order 는 이미 날짜순이라 결과가 같고,
+        //  Supabase 에 없는 피드 영상이 sort_order=0 으로 상단에 몰리는 문제를 막는다.)
         const timeDiff = getYoutubeSortTime(b) - getYoutubeSortTime(a);
         if (timeDiff) return timeDiff;
+        const manualSortDiff = Number(a.sortOrder || 0) - Number(b.sortOrder || 0);
+        if (manualSortDiff) return manualSortDiff;
         return (a._order || 0) - (b._order || 0);
       })
       .slice(0, 24);
