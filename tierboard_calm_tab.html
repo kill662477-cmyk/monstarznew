@@ -6107,12 +6107,19 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     function entryResolvePair(lineA,lineB,slotIndex,rng){
       return entryFixedPairAt(lineA,lineB,slotIndex) || entryRandomPair(lineA,lineB,rng);
     }
+    function entryDoubleSetSlotIndex(config,index){
+      return config.double && index<config.maxGames*2 ? index%config.maxGames : index;
+    }
+    function entryIsDoubleTieBreakerSlot(config,index){
+      return Boolean(config.double&&config.tieBreaker&&index>=config.maxGames*2);
+    }
     function entryModeSlots(config){
-      if(config.double) return config.maxGames*2;
+      if(config.double) return config.maxGames*2+(config.tieBreaker?1:0);
       return config.maxGames;
     }
     function entrySlotLabel(config,index){
       if(!config.double) return (index+1)+'매치';
+      if(entryIsDoubleTieBreakerSlot(config,index)) return '최종 랜덤';
       const block=Math.floor(index/config.maxGames)+1;
       const local=index%config.maxGames+1;
       return block+'세트 '+local+'매치';
@@ -6140,7 +6147,8 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const maxSlots=entryModeSlots(config);
       const randomAverage=entryAverageRandomProbability(lineA,lineB,modelCache);
       for(let index=0;index<maxSlots;index++){
-        const fixed=entryFixedPairAt(lineA,lineB,index);
+        const isTieBreaker=entryIsDoubleTieBreakerSlot(config,index);
+        const fixed=isTieBreaker?null:entryFixedPairAt(lineA,lineB,entryDoubleSetSlotIndex(config,index));
         if(fixed){
           const prob=entryExpectedPairProbability(fixed.playerA,fixed.playerB,modelCache);
           rows.push({label:entrySlotLabel(config,index),a:fixed.playerA.name,b:fixed.playerB.name,prob,kind:'fixed'});
@@ -6348,7 +6356,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     }
     function entryModeConfig(value){
       if(value==='bo9') return {label:'9판5선',target:5,maxGames:9,double:false};
-      if(value==='double-bo5') return {label:'5353',target:3,maxGames:5,double:true};
+      if(value==='double-bo5') return {label:'5353',target:3,maxGames:5,double:true,tieBreaker:true};
       return {label:'7판4선',target:4,maxGames:7,double:false};
     }
     function entrySeededRandom(seed){
@@ -6379,16 +6387,23 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const baseRate=entryClamp(entryEloToProb(drawA-drawB),.06,.94);
       return entryBlendDirectHeadToHead(baseRate,playerA,playerB);
     }
-    function entrySimulateSeries(lineA,lineB,target,maxGames,rng,modelCache,baseSlot=0){
+    function entryBuildSeriesPlan(lineA,lineB,maxGames,rng){
+      return Array.from({length:maxGames},(_,index)=>entryFixedPairAt(lineA,lineB,index)||entryRandomPair(lineA,lineB,rng));
+    }
+    function entrySimulateSeriesPlan(plan,target,rng,modelCache){
       let a=0,b=0,games=0;
-      while(a<target&&b<target&&games<maxGames){
-        const pair=entryResolvePair(lineA,lineB,baseSlot+games,rng);
+      while(a<target&&b<target&&games<plan.length){
+        const pair=plan[games];
         if(!pair) break;
         if(rng()<entryMatchProbability(pair.playerA,pair.playerB,modelCache,rng)) a+=1;
         else b+=1;
         games+=1;
       }
-      return {a,b,nextIndex:baseSlot+games};
+      return {a,b,games};
+    }
+    function entrySimulateSeries(lineA,lineB,target,maxGames,rng,modelCache,baseSlot=0){
+      const plan=Array.from({length:maxGames},(_,games)=>entryResolvePair(lineA,lineB,baseSlot+games,rng));
+      return entrySimulateSeriesPlan(plan,target,rng,modelCache);
     }
     function entryMostLikelyScore(scoreMap){
       let best='-', bestCount=-1;
@@ -6411,23 +6426,49 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       let aWins=0,bWins=0,ties=0,sumA=0,sumB=0;
       const trials=4000;
       for(let i=0;i<trials;i++){
-        let totalA=0,totalB=0;
+        let totalA=0,totalB=0,outcomeA=0,outcomeB=0,scoreA=0,scoreB=0;
         if(config.double){
-          const first=entrySimulateSeries(lineA,lineB,config.target,config.maxGames,rng,ratingCache,0);
-          const second=entrySimulateSeries(lineA,lineB,config.target,config.maxGames,rng,ratingCache,config.maxGames);
+          const plan=entryBuildSeriesPlan(lineA,lineB,config.maxGames,rng);
+          const first=entrySimulateSeriesPlan(plan,config.target,rng,ratingCache);
+          const second=entrySimulateSeriesPlan(plan,config.target,rng,ratingCache);
+          let setA=0,setB=0;
+          if(first.a>first.b) setA+=1;
+          else if(first.b>first.a) setB+=1;
+          if(second.a>second.b) setA+=1;
+          else if(second.b>second.a) setB+=1;
           totalA=first.a+second.a;
           totalB=first.b+second.b;
+          if(setA===setB){
+            const finalPair=entryRandomPair(lineA,lineB,rng);
+            if(finalPair){
+              if(rng()<entryMatchProbability(finalPair.playerA,finalPair.playerB,ratingCache,rng)){
+                totalA+=1;
+                setA+=1;
+              }else{
+                totalB+=1;
+                setB+=1;
+              }
+            }
+          }
+          outcomeA=setA;
+          outcomeB=setB;
+          scoreA=setA;
+          scoreB=setB;
         }else{
           const series=entrySimulateSeries(lineA,lineB,config.target,config.maxGames,rng,ratingCache,0);
           totalA=series.a;
           totalB=series.b;
+          outcomeA=totalA;
+          outcomeB=totalB;
+          scoreA=totalA;
+          scoreB=totalB;
         }
         sumA+=totalA;
         sumB+=totalB;
-        if(totalA>totalB) aWins+=1;
-        else if(totalB>totalA) bWins+=1;
+        if(outcomeA>outcomeB) aWins+=1;
+        else if(outcomeB>outcomeA) bWins+=1;
         else ties+=1;
-        const key=totalA+'-'+totalB;
+        const key=scoreA+'-'+scoreB;
         scoreMap.set(key,(scoreMap.get(key)||0)+1);
       }
       const probA=((aWins+ties*.5)/trials)*100;
