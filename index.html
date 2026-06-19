@@ -9717,6 +9717,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const YOUTUBE_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/youtube/refs/heads/main/youtube.json";
   const KAMRINI_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/RINI/main/data/kamrini-videos.json";
   const NOTICE_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/silver0love/main/notices.json";
+  const NOTICE_DISPLAY_LIMIT = 120;
 
   // 보자충 탭: URL을 직접 넣는 수동 영상 리스트입니다.
   // 형식: { title: "영상 제목", url: "영상 URL", note: "선택 메모" }
@@ -11856,7 +11857,7 @@ function createMemberCard(member) {
 
   function renderNotices() {
     if (!noticeList || !noticeCount) return;
-    const visibleNoticeItems = noticeItems.slice(0, 40);
+    const visibleNoticeItems = noticeItems.slice(0, NOTICE_DISPLAY_LIMIT);
     noticeCount.textContent = `${visibleNoticeItems.length}개`;
     if (noticeCheckedAt) {
       noticeCheckedAt.textContent = lastNoticeCheckedAt
