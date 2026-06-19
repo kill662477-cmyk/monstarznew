@@ -7956,16 +7956,35 @@ body.light-mode .cctv-name {
   color: #13233a;
 }
 
+body.light-mode .schedule-today-card {
+  background: linear-gradient(180deg, #ffffff, #edf6ff) !important;
+  background-color: #ffffff !important;
+  border-color: rgba(37,99,235,.18) !important;
+  box-shadow: 0 10px 22px rgba(52,108,176,.10);
+}
+
 body.light-mode .schedule-today-card .hub-title {
-  color: #f8fbff;
+  color: #13233a;
 }
 
 body.light-mode .schedule-today-card .hub-meta {
-  color: #cfe4ff;
+  color: #405a78;
 }
 
 body.light-mode .schedule-today-card .hub-meta::first-line {
-  color: #92c5ff;
+  color: #1d4ed8;
+}
+
+body.light-mode .schedule-today-card .hub-badge {
+  color: #1d4ed8;
+  background: #dbeafe;
+  border-color: #bfdbfe;
+}
+
+body.light-mode .schedule-today-card[data-schedule-type="mention"] .hub-badge {
+  color: #8a4b00;
+  background: rgba(245,158,11,.14);
+  border-color: rgba(217,119,6,.24);
 }
 
 @media (max-width: 1100px) {
