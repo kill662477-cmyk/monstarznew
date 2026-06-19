@@ -1,0 +1,43 @@
+name: Generate Video Thumbnails
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "기존 썸네일도 재생성 (1이면 force)"
+        required: false
+        default: "0"
+  # 직접영상(.mp4 등) 썸네일을 주기적으로 채운다. collect-tier 와 30분 오프셋.
+  schedule:
+    - cron: "30 */8 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: generate-video-thumbnails
+  cancel-in-progress: false
+
+jobs:
+  thumbnails:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Ensure ffmpeg
+        run: ffmpeg -version >/dev/null 2>&1 || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+
+      - name: Generate thumbnails
+        run: node scripts/generate-video-thumbnails.js
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          VIDEO_THUMB_FORCE: ${{ github.event.inputs.force }}

@@ -8,6 +8,7 @@
     "collect": "node scripts/collect-data.js",
     "sync-live": "node scripts/sync-soop-live-to-firebase.js",
     "export-players": "node scripts/export-manual-players.js",
+    "video-thumbnails": "node scripts/generate-video-thumbnails.js",
     "seed-record-storage": "node scripts/seed-tier-records-storage.js",
     "seed-h2h-summary": "node scripts/seed-tier-head-to-head-summaries.js",
     "seed-tier-state": "node scripts/seed-tier-state-snapshots.js"
