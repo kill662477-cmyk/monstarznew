@@ -10589,9 +10589,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       return `<img class="${escapeHtml(className)}" src="${safeLink(thumbnail)}" alt="${alt} 썸네일" loading="lazy" decoding="async">`;
     }
     if (isDirectVideoUrl(url)) {
-      // fmkorea 등 외부 .mp4는 핫링크 보호로 <video> 프레임 로드가 간헐 실패→재시도하며 썸네일이 깜빡인다.
-      // 깜빡임 제거를 위해 정적 재생-아이콘 플레이스홀더로 렌더한다. 실제 재생은 클릭 시 플레이어에서 처리.
-      return `<div class="${escapeHtml(className)} video-thumb-fallback" role="img" aria-label="${alt} 영상"></div>`;
+      // 직접 .mp4는 첫 프레임을 썸네일로 보여준다. 단, fmkorea 등 외부 호스트가 핫링크 보호로
+      // 로드에 "실패"하면 무한 재시도로 깜빡이지 않도록, onerror 시 1회만 재생-아이콘 플레이스홀더로 교체한다.
+      return `<video class="${escapeHtml(className)}" src="${safeLink(url)}#t=0.1" muted playsinline preload="metadata" aria-label="${alt} 미리보기" onerror="this.outerHTML='&lt;div class=&quot;${escapeHtml(className)} video-thumb-fallback&quot;&gt;&lt;/div&gt;'"></video>`;
     }
     return `<div class="${escapeHtml(className)}"></div>`;
   }
