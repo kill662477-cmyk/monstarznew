@@ -44,7 +44,7 @@ assertContains("mobile/index.html", mobile, [
 ]);
 
 assertContains("robots.txt", robots, ["Sitemap:", "Disallow: /api/admin/"]);
-assertContains("sitemap.xml", sitemap, ["https://monstarz-kappa.vercel.app/"]);
+assertContains("sitemap.xml", sitemap, ["https://monstarznew.vercel.app/"]);
 
 parseJson("package.json");
 parseJson("manifest.webmanifest");
