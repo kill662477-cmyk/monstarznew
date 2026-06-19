@@ -7727,6 +7727,26 @@ body.funding-overlay-host .funding-temp-frame {
   text-align: center;
 }
 
+.home-live-empty {
+  grid-column: 1 / -1;
+  min-height: 190px;
+  gap: 10px;
+}
+
+.home-live-empty img {
+  width: 74px;
+  height: 74px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 14px 30px rgba(0,0,0,.26);
+}
+
+.home-live-empty span {
+  color: #dceaff;
+  font-size: 14px;
+  font-weight: 950;
+}
+
 .hub-card-grid,
 .tool-card-grid,
 .admin-card-grid {
@@ -9984,6 +10004,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return `<div class="hub-empty ${escapeHtml(state)}">${escapeHtml(message)}</div>`;
   }
 
+  function renderHomeLiveEmpty() {
+    return `<div class="hub-empty home-live-empty"><img src="${safeLink(TEAM.logo)}" alt="캄몬스타즈 로고" loading="lazy" decoding="async"><span>현재 방송중인 사람이 없습니다</span></div>`;
+  }
+
   function renderPageEmpty(message = UI_EMPTY_TEXT, state = "empty") {
     return `<div class="empty ${escapeHtml(state)}">${escapeHtml(message)}</div>`;
   }
@@ -10209,6 +10233,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function getVideoThumbnail(item) {
     const direct = item?.thumbnail || item?.thumb || item?.thumbnailUrl || item?.image || "";
     if (direct) return String(direct);
+    const soopThumb = getSoopVodThumb(getVideoUrl(item));
+    if (soopThumb) return soopThumb;
     const videoId = getYoutubeVideoId(getVideoUrl(item));
     return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : "";
   }
@@ -10270,6 +10296,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (otherVideoPlayerOpen) otherVideoPlayerOpen.href = safeLink(url);
     if (videoId) {
       otherVideoPlayerMount.innerHTML = `<iframe src="https://www.youtube.com/embed/${escapeHtml(videoId)}?rel=0" title="${escapeHtml(title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    } else if (isSoopVodUrl(url)) {
+      otherVideoPlayerMount.innerHTML = `<div class="hub-empty">SOOP VOD 플레이어를 불러오는 중입니다.</div>`;
+      fetchSoopOembedHtml(url, title).then(embedHtml => {
+        if (activeOtherVideoUrl && activeOtherVideoUrl !== url) return;
+        mountSoopEmbedHtml(otherVideoPlayerMount, embedHtml);
+      }).catch(error => {
+        console.log("기타영상 SOOP VOD 불러오기 실패", error);
+        otherVideoPlayerMount.innerHTML = `<iframe src="${safeLink(getSoopVodEmbedUrl(url))}" title="${escapeHtml(title)}" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      });
     } else if (isDirectVideoUrl(url)) {
       otherVideoPlayerMount.innerHTML = `<video src="${safeLink(url)}" ${thumbnail ? `poster="${safeLink(thumbnail)}"` : ""} controls playsinline preload="metadata"></video>`;
     } else {
@@ -10350,7 +10385,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (homeLiveList) {
       homeLiveList.innerHTML = liveMembers.length
         ? liveMembers.map(renderLiveBroadcastHubItem).join("")
-        : renderHubEmpty();
+        : renderHomeLiveEmpty();
     }
 
     if (homeScheduleList) {
@@ -11827,7 +11862,7 @@ function createMemberCard(member) {
   };
 
   function getSoopVodId(url) {
-    const match = String(url || "").match(/vod\.sooplive\.com\/player\/(\d+)/i);
+    const match = String(url || "").match(/(?:vod\.)?(?:sooplive|afreecatv)\.com\/player\/(\d+)/i) || String(url || "").match(/(?:^|\/)player\/(\d+)(?:[/?#]|$)/i);
     return match ? match[1] : "";
   }
 
@@ -11835,12 +11870,49 @@ function createMemberCard(member) {
     return !!getSoopVodId(url);
   }
 
+  function getSoopVodEmbedUrl(url) {
+    const vodId = getSoopVodId(url);
+    return vodId ? `https://vod.sooplive.com/player/${vodId}/embed?autoPlay=true&showChat=true&mutePlay=true` : url;
+  }
+
   function getSoopVodThumb(url) {
     const vodId = getSoopVodId(url);
     return vodId ? (SOOP_VOD_THUMBNAILS[vodId] || "") : "";
   }
 
+  function mountSoopEmbedHtml(target, embedHtml) {
+    if (!target) return;
+    target.innerHTML = embedHtml;
+    const embedded = target.querySelector("iframe, embed, object, video");
+    if (embedded) {
+      embedded.setAttribute("allowfullscreen", "true");
+      embedded.style.width = "100%";
+      embedded.style.height = "100%";
+      embedded.style.border = "0";
+    }
+  }
+
+  async function fetchSoopVodMeta(vodUrl) {
+    const vodId = getSoopVodId(vodUrl);
+    if (!vodId) return {};
+    const result = window.MonstarzDataServices && typeof MonstarzDataServices.soopVodMeta === "function"
+      ? await MonstarzDataServices.soopVodMeta(vodUrl, { width: 960, height: 540 })
+      : { data: await fetch("/api/soop-vod-meta?url=" + encodeURIComponent("https://vod.sooplive.com/player/" + vodId) + "&width=960&height=540", { cache: "default" }).then(response => {
+          if (!response.ok) throw new Error("SOOP VOD meta HTTP " + response.status);
+          return response.json();
+        }) };
+    if (result.error && !result.data) throw result.error;
+    return result.data || {};
+  }
+
   async function fetchSoopOembedHtml(vodUrl, title) {
+    try {
+      const meta = await fetchSoopVodMeta(vodUrl);
+      const metaHtml = meta.html || meta.embed_html || meta.embedHtml || "";
+      if (metaHtml) return metaHtml;
+    } catch (error) {
+      console.log("SOOP VOD meta 불러오기 실패", error);
+    }
     const result = window.MonstarzDataServices
       ? await MonstarzDataServices.soopOembed(vodUrl, { width: 960, height: 540 })
       : { data: await fetch("https://openapi.sooplive.com/oembed/embedinfo?vod_url=" + encodeURIComponent(vodUrl) + "&width=960&height=540", { cache: "no-store" }).then(response => {

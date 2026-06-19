@@ -233,6 +233,16 @@
     }
   }
 
+  function getSoopVodId(value) {
+    const raw = String(value || "").trim();
+    const match = raw.match(/(?:vod\.)?(?:sooplive|afreecatv)\.com\/player\/(\d+)/i) || raw.match(/(?:^|\/)player\/(\d+)(?:[/?#]|$)/i);
+    return match ? match[1] : (/^\d+$/.test(raw) ? raw : "");
+  }
+
+  function isSoopVodUrl(value) {
+    return Boolean(getSoopVodId(value));
+  }
+
   function compactKey(value) {
     return String(value || "").replace(/\s+/g, " ").trim().toLowerCase();
   }
@@ -327,6 +337,30 @@
     );
   }
 
+  function normalizeSoopVodMetaPayload(data) {
+    const payload = data && data.data && typeof data.data === "object" ? data.data : data;
+    if (!payload || typeof payload !== "object") return {};
+    return {
+      title: payload.title || "",
+      thumbnail: payload.thumbnail || payload.thumbnail_url || payload.thumbnailUrl || "",
+      html: payload.html || payload.embed_html || payload.embedHtml || ""
+    };
+  }
+
+  async function enrichSoopVideoRows(rows, options) {
+    return Promise.all(normalizeList(rows).map(async row => {
+      if (!row || row.thumbnail || !isSoopVodUrl(row.url || row.link)) return row;
+      const result = await soopVodMeta(row.url || row.link, options);
+      const meta = normalizeSoopVodMetaPayload(result && result.data);
+      if (!meta.thumbnail && !meta.title) return row;
+      return {
+        ...row,
+        title: row.title || meta.title || "",
+        thumbnail: row.thumbnail || meta.thumbnail || ""
+      };
+    }));
+  }
+
   async function mergeNoticeMeta(items, options) {
     const base = normalizeList(items);
     const result = await getPublicOverrides(options);
@@ -369,8 +403,9 @@
   async function mergeVideoMeta(items, options) {
     const base = normalizeList(items);
     const result = await getPublicOverrides(options);
-    const rows = normalizeList(result && result.data && result.data.videos);
+    let rows = normalizeList(result && result.data && result.data.videos);
     if (!rows.length) return base;
+    rows = await enrichSoopVideoRows(rows, options);
 
     const hiddenKeys = new Set();
     const metaByKey = new Map();
@@ -494,6 +529,19 @@
     return fetchJsonCached("soop-oembed:" + vodUrl + ":" + width + "x" + height, url, ttl.videos, opts);
   }
 
+  async function soopVodMeta(vodUrl, options) {
+    const opts = options || {};
+    const width = opts.width || 960;
+    const height = opts.height || 540;
+    const vodId = getSoopVodId(vodUrl);
+    if (!vodId) return normalizeResult(null, new Error("invalid_soop_vod_url"), false, "", "error");
+    const url = "/api/soop-vod-meta?url=" +
+      encodeURIComponent("https://vod.sooplive.com/player/" + vodId) +
+      "&width=" + encodeURIComponent(width) +
+      "&height=" + encodeURIComponent(height);
+    return fetchJsonCached("soop-vod-meta:" + vodId + ":" + width + "x" + height, url, ttl.videos, opts);
+  }
+
   // ===== Phase 4: admin write functions (NOT implemented yet) =====
   // 인증/권한 분리 후 다음 패치에서 연결한다. 현재 관리자 UI는 읽기 전용이며
   // 아래 함수들은 placeholder 단계로만 둔다 (실제 DB 쓰기 금지).
@@ -546,5 +594,6 @@
     tier: (key, url, options) => fetchJsonCached("tier:" + key, url, ttl.tier, options),
     records: getRecords,
     soopOembed,
+    soopVodMeta,
   };
 })();
