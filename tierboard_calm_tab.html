@@ -153,6 +153,17 @@ body{ line-height:1.55; }
 .entry-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid rgba(142,169,208,.14)}
 .entry-title{font-size:18px;font-weight:900;color:#eef6ff}
 .entry-sub{font-size:12px;color:#8197b3;font-weight:700}
+.entry-map-pools{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.entry-map-pool{position:relative;display:grid;gap:4px;min-width:136px}
+.entry-map-pool span{color:#8ea5c0;font-size:11px;font-weight:900}
+.entry-map-pool-btn{height:34px;display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid rgba(142,169,208,.22);border-radius:9px;background:rgba(3,10,20,.58);color:#eef6ff;font-size:12px;font-weight:850;padding:0 9px;outline:none;cursor:pointer}
+.entry-map-pool-btn:after{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);opacity:.72;flex:0 0 auto}
+.entry-map-pool.open .entry-map-pool-btn{border-color:rgba(105,239,145,.55);box-shadow:0 0 0 3px rgba(105,239,145,.10)}
+.entry-map-menu{position:absolute;top:100%;right:0;z-index:30;width:240px;max-height:292px;overflow:auto;margin-top:6px;padding:8px;border:1px solid rgba(142,169,208,.22);border-radius:11px;background:rgba(5,15,28,.98);box-shadow:0 18px 42px rgba(0,0,0,.38);display:none}
+.entry-map-pool.open .entry-map-menu{display:grid;gap:5px}
+.entry-map-check{display:flex;align-items:center;gap:8px;min-height:30px;padding:5px 7px;border-radius:8px;color:#dcecff;font-size:12px;font-weight:850;cursor:pointer}
+.entry-map-check:hover{background:rgba(90,167,255,.10)}
+.entry-map-check input{accent-color:#69ef91}
 .entry-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px}
 .entry-team{border:1px solid rgba(142,169,208,.15);border-radius:12px;background:rgba(5,15,28,.40);min-width:0}
 .entry-team.team-a{border-color:rgba(90,167,255,.30)}
@@ -173,7 +184,7 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .entry-avatar{width:30px;height:30px;border-radius:8px;object-fit:cover;background:#10233a}
 .entry-player-name{font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .entry-player-meta{font-size:12px;color:#8da3be;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.entry-roster-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px}
+.entry-roster-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(118px,148px) minmax(0,.92fr);gap:12px;padding:16px}
 .entry-roster{min-height:146px;border:1px solid rgba(142,169,208,.13);border-radius:12px;background:rgba(5,15,28,.34);padding:12px}
 .entry-roster-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:14px;font-weight:900;color:#f4f8ff}
 .entry-empty{display:grid;place-items:center;min-height:96px;color:#7e94ae;font-size:13px;font-weight:700;border:1px dashed rgba(142,169,208,.20);border-radius:10px}
@@ -190,6 +201,13 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .entry-slot-empty:hover,.entry-slot-empty.active{border-style:solid;border-color:rgba(90,167,255,.48);background:rgba(90,167,255,.08);box-shadow:0 0 0 2px rgba(90,167,255,.07)}
 .entry-slot-empty b{display:block;color:#c6d9f0;font-size:13px;font-weight:900}
 .entry-slot-empty small{display:block;color:#7f95b0;font-size:12px;font-weight:750}
+.entry-map-roster{border-color:rgba(105,239,145,.20);background:rgba(4,18,25,.32)}
+.entry-map-list{display:grid;gap:8px}
+.entry-map-slot{min-height:52px;display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:center;padding:8px;border:1px solid rgba(142,169,208,.13);border-radius:10px;background:rgba(7,21,35,.50)}
+.entry-map-slot.active{border-color:rgba(105,239,145,.34);background:rgba(25,75,55,.22)}
+.entry-map-select{width:100%;height:34px;min-width:0;border:1px solid rgba(142,169,208,.22);border-radius:8px;background:rgba(3,10,20,.62);color:#eef6ff;font-size:12px;font-weight:850;padding:0 8px;outline:none}
+.entry-map-select:focus{border-color:rgba(105,239,145,.55);box-shadow:0 0 0 3px rgba(105,239,145,.10)}
+.entry-map-select option{background:#071321;color:#eef6ff}
 .entry-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:0 16px 16px}
 .entry-toolbar-left,.entry-toolbar-right{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .entry-small-select{height:38px;border:1px solid rgba(142,169,208,.22);border-radius:9px;background:rgba(3,10,20,.55);color:#eef6ff;font-weight:800;padding:0 10px}
@@ -226,6 +244,11 @@ html.light .view-tab{color:#607995} html.light .view-tab:hover,html.light .view-
 html.light .entry-team,html.light .entry-roster,html.light .entry-stat-scroll,html.light .sim-card{background:#f7fbff;border-color:var(--line)}
 html.light .entry-title,html.light .entry-team-name,html.light .entry-roster-title,html.light .entry-player-name,html.light .entry-chip b,html.light .sim-side b,html.light .sim-side strong{color:#1f3a5c}
 html.light .entry-sub,html.light .entry-count,html.light .entry-player-meta,html.light .entry-chip small,html.light .sim-note{color:#6a809c}
+html.light .entry-map-pool span{color:#6a809c}
+html.light .entry-map-pool-btn{background:#fff;color:#1f3a5c;border-color:var(--line)}
+html.light .entry-map-menu{background:#fff;border-color:var(--line);box-shadow:0 18px 42px rgba(40,90,160,.18)}
+html.light .entry-map-check{color:#1f3a5c}
+html.light .entry-map-check:hover{background:rgba(31,111,214,.08)}
 html.light .entry-control,html.light .entry-small-select{background:#fff;color:#1f3a5c;border-color:var(--line)}
 html.light .entry-player,html.light .entry-chip{background:#fff;border-color:var(--line);color:#1f3a5c}
 html.light .entry-chip.entry-slot:hover,html.light .entry-chip.entry-slot.active{background:#eef5ff;border-color:rgba(31,111,214,.36);box-shadow:0 0 0 2px rgba(31,111,214,.08)}
@@ -234,11 +257,15 @@ html.light .entry-slot-empty{background:#fff;border-color:rgba(40,98,160,.18);co
 html.light .entry-slot-empty:hover,html.light .entry-slot-empty.active{background:#eef5ff;border-color:rgba(31,111,214,.36);box-shadow:0 0 0 2px rgba(31,111,214,.08)}
 html.light .entry-slot-empty b{color:#1f3a5c}
 html.light .entry-slot-empty small{color:#6a809c}
+html.light .entry-map-roster{background:#f7fbff;border-color:rgba(15,150,70,.18)}
+html.light .entry-map-slot{background:#fff;border-color:var(--line)}
+html.light .entry-map-slot.active{background:rgba(15,150,70,.06);border-color:rgba(15,150,70,.26)}
+html.light .entry-map-select{background:#fff;color:#1f3a5c;border-color:var(--line)}
 html.light .entry-btn{background:#eef5ff;color:#1f3a5c;border-color:var(--line)} html.light .entry-btn.primary{background:#3f82f6;color:#fff}
 html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} html.light .entry-stat-scroll td{color:#1f3a5c;border-bottom-color:rgba(40,90,160,.10)}
 html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08)} html.light .entry-match-badge.random{color:#936118;background:rgba(255,166,64,.14)}
 @media (max-width:1050px){.entry-tool{grid-template-columns:1fr}.entry-list{height:330px}}
-@media (max-width:720px){.view-tabs{overflow:auto}.entry-columns,.entry-roster-grid{grid-template-columns:1fr}.entry-toolbar{align-items:stretch}.entry-toolbar-left,.entry-toolbar-right{width:100%}.entry-small-select,.entry-btn{flex:1}.sim-score{grid-template-columns:1fr;gap:10px}}
+@media (max-width:720px){.view-tabs{overflow:auto}.entry-card-head{align-items:stretch;flex-direction:column}.entry-map-pools{justify-content:stretch}.entry-map-pool{flex:1;min-width:0}.entry-columns,.entry-roster-grid{grid-template-columns:1fr}.entry-toolbar{align-items:stretch}.entry-toolbar-left,.entry-toolbar-right{width:100%}.entry-small-select,.entry-btn{flex:1}.sim-score{grid-template-columns:1fr;gap:10px}}
 </style>
 
 <script>
@@ -328,11 +355,16 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
             <div class="entry-title">엔트리</div>
             <div class="entry-sub" id="entryDataStatus">대기중</div>
           </div>
+          <div class="entry-map-pools" id="entryMapPools" aria-label="메인 맵 선택"></div>
         </div>
         <div class="entry-roster-grid">
           <section class="entry-roster">
             <div class="entry-roster-title"><span>A팀 엔트리</span><span id="entryRosterCountA">0명</span></div>
             <div id="entryRosterA"></div>
+          </section>
+          <section class="entry-roster entry-map-roster">
+            <div class="entry-roster-title"><span>맵</span><span>디폴트</span></div>
+            <div class="entry-map-list" id="entryMapSlots"></div>
           </section>
           <section class="entry-roster">
             <div class="entry-roster-title"><span>B팀 엔트리</span><span id="entryRosterCountB">0명</span></div>
@@ -5600,6 +5632,8 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     const entryListB = document.getElementById('entryListB');
     const entryRosterA = document.getElementById('entryRosterA');
     const entryRosterB = document.getElementById('entryRosterB');
+    const entryMapSlots = document.getElementById('entryMapSlots');
+    const entryMapPools = document.getElementById('entryMapPools');
     const entryCountA = document.getElementById('entryCountA');
     const entryCountB = document.getElementById('entryCountB');
     const entryRosterCountA = document.getElementById('entryRosterCountA');
@@ -5632,6 +5666,8 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     const headContent = document.getElementById('headContent');
     const FILTER_STORAGE_KEY = 'kammonstarz-tierboard-filters-v1';
     const ENTRY_SLOT_COUNT = 9;
+    const ENTRY_DEFAULT_MAP = '';
+    const ENTRY_FALLBACK_MAPS = ['투혼','폴리포이드','레트로','라데온','민스트럴','이클립스','데자뷰','네오 실피드','버미어','킥백'];
     function loadSavedFilters(){
       try{
         const saved=JSON.parse(localStorage.getItem(FILTER_STORAGE_KEY)||'{}');
@@ -5712,6 +5748,9 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       view:'tier',
       teamA:[],
       teamB:[],
+      slotMaps:Array(ENTRY_SLOT_COUNT).fill(ENTRY_DEFAULT_MAP),
+      mapPoolMen:[],
+      mapPoolWomen:[],
       selectedSlotA:0,
       selectedSlotB:0,
       academyA:'all',
@@ -5902,6 +5941,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const seen=new Set();
       entryState.teamA=normalizeEntrySlots(entryState.teamA,seen);
       entryState.teamB=normalizeEntrySlots(entryState.teamB,seen);
+      cleanEntryMaps();
       ['A','B'].forEach(team=>{
         const slotKey=entrySelectedSlotKey(team);
         const value=Number(entryState[slotKey]);
@@ -5938,6 +5978,131 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       setEntrySlots(team,slots);
       setEntrySelectedSlot(team,slotIndex);
       return true;
+    }
+    function entryMapName(row){ return String((row&&row.map)||row.mapName||row.mapTitle||'').trim(); }
+    function entryNormalizeMapName(value){ return String(value||'').trim().normalize('NFKC').replace(/\s+/g,'').toLowerCase(); }
+    function entryMapContextList(value){
+      const source=Array.isArray(value)?value:(value?[value]:[]);
+      const seen=new Set();
+      return source.map(item=>String(item||'').trim()).filter(item=>{
+        const key=entryNormalizeMapName(item);
+        if(!key||seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+    function entryHasMapContext(value){ return entryMapContextList(value).length>0; }
+    function entryMapContextKey(value){
+      const list=entryMapContextList(value).map(entryNormalizeMapName).sort();
+      return list.length?list.join('+'):'ALL';
+    }
+    function entryMapContextLabel(value){
+      const list=entryMapContextList(value);
+      return list.length?list.join(' / '):'디폴트';
+    }
+    function entryMapMatches(row,mapContext){
+      const list=entryMapContextList(mapContext);
+      if(!list.length) return true;
+      const rowKey=entryNormalizeMapName(entryMapName(row));
+      return Boolean(rowKey&&list.some(name=>entryNormalizeMapName(name)===rowKey));
+    }
+    function entrySlotMap(index){
+      const value=entryState.slotMaps&&entryState.slotMaps[index];
+      return String(value||ENTRY_DEFAULT_MAP).trim();
+    }
+    function entrySelectedPoolMaps(){
+      return entryMapContextList([...(entryState.mapPoolMen||[]),...(entryState.mapPoolWomen||[])]);
+    }
+    function entryEffectiveMapContext(index){
+      const slotMap=entrySlotMap(index);
+      return slotMap?[slotMap]:entrySelectedPoolMaps();
+    }
+    function setEntrySlotMap(index,value){
+      const slotIndex=Math.max(0,Math.min(ENTRY_SLOT_COUNT-1,Number(index)||0));
+      const next=Array.isArray(entryState.slotMaps)?entryState.slotMaps.slice():Array(ENTRY_SLOT_COUNT).fill(ENTRY_DEFAULT_MAP);
+      next[slotIndex]=String(value||ENTRY_DEFAULT_MAP).trim();
+      entryState.slotMaps=Array.from({length:ENTRY_SLOT_COUNT},(_,i)=>next[i]||ENTRY_DEFAULT_MAP);
+    }
+    function setEntryPoolMap(pool,value,checked){
+      const key=pool==='women'?'mapPoolWomen':'mapPoolMen';
+      const selected=entryMapContextList(entryState[key]||[]);
+      const mapName=String(value||'').trim();
+      const mapKey=entryNormalizeMapName(mapName);
+      const filtered=selected.filter(name=>entryNormalizeMapName(name)!==mapKey);
+      if(checked&&mapKey) filtered.push(mapName);
+      entryState[key]=filtered;
+      cleanEntryMaps();
+    }
+    function entryRowInLookback(row){
+      const time=entryRowTime(row);
+      return Boolean(time&&time>=Date.now()-ENTRY_RECORD_LOOKBACK_DAYS*86400000);
+    }
+    function entryBaseMapOptions(extra=[]){
+      const counts=new Map();
+      function add(name,weight=1){
+        const label=String(name||'').trim();
+        if(!label) return;
+        const key=entryNormalizeMapName(label);
+        if(!key) return;
+        const item=counts.get(key)||{label,count:0};
+        item.count+=weight;
+        if(label.length<item.label.length || item.label===key) item.label=label;
+        counts.set(key,item);
+      }
+      selectedEntryKeys().forEach(key=>{
+        const player=playerByKey(key);
+        const rows=player?entryRowsForPlayer(player):null;
+        (rows||[]).forEach(row=>{ if(entryRowInLookback(row)) add(entryMapName(row),3); });
+      });
+      entryMapContextList(extra).forEach(name=>add(name,4));
+      ENTRY_FALLBACK_MAPS.forEach(name=>add(name,1));
+      return Array.from(counts.values()).sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'ko')).map(item=>item.label);
+    }
+    function entryAvailableSlotMaps(){
+      const pool=entrySelectedPoolMaps();
+      if(pool.length) return pool;
+      return entryBaseMapOptions(entryState.slotMaps||[]);
+    }
+    function cleanEntryMaps(){
+      entryState.mapPoolMen=entryMapContextList(entryState.mapPoolMen||[]);
+      entryState.mapPoolWomen=entryMapContextList(entryState.mapPoolWomen||[]);
+      const allowed=entrySelectedPoolMaps();
+      const allowedSet=new Set(allowed.map(entryNormalizeMapName));
+      const maps=Array.isArray(entryState.slotMaps)?entryState.slotMaps.slice(0,ENTRY_SLOT_COUNT):[];
+      entryState.slotMaps=Array.from({length:ENTRY_SLOT_COUNT},(_,index)=>{
+        const value=String(maps[index]||ENTRY_DEFAULT_MAP).trim();
+        if(value&&allowedSet.size&&!allowedSet.has(entryNormalizeMapName(value))) return ENTRY_DEFAULT_MAP;
+        return value;
+      });
+    }
+    function renderEntryMapPools(){
+      const options=entryBaseMapOptions([...entrySelectedPoolMaps(),...(entryState.slotMaps||[])]);
+      function poolHtml(pool,label,selected){
+        const selectedList=entryMapContextList(selected);
+        const selectedSet=new Set(selectedList.map(entryNormalizeMapName));
+        const summary=selectedList.length?selectedList.length+'개 선택':'디폴트';
+        return '<div class="entry-map-pool" data-entry-map-pool="'+pool+'"><span>'+label+'</span><button class="entry-map-pool-btn" type="button" data-entry-map-toggle="'+pool+'">'+escapeHtml(summary)+'</button><div class="entry-map-menu">'+
+          options.map(name=>'<label class="entry-map-check"><input type="checkbox" data-entry-pool-map="'+pool+'" value="'+escapeAttr(name)+'" '+(selectedSet.has(entryNormalizeMapName(name))?'checked':'')+'> '+escapeHtml(name)+'</label>').join('')+
+        '</div></div>';
+      }
+      entryMapPools.innerHTML=poolHtml('men','남자맵 선택',entryState.mapPoolMen)+poolHtml('women','여자맵 선택',entryState.mapPoolWomen);
+    }
+    function closeEntryMapPools(exceptPool){
+      entryMapPools.querySelectorAll('.entry-map-pool').forEach(pool=>{
+        if(exceptPool&&pool===exceptPool) return;
+        pool.classList.remove('open');
+      });
+    }
+    function renderEntryMapSlots(){
+      const maps=entryAvailableSlotMaps();
+      const poolLabel=entryMapContextLabel(entrySelectedPoolMaps());
+      entryMapSlots.innerHTML=Array.from({length:ENTRY_SLOT_COUNT},(_,index)=>{
+        const value=entrySlotMap(index);
+        const active=value?' active':'';
+        const defaultText=poolLabel==='디폴트'?'디폴트':'디폴트('+poolLabel+')';
+        const options=['<option value="">'+escapeHtml(defaultText)+'</option>'].concat(maps.map(name=>'<option value="'+escapeAttr(name)+'" '+(entryNormalizeMapName(name)===entryNormalizeMapName(value)?'selected':'')+'>'+escapeHtml(name)+'</option>')).join('');
+        return '<div class="entry-map-slot'+active+'"><span class="entry-slot-number">'+(index+1)+'</span><select class="entry-map-select" data-entry-map-index="'+index+'" aria-label="'+(index+1)+'매치 맵 선택">'+options+'</select></div>';
+      }).join('');
     }
     function isDefaultEntryAcademy(name){
       return String(name||'').replace(/\s+/g,'').includes('\uCE84\uBAAC');
@@ -6030,10 +6195,10 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       entryState.modelCache.clear();
     }
     function entryPairRowId(row){
-      return [rowDate(row),rowWinnerId(row)||rowWinnerName(row),rowLoserId(row)||rowLoserName(row),row.map||row.mapName||''].join('|');
+      return [rowDate(row),rowWinnerId(row)||rowWinnerName(row),rowLoserId(row)||rowLoserName(row),entryMapName(row)].join('|');
     }
-    function entryHeadToHeadCacheKey(playerA,playerB,period){
-      return [playerKey(playerA),playerKey(playerB),period].join('||');
+    function entryHeadToHeadCacheKey(playerA,playerB,period,mapContext){
+      return [playerKey(playerA),playerKey(playerB),period,entryMapContextKey(mapContext)].join('||');
     }
     function entrySummaryPairKey(playerA,playerB){
       return [playerKey(playerA),playerKey(playerB)].join('||');
@@ -6094,12 +6259,13 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
         rate:Number(stat.rate||0)
       };
     }
-    function entryHeadToHeadStats(playerA,playerB,period){
-      const cacheKey=entryHeadToHeadCacheKey(playerA,playerB,period);
+    function entryHeadToHeadStats(playerA,playerB,period,mapContext){
+      const cacheKey=entryHeadToHeadCacheKey(playerA,playerB,period,mapContext);
       if(entryState.h2hCache.has(cacheKey)) return entryState.h2hCache.get(cacheKey);
       const rowsA=entryRowsForPlayer(playerA);
       const rowsB=entryRowsForPlayer(playerB);
-      if(!rowsA&&!rowsB){
+      const hasMapContext=entryHasMapContext(mapContext);
+      if(!hasMapContext&&!rowsA&&!rowsB){
         const remote=entryRemoteHeadToHeadStats(playerA,playerB,period);
         if(remote) entryState.h2hCache.set(cacheKey,remote);
         return remote;
@@ -6109,6 +6275,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       function addRows(rows,owner,opponent,invert){
         (rows||[]).forEach(row=>{
           if(!entryInPeriod(row,period)||!rowContainsPlayer(row,owner)||!rowMatchesOpponent(row,owner,opponent)) return;
+          if(hasMapContext&&!entryMapMatches(row,mapContext)) return;
           const id=entryPairRowId(row);
           if(seen.has(id)) return;
           seen.add(id);
@@ -6137,35 +6304,95 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       if(!selectedA.length||!selectedB.length){ entryStatsTable.innerHTML='<div class="entry-empty">A팀과 B팀 선수를 선택하면 매치 상대전적을 표시합니다.</div>'; return; }
       if(!pairs.length){ entryStatsTable.innerHTML='<div class="entry-empty">서로 맞붙을 선수를 같은 슬롯에 배치해주세요.</div>'; return; }
       const note=selectedA.length!==selectedB.length?'<div class="entry-sub" style="padding:0 16px 12px">빈 슬롯이 있는 선수는 상대전적 표에서 제외됩니다.</div>':'';
-      entryStatsTable.innerHTML='<div class="entry-stat-scroll"><table><thead><tr><th>매치</th><th>A팀 선수</th><th>B팀 선수</th>'+entryPeriods.map(p=>'<th>'+p.label+' A기준</th>').join('')+'</tr></thead><tbody>'+
+      entryStatsTable.innerHTML='<div class="entry-stat-scroll"><table><thead><tr><th>매치</th><th>맵</th><th>A팀 선수</th><th>B팀 선수</th>'+entryPeriods.map(p=>'<th>'+p.label+' A기준</th>').join('')+'</tr></thead><tbody>'+
         pairs.map(pair=>{
           const index=pair.slotIndex;
           const playerA=pair.playerA;
           const playerB=pair.playerB;
+          const mapContext=entryEffectiveMapContext(index);
           const loading=entryState.loadingSummaries.has(entrySummaryPairKey(playerA,playerB))||entryState.loadingRecords.has(playerKey(playerA))||entryState.loadingRecords.has(playerKey(playerB));
-          const cells=entryPeriods.map(period=>'<td>'+formatEntryHeadStat(entryHeadToHeadStats(playerA,playerB,period.key),loading)+'</td>').join('');
-          return '<tr><td>'+(index+1)+'매치</td><td>'+escapeHtml(playerA.name)+' <span class="race-badge '+escapeAttr(playerA.race)+'">'+escapeHtml(playerA.race)+'</span></td><td>'+escapeHtml(playerB.name)+' <span class="race-badge '+escapeAttr(playerB.race)+'">'+escapeHtml(playerB.race)+'</span></td>'+cells+'</tr>';
+          const cells=entryPeriods.map(period=>'<td>'+formatEntryHeadStat(entryHeadToHeadStats(playerA,playerB,period.key,mapContext),loading)+'</td>').join('');
+          return '<tr><td>'+(index+1)+'매치</td><td>'+escapeHtml(entryMapContextLabel(mapContext))+'</td><td>'+escapeHtml(playerA.name)+' <span class="race-badge '+escapeAttr(playerA.race)+'">'+escapeHtml(playerA.race)+'</span></td><td>'+escapeHtml(playerB.name)+' <span class="race-badge '+escapeAttr(playerB.race)+'">'+escapeHtml(playerB.race)+'</span></td>'+cells+'</tr>';
         }).join('')+'</tbody></table></div>'+note;
     }
-    function entryDirectHeadToHeadModel(playerA,playerB,baseRate){
+    function entryDirectHeadToHeadModel(playerA,playerB,baseRate,mapContext){
       const weightedPeriods=[{key:'m1',weight:1.5},{key:'m3',weight:1.15},{key:'y2026',weight:.85},{key:'all',weight:.45}];
       let weightedWins=0,weightedTotal=0,totalGames=0;
+      const hasMapContext=entryHasMapContext(mapContext);
       weightedPeriods.forEach(period=>{
         const stat=entryHeadToHeadStats(playerA,playerB,period.key);
         if(!stat||!stat.total) return;
         weightedWins+=stat.wins*period.weight;
         weightedTotal+=stat.total*period.weight;
         totalGames=Math.max(totalGames,stat.total);
+        if(hasMapContext){
+          const mapStat=entryHeadToHeadStats(playerA,playerB,period.key,mapContext);
+          if(mapStat&&mapStat.total){
+            const mapWeight=period.weight*.65;
+            weightedWins+=mapStat.wins*mapWeight;
+            weightedTotal+=mapStat.total*mapWeight;
+            totalGames=Math.max(totalGames,mapStat.total);
+          }
+        }
       });
       if(!weightedTotal) return {available:false,rate:baseRate,weight:0,total:0};
       const priorGames=totalGames>=12?2.5:totalGames>=6?4:6;
       const rate=entryClamp((baseRate*priorGames+weightedWins)/(priorGames+weightedTotal),.08,.92);
       return {available:true,rate,weight:.50,total:totalGames};
     }
-    function entryBlendDirectHeadToHead(baseRate,playerA,playerB){
-      const h2h=entryDirectHeadToHeadModel(playerA,playerB,baseRate);
+    function entryBlendDirectHeadToHead(baseRate,playerA,playerB,mapContext){
+      const h2h=entryDirectHeadToHeadModel(playerA,playerB,baseRate,mapContext);
       if(!h2h.available) return baseRate;
       return entryClamp(h2h.rate*h2h.weight+baseRate*(1-h2h.weight),.06,.94);
+    }
+    function entryWeightedMapHeadToHead(playerA,playerB,mapContext){
+      if(!entryHasMapContext(mapContext)) return {available:false,wins:0,total:0,rate:0};
+      const weightedPeriods=[{key:'m1',weight:1.5},{key:'m3',weight:1.15},{key:'y2026',weight:.85},{key:'all',weight:.45}];
+      let wins=0,total=0,rawTotal=0;
+      weightedPeriods.forEach(period=>{
+        const stat=entryHeadToHeadStats(playerA,playerB,period.key,mapContext);
+        if(!stat||!stat.total) return;
+        wins+=stat.wins*period.weight;
+        total+=stat.total*period.weight;
+        rawTotal=Math.max(rawTotal,stat.total);
+      });
+      return {available:total>0,wins,total,rawTotal,rate:total?wins/total:0};
+    }
+    function entryPairEloProbability(playerA,playerB,modelCache){
+      const modelA=entryBlendedModel(playerA,playerB.race,modelCache,[]);
+      const modelB=entryBlendedModel(playerB,playerA.race,modelCache,[]);
+      const uncertainty=Math.sqrt(modelA.sigma*modelA.sigma+modelB.sigma*modelB.sigma);
+      const adjustedDiff=(modelA.elo-modelB.elo)/Math.sqrt(1+Math.pow(uncertainty/420,2));
+      return entryClamp(entryEloToProb(adjustedDiff),.06,.94);
+    }
+    function entryMapSpecificRate(playerA,playerB,modelCache,mapContext,baseRate){
+      if(!entryHasMapContext(mapContext)) return {available:false,rate:baseRate};
+      const baseA=entryBlendedModel(playerA,playerB.race,modelCache,[]);
+      const baseB=entryBlendedModel(playerB,playerA.race,modelCache,[]);
+      const mapA=entryMapPlayerModel(playerA,playerB.race,mapContext,modelCache);
+      const mapB=entryMapPlayerModel(playerB,playerA.race,mapContext,modelCache);
+      const hasModel=Boolean((mapA&&mapA.available)||(mapB&&mapB.available));
+      const modelA=mapA&&mapA.available?mapA:baseA;
+      const modelB=mapB&&mapB.available?mapB:baseB;
+      const uncertainty=Math.sqrt(modelA.sigma*modelA.sigma+modelB.sigma*modelB.sigma);
+      const mapEloRate=entryClamp(entryEloToProb((modelA.elo-modelB.elo)/Math.sqrt(1+Math.pow(uncertainty/420,2))),.06,.94);
+      const mapH2h=entryWeightedMapHeadToHead(playerA,playerB,mapContext);
+      if(!hasModel&&!mapH2h.available) return {available:false,rate:baseRate};
+      if(!mapH2h.available) return {available:true,rate:mapEloRate};
+      const priorGames=mapH2h.rawTotal>=8?3:5;
+      return {available:true,rate:entryClamp((mapEloRate*priorGames+mapH2h.wins)/(priorGames+mapH2h.total),.06,.94)};
+    }
+    function entryCompositeProbability(playerA,playerB,modelCache,mapContext,eloRate){
+      const h2h=entryDirectHeadToHeadModel(playerA,playerB,eloRate,[]);
+      const hasMap=entryHasMapContext(mapContext);
+      const map=hasMap?entryMapSpecificRate(playerA,playerB,modelCache,mapContext,eloRate):{available:false,rate:eloRate};
+      const parts=[
+        {rate:eloRate,weight:.30},
+        {rate:h2h.available?h2h.rate:eloRate,weight:.50}
+      ];
+      if(hasMap) parts.push({rate:map.available?map.rate:eloRate,weight:.20});
+      const total=parts.reduce((sum,item)=>sum+item.weight,0);
+      return entryClamp(parts.reduce((sum,item)=>sum+item.rate*item.weight,0)/total,.06,.94);
     }
     function entrySlotLineup(team){ return entrySlots(team).map(key=>key?playerByKey(key):null); }
     function entryLineup(team){ return entrySlotLineup(team).filter(Boolean); }
@@ -6205,15 +6432,11 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const local=index%config.maxGames+1;
       return block+'세트 '+local+'매치';
     }
-    function entryExpectedPairProbability(playerA,playerB,modelCache){
-      const modelA=entryBlendedModel(playerA,playerB.race,modelCache);
-      const modelB=entryBlendedModel(playerB,playerA.race,modelCache);
-      const uncertainty=Math.sqrt(modelA.sigma*modelA.sigma+modelB.sigma*modelB.sigma);
-      const adjustedDiff=(modelA.elo-modelB.elo)/Math.sqrt(1+Math.pow(uncertainty/420,2));
-      const baseRate=entryClamp(entryEloToProb(adjustedDiff),.06,.94);
-      return entryBlendDirectHeadToHead(baseRate,playerA,playerB);
+    function entryExpectedPairProbability(playerA,playerB,modelCache,mapContext){
+      const eloRate=entryPairEloProbability(playerA,playerB,modelCache);
+      return entryCompositeProbability(playerA,playerB,modelCache,mapContext,eloRate);
     }
-    function entryAverageRandomProbability(lineA,lineB,modelCache){
+    function entryAverageRandomProbability(lineA,lineB,modelCache,mapContext){
       let pool=entryPairPool(lineA,lineB);
       if(!pool.length){
         const availableA=lineA.filter(Boolean);
@@ -6221,7 +6444,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
         pool=availableA.flatMap(playerA=>availableB.map(playerB=>({playerA,playerB})));
       }
       if(!pool.length) return null;
-      return pool.reduce((sum,pair)=>sum+entryExpectedPairProbability(pair.playerA,pair.playerB,modelCache),0)/pool.length;
+      return pool.reduce((sum,pair)=>sum+entryExpectedPairProbability(pair.playerA,pair.playerB,modelCache,mapContext),0)/pool.length;
     }
     function renderEntryMatchTable(){
       const lineA=entrySlotLineup('A');
@@ -6232,18 +6455,19 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const modelCache=entryState.modelCache;
       const rows=[];
       const maxSlots=entryModeSlots(config);
-      const randomAverage=entryAverageRandomProbability(lineA,lineB,modelCache);
       for(let index=0;index<maxSlots;index++){
         const isTieBreaker=entryIsDoubleTieBreakerSlot(config,index);
+        const mapContext=isTieBreaker?[]:entryEffectiveMapContext(entryDoubleSetSlotIndex(config,index));
+        const mapLabel=entryMapContextLabel(mapContext);
         const fixed=isTieBreaker?null:entryFixedPairAt(lineA,lineB,entryDoubleSetSlotIndex(config,index));
         if(fixed){
-          const prob=entryExpectedPairProbability(fixed.playerA,fixed.playerB,modelCache);
-          rows.push({label:entrySlotLabel(config,index),a:fixed.playerA.name,b:fixed.playerB.name,prob,kind:'fixed'});
+          const prob=entryExpectedPairProbability(fixed.playerA,fixed.playerB,modelCache,mapContext);
+          rows.push({label:entrySlotLabel(config,index),map:mapLabel,a:fixed.playerA.name,b:fixed.playerB.name,prob,kind:'fixed'});
         }else{
-          rows.push({label:entrySlotLabel(config,index),a:'랜덤',b:'랜덤',prob:randomAverage,kind:'random'});
+          rows.push({label:entrySlotLabel(config,index),map:mapLabel,a:'랜덤',b:'랜덤',prob:entryAverageRandomProbability(lineA,lineB,modelCache,mapContext),kind:'random'});
         }
       }
-      entryMatchTable.innerHTML='<div class="entry-stat-scroll"><table><thead><tr><th>매치</th><th>A팀</th><th>B팀</th><th>A 승률</th><th>B 승률</th><th>방식</th></tr></thead><tbody>'+
+      entryMatchTable.innerHTML='<div class="entry-stat-scroll"><table><thead><tr><th>매치</th><th>맵</th><th>A팀</th><th>B팀</th><th>A 승률</th><th>B 승률</th><th>방식</th></tr></thead><tbody>'+
         rows.map(row=>{
           const prob=row.prob===null?null:row.prob*100;
           const bProb=prob===null?null:100-prob;
@@ -6251,13 +6475,13 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
           const bWin=prob!==null&&bProb>prob;
           const aCell=prob===null?'-':'<span class="'+entryStatClass(prob)+'">'+prob.toFixed(1)+'%</span>'+(aWin?'<span class="entry-win-mark">승</span>':'');
           const bCell=prob===null?'-':'<span class="'+entryStatClass(bProb)+'">'+bProb.toFixed(1)+'%</span>'+(bWin?'<span class="entry-win-mark">승</span>':'');
-          return '<tr><td>'+escapeHtml(row.label)+'</td><td>'+escapeHtml(row.a)+'</td><td>'+escapeHtml(row.b)+'</td><td>'+aCell+'</td><td>'+bCell+'</td><td><span class="entry-match-badge '+row.kind+'">'+(row.kind==='fixed'?'고정':'랜덤')+'</span></td></tr>';
+          return '<tr><td>'+escapeHtml(row.label)+'</td><td>'+escapeHtml(row.map)+'</td><td>'+escapeHtml(row.a)+'</td><td>'+escapeHtml(row.b)+'</td><td>'+aCell+'</td><td>'+bCell+'</td><td><span class="entry-match-badge '+row.kind+'">'+(row.kind==='fixed'?'고정':'랜덤')+'</span></td></tr>';
         }).join('')+'</tbody></table></div>';
     }
     function renderEntrySimulation(){
       const sim=entryState.simulation;
       if(!sim){ entrySimulation.innerHTML='<div class="entry-empty">시뮬레이션 대기</div>'; return; }
-      entrySimulation.innerHTML='<div class="sim-card"><div class="sim-score"><div class="sim-side"><b>A팀</b><strong>'+sim.probA.toFixed(1)+'%</strong></div><div class="sim-vs"><div>'+escapeHtml(sim.modeLabel)+'</div><div>'+escapeHtml(sim.scoreLabel)+'</div></div><div class="sim-side"><b>B팀</b><strong>'+sim.probB.toFixed(1)+'%</strong></div></div><div class="sim-prob"><span style="width:'+Math.max(0,Math.min(100,sim.probA))+'%"></span></div><div class="sim-note">예상 평균 '+sim.avgA.toFixed(1)+' : '+sim.avgB.toFixed(1)+' · 베이지안 Elo, 최근 반감기, 상대강도, CK/대회 가중치 반영</div></div>';
+      entrySimulation.innerHTML='<div class="sim-card"><div class="sim-score"><div class="sim-side"><b>A팀</b><strong>'+sim.probA.toFixed(1)+'%</strong></div><div class="sim-vs"><div>'+escapeHtml(sim.modeLabel)+'</div><div>'+escapeHtml(sim.scoreLabel)+'</div></div><div class="sim-side"><b>B팀</b><strong>'+sim.probB.toFixed(1)+'%</strong></div></div><div class="sim-prob"><span style="width:'+Math.max(0,Math.min(100,sim.probA))+'%"></span></div><div class="sim-note">예상 평균 '+sim.avgA.toFixed(1)+' : '+sim.avgB.toFixed(1)+' · ELO/베이지안 30%, 상대전적 50%, 선택 맵데이터 20%</div></div>';
     }
     function renderEntryStatus(){
       const keys=selectedEntryKeys();
@@ -6281,6 +6505,8 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       renderEntryList('A');
       renderEntryList('B');
       renderEntryRoster('A');
+      renderEntryMapPools();
+      renderEntryMapSlots();
       renderEntryRoster('B');
       renderEntryStatus();
       renderEntryStats();
@@ -6456,40 +6682,84 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
       const u2=Math.max(1e-9,rng());
       return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
     }
-    function entryBlendedModel(player,opponentRace,modelCache){
+    function entryMapPlayerModel(player,opponentRace,mapContext,modelCache){
+      if(!entryHasMapContext(mapContext)) return null;
+      const cacheKey=playerKey(player)+'|MAP|'+(opponentRace||'ALL')+'|'+entryMapContextKey(mapContext);
+      if(modelCache.has(cacheKey)) return modelCache.get(cacheKey);
+      const rows=entryRowsForPlayer(player)||[];
+      const priorRate=entryPriorRate(player);
+      const priorGames=10;
+      const priorElo=entryRateToElo(priorRate);
+      let weightedWins=0, weightedTotal=0, residual=0, rawTotal=0;
+      rows.forEach(row=>{
+        if(!rowContainsPlayer(row,player)) return;
+        if(!entryMapMatches(row,mapContext)) return;
+        if(opponentRace&&rowOpponentRace(row,player)!==opponentRace) return;
+        const win=rowIsWin(row,player)?1:0;
+        const weight=entryEvidenceWeight(row)*1.12;
+        const opponentElo=entryOpponentPriorElo(row,player);
+        const expected=entryEloToProb(priorElo-opponentElo);
+        weightedWins+=win*weight;
+        weightedTotal+=weight;
+        residual+=(win-expected)*weight;
+        rawTotal+=1;
+      });
+      const posteriorRate=(priorRate*priorGames+weightedWins)/(priorGames+weightedTotal);
+      const posteriorElo=entryRateToElo(posteriorRate);
+      const residualAdjustment=260*residual/(priorGames+weightedTotal+6);
+      const sigma=entryClamp(300/Math.sqrt(Math.max(1,priorGames+weightedTotal))+(opponentRace?36:22),42,170);
+      const model={available:weightedTotal>0,elo:posteriorElo+residualAdjustment,sigma,total:weightedTotal,rawTotal,rate:posteriorRate};
+      modelCache.set(cacheKey,model);
+      return model;
+    }
+    function entryBlendedModel(player,opponentRace,modelCache,mapContext){
       const overall=entryPlayerModel(player,'',modelCache);
       const race=opponentRace?entryPlayerModel(player,opponentRace,modelCache):overall;
       const raceWeight=opponentRace?Math.min(.30,race.rawTotal/(race.rawTotal+10)*.30):0;
-      return {
-        elo:overall.elo*(1-raceWeight)+race.elo*raceWeight,
-        sigma:Math.sqrt(Math.pow(overall.sigma*(1-raceWeight),2)+Math.pow(race.sigma*raceWeight,2)),
-        sample:overall.sample+race.total*raceWeight
-      };
+      let elo=overall.elo*(1-raceWeight)+race.elo*raceWeight;
+      let sigma=Math.sqrt(Math.pow(overall.sigma*(1-raceWeight),2)+Math.pow(race.sigma*raceWeight,2));
+      let sample=overall.sample+race.total*raceWeight;
+      const mapModel=entryHasMapContext(mapContext)?entryMapPlayerModel(player,opponentRace,mapContext,modelCache):null;
+      if(mapModel&&mapModel.available){
+        const mapWeight=Math.min(.22,mapModel.rawTotal/(mapModel.rawTotal+10)*.22);
+        elo=elo*(1-mapWeight)+mapModel.elo*mapWeight;
+        sigma=Math.sqrt(Math.pow(sigma*(1-mapWeight),2)+Math.pow(mapModel.sigma*mapWeight,2));
+        sample+=mapModel.total*mapWeight;
+      }
+      return {elo,sigma,sample};
     }
-    function entryMatchProbability(playerA,playerB,modelCache,rng){
-      const modelA=entryBlendedModel(playerA,playerB.race,modelCache);
-      const modelB=entryBlendedModel(playerB,playerA.race,modelCache);
+    function entryMatchProbability(playerA,playerB,modelCache,rng,mapContext){
+      const modelA=entryBlendedModel(playerA,playerB.race,modelCache,[]);
+      const modelB=entryBlendedModel(playerB,playerA.race,modelCache,[]);
       const drawA=modelA.elo+entryNormal(rng)*modelA.sigma;
       const drawB=modelB.elo+entryNormal(rng)*modelB.sigma;
-      const baseRate=entryClamp(entryEloToProb(drawA-drawB),.06,.94);
-      return entryBlendDirectHeadToHead(baseRate,playerA,playerB);
+      const eloRate=entryClamp(entryEloToProb(drawA-drawB),.06,.94);
+      return entryCompositeProbability(playerA,playerB,modelCache,mapContext,eloRate);
     }
-    function entryBuildSeriesPlan(lineA,lineB,maxGames,rng){
-      return Array.from({length:maxGames},(_,index)=>entryFixedPairAt(lineA,lineB,index)||entryRandomPair(lineA,lineB,rng));
+    function entryBuildSeriesPlan(lineA,lineB,maxGames,rng,baseSlot=0){
+      return Array.from({length:maxGames},(_,index)=>{
+        const slotIndex=baseSlot+index;
+        const pair=entryFixedPairAt(lineA,lineB,slotIndex)||entryRandomPair(lineA,lineB,rng);
+        return pair?{...pair,mapContext:entryEffectiveMapContext(slotIndex)}:null;
+      });
     }
     function entrySimulateSeriesPlan(plan,target,rng,modelCache){
       let a=0,b=0,games=0;
       while(a<target&&b<target&&games<plan.length){
         const pair=plan[games];
         if(!pair) break;
-        if(rng()<entryMatchProbability(pair.playerA,pair.playerB,modelCache,rng)) a+=1;
+        if(rng()<entryMatchProbability(pair.playerA,pair.playerB,modelCache,rng,pair.mapContext)) a+=1;
         else b+=1;
         games+=1;
       }
       return {a,b,games};
     }
     function entrySimulateSeries(lineA,lineB,target,maxGames,rng,modelCache,baseSlot=0){
-      const plan=Array.from({length:maxGames},(_,games)=>entryResolvePair(lineA,lineB,baseSlot+games,rng));
+      const plan=Array.from({length:maxGames},(_,games)=>{
+        const slotIndex=baseSlot+games;
+        const pair=entryResolvePair(lineA,lineB,slotIndex,rng);
+        return pair?{...pair,mapContext:entryEffectiveMapContext(slotIndex)}:null;
+      });
       return entrySimulateSeriesPlan(plan,target,rng,modelCache);
     }
     function entryMostLikelyScore(scoreMap){
@@ -6506,7 +6776,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
         loadEntrySummariesForPairs(entryNeededSummaryPairs())
       ]);
       const config=entryModeConfig(entryState.simMode);
-      const seedText=entryState.simMode+'|'+entrySlots('A').join('|')+'|'+entrySlots('B').join('|');
+      const seedText=entryState.simMode+'|'+entrySlots('A').join('|')+'|'+entrySlots('B').join('|')+'|'+entryState.slotMaps.join('|')+'|'+entrySelectedPoolMaps().join('|');
       const rng=entrySeededRandom(entrySeedFromText(seedText));
       const ratingCache=entryState.modelCache;
       const scoreMap=new Map();
@@ -6528,7 +6798,7 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
           if(setA===setB){
             const finalPair=entryRandomPair(lineA,lineB,rng);
             if(finalPair){
-              if(rng()<entryMatchProbability(finalPair.playerA,finalPair.playerB,ratingCache,rng)){
+              if(rng()<entryMatchProbability(finalPair.playerA,finalPair.playerB,ratingCache,rng,'')){
                 totalA+=1;
                 setA+=1;
               }else{
@@ -6593,8 +6863,37 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
     entryAcademyB.addEventListener('change',()=>{ entryState.academyB=entryAcademyB.value; entryState.simulation=null; renderEntry(); });
     entrySearchA.addEventListener('input',()=>{ entryState.searchA=entrySearchA.value; clearTimeout(entryRenderTimer); entryRenderTimer=setTimeout(renderEntry,90); });
     entrySearchB.addEventListener('input',()=>{ entryState.searchB=entrySearchB.value; clearTimeout(entryRenderTimer); entryRenderTimer=setTimeout(renderEntry,90); });
-    entrySimMode.addEventListener('change',()=>{ entryState.simMode=entrySimMode.value; entryState.simulation=null; renderEntrySimulation(); });
+    entrySimMode.addEventListener('change',()=>{ entryState.simMode=entrySimMode.value; entryState.simulation=null; renderEntry(); });
+    entryTool.addEventListener('change',e=>{
+      const poolMap=e.target.closest('[data-entry-pool-map]');
+      if(poolMap){
+        const poolName=poolMap.dataset.entryPoolMap;
+        setEntryPoolMap(poolName,poolMap.value,poolMap.checked);
+        entryState.simulation=null;
+        renderEntry();
+        entryMapPools.querySelector('[data-entry-map-pool="'+poolName+'"]')?.classList.add('open');
+        scheduleEntrySummaryAutoLoad();
+        return;
+      }
+      const mapSelect=e.target.closest('[data-entry-map-index]');
+      if(!mapSelect) return;
+      setEntrySlotMap(mapSelect.dataset.entryMapIndex,mapSelect.value);
+      entryState.simulation=null;
+      renderEntry();
+      scheduleEntrySummaryAutoLoad();
+    });
     entryTool.addEventListener('click',e=>{
+      const mapToggle=e.target.closest('[data-entry-map-toggle]');
+      if(mapToggle){
+        const pool=mapToggle.closest('.entry-map-pool');
+        if(pool){
+          const opening=!pool.classList.contains('open');
+          closeEntryMapPools(pool);
+          pool.classList.toggle('open',opening);
+        }
+        return;
+      }
+      if(!e.target.closest('.entry-map-pool')) closeEntryMapPools();
       const slot=e.target.closest('[data-entry-slot]');
       if(slot){
         setEntrySelectedSlot(slot.dataset.entrySlot,slot.dataset.entrySlotIndex);
@@ -6622,7 +6921,8 @@ html.light .entry-match-badge.fixed{color:#16518f;background:rgba(31,111,214,.08
         scheduleEntrySummaryAutoLoad();
       }
     });
-    entryClear.addEventListener('click',()=>{ entryState.teamA=Array(ENTRY_SLOT_COUNT).fill(''); entryState.teamB=Array(ENTRY_SLOT_COUNT).fill(''); entryState.selectedSlotA=0; entryState.selectedSlotB=0; entryState.simulation=null; clearTimeout(entryRecordAutoTimer); entryRecordAutoSeq++; entryState.loadingSummaries.clear(); renderEntry(); });
+    document.addEventListener('click',e=>{ if(!e.target.closest('.entry-map-pool')) closeEntryMapPools(); });
+    entryClear.addEventListener('click',()=>{ entryState.teamA=Array(ENTRY_SLOT_COUNT).fill(''); entryState.teamB=Array(ENTRY_SLOT_COUNT).fill(''); entryState.slotMaps=Array(ENTRY_SLOT_COUNT).fill(ENTRY_DEFAULT_MAP); entryState.mapPoolMen=[]; entryState.mapPoolWomen=[]; entryState.selectedSlotA=0; entryState.selectedSlotB=0; entryState.simulation=null; clearTimeout(entryRecordAutoTimer); entryRecordAutoSeq++; entryState.loadingSummaries.clear(); renderEntry(); });
     entryRunSim.addEventListener('click',async()=>{ entrySimulation.innerHTML='<div class="entry-empty">시뮬레이션 계산중</div>'; await runEntrySimulation(); });
     document.getElementById('closeRecord').addEventListener('click',()=>{ activeRecordKey=''; opponentCandidateCache=null; headToHeadMatchCache=null; recordLoadSeq++; headLoadSeq++; recordDialog.close(); });
     tabOverall.addEventListener('click',()=>setTab('overall')); tabHead.addEventListener('click',()=>setTab('head'));
