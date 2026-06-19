@@ -210,7 +210,7 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .entry-map-select{display:block;width:100%;height:100%;min-width:0;border:1px solid rgba(142,169,208,.22);border-radius:8px;background:rgba(3,10,20,.62);color:#eef6ff;font-size:12px;font-weight:850;padding:0 6px;outline:none}
 .entry-map-select:focus{border-color:rgba(105,239,145,.55);box-shadow:0 0 0 3px rgba(105,239,145,.10)}
 .entry-map-select option{background:#071321;color:#eef6ff}
-.entry-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:0 16px 16px}
+.entry-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-top:6px;padding:14px 16px 16px;border-top:1px solid rgba(142,169,208,.20)}
 .entry-toolbar-left,.entry-toolbar-right{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .entry-small-select{height:38px;border:1px solid rgba(142,169,208,.22);border-radius:9px;background:rgba(3,10,20,.55);color:#eef6ff;font-weight:800;padding:0 10px}
 .entry-btn{height:38px;border:1px solid rgba(142,169,208,.22);border-radius:9px;background:rgba(20,43,71,.72);color:#dcecff;font-weight:900;padding:0 13px;cursor:pointer}
@@ -219,12 +219,20 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .entry-btn.warn{background:rgba(255,119,88,.18);border-color:rgba(255,119,88,.45);color:#ffb39f}
 .entry-stat-table{padding:0 16px 16px}
 .entry-match-table{padding:0 16px 16px}
-.entry-stat-scroll{overflow:auto;border:1px solid rgba(142,169,208,.13);border-radius:12px;background:rgba(5,15,28,.34)}
-.entry-stat-scroll table{width:100%;border-collapse:collapse;min-width:720px}
-.entry-stat-scroll th,.entry-stat-scroll td{padding:10px 11px;border-bottom:1px solid rgba(142,169,208,.11);font-size:12px;text-align:left;white-space:nowrap}
+.entry-stat-scroll{overflow:hidden;border:1px solid rgba(142,169,208,.13);border-radius:12px;background:rgba(5,15,28,.34)}
+.entry-stat-scroll table{width:100%;border-collapse:collapse;table-layout:fixed}
+.entry-stat-scroll th,.entry-stat-scroll td{padding:8px 8px;border-bottom:1px solid rgba(142,169,208,.11);font-size:11.5px;text-align:left;white-space:normal;word-break:keep-all;overflow-wrap:anywhere;vertical-align:middle}
 .entry-stat-scroll th{color:#9eb5d0;background:rgba(90,167,255,.08);font-weight:900}
 .entry-stat-scroll td{color:#e8f2ff;font-weight:750}
+.entry-stat-scroll td small{display:inline-block;font-size:10.5px;color:#9fb4cf}
 .entry-stat-scroll tr:last-child td{border-bottom:0}
+/* 상대전적 2단(왼=전체 / 오=선택맵) */
+.entry-two-up{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.entry-two-up-title{margin:0 2px 7px;font-size:12px;font-weight:900;color:#9fc0ea}
+.entry-map-tag{display:block;margin-top:2px;color:#69ef91;font-weight:800}
+/* 시뮬 결과: 왼=매치표 / 오=승리확률 요약 */
+.entry-sim-row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr);gap:12px;padding:0 16px 18px;align-items:start}
+.entry-sim-row .entry-match-table,.entry-sim-row .sim-result{padding:0}
 .entry-record-loading{color:#7f97b2}
 .entry-rate-high{color:#69ef91!important}.entry-rate-mid{color:#ffd36a!important}.entry-rate-low{color:#ff8f8f!important}
 .entry-win-mark{display:inline-flex;align-items:center;height:20px;margin-left:6px;padding:0 7px;border-radius:999px;background:rgba(105,239,145,.14);border:1px solid rgba(105,239,145,.32);color:#69ef91;font-size:11px;font-weight:950;vertical-align:middle}
@@ -263,7 +271,7 @@ html.light .entry-map-select{background:#fff;color:#1f3a5c;border-color:var(--li
 html.light .entry-btn{background:#eef5ff;color:#1f3a5c;border-color:var(--line)} html.light .entry-btn.primary{background:#3f82f6;color:#fff}
 html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} html.light .entry-stat-scroll td{color:#1f3a5c;border-bottom-color:rgba(40,90,160,.10)}
 @media (max-width:1050px){.entry-tool{grid-template-columns:1fr}.entry-list{height:330px}}
-@media (max-width:720px){.view-tabs{overflow:auto}.entry-card-head{align-items:stretch;flex-direction:column}.entry-map-pools{justify-content:stretch}.entry-map-pool{flex:1;min-width:0}.entry-columns,.entry-roster-grid{grid-template-columns:1fr}.entry-toolbar{align-items:stretch}.entry-toolbar-left,.entry-toolbar-right{width:100%}.entry-small-select,.entry-btn{flex:1}.sim-score{grid-template-columns:1fr;gap:10px}}
+@media (max-width:720px){.view-tabs{overflow:auto}.entry-card-head{align-items:stretch;flex-direction:column}.entry-map-pools{justify-content:stretch}.entry-map-pool{flex:1;min-width:0}.entry-columns,.entry-roster-grid,.entry-two-up,.entry-sim-row{grid-template-columns:1fr}.entry-toolbar{align-items:stretch}.entry-toolbar-left,.entry-toolbar-right{width:100%}.entry-small-select,.entry-btn{flex:1}.sim-score{grid-template-columns:1fr;gap:10px}}
 </style>
 
 <script>
@@ -383,8 +391,10 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
           </div>
         </div>
         <div class="entry-stat-table" id="entryStatsTable"></div>
-        <div class="entry-match-table" id="entryMatchTable"></div>
-        <div class="sim-result" id="entrySimulation"></div>
+        <div class="entry-sim-row">
+          <div class="entry-match-table" id="entryMatchTable"></div>
+          <div class="sim-result" id="entrySimulation"></div>
+        </div>
       </section>
     </section>
   </div>
@@ -5930,8 +5940,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       const source=Array.isArray(slots)?slots.slice(0,ENTRY_SLOT_COUNT):[];
       const normalized=Array.from({length:ENTRY_SLOT_COUNT},(_,index)=>source[index]||'');
       return normalized.map(key=>{
-        if(!key||!playerByKey(key)||seen.has(key)) return '';
-        seen.add(key);
+        if(!key||!playerByKey(key)) return '';
         return key;
       });
     }
@@ -5957,7 +5966,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       return -1;
     }
     function addEntryToSlot(team,key){
-      if(!key||isEntrySelected(key)) return false;
+      if(!key) return false;
       const slots=entrySlots(team).slice();
       const selected=entrySelectedSlot(team);
       const target=!slots[selected]?selected:(entryFirstEmptySlot(team,selected+1)>=0?entryFirstEmptySlot(team,selected+1):selected);
@@ -6144,7 +6153,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
     function entryPlayerButton(player,team){
       const key=playerKey(player);
       const selected=isEntrySelected(key);
-      return '<button class="entry-player" type="button" data-entry-add="'+team+'" data-player-key="'+escapeAttr(key)+'" '+(selected?'disabled':'')+'>'+
+      return '<button class="entry-player" type="button" data-entry-add="'+team+'" data-player-key="'+escapeAttr(key)+'">'+
         '<span class="entry-add">'+(selected?'✓':'+')+'</span>'+
         '<img class="entry-avatar" src="'+escapeAttr(player.image||'')+'" alt="" loading="lazy" decoding="async">'+
         '<span><span class="entry-player-name">'+escapeHtml(player.name)+'</span><span class="entry-player-meta">'+escapeHtml(academyName(player))+' · '+escapeHtml(player.tier)+' · '+escapeHtml(player.race)+'</span></span>'+
@@ -6312,16 +6321,26 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       if(!selectedA.length||!selectedB.length){ entryStatsTable.innerHTML='<div class="entry-empty">A팀과 B팀 선수를 선택하면 매치 상대전적을 표시합니다.</div>'; return; }
       if(!pairs.length){ entryStatsTable.innerHTML='<div class="entry-empty">서로 맞붙을 선수를 같은 슬롯에 배치해주세요.</div>'; return; }
       const note=selectedA.length!==selectedB.length?'<div class="entry-sub" style="padding:0 16px 12px">빈 슬롯이 있는 선수는 상대전적 표에서 제외됩니다.</div>':'';
-      entryStatsTable.innerHTML='<div class="entry-stat-scroll"><table><thead><tr><th>매치</th><th>맵</th><th>A팀 선수</th><th>B팀 선수</th>'+entryPeriods.map(p=>'<th>'+p.label+' A기준</th>').join('')+'</tr></thead><tbody>'+
-        pairs.map(pair=>{
+      const shortPeriods=[{key:'m1',label:'1개월'},{key:'m3',label:'3개월'},{key:'y2026',label:'2026'},{key:'all',label:'1년'}];
+      function buildStatTable(useMap){
+        const colgroup='<colgroup><col style="width:30px"><col style="width:30%">'+shortPeriods.map(()=>'<col>').join('')+'</colgroup>';
+        const head='<thead><tr><th>매치</th><th>선수</th>'+shortPeriods.map(p=>'<th>'+p.label+'</th>').join('')+'</tr></thead>';
+        const body=pairs.map(pair=>{
           const index=pair.slotIndex;
           const playerA=pair.playerA;
           const playerB=pair.playerB;
           const mapContext=entryEffectiveMapContext(index);
           const loading=entryState.loadingSummaries.has(entrySummaryPairKey(playerA,playerB))||entryState.loadingRecords.has(playerKey(playerA))||entryState.loadingRecords.has(playerKey(playerB));
-          const cells=entryPeriods.map(period=>'<td>'+formatEntryHeadStat(entryHeadToHeadStats(playerA,playerB,period.key,mapContext),loading)+'</td>').join('');
-          return '<tr><td>'+(index+1)+'매치</td><td>'+escapeHtml(entryMapContextLabel(mapContext))+'</td><td>'+escapeHtml(playerA.name)+' <span class="race-badge '+escapeAttr(playerA.race)+'">'+escapeHtml(playerA.race)+'</span></td><td>'+escapeHtml(playerB.name)+' <span class="race-badge '+escapeAttr(playerB.race)+'">'+escapeHtml(playerB.race)+'</span></td>'+cells+'</tr>';
-        }).join('')+'</tbody></table></div>'+note;
+          const cells=shortPeriods.map(period=>'<td>'+formatEntryHeadStat(entryHeadToHeadStats(playerA,playerB,period.key,useMap?mapContext:undefined),loading)+'</td>').join('');
+          const mapTag=useMap?'<small class="entry-map-tag">'+escapeHtml(entryMapContextLabel(mapContext))+'</small>':'';
+          return '<tr><td>'+(index+1)+'</td><td>'+escapeHtml(playerA.name)+' vs '+escapeHtml(playerB.name)+mapTag+'</td>'+cells+'</tr>';
+        }).join('');
+        return '<div class="entry-stat-scroll"><table>'+colgroup+head+'<tbody>'+body+'</tbody></table></div>';
+      }
+      entryStatsTable.innerHTML='<div class="entry-two-up">'
+        +'<div><div class="entry-two-up-title">전체 상대전적 (맵 무관)</div>'+buildStatTable(false)+'</div>'
+        +'<div><div class="entry-two-up-title">선택 맵 상대전적</div>'+buildStatTable(true)+'</div>'
+        +'</div>'+note;
     }
     function entryDirectHeadToHeadModel(playerA,playerB,baseRate,mapContext){
       const weightedPeriods=[{key:'m1',weight:1.5},{key:'m3',weight:1.15},{key:'y2026',weight:.85},{key:'all',weight:.45}];
@@ -6477,7 +6496,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
           rows.push({label:entrySlotLabel(config,index),map:mapLabel,a:'랜덤',b:'랜덤',prob:entryAverageRandomProbability(lineA,lineB,modelCache,mapContext),kind:'random'});
         }
       }
-      entryMatchTable.innerHTML='<div class="entry-stat-scroll"><table><thead><tr><th>매치</th><th>맵</th><th>A팀</th><th>B팀</th><th>A 승률</th><th>B 승률</th></tr></thead><tbody>'+
+      entryMatchTable.innerHTML='<div class="entry-stat-scroll"><table><colgroup><col style="width:11%"><col style="width:18%"><col style="width:23%"><col style="width:23%"><col style="width:12.5%"><col style="width:12.5%"></colgroup><thead><tr><th>매치</th><th>맵</th><th>A팀</th><th>B팀</th><th>A 승률</th><th>B 승률</th></tr></thead><tbody>'+
         rows.map(row=>{
           const prob=row.prob===null?null:row.prob*100;
           const bProb=prob===null?null:100-prob;
@@ -6493,7 +6512,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
     function renderEntrySimulation(){
       const sim=entryState.simulation;
       if(!sim){ entrySimulation.innerHTML='<div class="entry-empty">시뮬레이션 대기</div>'; return; }
-      entrySimulation.innerHTML='<div class="sim-card"><div class="sim-score"><div class="sim-side"><b>A팀</b><strong>'+sim.probA.toFixed(1)+'%</strong></div><div class="sim-vs"><div>'+escapeHtml(sim.modeLabel)+'</div><div>'+escapeHtml(sim.scoreLabel)+'</div></div><div class="sim-side"><b>B팀</b><strong>'+sim.probB.toFixed(1)+'%</strong></div></div><div class="sim-prob"><span style="width:'+Math.max(0,Math.min(100,sim.probA))+'%"></span></div><div class="sim-note">예상 평균 '+sim.avgA.toFixed(1)+' : '+sim.avgB.toFixed(1)+' · ELO/베이지안 30%, 상대전적 50%, 선택 맵데이터 20%</div></div>';
+      entrySimulation.innerHTML='<div class="sim-card"><div class="sim-score"><div class="sim-side"><b>A팀</b><strong>'+sim.probA.toFixed(1)+'%</strong></div><div class="sim-vs"><div>'+escapeHtml(sim.modeLabel)+'</div><div>'+escapeHtml(sim.scoreLabel)+'</div></div><div class="sim-side"><b>B팀</b><strong>'+sim.probB.toFixed(1)+'%</strong></div></div><div class="sim-prob"><span style="width:'+Math.max(0,Math.min(100,sim.probA))+'%"></span></div></div>';
     }
     function renderEntryStatus(){
       const keys=selectedEntryKeys();
@@ -6915,7 +6934,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       if(add){
         const key=add.dataset.playerKey;
         const team=add.dataset.entryAdd;
-        if(!key||isEntrySelected(key)) return;
+        if(!key) return;
         if(!addEntryToSlot(team,key)) return;
         entryState.simulation=null;
         renderEntry();
