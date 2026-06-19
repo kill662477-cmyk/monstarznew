@@ -7244,12 +7244,12 @@ body.funding-overlay-host .funding-temp-frame {
 
 .hub-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   grid-template-areas:
-    "live live live"
-    "notice notice notice"
-    "schedule video video"
-    "inout tier tools";
+    "live    live    live    live    live    live    live     live     live     live   live   live"
+    "notice  notice  notice  notice  notice  notice  schedule schedule schedule inout  inout  inout"
+    "fantube fantube fantube fantube boja    boja    boja     boja     other    other  other  other"
+    "tier    tier    tier    tier    tools   tools   tools    tools    links    links  links  links";
   gap: 14px;
   align-items: start;
 }
@@ -7299,10 +7299,22 @@ body.funding-overlay-host .funding-temp-frame {
   --panel-glow: rgba(96,165,250,.14);
 }
 
-.hub-panel.video-panel {
-  grid-area: video;
+.hub-panel.fantube-panel {
+  grid-area: fantube;
   --panel-accent: #fb7185;
   --panel-glow: rgba(251,113,133,.13);
+}
+
+.hub-panel.boja-panel {
+  grid-area: boja;
+  --panel-accent: #34d399;
+  --panel-glow: rgba(52,211,153,.13);
+}
+
+.hub-panel.other-panel {
+  grid-area: other;
+  --panel-accent: #c084fc;
+  --panel-glow: rgba(192,132,252,.13);
 }
 
 .hub-panel.inout-panel {
@@ -7321,6 +7333,29 @@ body.funding-overlay-host .funding-temp-frame {
   grid-area: tools;
   --panel-accent: #f97316;
   --panel-glow: rgba(249,115,22,.12);
+}
+
+.hub-panel.links-panel {
+  grid-area: links;
+  --panel-accent: #f7c948;
+  --panel-glow: rgba(247,201,72,.12);
+}
+
+/* 공지 패널: 가로 절반 + 자동 줄바꿈 + 세로 자동확장 */
+.notice-panel .notice-feed-title {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.notice-panel .notice-feed-body {
+  display: block;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  -webkit-line-clamp: unset;
 }
 
 .hub-panel-head {
@@ -7929,10 +7964,13 @@ body.light-mode .schedule-today-card .hub-meta::first-line {
   .hub-panel.live-panel,
   .hub-panel.notice-panel,
   .hub-panel.schedule-panel,
-  .hub-panel.video-panel,
+  .hub-panel.fantube-panel,
+  .hub-panel.boja-panel,
+  .hub-panel.other-panel,
   .hub-panel.inout-panel,
   .hub-panel.tier-panel,
-  .hub-panel.tools-panel {
+  .hub-panel.tools-panel,
+  .hub-panel.links-panel {
     grid-area: auto;
   }
 
@@ -8702,13 +8740,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="hub-panel-head"><div class="hub-panel-copy"><h3>최근 공지</h3></div><button class="panel-link" type="button" data-nav-tab="notice">공지</button></div>
             <div id="homeNoticeList" class="hub-list"><div class="hub-empty loading">데이터를 불러오는 중입니다.</div></div>
           </article>
-          <article class="hub-panel wide video-panel">
-            <div class="hub-panel-head"><div class="hub-panel-copy"><h3>최신 팬튜브</h3></div><button class="panel-link" type="button" data-nav-tab="youtube">팬튜브</button></div>
-            <div id="homeVideoList" class="hub-list"></div>
-          </article>
           <article class="hub-panel inout-panel">
             <div class="hub-panel-head"><div class="hub-panel-copy"><h3>최근 IN&OUT</h3></div><button class="panel-link" type="button" data-nav-tab="inout">히스토리</button></div>
             <div id="homeInoutList" class="hub-list"></div>
+          </article>
+          <article class="hub-panel fantube-panel">
+            <div class="hub-panel-head"><div class="hub-panel-copy"><h3>최신 팬튜브</h3></div><button class="panel-link" type="button" data-nav-tab="youtube">팬튜브</button></div>
+            <div id="homeVideoList" class="hub-list"></div>
+          </article>
+          <article class="hub-panel boja-panel">
+            <div class="hub-panel-head"><div class="hub-panel-copy"><h3>보자충</h3></div><button class="panel-link" type="button" data-nav-tab="boja">보자충</button></div>
+            <div id="homeBojaList" class="hub-list"></div>
+          </article>
+          <article class="hub-panel other-panel">
+            <div class="hub-panel-head"><div class="hub-panel-copy"><h3>기타영상</h3></div><button class="panel-link" type="button" data-nav-tab="otherVideos">기타영상</button></div>
+            <div id="homeOtherList" class="hub-list"></div>
           </article>
           <article class="hub-panel tier-panel">
             <div class="hub-panel-head"><div class="hub-panel-copy"><h3>티어/전적 포인트</h3></div><button class="panel-link" type="button" data-nav-tab="tier">티어표</button></div>
@@ -8717,6 +8763,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <article class="hub-panel tools-panel">
             <div class="hub-panel-head"><div class="hub-panel-copy"><h3>방송용 도구</h3></div><button class="panel-link" type="button" data-nav-tab="tools">도구 홈</button></div>
             <div id="homeToolList" class="hub-list"></div>
+          </article>
+          <article class="hub-panel links-panel">
+            <div class="hub-panel-head"><div class="hub-panel-copy"><h3>외부 링크</h3></div><button class="panel-link" type="button" data-nav-tab="links">전체보기</button></div>
+            <div id="homeLinkList" class="hub-list"></div>
           </article>
         </div>
       </section>
@@ -9571,6 +9621,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const homeScheduleList = document.getElementById("homeScheduleList");
   const homeNoticeList = document.getElementById("homeNoticeList");
   const homeVideoList = document.getElementById("homeVideoList");
+  const homeBojaList = document.getElementById("homeBojaList");
+  const homeOtherList = document.getElementById("homeOtherList");
   const homeInoutList = document.getElementById("homeInoutList");
   const homeTierList = document.getElementById("homeTierList");
   const homeToolList = document.getElementById("homeToolList");
@@ -10294,6 +10346,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         : renderHubEmpty(youtubeLoadError ? UI_ERROR_TEXT : UI_EMPTY_TEXT, youtubeLoadError ? "error" : "empty");
     }
 
+    if (homeBojaList) {
+      const bojaItems = getBojaSummaryItems(5);
+      homeBojaList.innerHTML = bojaItems.length
+        ? bojaItems.map(renderVideoHubItem).join("")
+        : renderHubEmpty();
+    }
+
+    if (homeOtherList) {
+      const otherItems = getSortedOtherVideos().slice(0, 5);
+      homeOtherList.innerHTML = otherItems.length
+        ? otherItems.map(renderVideoHubItem).join("")
+        : renderHubEmpty();
+    }
+
     if (homeInoutList) {
       const recent = INOUT_HISTORY.slice(-4).reverse();
       homeInoutList.innerHTML = recent.length
@@ -10319,7 +10385,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         .join("");
     }
 
-    if (homeLinkList) homeLinkList.closest(".hub-panel")?.remove();
+    if (homeLinkList) {
+      const linkItems = (EXTERNAL_LINKS || []).slice(0, 6);
+      homeLinkList.innerHTML = linkItems.length
+        ? linkItems.map(renderExternalHubItem).join("")
+        : renderHubEmpty();
+    }
   }
 
   function renderScheduleHub() {
