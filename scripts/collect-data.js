@@ -156,17 +156,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function eloboardUrl(key, race) {
-  if (!key) return "";
-
-  const matched = String(key)
-    .split(",")
-    .find((item) => item.split("_")[2] === race);
-
-  if (!matched) return "";
-
-  const [type, id] = matched.split("_");
-
+function eloboardUrlFromType(type, id) {
   if (type === "W") {
     return `https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=${id}`;
   }
@@ -182,8 +172,51 @@ function eloboardUrl(key, race) {
   return "";
 }
 
+function eloboardUrlsFromKey(key, race) {
+  if (!key) return [];
+
+  const targetRace = String(race || "").trim().toUpperCase();
+  const priority = { W: 0, M: 1, P: 2 };
+
+  return String(key)
+    .split(",")
+    .map((item) => item.trim())
+    .map((item, index) => {
+      const [type, id, itemRace] = item.split("_").map((part) => String(part || "").trim());
+      return { type, id, race: itemRace.toUpperCase(), index };
+    })
+    .filter((item) => item.type && item.id && item.race === targetRace)
+    .sort((a, b) => {
+      const priorityDiff = (priority[a.type] ?? 99) - (priority[b.type] ?? 99);
+      return priorityDiff || a.index - b.index;
+    })
+    .map((item) => normalizeUrl(eloboardUrlFromType(item.type, item.id)))
+    .filter(Boolean);
+}
+
+function eloboardUrl(key, race) {
+  return eloboardUrlsFromKey(key, race)[0] || "";
+}
+
+function eloboardRecordUrls(player) {
+  const urls = [];
+  const seen = new Set();
+
+  function add(url) {
+    const normalized = normalizeUrl(url);
+    if (!normalized || seen.has(normalized)) return;
+    seen.add(normalized);
+    urls.push(normalized);
+  }
+
+  eloboardUrlsFromKey(player && player.eloboardKey, player && player.race).forEach(add);
+  add(player && player.elo);
+
+  return urls;
+}
+
 function eloboardRecordUrl(player) {
-  return normalizeUrl(player.elo || eloboardUrl(player.eloboardKey, player.race));
+  return eloboardRecordUrls(player)[0] || "";
 }
 
 function normalizeRace(value) {
@@ -965,48 +998,70 @@ function makeRowCollector(player) {
 }
 
 async function fetchRecordsFull(player) {
-  const url = eloboardRecordUrl(player);
-  if (!url) return { rows: [], mode: "full", sourceRowCount: 0, morePagesFetched: 0 };
-
-  const page = await fetchEloboardPage(url);
-  assertEloboardOk(page.html);
+  const urls = eloboardRecordUrls(player);
+  if (!urls.length) return { rows: [], mode: "full", sourceRowCount: 0, morePagesFetched: 0 };
 
   const collector = makeRowCollector(player);
-  const firstRows = parseEloboardRecords(page.html, player);
-  collector.add(firstRows);
-
   let morePagesFetched = 0;
-  let duplicatePageCount = 0;
+  let anySuccess = false;
+  let lastError = null;
 
-  for (let lastId = 1; lastId <= RECORD_FULL_MAX_PAGES; lastId += 1) {
-    const moreHtml = await fetchEloboardMoreHtml(url, player, lastId, page.cookieHeader);
-    assertEloboardOk(moreHtml);
+  for (const url of urls) {
+    try {
+      const page = await fetchEloboardPage(url);
+      assertEloboardOk(page.html);
 
-    const rows = parseEloboardRecords(moreHtml, player);
-    const added = collector.add(rows);
-    morePagesFetched += 1;
+      collector.add(parseEloboardRecords(page.html, player));
 
-    if (rows.length === 0) {
-      break;
+      let duplicatePageCount = 0;
+
+      for (let lastId = 1; lastId <= RECORD_FULL_MAX_PAGES; lastId += 1) {
+        const moreHtml = await fetchEloboardMoreHtml(url, player, lastId, page.cookieHeader);
+        assertEloboardOk(moreHtml);
+
+        const rows = parseEloboardRecords(moreHtml, player);
+        const added = collector.add(rows);
+        morePagesFetched += 1;
+
+        if (rows.length === 0) {
+          break;
+        }
+
+        if (added === 0) {
+          duplicatePageCount += 1;
+        } else {
+          duplicatePageCount = 0;
+        }
+
+        if (duplicatePageCount >= 2) {
+          break;
+        }
+
+        if (collector.size() >= ELOBOARD_MAX_ROWS_PER_PLAYER) {
+          break;
+        }
+
+        if (RECORD_AJAX_DELAY_MS > 0) {
+          await sleep(RECORD_AJAX_DELAY_MS);
+        }
+      }
+
+      anySuccess = true;
+
+      if (collector.size() >= ELOBOARD_MAX_ROWS_PER_PLAYER) {
+        break;
+      }
+    } catch (error) {
+      lastError = error;
+      console.warn(
+        `[records url fail] ${player.name}(${player.userId}/${player.race}) full ${url}: ${error.message}`
+      );
     }
+  }
 
-    if (added === 0) {
-      duplicatePageCount += 1;
-    } else {
-      duplicatePageCount = 0;
-    }
-
-    if (duplicatePageCount >= 2) {
-      break;
-    }
-
-    if (collector.size() >= ELOBOARD_MAX_ROWS_PER_PLAYER) {
-      break;
-    }
-
-    if (RECORD_AJAX_DELAY_MS > 0) {
-      await sleep(RECORD_AJAX_DELAY_MS);
-    }
+  // 모든 주소가 실패한 경우에만 throw → 한 주소라도 성공하면 그 전적을 보존.
+  if (!anySuccess && lastError) {
+    throw lastError;
   }
 
   const records = collector.rows();
@@ -1026,8 +1081,8 @@ async function fetchRecordsFull(player) {
 }
 
 async function fetchRecordsIncremental(player, existingRows) {
-  const url = eloboardRecordUrl(player);
-  if (!url) {
+  const urls = eloboardRecordUrls(player);
+  if (!urls.length) {
     return {
       rows: normalizeRecordRows(existingRows),
       mode: "incremental",
@@ -1073,36 +1128,56 @@ async function fetchRecordsIncremental(player, existingRows) {
     };
   }
 
-  const page = await fetchEloboardPage(url);
-  assertEloboardOk(page.html);
-
-  const firstRows = parseEloboardRecords(page.html, player);
-  const firstResult = addOnlyNew(firstRows);
-  let stoppedByExisting = firstResult.foundExisting;
   let morePagesFetched = 0;
+  let stoppedByExisting = false;
+  let anySuccess = false;
+  let lastError = null;
 
-  if (!stoppedByExisting || firstRows.length === 0) {
-    for (let lastId = 1; lastId <= RECORD_INCREMENTAL_MAX_PAGES; lastId += 1) {
-      const moreHtml = await fetchEloboardMoreHtml(url, player, lastId, page.cookieHeader);
-      assertEloboardOk(moreHtml);
+  for (const url of urls) {
+    try {
+      const page = await fetchEloboardPage(url);
+      assertEloboardOk(page.html);
 
-      const rows = parseEloboardRecords(moreHtml, player);
-      const result = addOnlyNew(rows);
-      morePagesFetched += 1;
+      const firstRows = parseEloboardRecords(page.html, player);
+      const firstResult = addOnlyNew(firstRows);
+      let urlStopped = firstResult.foundExisting;
+      if (firstResult.foundExisting) stoppedByExisting = true;
 
-      if (result.foundExisting) {
-        stoppedByExisting = true;
-        break;
+      if (!urlStopped || firstRows.length === 0) {
+        for (let lastId = 1; lastId <= RECORD_INCREMENTAL_MAX_PAGES; lastId += 1) {
+          const moreHtml = await fetchEloboardMoreHtml(url, player, lastId, page.cookieHeader);
+          assertEloboardOk(moreHtml);
+
+          const rows = parseEloboardRecords(moreHtml, player);
+          const result = addOnlyNew(rows);
+          morePagesFetched += 1;
+
+          if (result.foundExisting) {
+            stoppedByExisting = true;
+            break;
+          }
+
+          if (rows.length === 0) {
+            break;
+          }
+
+          if (RECORD_AJAX_DELAY_MS > 0) {
+            await sleep(RECORD_AJAX_DELAY_MS);
+          }
+        }
       }
 
-      if (rows.length === 0) {
-        break;
-      }
-
-      if (RECORD_AJAX_DELAY_MS > 0) {
-        await sleep(RECORD_AJAX_DELAY_MS);
-      }
+      anySuccess = true;
+    } catch (error) {
+      lastError = error;
+      console.warn(
+        `[records url fail] ${player.name}(${player.userId}/${player.race}) incremental ${url}: ${error.message}`
+      );
     }
+  }
+
+  if (!anySuccess && lastError) {
+    throw lastError;
   }
 
   const merged = mergeRecordRows(newRows, existing, player);
@@ -1310,10 +1385,10 @@ async function readExistingRecordStatePreferStorage(rootRef, key) {
 }
 
 async function fetchRecordsIncrementalByCheckpoint(player, recordMeta) {
-  const url = eloboardRecordUrl(player);
+  const urls = eloboardRecordUrls(player);
   const checkpoint = new Set(normalizeRecentRecordIds(recordMeta.recentRecordIds));
 
-  if (!url) {
+  if (!urls.length) {
     return {
       rows: [],
       mode: "incremental-checkpoint",
@@ -1362,36 +1437,64 @@ async function fetchRecordsIncrementalByCheckpoint(player, recordMeta) {
     return foundExisting;
   }
 
-  const page = await fetchEloboardPage(url);
-  assertEloboardOk(page.html);
-
-  const firstRows = parseEloboardRecords(page.html, player);
-  let stoppedByExisting = addOnlyNew(firstRows);
   let morePagesFetched = 0;
-  let exhaustedSource = firstRows.length === 0;
+  let stoppedByExisting = false;
+  let checkpointMiss = false;
+  let anySuccess = false;
+  let lastError = null;
 
-  if (!stoppedByExisting && !exhaustedSource) {
-    for (let lastId = 1; lastId <= RECORD_INCREMENTAL_MAX_PAGES; lastId += 1) {
-      const moreHtml = await fetchEloboardMoreHtml(url, player, lastId, page.cookieHeader);
-      assertEloboardOk(moreHtml);
+  for (const url of urls) {
+    try {
+      const page = await fetchEloboardPage(url);
+      assertEloboardOk(page.html);
 
-      const rows = parseEloboardRecords(moreHtml, player);
-      morePagesFetched += 1;
+      const firstRows = parseEloboardRecords(page.html, player);
+      let urlStopped = addOnlyNew(firstRows);
+      if (urlStopped) stoppedByExisting = true;
+      let exhaustedSource = firstRows.length === 0;
 
-      if (addOnlyNew(rows)) {
-        stoppedByExisting = true;
-        break;
+      if (!urlStopped && !exhaustedSource) {
+        for (let lastId = 1; lastId <= RECORD_INCREMENTAL_MAX_PAGES; lastId += 1) {
+          const moreHtml = await fetchEloboardMoreHtml(url, player, lastId, page.cookieHeader);
+          assertEloboardOk(moreHtml);
+
+          const rows = parseEloboardRecords(moreHtml, player);
+          morePagesFetched += 1;
+
+          if (addOnlyNew(rows)) {
+            urlStopped = true;
+            stoppedByExisting = true;
+            break;
+          }
+
+          if (rows.length === 0) {
+            exhaustedSource = true;
+            break;
+          }
+
+          if (RECORD_AJAX_DELAY_MS > 0) {
+            await sleep(RECORD_AJAX_DELAY_MS);
+          }
+        }
       }
 
-      if (rows.length === 0) {
-        exhaustedSource = true;
-        break;
+      // 이 주소에서 체크포인트도 못 만나고 끝까지 소진도 못 했으면(예: 새 보조 주소)
+      // 풀 병합으로 넘어가도록 표시한다.
+      if (!urlStopped && !exhaustedSource) {
+        checkpointMiss = true;
       }
 
-      if (RECORD_AJAX_DELAY_MS > 0) {
-        await sleep(RECORD_AJAX_DELAY_MS);
-      }
+      anySuccess = true;
+    } catch (error) {
+      lastError = error;
+      console.warn(
+        `[records url fail] ${player.name}(${player.userId}/${player.race}) checkpoint ${url}: ${error.message}`
+      );
     }
+  }
+
+  if (!anySuccess && lastError) {
+    throw lastError;
   }
 
   await sleep(250);
@@ -1404,7 +1507,7 @@ async function fetchRecordsIncrementalByCheckpoint(player, recordMeta) {
     morePagesFetched,
     stoppedByExisting,
     checkpointMissing: false,
-    checkpointMiss: !stoppedByExisting && !exhaustedSource,
+    checkpointMiss,
   };
 }
 
@@ -2354,10 +2457,10 @@ async function main(run = {}) {
 
   await mapLimit(players, RECORD_CONCURRENCY, async (player, index) => {
     const key = safeKey(`${player.userId}_${player.race}`);
-    const url = eloboardRecordUrl(player);
+    const urls = eloboardRecordUrls(player);
     const previousMeta = normalizeRecordMetaEntry(recordMetaState[key]);
 
-    if (!url) {
+    if (!urls.length) {
       recordSkipCount += 1;
       console.warn(`[records skip] ${player.name}(${player.userId}/${player.race}): ELO URL 없음`);
 
