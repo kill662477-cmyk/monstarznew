@@ -7242,6 +7242,37 @@ body.funding-overlay-host .funding-temp-frame {
   font-weight: 900;
 }
 
+.site-header .hero-top {
+  display: block !important;
+}
+
+.site-header .header-home-stats {
+  width: min(282px, calc(100% - 84px));
+  margin: 8px 0 0 84px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.site-header .header-home-stats .home-stat {
+  min-height: 36px;
+  padding: 6px 8px;
+  border-radius: 9px;
+  background: rgba(255,255,255,.055);
+  box-shadow: none;
+}
+
+.site-header .header-home-stats .home-stat b {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.site-header .header-home-stats .home-stat span {
+  margin-top: 2px;
+  font-size: 9px;
+  line-height: 1.1;
+}
+
 .hub-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -9013,6 +9044,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p id="teamDesc"></p>
           </div>
         </div>
+        <div id="homeHeroStats" class="home-stat-strip header-home-stats"></div>
       </div>
       <nav class="tab-row pc-hub-nav" aria-label="상단 메뉴">
         <div class="nav-cluster">
@@ -9059,13 +9091,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="homeScreen" class="screen">
       <section class="home-dashboard" aria-label="오늘의 MONSTARZ">
-        <div class="home-lead">
-          <div>
-            <h2>오늘의 MONSTARZ</h2>
-          </div>
-          <div id="homeHeroStats" class="home-stat-strip"></div>
-        </div>
-
         <div class="hub-grid">
           <article class="hub-panel live-panel">
             <div class="hub-panel-head"><div class="hub-panel-copy"><h3>지금 방송중</h3></div><button class="panel-link" type="button" data-nav-tab="members">전체보기</button></div>
