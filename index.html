@@ -10163,19 +10163,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     `;
   }
 
-  function renderVideoHubItem(item) {
+  function renderVideoHubItem(item, tabKey = "youtube") {
     const url = item.url || item.link || "";
     const badge = item.sourceName || item.viewCountText || item.name || "영상";
     return `
-      <a class="hub-item video-summary" href="${safeLink(url)}" target="_blank" rel="noopener noreferrer">
+      <button class="hub-item video-summary" type="button" data-home-video-url="${escapeHtml(url)}" data-home-video-tab="${escapeHtml(tabKey)}">
         ${renderVideoThumb(item, "hub-thumb")}
         <div>
           <div class="hub-title">${escapeHtml(item.title || "영상")}</div>
           <div class="hub-meta">${escapeHtml(getYoutubeMetaText(item))}</div>
         </div>
         <span class="hub-badge">${escapeHtml(String(badge).slice(0, 8))}</span>
-      </a>
+      </button>
     `;
+  }
+
+  // 홈 영상 카드 클릭 → 외부 새탭이 아니라 내 페이지의 해당 탭으로 이동 + 그 영상 재생 대기
+  function openHomeVideo(url, tabKey) {
+    if (!url) return;
+    if (tabKey === "boja") {
+      for (const cat of (BOJA_CATEGORIES || [])) {
+        const idx = (cat.items || []).findIndex(it => String(it.url || "") === url);
+        if (idx >= 0) { selectedBojaCategory = cat.name; selectedBojaIndex = idx; break; }
+      }
+      showTabByKey("boja");
+      if (bojaPlayer) bojaPlayer.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    if (tabKey === "otherVideos") {
+      activeOtherVideoUrl = url;
+      showTabByKey("otherVideos");
+      if (otherVideoPlayer) otherVideoPlayer.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    // 기본: 팬튜브(youtube)
+    showTabByKey("youtube");
+    const idx = (youtubeItems || []).findIndex(v => getVideoUrl(v) === url);
+    if (idx >= 0) selectYoutubeVideo(idx, true, false);
   }
 
   function getVideoUrl(item) {
@@ -10342,21 +10366,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (homeVideoList) {
       const homeVideoItems = getHomeVideoItems();
       homeVideoList.innerHTML = homeVideoItems.length
-        ? homeVideoItems.map(renderVideoHubItem).join("")
+        ? homeVideoItems.map(it => renderVideoHubItem(it, "youtube")).join("")
         : renderHubEmpty(youtubeLoadError ? UI_ERROR_TEXT : UI_EMPTY_TEXT, youtubeLoadError ? "error" : "empty");
     }
 
     if (homeBojaList) {
       const bojaItems = getBojaSummaryItems(5);
       homeBojaList.innerHTML = bojaItems.length
-        ? bojaItems.map(renderVideoHubItem).join("")
+        ? bojaItems.map(it => renderVideoHubItem(it, "boja")).join("")
         : renderHubEmpty();
     }
 
     if (homeOtherList) {
       const otherItems = getSortedOtherVideos().slice(0, 5);
       homeOtherList.innerHTML = otherItems.length
-        ? otherItems.map(renderVideoHubItem).join("")
+        ? otherItems.map(it => renderVideoHubItem(it, "otherVideos")).join("")
         : renderHubEmpty();
     }
 
@@ -12843,6 +12867,12 @@ function createMemberCard(member) {
   });
   tabInout.addEventListener("click", showInoutScreen);
   document.addEventListener("click", (event) => {
+    const videoTarget = event.target.closest("[data-home-video-url]");
+    if (videoTarget) {
+      event.preventDefault();
+      openHomeVideo(videoTarget.getAttribute("data-home-video-url"), videoTarget.getAttribute("data-home-video-tab"));
+      return;
+    }
     const navTarget = event.target.closest("[data-nav-tab]");
     if (!navTarget) return;
     event.preventDefault();
