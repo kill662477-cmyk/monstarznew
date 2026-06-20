@@ -8236,6 +8236,64 @@ table.admin-table a:hover { text-decoration: underline; }
   gap: 8px;
   flex-wrap: wrap;
 }
+.admin-newcam-entry { gap: 14px; }
+.admin-newcam-meta { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.admin-newcam-sets { display: grid; gap: 8px; }
+.admin-newcam-set-head,
+.admin-newcam-set-row {
+  display: grid;
+  grid-template-columns: 70px 1.1fr 1fr 1fr 92px;
+  align-items: center;
+  gap: 8px;
+}
+.admin-newcam-set-head {
+  padding: 0 4px;
+  color: rgba(180,205,240,.76);
+  font-size: 11px;
+  font-weight: 950;
+}
+.admin-newcam-set-row {
+  padding: 8px;
+  border: 1px solid rgba(137,192,255,.14);
+  border-radius: 12px;
+  background: rgba(4,14,30,.34);
+}
+.admin-newcam-set-no {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(40,125,255,.16);
+  border: 1px solid rgba(120,180,255,.25);
+  color: #d8e9ff;
+  font-size: 12px;
+  font-weight: 950;
+}
+.admin-newcam-set-row select {
+  width: 100%;
+  min-height: 34px;
+  padding: 0 9px;
+  border: 1px solid rgba(137,192,255,.24);
+  border-radius: 9px;
+  background: rgba(4,14,30,.72);
+  color: #f8fbff;
+  font-size: 12px;
+  font-weight: 850;
+}
+.admin-newcam-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(247,201,72,.24);
+  border-radius: 12px;
+  background: rgba(247,201,72,.08);
+  color: #ffe6a3;
+  font-size: 12px;
+  font-weight: 900;
+}
 .admin-submit-btn,
 .admin-cancel-btn {
   min-height: 36px;
@@ -8324,10 +8382,26 @@ body.light-mode .admin-field-hint { color: #607998; }
 body.light-mode .admin-field input,
 body.light-mode .admin-field select,
 body.light-mode .admin-field textarea,
-body.light-mode .admin-check-label {
+body.light-mode .admin-check-label,
+body.light-mode .admin-newcam-set-row select {
   background: #f8fbff;
   border-color: rgba(37,99,235,.18);
   color: #13233a;
+}
+body.light-mode .admin-newcam-set-row {
+  background: #f8fbff;
+  border-color: rgba(37,99,235,.14);
+}
+body.light-mode .admin-newcam-set-head { color: #607998; }
+body.light-mode .admin-newcam-set-no {
+  background: #eef5ff;
+  border-color: rgba(37,99,235,.20);
+  color: #1e4f91;
+}
+body.light-mode .admin-newcam-preview {
+  background: #fff7df;
+  border-color: rgba(180,118,0,.20);
+  color: #6b4a00;
 }
 body.light-mode .admin-cancel-btn {
   background: #eef5ff;
@@ -8625,6 +8699,9 @@ body.light-mode .admin-empty.todo {
   .admin-datastatus-grid { grid-template-columns: 1fr; }
   .admin-editor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .admin-field.wide { grid-column: span 2; }
+  .admin-newcam-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-newcam-set-head { display: none; }
+  .admin-newcam-set-row { grid-template-columns: 58px 1fr; }
 }
 
 /* 티어표 탭: iframe으로 격리하되, 외부 페이지 스크롤은 만들지 않고 iframe 내부만 스크롤 */
@@ -9917,13 +9994,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     { key: "newcamTeams", label: "뉴캄 팀" },
     { key: "newcamPlayers", label: "뉴캄 선수" },
     { key: "newcamMatches", label: "뉴캄 경기" },
-    { key: "newcamMatchPlayers", label: "뉴캄 매치" },
     { key: "data-status", label: "데이터 상태" },
     { key: "settings", label: "설정" }
   ];
   let currentAdminSection = "dashboard";
   let adminEditorState = null;
   const adminRowsBySection = {};
+  const adminNewcamRuntime = { teams: [], players: [] };
 
   const UI_EMPTY_TEXT = "표시할 데이터가 없습니다";
   const UI_LOADING_TEXT = "데이터를 불러오는 중입니다.";
@@ -11313,6 +11390,197 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     `;
   }
 
+  function adminNewcamVisibleRows(rows) {
+    return (Array.isArray(rows) ? rows : []).filter(row => row && row.is_visible !== false);
+  }
+
+  function adminNewcamTeamName(key) {
+    const row = adminNewcamRuntime.teams.find(team => String(team.team_key) === String(key));
+    return row ? (row.team_name || row.team_key || "") : (key || "");
+  }
+
+  function adminNewcamTeamOptions(selected) {
+    const teams = adminNewcamVisibleRows(adminNewcamRuntime.teams);
+    if (!teams.length) return `<option value="">팀 없음</option>`;
+    return teams.map(team => {
+      const value = team.team_key || "";
+      const label = team.team_name || value;
+      return `<option value="${escapeHtml(value)}" ${String(selected || "") === String(value) ? "selected" : ""}>${escapeHtml(label)}</option>`;
+    }).join("");
+  }
+
+  function adminNewcamPlayersForTeam(teamKey) {
+    return adminNewcamVisibleRows(adminNewcamRuntime.players)
+      .filter(player => String(player.team_key || "") === String(teamKey || ""))
+      .filter(player => player.is_temporary !== true && String(player.is_temporary) !== "true");
+  }
+
+  function adminNewcamPlayerOptions(teamKey, selected) {
+    const players = adminNewcamPlayersForTeam(teamKey);
+    const rows = [`<option value="">선택</option>`];
+    players.forEach(player => {
+      const value = player.player_name || "";
+      const meta = [player.tier_label, player.race].filter(Boolean).join(" · ");
+      const label = meta ? `${value} (${meta})` : value;
+      rows.push(`<option value="${escapeHtml(value)}" ${String(selected || "") === String(value) ? "selected" : ""}>${escapeHtml(label)}</option>`);
+    });
+    return rows.join("");
+  }
+
+  function adminNewcamMapOptions(selected, index) {
+    const maps = ["폴리포이드", "라데온", "녹아웃", "네오 실피드"];
+    const fallback = maps[(Number(index || 1) - 1) % maps.length];
+    const value = selected || fallback;
+    return maps.map(map =>
+      `<option value="${escapeHtml(map)}" ${String(value) === map ? "selected" : ""}>${escapeHtml(map)}</option>`
+    ).join("");
+  }
+
+  function renderAdminNewcamMatchForm() {
+    const visibleTeams = adminNewcamVisibleRows(adminNewcamRuntime.teams);
+    const teamA = visibleTeams[0]?.team_key || "";
+    const teamB = visibleTeams[1]?.team_key || "";
+    const setRows = Array.from({ length: 9 }, (_, idx) => {
+      const no = idx + 1;
+      return `
+        <div class="admin-newcam-set-row" data-newcam-set-row="${no}">
+          <span class="admin-newcam-set-no">${no}세트</span>
+          <select name="map_${no}" aria-label="${no}세트 맵">${adminNewcamMapOptions("", no)}</select>
+          <select name="a_player_${no}" data-newcam-player-side="a" data-current-value="" aria-label="${no}세트 A팀 선수"></select>
+          <select name="b_player_${no}" data-newcam-player-side="b" data-current-value="" aria-label="${no}세트 B팀 선수"></select>
+          <select name="winner_${no}" data-newcam-winner aria-label="${no}세트 승자">
+            <option value="">승자</option>
+            <option value="A">A승</option>
+            <option value="B">B승</option>
+          </select>
+        </div>
+      `;
+    }).join("");
+    return `
+      <form id="adminNewcamMatchForm" class="admin-editor admin-newcam-entry">
+        <div class="admin-editor-head">
+          <div>
+            <div class="admin-editor-title">뉴캄 경기 일괄 등록</div>
+            <div class="admin-editor-sub">경기 1건과 1~9세트 선수 결과를 한 번에 저장합니다. 빈 세트는 무시됩니다.</div>
+          </div>
+        </div>
+        <div class="admin-editor-grid admin-newcam-meta">
+          <div class="admin-field"><label for="newcamMatchType">경기 구분</label><select id="newcamMatchType" name="match_type"><option value="scrim">스크림</option><option value="official">본경기</option><option value="final">결승</option></select></div>
+          <div class="admin-field"><label for="newcamGroupName">조</label><select id="newcamGroupName" name="group_name"><option value="">선택</option><option value="A">A조</option><option value="B">B조</option><option value="FINAL">결승</option></select></div>
+          <div class="admin-field"><label for="newcamRoundLabel">라운드/메모</label><input id="newcamRoundLabel" name="round_label" type="text" placeholder="예: A조 1경기"></div>
+          <div class="admin-field"><label for="newcamPlayedAt">경기 시간</label><input id="newcamPlayedAt" name="played_at" type="datetime-local" value="${escapeHtml(formatAdminDateTimeLocal(new Date().toISOString()))}"></div>
+          <div class="admin-field"><label for="newcamTeamA">A팀</label><select id="newcamTeamA" name="team_a_key" data-newcam-team-select="a">${adminNewcamTeamOptions(teamA)}</select></div>
+          <div class="admin-field"><label for="newcamTeamB">B팀</label><select id="newcamTeamB" name="team_b_key" data-newcam-team-select="b">${adminNewcamTeamOptions(teamB)}</select></div>
+        </div>
+        <div class="admin-newcam-sets">
+          <div class="admin-newcam-set-head"><span>세트</span><span>맵</span><span>A팀 선수</span><span>B팀 선수</span><span>승자</span></div>
+          ${setRows}
+        </div>
+        <div id="adminNewcamMatchPreview" class="admin-newcam-preview"><span>세트 결과 대기</span><span>승리팀 자동 계산</span></div>
+        <div class="admin-editor-actions">
+          <button class="admin-submit-btn" type="submit">경기 저장</button>
+        </div>
+      </form>
+    `;
+  }
+
+  function renderAdminNewcamMatchSection(matches, teams, players) {
+    adminNewcamRuntime.teams = Array.isArray(teams) ? teams : [];
+    adminNewcamRuntime.players = Array.isArray(players) ? players : [];
+    adminRowsBySection.newcamMatches = Array.isArray(matches) ? matches : [];
+    const visibleMatches = Array.isArray(matches) ? matches : [];
+    const cols = ["구분", "조", "A팀", "B팀", "승리팀", "시간", "노출", "관리"];
+    const body = visibleMatches.map(row => {
+      const actions = row.is_visible === false
+        ? adminActionButton("복구", "newcamMatches:restore:" + row.id)
+        : adminActionButton("삭제", "newcamMatches:hide:" + row.id, true);
+      return [
+        escapeHtml(row.match_type || "-"),
+        escapeHtml(row.group_name || "-"),
+        escapeHtml(adminNewcamTeamName(row.team_a_key) || "-"),
+        escapeHtml(adminNewcamTeamName(row.team_b_key) || "-"),
+        escapeHtml(adminNewcamTeamName(row.winner_team_key) || "-"),
+        escapeHtml(row.played_at ? adminFormatTime(row.played_at) : "-"),
+        adminStatusBadge(row.is_visible === false ? "숨김" : "노출", row.is_visible === false ? "off" : "on"),
+        actions
+      ];
+    });
+    return adminToolbar("뉴캄 경기결과 (Supabase)", visibleMatches.length + "건")
+      + renderAdminNewcamMatchForm()
+      + adminTable(cols, body);
+  }
+
+  function refreshAdminNewcamMatchForm() {
+    const form = document.getElementById("adminNewcamMatchForm");
+    if (!form) return;
+    const teamA = form.elements.team_a_key?.value || "";
+    const teamB = form.elements.team_b_key?.value || "";
+    form.querySelectorAll("[data-newcam-player-side]").forEach(select => {
+      const side = select.dataset.newcamPlayerSide;
+      const teamKey = side === "a" ? teamA : teamB;
+      const previous = select.value || select.dataset.currentValue || "";
+      select.innerHTML = adminNewcamPlayerOptions(teamKey, previous);
+      if (previous && Array.from(select.options).some(option => option.value === previous)) {
+        select.value = previous;
+      }
+    });
+    updateAdminNewcamMatchPreview(form);
+  }
+
+  function updateAdminNewcamMatchPreview(form) {
+    form = form || document.getElementById("adminNewcamMatchForm");
+    const preview = document.getElementById("adminNewcamMatchPreview");
+    if (!form || !preview) return;
+    let aWins = 0;
+    let bWins = 0;
+    for (let no = 1; no <= 9; no += 1) {
+      const winner = form.elements["winner_" + no]?.value || "";
+      if (winner === "A") aWins += 1;
+      if (winner === "B") bWins += 1;
+    }
+    const teamA = adminNewcamTeamName(form.elements.team_a_key?.value || "") || "A팀";
+    const teamB = adminNewcamTeamName(form.elements.team_b_key?.value || "") || "B팀";
+    const winner = aWins === bWins ? "승리팀 미정" : (aWins > bWins ? teamA : teamB);
+    preview.innerHTML = `<span>${escapeHtml(teamA)} ${aWins} : ${bWins} ${escapeHtml(teamB)}</span><span>${escapeHtml(winner)}</span>`;
+  }
+
+  function adminNewcamMatchPayloadFromForm(form) {
+    const data = new FormData(form);
+    const teamA = String(data.get("team_a_key") || "").trim();
+    const teamB = String(data.get("team_b_key") || "").trim();
+    if (!teamA || !teamB) throw new Error("A팀과 B팀을 선택해주세요.");
+    if (teamA === teamB) throw new Error("A팀과 B팀은 서로 달라야 합니다.");
+    const games = [];
+    for (let no = 1; no <= 9; no += 1) {
+      const aPlayer = String(data.get("a_player_" + no) || "").trim();
+      const bPlayer = String(data.get("b_player_" + no) || "").trim();
+      const winner = String(data.get("winner_" + no) || "").trim();
+      const hasAnyResult = Boolean(aPlayer || bPlayer || winner);
+      if (!hasAnyResult) continue;
+      if (!aPlayer || !bPlayer || !winner) throw new Error(no + "세트의 A/B 선수와 승자를 모두 선택해주세요.");
+      games.push({
+        game_no: no,
+        map_name: String(data.get("map_" + no) || "").trim(),
+        a_player_name: aPlayer,
+        b_player_name: bPlayer,
+        winner_side: winner
+      });
+    }
+    if (!games.length) throw new Error("저장할 세트 결과를 입력해주세요.");
+    return {
+      match: {
+        match_type: String(data.get("match_type") || "scrim"),
+        group_name: String(data.get("group_name") || ""),
+        round_label: String(data.get("round_label") || "").trim(),
+        team_a_key: teamA,
+        team_b_key: teamB,
+        played_at: datetimeLocalToIso(String(data.get("played_at") || "")),
+        status: "done"
+      },
+      games
+    };
+  }
+
   function adminPayloadFromForm(form, section) {
     const fields = ADMIN_FIELDS[section] || [];
     const data = new FormData(form);
@@ -11542,6 +11810,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const rows = await adminApi(conf.resource);
       const list = Array.isArray(rows) ? rows : [];
       adminRowsBySection[section] = list;
+      if (section === "newcamMatches") {
+        const [teams, players] = await Promise.all([
+          adminApi("newcamTeams"),
+          adminApi("newcamPlayers")
+        ]);
+        adminContent.innerHTML = renderAdminNewcamMatchSection(list, teams, players);
+        refreshAdminNewcamMatchForm();
+        return;
+      }
       if (!list.length) {
         // Supabase 테이블이 비어 있으면 빈 화면 대신 기존(로컬) 데이터를 읽기 전용으로 보여준다.
         adminContent.innerHTML = adminEditorHtml(section, conf)
@@ -13327,7 +13604,40 @@ function createMemberCard(member) {
     }
   });
 
+  adminContent?.addEventListener("change", (event) => {
+    const newcamForm = event.target.closest("#adminNewcamMatchForm");
+    if (!newcamForm) return;
+    if (event.target.closest("[data-newcam-team-select]")) {
+      refreshAdminNewcamMatchForm();
+      return;
+    }
+    updateAdminNewcamMatchPreview(newcamForm);
+  });
+
   adminContent?.addEventListener("submit", async (event) => {
+    const newcamForm = event.target.closest("#adminNewcamMatchForm");
+    if (newcamForm) {
+      event.preventDefault();
+      if (!adminConn.authed || !adminConn.supabaseReady) {
+        showAdminToast("관리자 로그인과 Supabase 연결이 필요합니다.");
+        return;
+      }
+      const submit = newcamForm.querySelector("button[type='submit']");
+      try {
+        if (submit) submit.disabled = true;
+        const payload = adminNewcamMatchPayloadFromForm(newcamForm);
+        const saved = await adminApi("newcam-match-entry", { method: "POST", body: payload });
+        const score = saved && saved.score ? `${saved.score.a || 0}:${saved.score.b || 0}` : "";
+        showAdminToast("뉴캄 경기 저장 완료" + (score ? " · " + score : ""));
+        renderAdmin();
+      } catch (err) {
+        showAdminToast("저장 실패: " + (err.message || ""));
+      } finally {
+        if (submit) submit.disabled = false;
+      }
+      return;
+    }
+
     const form = event.target.closest("#adminEditForm");
     if (!form) return;
     event.preventDefault();

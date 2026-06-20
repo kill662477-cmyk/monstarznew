@@ -19,6 +19,7 @@
 //  PATCH  /api/admin/notices/:id/pin { pinned }    -> 고정 토글
 //  PATCH  /api/admin/videos/:id/pin  { pinned }    -> 고정 토글
 //  PATCH  /api/admin/links/reorder   { orders:[{id,sort_order}] } -> 정렬
+//  POST   /api/admin/newcam-match-entry { match, games } -> 뉴캄 경기 + 세트별 선수 결과 일괄 등록
 
 const crypto = require("crypto");
 const { getServerConfig, getPublicConfig } = require("../../lib/supabase/server");
@@ -27,6 +28,10 @@ const { checkRateLimit } = require("../_shared/rateLimit");
 
 const COOKIE_NAME = "mz_admin";
 const MAX_BODY_BYTES = 64 * 1024;
+const NEWCAM_MAPS = ["폴리포이드", "라데온", "녹아웃", "네오 실피드"];
+const NEWCAM_MATCH_TYPES = ["scrim", "official", "final"];
+const NEWCAM_GROUPS = ["", "A", "B", "FINAL"];
+const NEWCAM_STATUSES = ["scheduled", "done", "cancelled"];
 
 const RESOURCES = {
   members: { table: "members_admin" },
@@ -197,6 +202,122 @@ function normalizePayload(table, payload) {
   return out;
 }
 
+function cleanChoice(value, allowed, fallback, field) {
+  const text = safeText(value, field) || "";
+  if (!text) return fallback || "";
+  if (!allowed.includes(text)) throw validationError(field + " 값이 올바르지 않습니다.");
+  return text;
+}
+
+function normalizeDateTime(value) {
+  const text = safeText(value, "played_at") || "";
+  if (!text) return new Date().toISOString();
+  const date = new Date(text);
+  if (Number.isNaN(date.getTime())) throw validationError("경기 시간 값이 올바르지 않습니다.");
+  return date.toISOString();
+}
+
+function normalizeNewcamMatchEntry(body) {
+  const matchInput = body && typeof body.match === "object" ? body.match : (body || {});
+  const matchType = cleanChoice(matchInput.match_type || "scrim", NEWCAM_MATCH_TYPES, "scrim", "match_type");
+  const groupName = cleanChoice(matchInput.group_name || "", NEWCAM_GROUPS, "", "group_name");
+  const status = cleanChoice(matchInput.status || "done", NEWCAM_STATUSES, "done", "status");
+  const teamA = safeText(matchInput.team_a_key, "team_a_key");
+  const teamB = safeText(matchInput.team_b_key, "team_b_key");
+  if (!teamA || !teamB) throw validationError("A팀과 B팀을 선택해주세요.");
+  if (teamA === teamB) throw validationError("A팀과 B팀은 서로 달라야 합니다.");
+
+  const games = Array.isArray(body && body.games) ? body.games : [];
+  if (games.length > 9) throw validationError("세트는 최대 9개까지만 등록할 수 있습니다.");
+
+  let aWins = 0;
+  let bWins = 0;
+  const rows = [];
+  games.forEach(function (game, index) {
+    const gameNo = Math.max(1, Math.min(9, Number(game && game.game_no) || (index + 1)));
+    const mapName = safeText(game && game.map_name, "map_name") || "";
+    const aPlayer = safeText(game && (game.a_player_name || game.player_a_name || game.a_player), "a_player_name") || "";
+    const bPlayer = safeText(game && (game.b_player_name || game.player_b_name || game.b_player), "b_player_name") || "";
+    const winnerSide = String((game && (game.winner_side || game.winner)) || "").trim().toUpperCase();
+    const hasAnyValue = Boolean(mapName || aPlayer || bPlayer || winnerSide);
+    if (!hasAnyValue) return;
+    if (!mapName || !NEWCAM_MAPS.includes(mapName)) throw validationError(gameNo + "세트 맵을 선택해주세요.");
+    if (!aPlayer || !bPlayer) throw validationError(gameNo + "세트 A/B 선수를 모두 입력해주세요.");
+    if (!["A", "B"].includes(winnerSide)) throw validationError(gameNo + "세트 승자를 선택해주세요.");
+
+    const aWin = winnerSide === "A";
+    if (aWin) aWins += 1;
+    else bWins += 1;
+    rows.push({
+      match_type: matchType,
+      game_no: gameNo,
+      map_name: mapName,
+      team_key: teamA,
+      player_name: aPlayer,
+      opponent_name: bPlayer,
+      result: aWin ? "win" : "loss",
+      sort_order: gameNo * 10,
+      is_visible: true
+    });
+    rows.push({
+      match_type: matchType,
+      game_no: gameNo,
+      map_name: mapName,
+      team_key: teamB,
+      player_name: bPlayer,
+      opponent_name: aPlayer,
+      result: aWin ? "loss" : "win",
+      sort_order: gameNo * 10 + 1,
+      is_visible: true
+    });
+  });
+
+  if (!rows.length) throw validationError("저장할 세트 결과가 없습니다.");
+  const winnerTeam = aWins > bWins ? teamA : (bWins > aWins ? teamB : "");
+  const sortOrder = Number(matchInput.sort_order) || Math.floor(Date.now() / 1000);
+  return {
+    match: {
+      match_type: matchType,
+      group_name: groupName,
+      round_label: safeText(matchInput.round_label, "round_label") || "",
+      team_a_key: teamA,
+      team_b_key: teamB,
+      winner_team_key: winnerTeam,
+      played_at: normalizeDateTime(matchInput.played_at),
+      status: status,
+      sort_order: sortOrder,
+      is_visible: true
+    },
+    rows: rows,
+    score: { a: aWins, b: bWins, winner_team_key: winnerTeam }
+  };
+}
+
+async function createNewcamMatchEntry(body) {
+  const normalized = normalizeNewcamMatchEntry(body);
+  const createdMatchRows = await admin.insertRow("newcam_matches", normalized.match);
+  const match = Array.isArray(createdMatchRows) ? createdMatchRows[0] : createdMatchRows;
+  if (!match || !match.id) throw validationError("경기 저장 결과를 확인하지 못했습니다.");
+  const playerRows = normalized.rows.map(function (row) {
+    return Object.assign({}, row, { match_id: match.id });
+  });
+  try {
+    const createdPlayers = await admin.rest("POST", "newcam_match_players", {
+      body: playerRows,
+      prefer: "return=representation"
+    });
+    return {
+      match: match,
+      matchPlayers: Array.isArray(createdPlayers) ? createdPlayers : [],
+      games: playerRows.length / 2,
+      score: normalized.score
+    };
+  } catch (error) {
+    await admin.softDelete("newcam_matches", match.id).catch(function () {});
+    throw error;
+  }
+}
+
 async function systemHealth(req) {
   const serverCfg = getServerConfig();
   const publicCfg = getPublicConfig();
@@ -328,6 +449,15 @@ module.exports = async function handler(req, res) {
     try {
       const data = await admin.rest("GET", "automation_runs", { query: "?select=*&order=created_at.desc&limit=30" });
       return ok(res, data);
+    } catch (e) {
+      return handleError(res, e);
+    }
+  }
+
+  if (resourceKey === "newcam-match-entry" && method === "POST") {
+    try {
+      const body = await readJsonBody(req);
+      return ok(res, await createNewcamMatchEntry(body));
     } catch (e) {
       return handleError(res, e);
     }
