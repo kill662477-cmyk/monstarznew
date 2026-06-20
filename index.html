@@ -7280,7 +7280,7 @@ body.funding-overlay-host .funding-temp-frame {
     "live    live    live    live    live    live    live     live     live     live   live   live"
     "notice  notice  notice  notice  notice  notice  schedule schedule schedule inout  inout  inout"
     "fantube fantube fantube fantube boja    boja    boja     boja     tier     tier   tier   tier"
-    "tools   tools   tools   tools   tools   tools   links    links    links    links  links  links";
+    "tools   tools   tools   tools   links   links   links    links    .        .      .      .";
   gap: 14px;
   align-items: start;
 }
@@ -10882,12 +10882,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     if (homeTierList) {
-      const tiers = ["3", "4", "5", "6", "7", "8", "9"].map(tier => {
-        const count = allMembers.filter(member => String(member.tier) === tier).length;
-        return `${tier === "9" ? "유스" : tier + "티어"} ${count}명`;
-      });
       homeTierList.innerHTML = [
-        renderInternalHubItem("티어표", tiers.join(" · "), "tier", "표"),
+        renderInternalHubItem("티어표", "", "tier", "표"),
         renderInternalHubItem("엔트리 바로가기", "상대전적 · 최근 1년 전적 · 승부 예측", "entry", "예측"),
         renderInternalHubItem("전적/랭킹", "", "links", "외부")
       ].filter(Boolean).join("");
