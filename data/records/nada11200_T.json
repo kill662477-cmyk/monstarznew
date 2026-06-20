@@ -1,9 +1,31 @@
 [
   {
-    "id": 353191,
+    "id": "nada11200_2026-06-19_이예준_Z_네오_실피드_14.3_단판_메이저_프로리그_2세트_위너스_1경기(추가_1목숨빵)",
+    "date": "2026-06-19",
+    "winnerRace": "T",
+    "winnerSoopUserId": "nada11200",
+    "winnerPlayer": "이윤열",
+    "loseRace": "Z",
+    "loseSoopUserId": "",
+    "losePlayer": "이예준",
+    "map": "네오 실피드"
+  },
+  {
+    "id": "nada11200_2026-06-19_이예준_Z_라데온_15.7_단판_메이저_프로리그_1세트_1경기",
+    "date": "2026-06-19",
+    "winnerRace": "T",
+    "winnerSoopUserId": "nada11200",
+    "winnerPlayer": "이윤열",
+    "loseRace": "Z",
+    "loseSoopUserId": "",
+    "losePlayer": "이예준",
+    "map": "라데온"
+  },
+  {
+    "id": "nada11200_2026-05-07_박종승_P_폴리포이드_-22.2_11/6(7)_쥐띠_CK(7)",
     "date": "2026-05-07",
     "winnerRace": "P",
-    "winnerSoopUserId": "askl021",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박종승",
     "loseRace": "T",
     "loseSoopUserId": "nada11200",
@@ -11,10 +33,10 @@
     "map": "폴리포이드"
   },
   {
-    "id": 353190,
+    "id": "nada11200_2026-05-07_박종승_P_녹아웃_-24_11/6(4)_쥐띠_CK(4)",
     "date": "2026-05-07",
     "winnerRace": "P",
-    "winnerSoopUserId": "askl021",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박종승",
     "loseRace": "T",
     "loseSoopUserId": "nada11200",
@@ -22,32 +44,32 @@
     "map": "녹아웃"
   },
   {
-    "id": 350009,
+    "id": "nada11200_2026-04-17_김봉준_P_네오_실피드_7.2_9/5(9)_수장_CK_에이스_결정전",
     "date": "2026-04-17",
     "winnerRace": "T",
     "winnerSoopUserId": "nada11200",
     "winnerPlayer": "이윤열",
     "loseRace": "P",
-    "loseSoopUserId": "khm11903",
+    "loseSoopUserId": "",
     "losePlayer": "김봉준",
     "map": "네오 실피드"
   },
   {
-    "id": 350003,
+    "id": "nada11200_2026-04-17_김봉준_P_라데온_7.7_9/5(7)_수장_CK(7)",
     "date": "2026-04-17",
     "winnerRace": "T",
     "winnerSoopUserId": "nada11200",
     "winnerPlayer": "이윤열",
     "loseRace": "P",
-    "loseSoopUserId": "khm11903",
+    "loseSoopUserId": "",
     "losePlayer": "김봉준",
     "map": "라데온"
   },
   {
-    "id": 348861,
+    "id": "nada11200_2026-04-09_손찬웅_P_아쉬리고_-17.7_단판_코미디빅리그_2세트_1경기",
     "date": "2026-04-09",
     "winnerRace": "P",
-    "winnerSoopUserId": "cksdnddldhkd",
+    "winnerSoopUserId": "",
     "winnerPlayer": "손찬웅",
     "loseRace": "T",
     "loseSoopUserId": "nada11200",
@@ -55,10 +77,10 @@
     "map": "아쉬리고"
   },
   {
-    "id": 348846,
+    "id": "nada11200_2026-04-09_강민_P_815_-23.6_단판_코미디빅리그_1세트_2경기",
     "date": "2026-04-09",
     "winnerRace": "P",
-    "winnerSoopUserId": "nalra82",
+    "winnerSoopUserId": "",
     "winnerPlayer": "강민",
     "loseRace": "T",
     "loseSoopUserId": "nada11200",

@@ -1,13 +1,68 @@
 [
   {
-    "id": 352457,
+    "id": "y1026_2026-06-19_이윤열_T_네오_실피드_-14.3_단판_메이저_프로리그_2세트_위너스_1경기(추가_1목숨빵)",
+    "date": "2026-06-19",
+    "winnerRace": "T",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "이윤열",
+    "loseRace": "Z",
+    "loseSoopUserId": "y1026",
+    "losePlayer": "철구",
+    "map": "네오 실피드"
+  },
+  {
+    "id": "y1026_2026-06-19_이윤열_T_라데온_-15.7_단판_메이저_프로리그_1세트_1경기",
+    "date": "2026-06-19",
+    "winnerRace": "T",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "이윤열",
+    "loseRace": "Z",
+    "loseSoopUserId": "y1026",
+    "losePlayer": "철구",
+    "map": "라데온"
+  },
+  {
+    "id": "y1026_2026-05-28_김민우_P_폴리포이드_20.5_9/5(1)_씨나인_vs_JSA_대학대전(1)",
+    "date": "2026-05-28",
+    "winnerRace": "Z",
+    "winnerSoopUserId": "y1026",
+    "winnerPlayer": "철구",
+    "loseRace": "P",
+    "loseSoopUserId": "",
+    "losePlayer": "김민우",
+    "map": "폴리포이드"
+  },
+  {
+    "id": "y1026_2026-05-28_김민우_P_라데온_-12.6_9/5(2)_씨나인_vs_JSA_대학대전(2)",
+    "date": "2026-05-28",
+    "winnerRace": "P",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "김민우",
+    "loseRace": "Z",
+    "loseSoopUserId": "y1026",
+    "losePlayer": "철구",
+    "map": "라데온"
+  },
+  {
+    "id": "y1026_2026-05-28_김민우_P_라데온_-12.6_9/5(2)_씨나인_vs_JSA_미니대학대전(2)",
+    "date": "2026-05-28",
+    "winnerRace": "P",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "김민우",
+    "loseRace": "Z",
+    "loseSoopUserId": "y1026",
+    "losePlayer": "철구",
+    "map": "라데온"
+  },
+  {
+    "id": "y1026_2026-05-01_민찬기_T_폴리포이드_-9.9_단판_씨나인_도박ck",
     "date": "2026-05-01",
     "winnerRace": "T",
-    "winnerSoopUserId": "ckmin706",
+    "winnerSoopUserId": "",
     "winnerPlayer": "민찬기",
     "loseRace": "Z",
     "loseSoopUserId": "y1026",
-    "losePlayer": "이예준",
+    "losePlayer": "철구",
     "map": "폴리포이드"
   },
   {

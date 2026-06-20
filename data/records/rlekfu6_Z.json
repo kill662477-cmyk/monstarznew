@@ -1,20 +1,64 @@
 [
   {
-    "id": 355625,
+    "id": "rlekfu6_2026-06-09_지동원_T_네오_실피드_12.3_9/5(7)_포장_CK(7)",
+    "date": "2026-06-09",
+    "winnerRace": "Z",
+    "winnerSoopUserId": "rlekfu6",
+    "winnerPlayer": "박재혁",
+    "loseRace": "T",
+    "loseSoopUserId": "",
+    "losePlayer": "지동원",
+    "map": "네오 실피드"
+  },
+  {
+    "id": "rlekfu6_2026-06-09_지동원_T_네오_실피드_-21.5_9/5(3)_포장_CK(3)",
+    "date": "2026-06-09",
+    "winnerRace": "T",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "지동원",
+    "loseRace": "Z",
+    "loseSoopUserId": "rlekfu6",
+    "losePlayer": "박재혁",
+    "map": "네오 실피드"
+  },
+  {
+    "id": "rlekfu6_2026-05-25_윤찬희_T_녹아웃_-10_단판_K리그_2세트_위너스_1경기",
+    "date": "2026-05-25",
+    "winnerRace": "T",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "윤찬희",
+    "loseRace": "Z",
+    "loseSoopUserId": "rlekfu6",
+    "losePlayer": "박재혁",
+    "map": "녹아웃"
+  },
+  {
+    "id": "rlekfu6_2026-05-25_진영화_P_녹아웃_18.7_단판_K리그_1세트_1경기",
+    "date": "2026-05-25",
+    "winnerRace": "Z",
+    "winnerSoopUserId": "rlekfu6",
+    "winnerPlayer": "박재혁",
+    "loseRace": "P",
+    "loseSoopUserId": "",
+    "losePlayer": "진영화",
+    "map": "녹아웃"
+  },
+  {
+    "id": "rlekfu6_2026-05-23_이성은_T_라데온_12.9_단판_더블_끝장전_연습",
     "date": "2026-05-23",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "firebathero",
+    "loseSoopUserId": "",
     "losePlayer": "이성은",
     "map": "라데온"
   },
   {
-    "id": 355520,
+    "id": "rlekfu6_2026-05-22_정경두_P_네오_실피드_-8.1_3/2(2)_3/2",
     "date": "2026-05-22",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -22,10 +66,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 355519,
+    "id": "rlekfu6_2026-05-22_정경두_P_폴스타_-8.8_3/2(1)_3/2",
     "date": "2026-05-22",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -33,10 +77,10 @@
     "map": "폴스타"
   },
   {
-    "id": 355518,
+    "id": "rlekfu6_2026-05-22_정경두_P_애티튜드_-9.5_3/2(2)_3/2",
     "date": "2026-05-22",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -44,10 +88,10 @@
     "map": "애티튜드"
   },
   {
-    "id": 355517,
+    "id": "rlekfu6_2026-05-22_정경두_P_옥타곤_-10.3_3/2(1)_3/2",
     "date": "2026-05-22",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -55,10 +99,10 @@
     "map": "옥타곤"
   },
   {
-    "id": 355484,
+    "id": "rlekfu6_2026-05-22_박상현_Z_옥타곤_-6_단판_E-SCORE_TOURNAMENT_S2_8주차_32강",
     "date": "2026-05-22",
     "winnerRace": "Z",
-    "winnerSoopUserId": "thakzkf",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박상현",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -66,43 +110,43 @@
     "map": "옥타곤"
   },
   {
-    "id": 355472,
+    "id": "rlekfu6_2026-05-22_원선재_P_네오_실피드_19.4_단판_E-SCORE_TOURNAMENT_S2_8주차_64강",
     "date": "2026-05-22",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "zealot0846",
+    "loseSoopUserId": "",
     "losePlayer": "원선재",
     "map": "네오 실피드"
   },
   {
-    "id": 355298,
+    "id": "rlekfu6_2026-05-21_민찬기_T_애티튜드_14.2_3/2(3)_3경기_2:1_박재혁_승리",
     "date": "2026-05-21",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "ckmin706",
+    "loseSoopUserId": "",
     "losePlayer": "민찬기",
     "map": "애티튜드"
   },
   {
-    "id": 355297,
+    "id": "rlekfu6_2026-05-21_민찬기_T_녹아웃_15.6_3/2(2)_2",
     "date": "2026-05-21",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "ckmin706",
+    "loseSoopUserId": "",
     "losePlayer": "민찬기",
     "map": "녹아웃"
   },
   {
-    "id": 355296,
+    "id": "rlekfu6_2026-05-21_민찬기_T_폴스타_-18_3/2(1)_1",
     "date": "2026-05-21",
     "winnerRace": "T",
-    "winnerSoopUserId": "ckmin706",
+    "winnerSoopUserId": "",
     "winnerPlayer": "민찬기",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -110,10 +154,10 @@
     "map": "폴스타"
   },
   {
-    "id": 355070,
+    "id": "rlekfu6_2026-05-19_민찬기_T_폴스타_-19.8_단판_단판",
     "date": "2026-05-19",
     "winnerRace": "T",
-    "winnerSoopUserId": "ckmin706",
+    "winnerSoopUserId": "",
     "winnerPlayer": "민찬기",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -121,21 +165,21 @@
     "map": "폴스타"
   },
   {
-    "id": 354458,
+    "id": "rlekfu6_2026-05-15_이경민_P_녹아웃_19.6_5/3(4)_10창CK_2set_4경기",
     "date": "2026-05-15",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "rudals5467",
+    "loseSoopUserId": "",
     "losePlayer": "이경민",
     "map": "녹아웃"
   },
   {
-    "id": 354457,
+    "id": "rlekfu6_2026-05-15_이경민_P_폴리포이드_-13.6_5/3(2)_10창CK_1set_2경기",
     "date": "2026-05-15",
     "winnerRace": "P",
-    "winnerSoopUserId": "rudals5467",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이경민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -143,10 +187,10 @@
     "map": "폴리포이드"
   },
   {
-    "id": 354359,
+    "id": "rlekfu6_2026-05-14_정경두_P_네오_실피드_-12.2_단판_단판",
     "date": "2026-05-14",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -154,10 +198,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 354358,
+    "id": "rlekfu6_2026-05-14_정경두_P_녹아웃_-13.4_3/2(2)_3/2",
     "date": "2026-05-14",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -165,10 +209,10 @@
     "map": "녹아웃"
   },
   {
-    "id": 354357,
+    "id": "rlekfu6_2026-05-14_정경두_P_폴스타_-14.8_3/2(1)_3/2",
     "date": "2026-05-14",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -176,65 +220,65 @@
     "map": "폴스타"
   },
   {
-    "id": 354355,
+    "id": "rlekfu6_2026-05-14_정경두_P_옥타곤_19_3/2(2)_3/2",
     "date": "2026-05-14",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
+    "loseSoopUserId": "",
     "losePlayer": "정경두",
     "map": "옥타곤"
   },
   {
-    "id": 354354,
+    "id": "rlekfu6_2026-05-14_정경두_P_애티튜드_20.7_3/2(1)_3/2",
     "date": "2026-05-14",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
+    "loseSoopUserId": "",
     "losePlayer": "정경두",
     "map": "애티튜드"
   },
   {
-    "id": 354337,
+    "id": "rlekfu6_2026-05-14_김성민_P_애티튜드_14.2_11/6(9)_뉴캣슬_스승의날CK_(9)",
     "date": "2026-05-14",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "ksmo54",
+    "loseSoopUserId": "",
     "losePlayer": "김성민",
     "map": "애티튜드"
   },
   {
-    "id": 353556,
+    "id": "rlekfu6_2026-05-08_정경두_P_매치포인트_19.2_3/2(3)_3/2",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
+    "loseSoopUserId": "",
     "losePlayer": "정경두",
     "map": "매치포인트"
   },
   {
-    "id": 353555,
+    "id": "rlekfu6_2026-05-08_정경두_P_폴스타_21_3/2(2)_3/2",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
+    "loseSoopUserId": "",
     "losePlayer": "정경두",
     "map": "폴스타"
   },
   {
-    "id": 353554,
+    "id": "rlekfu6_2026-05-08_정경두_P_네오_실피드_-12_3/2(1)_3/2",
     "date": "2026-05-08",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -242,10 +286,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 353553,
+    "id": "rlekfu6_2026-05-08_정경두_P_폴스타_-13.1_3/2(3)_3/2",
     "date": "2026-05-08",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -253,21 +297,21 @@
     "map": "폴스타"
   },
   {
-    "id": 353552,
+    "id": "rlekfu6_2026-05-08_정경두_P_옥타곤_20.6_3/2(2)_3/2",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
+    "loseSoopUserId": "",
     "losePlayer": "정경두",
     "map": "옥타곤"
   },
   {
-    "id": 353551,
+    "id": "rlekfu6_2026-05-08_정경두_P_애티튜드_-12.4_3/2(1)_3/2",
     "date": "2026-05-08",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -275,43 +319,43 @@
     "map": "애티튜드"
   },
   {
-    "id": 353403,
+    "id": "rlekfu6_2026-05-08_이경민_P_제인_도_17_5/3(4)_4",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "rudals5467",
+    "loseSoopUserId": "",
     "losePlayer": "이경민",
     "map": "제인 도"
   },
   {
-    "id": 353402,
+    "id": "rlekfu6_2026-05-08_이경민_P_녹아웃_18.7_5/3(3)_3",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "rudals5467",
+    "loseSoopUserId": "",
     "losePlayer": "이경민",
     "map": "녹아웃"
   },
   {
-    "id": 353399,
+    "id": "rlekfu6_2026-05-08_이경민_P_매치포인트_20.5_5/3(2)_2",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "rudals5467",
+    "loseSoopUserId": "",
     "losePlayer": "이경민",
     "map": "매치포인트"
   },
   {
-    "id": 353398,
+    "id": "rlekfu6_2026-05-08_이경민_P_네오_실피드_-12.6_5/3(1)_1",
     "date": "2026-05-08",
     "winnerRace": "P",
-    "winnerSoopUserId": "rudals5467",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이경민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -319,43 +363,43 @@
     "map": "네오 실피드"
   },
   {
-    "id": 353385,
+    "id": "rlekfu6_2026-05-08_김윤환_Z_녹아웃_17.6_3/2(2)_(승)_박재혁_2:0_김윤환",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "brainzerg7",
+    "loseSoopUserId": "",
     "losePlayer": "김윤환",
     "map": "녹아웃"
   },
   {
-    "id": 353384,
+    "id": "rlekfu6_2026-05-08_김윤환_Z_매치포인트_19.4_3/2(1)_re_박재혁_1:0_김윤환",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "brainzerg7",
+    "loseSoopUserId": "",
     "losePlayer": "김윤환",
     "map": "매치포인트"
   },
   {
-    "id": 353380,
+    "id": "rlekfu6_2026-05-08_김윤환_Z_네오_실피드_19.5_3/2(3)_(승)_박재혁_2:1_김윤환",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "brainzerg7",
+    "loseSoopUserId": "",
     "losePlayer": "김윤환",
     "map": "네오 실피드"
   },
   {
-    "id": 353357,
+    "id": "rlekfu6_2026-05-08_김윤환_Z_애티튜드_-13.7_3/2(2)_박재혁_1:1_김윤환",
     "date": "2026-05-08",
     "winnerRace": "Z",
-    "winnerSoopUserId": "brainzerg7",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김윤환",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -363,21 +407,21 @@
     "map": "애티튜드"
   },
   {
-    "id": 353356,
+    "id": "rlekfu6_2026-05-08_김윤환_Z_옥타곤_20.1_3/2(1)_박재혁_1:0_김윤환",
     "date": "2026-05-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "brainzerg7",
+    "loseSoopUserId": "",
     "losePlayer": "김윤환",
     "map": "옥타곤"
   },
   {
-    "id": 353350,
+    "id": "rlekfu6_2026-05-08_윤용태_P_네오_실피드_-9.6_단판_E-SCORE_TOURNAMENT_S2_6주차_64강",
     "date": "2026-05-08",
     "winnerRace": "P",
-    "winnerSoopUserId": "dbsdydx",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤용태",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -385,10 +429,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 353239,
+    "id": "rlekfu6_2026-05-07_이경민_P_매치포인트_-12.5_3/2(3)_리3",
     "date": "2026-05-07",
     "winnerRace": "P",
-    "winnerSoopUserId": "rudals5467",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이경민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -396,10 +440,10 @@
     "map": "매치포인트"
   },
   {
-    "id": 353238,
+    "id": "rlekfu6_2026-05-07_이경민_P_네오_실피드_-13.7_3/2(2)_리2",
     "date": "2026-05-07",
     "winnerRace": "P",
-    "winnerSoopUserId": "rudals5467",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이경민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -407,32 +451,32 @@
     "map": "네오 실피드"
   },
   {
-    "id": 353237,
+    "id": "rlekfu6_2026-05-07_이경민_P_폴스타_20.1_3/2(1)_리_1",
     "date": "2026-05-07",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "rudals5467",
+    "loseSoopUserId": "",
     "losePlayer": "이경민",
     "map": "폴스타"
   },
   {
-    "id": 353236,
+    "id": "rlekfu6_2026-05-07_이경민_P_녹아웃_21.9_3/2(3)_3",
     "date": "2026-05-07",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "rudals5467",
+    "loseSoopUserId": "",
     "losePlayer": "이경민",
     "map": "녹아웃"
   },
   {
-    "id": 353235,
+    "id": "rlekfu6_2026-05-07_이경민_P_네오_실피드_-11_3/2(2)_2",
     "date": "2026-05-07",
     "winnerRace": "P",
-    "winnerSoopUserId": "rudals5467",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이경민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -440,21 +484,21 @@
     "map": "네오 실피드"
   },
   {
-    "id": 353234,
+    "id": "rlekfu6_2026-05-07_이경민_P_옥타곤_22.8_3/2(1)_1",
     "date": "2026-05-07",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "rudals5467",
+    "loseSoopUserId": "",
     "losePlayer": "이경민",
     "map": "옥타곤"
   },
   {
-    "id": 353189,
+    "id": "rlekfu6_2026-05-07_송병구_P_폴스타_-5.4_단판_ㅇㅇ",
     "date": "2026-05-07",
     "winnerRace": "P",
-    "winnerSoopUserId": "koreasbg",
+    "winnerSoopUserId": "",
     "winnerPlayer": "송병구",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -462,10 +506,10 @@
     "map": "폴스타"
   },
   {
-    "id": 353152,
+    "id": "rlekfu6_2026-05-07_김태영_T_애티튜드_-4.1_3/2(2)_32",
     "date": "2026-05-07",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -473,10 +517,10 @@
     "map": "애티튜드"
   },
   {
-    "id": 353151,
+    "id": "rlekfu6_2026-05-07_김태영_T_옥타곤_-4.3_3/2(1)_32",
     "date": "2026-05-07",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -484,21 +528,21 @@
     "map": "옥타곤"
   },
   {
-    "id": 352498,
+    "id": "rlekfu6_2026-05-02_진영화_P_옥타곤_18.6_단판_J리그_1세트_에이스_결정전",
     "date": "2026-05-02",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "jyh8610",
+    "loseSoopUserId": "",
     "losePlayer": "진영화",
     "map": "옥타곤"
   },
   {
-    "id": 352485,
+    "id": "rlekfu6_2026-05-02_진영화_P_매치포인트_-14.7_단판_J리그_1세트_2경기",
     "date": "2026-05-02",
     "winnerRace": "P",
-    "winnerSoopUserId": "jyh8610",
+    "winnerSoopUserId": "",
     "winnerPlayer": "진영화",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -506,10 +550,10 @@
     "map": "매치포인트"
   },
   {
-    "id": 352260,
+    "id": "rlekfu6_2026-05-01_김성민_P_네오_실피드_-13.6_단판_E-SCORE_TOURNAMENT_S2_5주차_64강",
     "date": "2026-05-01",
     "winnerRace": "P",
-    "winnerSoopUserId": "ksmo54",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김성민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -517,54 +561,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 352045,
-    "date": "2026-04-02",
-    "winnerRace": "T",
-    "winnerSoopUserId": "organ333",
-    "winnerPlayer": "임진묵",
-    "loseRace": "Z",
-    "loseSoopUserId": "rlekfu6",
-    "losePlayer": "박재혁",
-    "map": "애티튜드"
-  },
-  {
-    "id": 352044,
-    "date": "2026-04-02",
-    "winnerRace": "T",
-    "winnerSoopUserId": "organ333",
-    "winnerPlayer": "임진묵",
-    "loseRace": "Z",
-    "loseSoopUserId": "rlekfu6",
-    "losePlayer": "박재혁",
-    "map": "옥타곤"
-  },
-  {
-    "id": 352026,
-    "date": "2026-03-31",
-    "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
-    "winnerPlayer": "정경두",
-    "loseRace": "Z",
-    "loseSoopUserId": "rlekfu6",
-    "losePlayer": "박재혁",
-    "map": "애티튜드"
-  },
-  {
-    "id": 352025,
-    "date": "2026-03-31",
-    "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
-    "winnerPlayer": "정경두",
-    "loseRace": "Z",
-    "loseSoopUserId": "rlekfu6",
-    "losePlayer": "박재혁",
-    "map": "옥타곤"
-  },
-  {
-    "id": 351533,
+    "id": "rlekfu6_2026-04-27_장민철_P_폴스타_-11.4_5/3(2)_씨나인_즉흥_CK_2세트_2경기",
     "date": "2026-04-27",
     "winnerRace": "P",
-    "winnerSoopUserId": "jmc06170",
+    "winnerSoopUserId": "",
     "winnerPlayer": "장민철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -572,10 +572,10 @@
     "map": "폴스타"
   },
   {
-    "id": 350919,
+    "id": "rlekfu6_2026-04-23_이재호_T_폴스타_-2.9_3/2(2)_리스폰_3/2_2경기(이재호_2:0_승)",
     "date": "2026-04-23",
     "winnerRace": "T",
-    "winnerSoopUserId": "scv6256",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이재호",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -583,10 +583,10 @@
     "map": "폴스타"
   },
   {
-    "id": 350918,
+    "id": "rlekfu6_2026-04-23_이재호_T_네오_실피드_-2.9_3/2(1)_리스폰_3/2_1경기",
     "date": "2026-04-23",
     "winnerRace": "T",
-    "winnerSoopUserId": "scv6256",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이재호",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -594,10 +594,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 350917,
+    "id": "rlekfu6_2026-04-23_이재호_T_제인_도_-3_3/2(2)_스폰_3/2_2경기(이재호_2:0_승)",
     "date": "2026-04-23",
     "winnerRace": "T",
-    "winnerSoopUserId": "scv6256",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이재호",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -605,10 +605,10 @@
     "map": "제인 도"
   },
   {
-    "id": 350916,
+    "id": "rlekfu6_2026-04-23_이재호_T_매치포인트_-3.1_3/2(1)_스폰_3/2_1경기",
     "date": "2026-04-23",
     "winnerRace": "T",
-    "winnerSoopUserId": "scv6256",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이재호",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -616,54 +616,21 @@
     "map": "매치포인트"
   },
   {
-    "id": 350290,
-    "date": "2026-04-16",
-    "winnerRace": "Z",
-    "winnerSoopUserId": "rlekfu6",
-    "winnerPlayer": "박재혁",
-    "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
-    "losePlayer": "정경두",
-    "map": "옥타곤"
-  },
-  {
-    "id": 350289,
-    "date": "2026-04-16",
-    "winnerRace": "Z",
-    "winnerSoopUserId": "rlekfu6",
-    "winnerPlayer": "박재혁",
-    "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
-    "losePlayer": "정경두",
-    "map": "애티튜드"
-  },
-  {
-    "id": 350285,
-    "date": "2026-04-16",
-    "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
-    "winnerPlayer": "정경두",
-    "loseRace": "Z",
-    "loseSoopUserId": "rlekfu6",
-    "losePlayer": "박재혁",
-    "map": "폴스타"
-  },
-  {
-    "id": 350167,
+    "id": "rlekfu6_2026-04-18_윤수철_P_애티튜드_28.2_단판_단판",
     "date": "2026-04-18",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "snfjdro369",
+    "loseSoopUserId": "",
     "losePlayer": "윤수철",
     "map": "애티튜드"
   },
   {
-    "id": 350022,
+    "id": "rlekfu6_2026-04-17_지동원_T_네오_실피드_-12_단판_E-SCORE_TOURNAMENT_S2_3주차_64강",
     "date": "2026-04-17",
     "winnerRace": "T",
-    "winnerSoopUserId": "rondobba",
+    "winnerSoopUserId": "",
     "winnerPlayer": "지동원",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -671,10 +638,43 @@
     "map": "네오 실피드"
   },
   {
-    "id": 349771,
+    "id": "rlekfu6_2026-04-16_정경두_P_옥타곤_22.9_3/2(2)_3/2",
+    "date": "2026-04-16",
+    "winnerRace": "Z",
+    "winnerSoopUserId": "rlekfu6",
+    "winnerPlayer": "박재혁",
+    "loseRace": "P",
+    "loseSoopUserId": "",
+    "losePlayer": "정경두",
+    "map": "옥타곤"
+  },
+  {
+    "id": "rlekfu6_2026-04-16_정경두_P_애티튜드_24.6_3/2(1)_3/2",
+    "date": "2026-04-16",
+    "winnerRace": "Z",
+    "winnerSoopUserId": "rlekfu6",
+    "winnerPlayer": "박재혁",
+    "loseRace": "P",
+    "loseSoopUserId": "",
+    "losePlayer": "정경두",
+    "map": "애티튜드"
+  },
+  {
+    "id": "rlekfu6_2026-04-16_정경두_P_폴스타_-7.4_단판_단판",
     "date": "2026-04-16",
     "winnerRace": "P",
-    "winnerSoopUserId": "snfjdro369",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "정경두",
+    "loseRace": "Z",
+    "loseSoopUserId": "rlekfu6",
+    "losePlayer": "박재혁",
+    "map": "폴스타"
+  },
+  {
+    "id": "rlekfu6_2026-04-16_윤수철_P_애티튜드_-4.1_단판_단판",
+    "date": "2026-04-16",
+    "winnerRace": "P",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤수철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -682,10 +682,10 @@
     "map": "애티튜드"
   },
   {
-    "id": 349413,
+    "id": "rlekfu6_2026-04-13_김태영_T_녹아웃_-6.1_3/2(3)_ㅅㅍ",
     "date": "2026-04-13",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -693,21 +693,21 @@
     "map": "녹아웃"
   },
   {
-    "id": 349412,
+    "id": "rlekfu6_2026-04-13_김태영_T_애티튜드_27.3_3/2(2)_ㅅㅍ",
     "date": "2026-04-13",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "hoonykkk",
+    "loseSoopUserId": "",
     "losePlayer": "김태영",
     "map": "애티튜드"
   },
   {
-    "id": 349411,
+    "id": "rlekfu6_2026-04-13_김태영_T_옥타곤_-4.9_3/2(1)_ㅅㅍ",
     "date": "2026-04-13",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -715,10 +715,10 @@
     "map": "옥타곤"
   },
   {
-    "id": 349407,
+    "id": "rlekfu6_2026-04-13_김재현_T_애티튜드_-5.6_단판_K리그_2세트_6경기",
     "date": "2026-04-13",
     "winnerRace": "T",
-    "winnerSoopUserId": "onlysibar",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김재현",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -726,10 +726,10 @@
     "map": "애티튜드"
   },
   {
-    "id": 349404,
+    "id": "rlekfu6_2026-04-13_김재현_T_제인_도_-5.9_단판_K리그_2세트_3경기",
     "date": "2026-04-13",
     "winnerRace": "T",
-    "winnerSoopUserId": "onlysibar",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김재현",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -737,10 +737,10 @@
     "map": "제인 도"
   },
   {
-    "id": 349348,
+    "id": "rlekfu6_2026-04-12_진영화_P_녹아웃_-11.1_단판_K리그_1세트_에이스_결정전",
     "date": "2026-04-12",
     "winnerRace": "P",
-    "winnerSoopUserId": "jyh8610",
+    "winnerSoopUserId": "",
     "winnerPlayer": "진영화",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -748,10 +748,10 @@
     "map": "녹아웃"
   },
   {
-    "id": 349346,
+    "id": "rlekfu6_2026-04-12_어윤수_Z_네오_실피드_-9.1_단판_K리그_1세트_5경기",
     "date": "2026-04-12",
     "winnerRace": "Z",
-    "winnerSoopUserId": "djdbstn",
+    "winnerSoopUserId": "",
     "winnerPlayer": "어윤수",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -759,10 +759,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 348301,
+    "id": "rlekfu6_2026-04-06_박수범_P_녹아웃_-10_단판_J리그_2세트_위너스_1경기",
     "date": "2026-04-06",
     "winnerRace": "P",
-    "winnerSoopUserId": "subeom12",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박수범",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -770,10 +770,10 @@
     "map": "녹아웃"
   },
   {
-    "id": 348299,
+    "id": "rlekfu6_2026-04-06_김성대_Z_녹아웃_-3.2_단판_J리그_1세트_5경기",
     "date": "2026-04-06",
     "winnerRace": "Z",
-    "winnerSoopUserId": "tjdeosks",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김성대",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -781,10 +781,32 @@
     "map": "녹아웃"
   },
   {
-    "id": 347823,
+    "id": "rlekfu6_2026-04-02_임진묵_T_애티튜드_-7.9_3/2(2)_(승)_임진묵_2:0_박재혁",
     "date": "2026-04-02",
     "winnerRace": "T",
-    "winnerSoopUserId": "rondobba",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "임진묵",
+    "loseRace": "Z",
+    "loseSoopUserId": "rlekfu6",
+    "losePlayer": "박재혁",
+    "map": "애티튜드"
+  },
+  {
+    "id": "rlekfu6_2026-04-02_임진묵_T_옥타곤_-8.4_3/2(1)_임진묵_1:0_박재혁",
+    "date": "2026-04-02",
+    "winnerRace": "T",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "임진묵",
+    "loseRace": "Z",
+    "loseSoopUserId": "rlekfu6",
+    "losePlayer": "박재혁",
+    "map": "옥타곤"
+  },
+  {
+    "id": "rlekfu6_2026-04-02_지동원_T_네오_실피드_-12.9_7/4(2)_츠캄_테란_CK_리매치(2)",
+    "date": "2026-04-02",
+    "winnerRace": "T",
+    "winnerSoopUserId": "",
     "winnerPlayer": "지동원",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -792,21 +814,43 @@
     "map": "네오 실피드"
   },
   {
-    "id": 347819,
+    "id": "rlekfu6_2026-04-02_지동원_T_폴스타_20.9_7/4(4)_츠캄_테란_CK(4)",
     "date": "2026-04-02",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "rondobba",
+    "loseSoopUserId": "",
     "losePlayer": "지동원",
     "map": "폴스타"
   },
   {
-    "id": 347716,
+    "id": "rlekfu6_2026-03-31_정경두_P_애티튜드_-6.5_3/2(2)_(승)_정경두_2:0_박재혁",
+    "date": "2026-03-31",
+    "winnerRace": "P",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "정경두",
+    "loseRace": "Z",
+    "loseSoopUserId": "rlekfu6",
+    "losePlayer": "박재혁",
+    "map": "애티튜드"
+  },
+  {
+    "id": "rlekfu6_2026-03-31_정경두_P_옥타곤_-7_3/2(1)_정경두_1:0_박재혁",
+    "date": "2026-03-31",
+    "winnerRace": "P",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "정경두",
+    "loseRace": "Z",
+    "loseSoopUserId": "rlekfu6",
+    "losePlayer": "박재혁",
+    "map": "옥타곤"
+  },
+  {
+    "id": "rlekfu6_2026-03-31_김태영_T_애티튜드_-7.7_단판_ㄽㅍ",
     "date": "2026-03-31",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -814,10 +858,10 @@
     "map": "애티튜드"
   },
   {
-    "id": 347715,
+    "id": "rlekfu6_2026-03-31_김태영_T_옥타곤_-8.3_단판_ㅅㅍ",
     "date": "2026-03-31",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -825,21 +869,21 @@
     "map": "옥타곤"
   },
   {
-    "id": 347604,
+    "id": "rlekfu6_2026-03-31_김경모_Z_매치포인트_21.8_단판_K리그_2세트_2경기",
     "date": "2026-03-31",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "kkmkhh1234",
+    "loseSoopUserId": "",
     "losePlayer": "김경모",
     "map": "매치포인트"
   },
   {
-    "id": 347568,
+    "id": "rlekfu6_2026-03-30_이경민_P_옥타곤_-10.5_단판_K리그_1세트_6경기",
     "date": "2026-03-30",
     "winnerRace": "P",
-    "winnerSoopUserId": "rudals5467",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이경민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -847,21 +891,21 @@
     "map": "옥타곤"
   },
   {
-    "id": 347567,
+    "id": "rlekfu6_2026-03-30_김태영_T_매치포인트_26.1_단판_K리그_1세트_5경기",
     "date": "2026-03-30",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "hoonykkk",
+    "loseSoopUserId": "",
     "losePlayer": "김태영",
     "map": "매치포인트"
   },
   {
-    "id": 347487,
+    "id": "rlekfu6_2026-03-29_정경두_P_폴스타_-6.2_3/2(2)_3/2",
     "date": "2026-03-29",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -869,10 +913,10 @@
     "map": "폴스타"
   },
   {
-    "id": 347486,
+    "id": "rlekfu6_2026-03-29_정경두_P_네오_실피드_-6.3_3/2(1)_3/2",
     "date": "2026-03-29",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -880,10 +924,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 347476,
+    "id": "rlekfu6_2026-03-29_윤수철_P_녹아웃_-5.7_3/2(2)_3/2_2경기",
     "date": "2026-03-29",
     "winnerRace": "P",
-    "winnerSoopUserId": "snfjdro369",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤수철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -891,10 +935,10 @@
     "map": "녹아웃"
   },
   {
-    "id": 347475,
+    "id": "rlekfu6_2026-03-29_윤수철_P_네오_실피드_-6.1_3/2(1)_3/2_1경기",
     "date": "2026-03-29",
     "winnerRace": "P",
-    "winnerSoopUserId": "snfjdro369",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤수철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -902,10 +946,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 346982,
+    "id": "rlekfu6_2026-03-24_김윤중_P_제인_도_-6.3_7/4(3)_4:4:4:4_킹/잭_팀배틀_결승전_3경기",
     "date": "2026-03-24",
     "winnerRace": "P",
-    "winnerSoopUserId": "jk890202",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김윤중",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -913,10 +957,10 @@
     "map": "제인 도"
   },
   {
-    "id": 346963,
+    "id": "rlekfu6_2026-03-24_이경민_P_매치포인트_-11.1_7/4(2)_4:4:4:4_킹/잭_팀배틀_4강_A조_2경기",
     "date": "2026-03-24",
     "winnerRace": "P",
-    "winnerSoopUserId": "rudals5467",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이경민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -924,21 +968,21 @@
     "map": "매치포인트"
   },
   {
-    "id": 346962,
+    "id": "rlekfu6_2026-03-24_원선재_P_제인_도_21.7_7/4(1)_4:4:4:4_킹/잭_팀배틀_4강_A조_1경기",
     "date": "2026-03-24",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "zealot0846",
+    "loseSoopUserId": "",
     "losePlayer": "원선재",
     "map": "제인 도"
   },
   {
-    "id": 346904,
+    "id": "rlekfu6_2026-03-23_진영화_P_네오_실피드_-12.4_단판_김윤환배_잭티어_월드컵_그룹A_8강",
     "date": "2026-03-23",
     "winnerRace": "P",
-    "winnerSoopUserId": "jyh8610",
+    "winnerSoopUserId": "",
     "winnerPlayer": "진영화",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -946,21 +990,21 @@
     "map": "네오 실피드"
   },
   {
-    "id": 346895,
+    "id": "rlekfu6_2026-03-23_임진묵_T_애티튜드_25.1_단판_김윤환배_잭티어_월드컵_그룹A_13강",
     "date": "2026-03-23",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "organ333",
+    "loseSoopUserId": "",
     "losePlayer": "임진묵",
     "map": "애티튜드"
   },
   {
-    "id": 345626,
+    "id": "rlekfu6_2026-03-06_윤수철_P_네오_실피드_-4.8_3/2(2)_3/2_2경기",
     "date": "2026-03-06",
     "winnerRace": "P",
-    "winnerSoopUserId": "snfjdro369",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤수철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -968,10 +1012,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 345625,
+    "id": "rlekfu6_2026-03-06_윤수철_P_폴스타_-5_3/2(1)_3/2_1경기",
     "date": "2026-03-06",
     "winnerRace": "P",
-    "winnerSoopUserId": "snfjdro369",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤수철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -979,21 +1023,21 @@
     "map": "폴스타"
   },
   {
-    "id": 345624,
+    "id": "rlekfu6_2026-03-06_최호선_T_폴스타_26.6_단판_단판",
     "date": "2026-03-06",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "ghtjs3833",
+    "loseSoopUserId": "",
     "losePlayer": "최호선",
     "map": "폴스타"
   },
   {
-    "id": 345017,
+    "id": "rlekfu6_2026-02-21_정경두_P_네오_실피드_-7.6_단판_단판",
     "date": "2026-02-21",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1001,10 +1045,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 345016,
+    "id": "rlekfu6_2026-02-21_정경두_P_매치포인트_-8.2_3/2(3)_3/2",
     "date": "2026-02-21",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1012,21 +1056,21 @@
     "map": "매치포인트"
   },
   {
-    "id": 345015,
+    "id": "rlekfu6_2026-02-21_정경두_P_녹아웃_25.5_3/2(2)_3/2",
     "date": "2026-02-21",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
+    "loseSoopUserId": "",
     "losePlayer": "정경두",
     "map": "녹아웃"
   },
   {
-    "id": 345014,
+    "id": "rlekfu6_2026-02-21_정경두_P_네오_실피드_-7_3/2(1)_3/2",
     "date": "2026-02-21",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1034,10 +1078,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 342198,
+    "id": "rlekfu6_2026-02-11_정경두_P_네오_실피드_-6.3_단판_단판",
     "date": "2026-02-11",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1045,10 +1089,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 341794,
+    "id": "rlekfu6_2026-02-10_이경민_P_녹아웃_-11.4_끝장전(6)_더블_끝장전_6경기_이경민_승",
     "date": "2026-02-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "rudals5467",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이경민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1056,21 +1100,21 @@
     "map": "녹아웃"
   },
   {
-    "id": 341780,
+    "id": "rlekfu6_2026-02-10_이경민_P_라데온_22.5_끝장전(4)_더블_끝장전_4경기_박재혁_승",
     "date": "2026-02-10",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "rudals5467",
+    "loseSoopUserId": "",
     "losePlayer": "이경민",
     "map": "라데온"
   },
   {
-    "id": 341779,
+    "id": "rlekfu6_2026-02-10_이경민_P_네오_실피드_-10.4_끝장전(2)_더블_끝장전_2경기_이경민_승",
     "date": "2026-02-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "rudals5467",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이경민",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1078,10 +1122,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 341685,
+    "id": "rlekfu6_2026-02-10_정경두_P_네오_실피드_-6.7_3/2(2)_3/2",
     "date": "2026-02-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1089,10 +1133,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 341684,
+    "id": "rlekfu6_2026-02-10_정경두_P_라데온_-7.1_3/2(1)_3/2",
     "date": "2026-02-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1100,10 +1144,10 @@
     "map": "라데온"
   },
   {
-    "id": 341683,
+    "id": "rlekfu6_2026-02-10_정경두_P_폴스타_-7.6_단판_단판",
     "date": "2026-02-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1111,10 +1155,10 @@
     "map": "폴스타"
   },
   {
-    "id": 341682,
+    "id": "rlekfu6_2026-02-10_정경두_P_네오_실피드_-8.2_3/2(3)_3/2",
     "date": "2026-02-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1122,21 +1166,21 @@
     "map": "네오 실피드"
   },
   {
-    "id": 341681,
+    "id": "rlekfu6_2026-02-10_정경두_P_폴스타_25.5_3/2(2)_3/2",
     "date": "2026-02-10",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
+    "loseSoopUserId": "",
     "losePlayer": "정경두",
     "map": "폴스타"
   },
   {
-    "id": 341680,
+    "id": "rlekfu6_2026-02-10_정경두_P_녹아웃_-7_3/2(1)_3/2_리",
     "date": "2026-02-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1144,10 +1188,10 @@
     "map": "녹아웃"
   },
   {
-    "id": 341679,
+    "id": "rlekfu6_2026-02-10_정경두_P_라데온_-7.5_3/2(2)_3/2",
     "date": "2026-02-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1155,10 +1199,10 @@
     "map": "라데온"
   },
   {
-    "id": 341678,
+    "id": "rlekfu6_2026-02-10_정경두_P_네오_실피드_-8_3/2(1)_3/2",
     "date": "2026-02-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1166,10 +1210,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 340800,
+    "id": "rlekfu6_2026-02-06_유영진_T_네오_실피드_-2.4_단판_E-SCORE_TOURNAMENT_S1_7주차_16강",
     "date": "2026-02-06",
     "winnerRace": "T",
-    "winnerSoopUserId": "yoo376",
+    "winnerSoopUserId": "",
     "winnerPlayer": "유영진",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1177,21 +1221,21 @@
     "map": "네오 실피드"
   },
   {
-    "id": 340783,
+    "id": "rlekfu6_2026-02-06_장윤철_P_폴스타_29.5_단판_E-SCORE_TOURNAMENT_S1_7주차_32강",
     "date": "2026-02-06",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "tmsh401",
+    "loseSoopUserId": "",
     "losePlayer": "장윤철",
     "map": "폴스타"
   },
   {
-    "id": 340779,
+    "id": "rlekfu6_2026-02-06_김태영_T_네오_실피드_-4.6_3/2(2)_ㅅㅍ",
     "date": "2026-02-06",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1199,10 +1243,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 340778,
+    "id": "rlekfu6_2026-02-06_김태영_T_폴스타_-4.8_3/2(1)_ㅅㅍ",
     "date": "2026-02-06",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1210,10 +1254,10 @@
     "map": "폴스타"
   },
   {
-    "id": 340059,
+    "id": "rlekfu6_2026-02-04_지동원_T_라데온_-10.2_단판_씨나인vs츠캄몬스타즈_킹잭CK_2세트_위너스_7경기",
     "date": "2026-02-04",
     "winnerRace": "T",
-    "winnerSoopUserId": "rondobba",
+    "winnerSoopUserId": "",
     "winnerPlayer": "지동원",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1221,10 +1265,10 @@
     "map": "라데온"
   },
   {
-    "id": 339870,
+    "id": "rlekfu6_2026-02-03_김윤환_Z_녹아웃_-14.4_단판_씨나인vs츠캄몬스타즈_킹잭CK_1세트_2경기",
     "date": "2026-02-03",
     "winnerRace": "Z",
-    "winnerSoopUserId": "brainzerg7",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김윤환",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1232,10 +1276,10 @@
     "map": "녹아웃"
   },
   {
-    "id": 339832,
+    "id": "rlekfu6_2026-02-03_민찬기_T_네오_실피드_-13.6_단판_단판_리스폰",
     "date": "2026-02-03",
     "winnerRace": "T",
-    "winnerSoopUserId": "ckmin706",
+    "winnerSoopUserId": "",
     "winnerPlayer": "민찬기",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1243,32 +1287,32 @@
     "map": "네오 실피드"
   },
   {
-    "id": 339831,
+    "id": "rlekfu6_2026-02-03_민찬기_T_네오_실피드_20.1_3/2(3)_3/2_3경기",
     "date": "2026-02-03",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "ckmin706",
+    "loseSoopUserId": "",
     "losePlayer": "민찬기",
     "map": "네오 실피드"
   },
   {
-    "id": 339830,
+    "id": "rlekfu6_2026-02-03_민찬기_T_라데온_22_3/2(2)_3/2_2경기",
     "date": "2026-02-03",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "ckmin706",
+    "loseSoopUserId": "",
     "losePlayer": "민찬기",
     "map": "라데온"
   },
   {
-    "id": 339829,
+    "id": "rlekfu6_2026-02-03_민찬기_T_폴스타_-10.9_3/2(1)_3/2_1경기",
     "date": "2026-02-03",
     "winnerRace": "T",
-    "winnerSoopUserId": "ckmin706",
+    "winnerSoopUserId": "",
     "winnerPlayer": "민찬기",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1276,10 +1320,10 @@
     "map": "폴스타"
   },
   {
-    "id": 338676,
+    "id": "rlekfu6_2026-01-30_변현제_P_폴스타_-4.5_단판_E-SCORE_TOURNAMENT_S1_6주차_32강",
     "date": "2026-01-30",
     "winnerRace": "P",
-    "winnerSoopUserId": "bye1013",
+    "winnerSoopUserId": "",
     "winnerPlayer": "변현제",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1287,10 +1331,10 @@
     "map": "폴스타"
   },
   {
-    "id": 338421,
+    "id": "rlekfu6_2026-01-28_장민철_P_라데온_-13.2_11/6(3)_씨나인_시빌워_3SET",
     "date": "2026-01-28",
     "winnerRace": "P",
-    "winnerSoopUserId": "jmc06170",
+    "winnerSoopUserId": "",
     "winnerPlayer": "장민철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1298,10 +1342,10 @@
     "map": "라데온"
   },
   {
-    "id": 338175,
+    "id": "rlekfu6_2026-01-27_정경두_P_리트머스_-9.6_끝장전(7)_더블끝장전_7경기",
     "date": "2026-01-27",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1309,10 +1353,10 @@
     "map": "리트머스"
   },
   {
-    "id": 338174,
+    "id": "rlekfu6_2026-01-27_정경두_P_메트로폴리스_-10.4_끝장전(6)_더블끝장전_6경기",
     "date": "2026-01-27",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1320,10 +1364,10 @@
     "map": "메트로폴리스"
   },
   {
-    "id": 338173,
+    "id": "rlekfu6_2026-01-27_정경두_P_도미네이터_-11.4_끝장전(4)_더블끝장전_4경기",
     "date": "2026-01-27",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1331,10 +1375,10 @@
     "map": "도미네이터"
   },
   {
-    "id": 338172,
+    "id": "rlekfu6_2026-01-27_정경두_P_라데온_-12.4_끝장전(2)_더블끝장전_2경기",
     "date": "2026-01-27",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1342,10 +1386,10 @@
     "map": "라데온"
   },
   {
-    "id": 337321,
+    "id": "rlekfu6_2026-01-23_조기석_T_폴스타_-8.6_단판_E-SCORE_TOURNAMENT_S1_5주차_32강",
     "date": "2026-01-23",
     "winnerRace": "T",
-    "winnerSoopUserId": "sharpragu",
+    "winnerSoopUserId": "",
     "winnerPlayer": "조기석",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1353,54 +1397,10 @@
     "map": "폴스타"
   },
   {
-    "id": 336198,
-    "date": "2026-01-14",
-    "winnerRace": "Z",
-    "winnerSoopUserId": "rlekfu6",
-    "winnerPlayer": "박재혁",
-    "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
-    "losePlayer": "정경두",
-    "map": "폴스타"
-  },
-  {
-    "id": 336197,
-    "date": "2026-01-14",
-    "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
-    "winnerPlayer": "정경두",
-    "loseRace": "Z",
-    "loseSoopUserId": "rlekfu6",
-    "losePlayer": "박재혁",
-    "map": "폴스타"
-  },
-  {
-    "id": 336196,
-    "date": "2026-01-14",
-    "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
-    "winnerPlayer": "정경두",
-    "loseRace": "Z",
-    "loseSoopUserId": "rlekfu6",
-    "losePlayer": "박재혁",
-    "map": "메트로폴리스"
-  },
-  {
-    "id": 336195,
-    "date": "2026-01-14",
-    "winnerRace": "Z",
-    "winnerSoopUserId": "rlekfu6",
-    "winnerPlayer": "박재혁",
-    "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
-    "losePlayer": "정경두",
-    "map": "라데온"
-  },
-  {
-    "id": 335761,
+    "id": "rlekfu6_2026-01-16_박상현_Z_메트로폴리스_-3.1_단판_E-SCORE_TOURNAMENT_S1_4주차_16강",
     "date": "2026-01-16",
     "winnerRace": "Z",
-    "winnerSoopUserId": "thakzkf",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박상현",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1408,21 +1408,21 @@
     "map": "메트로폴리스"
   },
   {
-    "id": 335746,
+    "id": "rlekfu6_2026-01-16_민찬기_T_폴스타_21.3_단판_E-SCORE_TOURNAMENT_S1_4주차_32강",
     "date": "2026-01-16",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "ckmin706",
+    "loseSoopUserId": "",
     "losePlayer": "민찬기",
     "map": "폴스타"
   },
   {
-    "id": 335714,
+    "id": "rlekfu6_2026-01-15_정경두_P_메트로폴리스_-13.8_3/2(3)_3/2",
     "date": "2026-01-15",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1430,21 +1430,21 @@
     "map": "메트로폴리스"
   },
   {
-    "id": 335713,
+    "id": "rlekfu6_2026-01-15_정경두_P_폴스타_19.9_3/2(2)_3/2",
     "date": "2026-01-15",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "paralyze92",
+    "loseSoopUserId": "",
     "losePlayer": "정경두",
     "map": "폴스타"
   },
   {
-    "id": 335712,
+    "id": "rlekfu6_2026-01-15_정경두_P_라데온_-13.2_3/2(1)_3/2",
     "date": "2026-01-15",
     "winnerRace": "P",
-    "winnerSoopUserId": "paralyze92",
+    "winnerSoopUserId": "",
     "winnerPlayer": "정경두",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1452,10 +1452,10 @@
     "map": "라데온"
   },
   {
-    "id": 335537,
+    "id": "rlekfu6_2026-01-15_지동원_T_라데온_-21.5_단판_K리그_2세트_위너스_2경기",
     "date": "2026-01-15",
     "winnerRace": "T",
-    "winnerSoopUserId": "rondobba",
+    "winnerSoopUserId": "",
     "winnerPlayer": "지동원",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1463,32 +1463,76 @@
     "map": "라데온"
   },
   {
-    "id": 335536,
+    "id": "rlekfu6_2026-01-15_김경모_Z_도미네이터_22.9_단판_K리그_2세트_위너스_1경기",
     "date": "2026-01-15",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "kkmkhh1234",
+    "loseSoopUserId": "",
     "losePlayer": "김경모",
     "map": "도미네이터"
   },
   {
-    "id": 335524,
+    "id": "rlekfu6_2026-01-15_김성민_P_도미네이터_19.5_단판_K리그_1세트_1경기",
     "date": "2026-01-15",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "ksmo54",
+    "loseSoopUserId": "",
     "losePlayer": "김성민",
     "map": "도미네이터"
   },
   {
-    "id": 334619,
+    "id": "rlekfu6_2026-01-14_정경두_P_폴스타_20.6_단판_단판",
+    "date": "2026-01-14",
+    "winnerRace": "Z",
+    "winnerSoopUserId": "rlekfu6",
+    "winnerPlayer": "박재혁",
+    "loseRace": "P",
+    "loseSoopUserId": "",
+    "losePlayer": "정경두",
+    "map": "폴스타"
+  },
+  {
+    "id": "rlekfu6_2026-01-14_정경두_P_폴스타_-12.5_3/2(3)_3/2",
+    "date": "2026-01-14",
+    "winnerRace": "P",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "정경두",
+    "loseRace": "Z",
+    "loseSoopUserId": "rlekfu6",
+    "losePlayer": "박재혁",
+    "map": "폴스타"
+  },
+  {
+    "id": "rlekfu6_2026-01-14_정경두_P_메트로폴리스_-13.7_3/2(2)_3/2",
+    "date": "2026-01-14",
+    "winnerRace": "P",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "정경두",
+    "loseRace": "Z",
+    "loseSoopUserId": "rlekfu6",
+    "losePlayer": "박재혁",
+    "map": "메트로폴리스"
+  },
+  {
+    "id": "rlekfu6_2026-01-14_정경두_P_라데온_20.1_3/2(1)_3/2",
+    "date": "2026-01-14",
+    "winnerRace": "Z",
+    "winnerSoopUserId": "rlekfu6",
+    "winnerPlayer": "박재혁",
+    "loseRace": "P",
+    "loseSoopUserId": "",
+    "losePlayer": "정경두",
+    "map": "라데온"
+  },
+  {
+    "id": "rlekfu6_2026-01-11_윤수철_P_녹아웃_-8.7_단판_K리그_2세트_에이스_결정전",
     "date": "2026-01-11",
     "winnerRace": "P",
-    "winnerSoopUserId": "snfjdro369",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤수철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1496,10 +1540,10 @@
     "map": "녹아웃"
   },
   {
-    "id": 334612,
+    "id": "rlekfu6_2026-01-11_윤수철_P_메트로폴리스_-9.4_단판_K리그_2세트_4경기",
     "date": "2026-01-11",
     "winnerRace": "P",
-    "winnerSoopUserId": "snfjdro369",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤수철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1507,10 +1551,10 @@
     "map": "메트로폴리스"
   },
   {
-    "id": 334508,
+    "id": "rlekfu6_2026-01-10_윤수철_P_녹아웃_-10.2_단판_K리그_1세트_5경기",
     "date": "2026-01-10",
     "winnerRace": "P",
-    "winnerSoopUserId": "snfjdro369",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤수철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1518,10 +1562,10 @@
     "map": "녹아웃"
   },
   {
-    "id": 334273,
+    "id": "rlekfu6_2026-01-09_송병구_P_폴스타_-5.9_단판_E-SCORE_TOURNAMENT_S1_3주차_32강",
     "date": "2026-01-09",
     "winnerRace": "P",
-    "winnerSoopUserId": "koreasbg",
+    "winnerSoopUserId": "",
     "winnerPlayer": "송병구",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1529,10 +1573,10 @@
     "map": "폴스타"
   },
   {
-    "id": 334260,
+    "id": "rlekfu6_2026-01-09_진영화_P_라데온_-17.6_5/3(2)_10창CK_2ROUND_2set",
     "date": "2026-01-09",
     "winnerRace": "P",
-    "winnerSoopUserId": "jyh8610",
+    "winnerSoopUserId": "",
     "winnerPlayer": "진영화",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1540,21 +1584,21 @@
     "map": "라데온"
   },
   {
-    "id": 334257,
+    "id": "rlekfu6_2026-01-09_진영화_P_폴리포이드_15.8_5/3(4)_10창CK_1ROUND_4set",
     "date": "2026-01-09",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "jyh8610",
+    "loseSoopUserId": "",
     "losePlayer": "진영화",
     "map": "폴리포이드"
   },
   {
-    "id": 334188,
+    "id": "rlekfu6_2026-01-09_황병영_T_도미네이터_-8.4_단판_5:5_K리그_슈퍼_ACE_결정전(나락전_황병영_승리_동원팀_승리_최종스코어_2:1_승리)",
     "date": "2026-01-09",
     "winnerRace": "T",
-    "winnerSoopUserId": "hby0724",
+    "winnerSoopUserId": "",
     "winnerPlayer": "황병영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1562,10 +1606,10 @@
     "map": "도미네이터"
   },
   {
-    "id": 334184,
+    "id": "rlekfu6_2026-01-09_김정우_Z_폴스타_-6.3_단판_5:5_K리그_2SET_8경기",
     "date": "2026-01-09",
     "winnerRace": "Z",
-    "winnerSoopUserId": "momo130",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김정우",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1573,21 +1617,21 @@
     "map": "폴스타"
   },
   {
-    "id": 334029,
+    "id": "rlekfu6_2026-01-08_황병영_T_녹아웃_25.9_단판_5:5_K리그_1SET_2경기",
     "date": "2026-01-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "hby0724",
+    "loseSoopUserId": "",
     "losePlayer": "황병영",
     "map": "녹아웃"
   },
   {
-    "id": 333967,
+    "id": "rlekfu6_2026-01-08_김태영_T_도미네이터_-13_단판_ㄹ",
     "date": "2026-01-08",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1595,10 +1639,10 @@
     "map": "도미네이터"
   },
   {
-    "id": 333966,
+    "id": "rlekfu6_2026-01-08_김태영_T_메트로폴리스_-14.3_3/2(3)_32",
     "date": "2026-01-08",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1606,21 +1650,21 @@
     "map": "메트로폴리스"
   },
   {
-    "id": 333965,
+    "id": "rlekfu6_2026-01-08_김태영_T_라데온_19.4_3/2(2)_32",
     "date": "2026-01-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "hoonykkk",
+    "loseSoopUserId": "",
     "losePlayer": "김태영",
     "map": "라데온"
   },
   {
-    "id": 333964,
+    "id": "rlekfu6_2026-01-08_김태영_T_폴스타_-13.8_3/2(1)_32",
     "date": "2026-01-08",
     "winnerRace": "T",
-    "winnerSoopUserId": "hoonykkk",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김태영",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1628,10 +1672,10 @@
     "map": "폴스타"
   },
   {
-    "id": 333051,
+    "id": "rlekfu6_2026-01-04_김성대_Z_라데온_-4.3_단판_K리그_슈퍼_에이스_결정전",
     "date": "2026-01-04",
     "winnerRace": "Z",
-    "winnerSoopUserId": "tjdeosks",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김성대",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1639,21 +1683,21 @@
     "map": "라데온"
   },
   {
-    "id": 332977,
+    "id": "rlekfu6_2026-01-03_원선재_P_라데온_16.1_단판_K리그_1세트_에이스_결정전",
     "date": "2026-01-03",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "zealot0846",
+    "loseSoopUserId": "",
     "losePlayer": "원선재",
     "map": "라데온"
   },
   {
-    "id": 332967,
+    "id": "rlekfu6_2026-01-03_송병구_P_리트머스_-9.3_단판_K리그_1세트_1경기",
     "date": "2026-01-03",
     "winnerRace": "P",
-    "winnerSoopUserId": "koreasbg",
+    "winnerSoopUserId": "",
     "winnerPlayer": "송병구",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1661,10 +1705,10 @@
     "map": "리트머스"
   },
   {
-    "id": 332911,
+    "id": "rlekfu6_2026-01-03_윤수철_P_리트머스_-10_단판_K리그_슈퍼_에이스_결정전",
     "date": "2026-01-03",
     "winnerRace": "P",
-    "winnerSoopUserId": "snfjdro369",
+    "winnerSoopUserId": "",
     "winnerPlayer": "윤수철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1672,10 +1716,10 @@
     "map": "리트머스"
   },
   {
-    "id": 332909,
+    "id": "rlekfu6_2026-01-03_송병구_P_리트머스_-9.7_단판_K리그_2세트_위너스_7경기",
     "date": "2026-01-03",
     "winnerRace": "P",
-    "winnerSoopUserId": "koreasbg",
+    "winnerSoopUserId": "",
     "winnerPlayer": "송병구",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1683,32 +1727,32 @@
     "map": "리트머스"
   },
   {
-    "id": 332908,
+    "id": "rlekfu6_2026-01-03_지동원_T_라데온_13.8_단판_K리그_2세트_위너스_6경기",
     "date": "2026-01-03",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "rondobba",
+    "loseSoopUserId": "",
     "losePlayer": "지동원",
     "map": "라데온"
   },
   {
-    "id": 332907,
+    "id": "rlekfu6_2026-01-03_김정우_Z_리트머스_26.3_단판_K리그_2세트_위너스_5경기",
     "date": "2026-01-03",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "momo130",
+    "loseSoopUserId": "",
     "losePlayer": "김정우",
     "map": "리트머스"
   },
   {
-    "id": 332793,
+    "id": "rlekfu6_2026-01-02_지동원_T_도미네이터_-18.7_단판_K리그_1세트_6경기",
     "date": "2026-01-02",
     "winnerRace": "T",
-    "winnerSoopUserId": "rondobba",
+    "winnerSoopUserId": "",
     "winnerPlayer": "지동원",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1716,10 +1760,10 @@
     "map": "도미네이터"
   },
   {
-    "id": 332788,
+    "id": "rlekfu6_2026-01-02_송병구_P_리트머스_-9.7_단판_K리그_1세트_4경기",
     "date": "2026-01-02",
     "winnerRace": "P",
-    "winnerSoopUserId": "koreasbg",
+    "winnerSoopUserId": "",
     "winnerPlayer": "송병구",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1727,10 +1771,10 @@
     "map": "리트머스"
   },
   {
-    "id": 332752,
+    "id": "rlekfu6_2026-01-02_박상현_Z_폴스타_-3.7_단판_E-SCORE_TOURNAMENT_S1_2주차_32강",
     "date": "2026-01-02",
     "winnerRace": "Z",
-    "winnerSoopUserId": "thakzkf",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박상현",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1738,21 +1782,10 @@
     "map": "폴스타"
   },
   {
-    "id": 332571,
-    "date": "2025-12-06",
-    "winnerRace": "Z",
-    "winnerSoopUserId": "rlekfu6",
-    "winnerPlayer": "박재혁",
-    "loseRace": "Z",
-    "loseSoopUserId": "djdbstn",
-    "losePlayer": "어윤수",
-    "map": "라데온"
-  },
-  {
-    "id": 332239,
+    "id": "rlekfu6_2025-12-29_이영웅_T_메트로폴리스_-8.4_3/2(3)_2:1_이영웅승",
     "date": "2025-12-29",
     "winnerRace": "T",
-    "winnerSoopUserId": "rfvtgb778",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이영웅",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1760,10 +1793,10 @@
     "map": "메트로폴리스"
   },
   {
-    "id": 332238,
+    "id": "rlekfu6_2025-12-29_이영웅_T_폴스타_-9_3/2(2)_.",
     "date": "2025-12-29",
     "winnerRace": "T",
-    "winnerSoopUserId": "rfvtgb778",
+    "winnerSoopUserId": "",
     "winnerPlayer": "이영웅",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1771,21 +1804,21 @@
     "map": "폴스타"
   },
   {
-    "id": 332237,
+    "id": "rlekfu6_2025-12-29_이영웅_T_라데온_24.7_3/2(1)_.",
     "date": "2025-12-29",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "rfvtgb778",
+    "loseSoopUserId": "",
     "losePlayer": "이영웅",
     "map": "라데온"
   },
   {
-    "id": 332140,
+    "id": "rlekfu6_2025-12-28_박수범_P_라데온_-16.8_단판_K리그_2세트_2경기",
     "date": "2025-12-28",
     "winnerRace": "P",
-    "winnerSoopUserId": "subeom12",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박수범",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1793,21 +1826,21 @@
     "map": "라데온"
   },
   {
-    "id": 332126,
+    "id": "rlekfu6_2025-12-28_김범수_P_녹아웃_22.2_단판_K리그_1세트_5경기",
     "date": "2025-12-28",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "bumsoo552",
+    "loseSoopUserId": "",
     "losePlayer": "김범수",
     "map": "녹아웃"
   },
   {
-    "id": 331108,
+    "id": "rlekfu6_2025-12-20_신상문_T_폴스타_-12.4_9/5(2)_씨나인_스승vs제자_벌칙CK_2SET",
     "date": "2025-12-20",
     "winnerRace": "T",
-    "winnerSoopUserId": "palko1",
+    "winnerSoopUserId": "",
     "winnerPlayer": "신상문",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1815,10 +1848,10 @@
     "map": "폴스타"
   },
   {
-    "id": 330851,
+    "id": "rlekfu6_2025-12-18_송병구_P_라데온_-10.9_3/2(2)_3/2",
     "date": "2025-12-18",
     "winnerRace": "P",
-    "winnerSoopUserId": "koreasbg",
+    "winnerSoopUserId": "",
     "winnerPlayer": "송병구",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1826,10 +1859,10 @@
     "map": "라데온"
   },
   {
-    "id": 330850,
+    "id": "rlekfu6_2025-12-18_송병구_P_폴스타_-11.9_3/2(1)_3/2",
     "date": "2025-12-18",
     "winnerRace": "P",
-    "winnerSoopUserId": "koreasbg",
+    "winnerSoopUserId": "",
     "winnerPlayer": "송병구",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1837,21 +1870,21 @@
     "map": "폴스타"
   },
   {
-    "id": 330678,
+    "id": "rlekfu6_2025-12-17_김경모_Z_리트머스_23.3_단판_K리그_2세트_2경기",
     "date": "2025-12-17",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "kkmkhh1234",
+    "loseSoopUserId": "",
     "losePlayer": "김경모",
     "map": "리트머스"
   },
   {
-    "id": 330664,
+    "id": "rlekfu6_2025-12-17_김정우_Z_라데온_-11_단판_K리그_1세트_3경기",
     "date": "2025-12-17",
     "winnerRace": "Z",
-    "winnerSoopUserId": "momo130",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김정우",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1859,10 +1892,10 @@
     "map": "라데온"
   },
   {
-    "id": 330459,
+    "id": "rlekfu6_2025-12-16_김경모_Z_비프로스트_-10.3_단판_코미디빅리그_2세트_6경기",
     "date": "2025-12-16",
     "winnerRace": "Z",
-    "winnerSoopUserId": "kkmkhh1234",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김경모",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1870,21 +1903,21 @@
     "map": "비프로스트"
   },
   {
-    "id": 330453,
+    "id": "rlekfu6_2025-12-16_김경모_Z_네오_메두사_23.5_단판_코미디빅리그_2세트_3경기",
     "date": "2025-12-16",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "kkmkhh1234",
+    "loseSoopUserId": "",
     "losePlayer": "김경모",
     "map": "네오 메두사"
   },
   {
-    "id": 330371,
+    "id": "rlekfu6_2025-12-15_지동원_T_단장의능선_-17.8_단판_코미디빅리그_1세트_1경기",
     "date": "2025-12-15",
     "winnerRace": "T",
-    "winnerSoopUserId": "rondobba",
+    "winnerSoopUserId": "",
     "winnerPlayer": "지동원",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1892,32 +1925,32 @@
     "map": "단장의능선"
   },
   {
-    "id": 329570,
+    "id": "rlekfu6_2025-12-10_김범수_P_메트로폴리스_19.8_단판_K리그_2세트_에이스_결정전",
     "date": "2025-12-10",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "bumsoo552",
+    "loseSoopUserId": "",
     "losePlayer": "김범수",
     "map": "메트로폴리스"
   },
   {
-    "id": 329485,
+    "id": "rlekfu6_2025-12-09_원선재_P_메트로폴리스_21.4_단판_K리그_2세트_3경기",
     "date": "2025-12-09",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "zealot0846",
+    "loseSoopUserId": "",
     "losePlayer": "원선재",
     "map": "메트로폴리스"
   },
   {
-    "id": 329477,
+    "id": "rlekfu6_2025-12-09_김범수_P_라데온_-13.8_단판_K리그_1세트_2경기",
     "date": "2025-12-09",
     "winnerRace": "P",
-    "winnerSoopUserId": "bumsoo552",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김범수",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1925,32 +1958,32 @@
     "map": "라데온"
   },
   {
-    "id": 329158,
+    "id": "rlekfu6_2025-12-08_윤수철_P_리트머스_23.1_단판_K리그_2세트_5경기",
     "date": "2025-12-08",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "P",
-    "loseSoopUserId": "snfjdro369",
+    "loseSoopUserId": "",
     "losePlayer": "윤수철",
     "map": "리트머스"
   },
   {
-    "id": 329062,
+    "id": "rlekfu6_2025-12-07_방태수_Z_메트로폴리스_20.6_단판_K리그_1세트_3경기",
     "date": "2025-12-07",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "Z",
-    "loseSoopUserId": "bts150",
+    "loseSoopUserId": "",
     "losePlayer": "방태수",
     "map": "메트로폴리스"
   },
   {
-    "id": 328984,
+    "id": "rlekfu6_2025-12-07_민찬기_T_메트로폴리스_-13.3_3/2(3)_3/2_3경기",
     "date": "2025-12-07",
     "winnerRace": "T",
-    "winnerSoopUserId": "ckmin706",
+    "winnerSoopUserId": "",
     "winnerPlayer": "민찬기",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1958,10 +1991,10 @@
     "map": "메트로폴리스"
   },
   {
-    "id": 328983,
+    "id": "rlekfu6_2025-12-07_민찬기_T_라데온_-14.6_3/2(2)_3/2_2경기",
     "date": "2025-12-07",
     "winnerRace": "T",
-    "winnerSoopUserId": "ckmin706",
+    "winnerSoopUserId": "",
     "winnerPlayer": "민찬기",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",
@@ -1969,21 +2002,32 @@
     "map": "라데온"
   },
   {
-    "id": 328982,
+    "id": "rlekfu6_2025-12-07_민찬기_T_폴스타_19.1_3/2(1)_3/2_1경기",
     "date": "2025-12-07",
     "winnerRace": "Z",
     "winnerSoopUserId": "rlekfu6",
     "winnerPlayer": "박재혁",
     "loseRace": "T",
-    "loseSoopUserId": "ckmin706",
+    "loseSoopUserId": "",
     "losePlayer": "민찬기",
     "map": "폴스타"
   },
   {
-    "id": 328039,
+    "id": "rlekfu6_2025-12-06_어윤수_Z_라데온_15.8_단판_단판_승",
+    "date": "2025-12-06",
+    "winnerRace": "Z",
+    "winnerSoopUserId": "rlekfu6",
+    "winnerPlayer": "박재혁",
+    "loseRace": "Z",
+    "loseSoopUserId": "",
+    "losePlayer": "어윤수",
+    "map": "라데온"
+  },
+  {
+    "id": "rlekfu6_2025-12-01_장민철_P_폴리포이드_-13.7_9/5(7)_씨나인_시빌워_7경기",
     "date": "2025-12-01",
     "winnerRace": "P",
-    "winnerSoopUserId": "jmc06170",
+    "winnerSoopUserId": "",
     "winnerPlayer": "장민철",
     "loseRace": "Z",
     "loseSoopUserId": "rlekfu6",

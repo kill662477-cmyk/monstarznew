@@ -1,9 +1,9 @@
 [
   {
-    "id": 355023,
+    "id": "70jeontaekyu_2026-05-19_김동민_Z_네오_실피드_-19.3_단판_스페이드리그_2세트_1경기",
     "date": "2026-05-19",
     "winnerRace": "Z",
-    "winnerSoopUserId": "dmk1212",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김동민",
     "loseRace": "P",
     "loseSoopUserId": "70jeontaekyu",
@@ -11,21 +11,21 @@
     "map": "네오 실피드"
   },
   {
-    "id": 355018,
+    "id": "70jeontaekyu_2026-05-19_김동민_Z_녹아웃_14.7_단판_스페이드리그_1세트_3경기",
     "date": "2026-05-19",
     "winnerRace": "P",
     "winnerSoopUserId": "70jeontaekyu",
     "winnerPlayer": "전태규",
     "loseRace": "Z",
-    "loseSoopUserId": "dmk1212",
+    "loseSoopUserId": "",
     "losePlayer": "김동민",
     "map": "녹아웃"
   },
   {
-    "id": 353195,
+    "id": "70jeontaekyu_2026-05-07_박성진_T_녹아웃_-23_단판_더블_끝장전(7)_[전태규,은서_4:3_승]",
     "date": "2026-05-07",
     "winnerRace": "T",
-    "winnerSoopUserId": "tjdwnls123",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박성진",
     "loseRace": "P",
     "loseSoopUserId": "70jeontaekyu",
@@ -33,10 +33,10 @@
     "map": "녹아웃"
   },
   {
-    "id": 353194,
+    "id": "70jeontaekyu_2026-05-07_박성진_T_라데온_-24.7_단판_더블끝장전(6)",
     "date": "2026-05-07",
     "winnerRace": "T",
-    "winnerSoopUserId": "tjdwnls123",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박성진",
     "loseRace": "P",
     "loseSoopUserId": "70jeontaekyu",
@@ -44,10 +44,10 @@
     "map": "라데온"
   },
   {
-    "id": 353193,
+    "id": "70jeontaekyu_2026-05-07_박성진_T_폴리포이드_-26.3_단판_더블_끝장전(4)",
     "date": "2026-05-07",
     "winnerRace": "T",
-    "winnerSoopUserId": "tjdwnls123",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박성진",
     "loseRace": "P",
     "loseSoopUserId": "70jeontaekyu",
@@ -55,21 +55,21 @@
     "map": "폴리포이드"
   },
   {
-    "id": 353192,
+    "id": "70jeontaekyu_2026-05-07_박성진_T_녹아웃_6.1_단판_더블_끝장전(2)",
     "date": "2026-05-07",
     "winnerRace": "P",
     "winnerSoopUserId": "70jeontaekyu",
     "winnerPlayer": "전태규",
     "loseRace": "T",
-    "loseSoopUserId": "tjdwnls123",
+    "loseSoopUserId": "",
     "losePlayer": "박성진",
     "map": "녹아웃"
   },
   {
-    "id": 352784,
+    "id": "70jeontaekyu_2026-05-04_박태민_Z_폴리포이드_-21.8_단판_스페이드리그_5경기",
     "date": "2026-05-04",
     "winnerRace": "Z",
-    "winnerSoopUserId": "cztaemin",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박태민",
     "loseRace": "P",
     "loseSoopUserId": "70jeontaekyu",
@@ -77,10 +77,10 @@
     "map": "폴리포이드"
   },
   {
-    "id": 352781,
+    "id": "70jeontaekyu_2026-05-04_박성진_T_폴리포이드_-27.5_단판_스페이드리그_2경기",
     "date": "2026-05-04",
     "winnerRace": "T",
-    "winnerSoopUserId": "tjdwnls123",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박성진",
     "loseRace": "P",
     "loseSoopUserId": "70jeontaekyu",
@@ -88,13 +88,13 @@
     "map": "폴리포이드"
   },
   {
-    "id": 350007,
+    "id": "70jeontaekyu_2026-04-17_박성진_T_폴리포이드_4.9_9/5(8)_수장_CK(8)",
     "date": "2026-04-17",
     "winnerRace": "P",
     "winnerSoopUserId": "70jeontaekyu",
     "winnerPlayer": "전태규",
     "loseRace": "T",
-    "loseSoopUserId": "tjdwnls123",
+    "loseSoopUserId": "",
     "losePlayer": "박성진",
     "map": "폴리포이드"
   },

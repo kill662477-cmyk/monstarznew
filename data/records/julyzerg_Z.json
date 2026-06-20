@@ -1,42 +1,64 @@
 [
   {
-    "id": 355667,
+    "id": "julyzerg_2026-06-08_강민_P_폴리포이드_13.4_9/5(2)_커널CK_(2)",
+    "date": "2026-06-08",
+    "winnerRace": "Z",
+    "winnerSoopUserId": "julyzerg",
+    "winnerPlayer": "박성준",
+    "loseRace": "P",
+    "loseSoopUserId": "",
+    "losePlayer": "강민",
+    "map": "폴리포이드"
+  },
+  {
+    "id": "julyzerg_2026-05-25_강민기_P_폴리포이드_-8.4_11/6(1)_와플대_시빌워_(1)",
+    "date": "2026-05-25",
+    "winnerRace": "P",
+    "winnerSoopUserId": "",
+    "winnerPlayer": "강민기",
+    "loseRace": "Z",
+    "loseSoopUserId": "julyzerg",
+    "losePlayer": "박성준",
+    "map": "폴리포이드"
+  },
+  {
+    "id": "julyzerg_2026-05-23_박종승_P_라데온_14.3_9/5(3)_소룡CK_(3)",
     "date": "2026-05-23",
     "winnerRace": "Z",
     "winnerSoopUserId": "julyzerg",
     "winnerPlayer": "박성준",
     "loseRace": "P",
-    "loseSoopUserId": "askl021",
+    "loseSoopUserId": "",
     "losePlayer": "박종승",
     "map": "라데온"
   },
   {
-    "id": 355058,
+    "id": "julyzerg_2026-05-19_강민_P_녹아웃_15_9/5(5)_HM_스승CK_(5)",
     "date": "2026-05-19",
     "winnerRace": "Z",
     "winnerSoopUserId": "julyzerg",
     "winnerPlayer": "박성준",
     "loseRace": "P",
-    "loseSoopUserId": "nalra82",
+    "loseSoopUserId": "",
     "losePlayer": "강민",
     "map": "녹아웃"
   },
   {
-    "id": 355021,
+    "id": "julyzerg_2026-05-19_장영근_P_네오_실피드_17.8_단판_스페이드리그_1세트_6경기",
     "date": "2026-05-19",
     "winnerRace": "Z",
     "winnerSoopUserId": "julyzerg",
     "winnerPlayer": "박성준",
     "loseRace": "P",
-    "loseSoopUserId": "wkddudrms15",
+    "loseSoopUserId": "",
     "losePlayer": "장영근",
     "map": "네오 실피드"
   },
   {
-    "id": 355019,
+    "id": "julyzerg_2026-05-19_전제민_P_폴리포이드_-16.5_단판_스페이드리그_1세트_4경기",
     "date": "2026-05-19",
     "winnerRace": "P",
-    "winnerSoopUserId": "wjswpalssla1",
+    "winnerSoopUserId": "",
     "winnerPlayer": "전제민",
     "loseRace": "Z",
     "loseSoopUserId": "julyzerg",
@@ -44,10 +66,10 @@
     "map": "폴리포이드"
   },
   {
-    "id": 354699,
+    "id": "julyzerg_2026-05-17_박지호_P_녹아웃_-16.7_9/5(3)_철구배_10창CK_9/5_3경기",
     "date": "2026-05-17",
     "winnerRace": "P",
-    "winnerSoopUserId": "jou1025",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박지호",
     "loseRace": "Z",
     "loseSoopUserId": "julyzerg",
@@ -55,21 +77,21 @@
     "map": "녹아웃"
   },
   {
-    "id": 352783,
+    "id": "julyzerg_2026-05-04_박태민_Z_폴리포이드_15.8_단판_스페이드리그_4경기",
     "date": "2026-05-04",
     "winnerRace": "Z",
     "winnerSoopUserId": "julyzerg",
     "winnerPlayer": "박성준",
     "loseRace": "Z",
-    "loseSoopUserId": "cztaemin",
+    "loseSoopUserId": "",
     "losePlayer": "박태민",
     "map": "폴리포이드"
   },
   {
-    "id": 349995,
+    "id": "julyzerg_2026-04-17_박현재_T_네오_실피드_-14.5_9/5(2)_수장_CK(2)",
     "date": "2026-04-17",
     "winnerRace": "T",
-    "winnerSoopUserId": "arinbbidol",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박현재",
     "loseRace": "Z",
     "loseSoopUserId": "julyzerg",
@@ -77,10 +99,10 @@
     "map": "네오 실피드"
   },
   {
-    "id": 348972,
+    "id": "julyzerg_2026-04-10_김윤환_Z_패러독스_-7.1_단판_코미디빅리그_2세트_에이스_결정전",
     "date": "2026-04-10",
     "winnerRace": "Z",
-    "winnerSoopUserId": "brainzerg7",
+    "winnerSoopUserId": "",
     "winnerPlayer": "김윤환",
     "loseRace": "Z",
     "loseSoopUserId": "julyzerg",
@@ -88,10 +110,10 @@
     "map": "패러독스"
   },
   {
-    "id": 348868,
+    "id": "julyzerg_2026-04-09_박지호_P_라그나로크_-16.4_단판_코미디빅리그_2세트_4경기",
     "date": "2026-04-09",
     "winnerRace": "P",
-    "winnerSoopUserId": "jou1025",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박지호",
     "loseRace": "Z",
     "loseSoopUserId": "julyzerg",
@@ -99,10 +121,10 @@
     "map": "라그나로크"
   },
   {
-    "id": 348847,
+    "id": "julyzerg_2026-04-09_박지호_P_트라이애슬론_-18.1_단판_코미디빅리그_1세트_3경기",
     "date": "2026-04-09",
     "winnerRace": "P",
-    "winnerSoopUserId": "jou1025",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박지호",
     "loseRace": "Z",
     "loseSoopUserId": "julyzerg",
@@ -110,10 +132,10 @@
     "map": "트라이애슬론"
   },
   {
-    "id": 348182,
+    "id": "julyzerg_2026-04-05_최재성_T_폴리포이드_-13.4_단판_SJJ리그_2세트_3경기",
     "date": "2026-04-05",
     "winnerRace": "T",
-    "winnerSoopUserId": "byromantic",
+    "winnerSoopUserId": "",
     "winnerPlayer": "최재성",
     "loseRace": "Z",
     "loseSoopUserId": "julyzerg",
@@ -121,10 +143,10 @@
     "map": "폴리포이드"
   },
   {
-    "id": 348177,
+    "id": "julyzerg_2026-04-05_박종승_P_라데온_-23_단판_SJJ리그_1세트_3경기",
     "date": "2026-04-05",
     "winnerRace": "P",
-    "winnerSoopUserId": "askl021",
+    "winnerSoopUserId": "",
     "winnerPlayer": "박종승",
     "loseRace": "Z",
     "loseSoopUserId": "julyzerg",
@@ -132,10 +154,10 @@
     "map": "라데온"
   },
   {
-    "id": 347561,
+    "id": "julyzerg_2026-03-30_최재성_T_라데온_-16.9_단판_스페이드리그_2세트_위너스_7경기",
     "date": "2026-03-30",
     "winnerRace": "T",
-    "winnerSoopUserId": "byromantic",
+    "winnerSoopUserId": "",
     "winnerPlayer": "최재성",
     "loseRace": "Z",
     "loseSoopUserId": "julyzerg",
@@ -143,13 +165,13 @@
     "map": "라데온"
   },
   {
-    "id": 347558,
+    "id": "julyzerg_2026-03-30_최재성_T_녹아웃_15.9_단판_스페이드리그_1세트_2경기",
     "date": "2026-03-30",
     "winnerRace": "Z",
     "winnerSoopUserId": "julyzerg",
     "winnerPlayer": "박성준",
     "loseRace": "T",
-    "loseSoopUserId": "byromantic",
+    "loseSoopUserId": "",
     "losePlayer": "최재성",
     "map": "녹아웃"
   },
