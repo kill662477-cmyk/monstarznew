@@ -1922,10 +1922,10 @@ body.light-mode .inout-filter-btn.active {
 
 .youtube-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 6px;
   margin-top: 8px;
-  grid-template-columns: repeat(4,minmax(0,1fr));
+  grid-template-columns: repeat(6,minmax(0,1fr));
 }
 
 .youtube-title {
@@ -12757,7 +12757,7 @@ function createMemberCard(member) {
         if (manualSortDiff) return manualSortDiff;
         return (a._order || 0) - (b._order || 0);
       })
-      .slice(0, 24);
+      .slice(0, 30);
 
     if (playingVideoId) {
       const playingIndex = youtubeItems.findIndex((item) => item.videoId === playingVideoId);
