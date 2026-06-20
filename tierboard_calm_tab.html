@@ -213,9 +213,9 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .entry-map-list{display:grid;gap:8px}
 .entry-chip.entry-slot,.entry-slot-empty,.entry-map-slot{height:56px;min-height:56px}
 .entry-map-slot{display:block}
-.entry-map-select{display:block;width:100%;height:100%;min-width:0;border:1px solid rgba(142,169,208,.22);border-radius:8px;background:rgba(3,10,20,.62);color:#eef6ff;font-size:12px;font-weight:850;padding:0 6px;outline:none}
+.entry-map-select{display:block;width:100%;height:100%;min-width:0;border:1px solid rgba(142,169,208,.22);border-radius:8px;background:rgba(3,10,20,.62);color:#eef6ff;font-size:11px;font-weight:800;padding:0 4px;outline:none}
 .entry-map-select:focus{border-color:rgba(105,239,145,.55);box-shadow:0 0 0 3px rgba(105,239,145,.10)}
-.entry-map-select option{background:#071321;color:#eef6ff}
+.entry-map-select option{background:#071321;color:#eef6ff;font-size:11px}
 .entry-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-top:6px;padding:14px 16px 16px;border-top:1px solid rgba(142,169,208,.20)}
 .entry-toolbar-left,.entry-toolbar-right{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .entry-small-select{height:38px;border:1px solid rgba(142,169,208,.22);border-radius:9px;background:rgba(3,10,20,.55);color:#eef6ff;font-weight:800;padding:0 10px}
@@ -5761,23 +5761,55 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
     const ENTRY_AUCTION_START_AT = new Date('2026-06-23T00:00:00+09:00').getTime();
     const ENTRY_AUCTION_MAPS = ['폴리포이드','라데온','녹아웃','네오 실피드'];
     const ENTRY_AUCTION_TEAMS = [
-      {id:'chulgu',group:'A',name:'철구팀',captain:'철구',jack:'김윤환'},
-      {id:'parksungjun',group:'A',name:'박성준팀',captain:'박성준',jack:'박재혁'},
-      {id:'ginew',group:'A',name:'기뉴다팀',captain:'기뉴다',jack:'지동원'},
-      {id:'iyunyeol',group:'B',name:'이윤열팀',captain:'이윤열',jack:'흑운장'},
-      {id:'jeontae',group:'B',name:'전태규팀',captain:'전태규',jack:'왜냐맨'},
-      {id:'kimhaksu',group:'B',name:'김학수팀',captain:'김학수',jack:'이경민'}
-    ].map(team=>({
-      ...team,
-      players:[
-        {name:team.captain,tier:'조커이드',role:'팀장',points:null,wins:0,losses:0},
-        {name:team.jack,tier:'잭티어',role:'잭티어',points:null,wins:0,losses:0},
-        {name:'3티어 미정',tier:'3티어',role:'임시',points:null,wins:0,losses:0,temporary:true},
-        {name:'5티어 미정',tier:'5티어',role:'임시',points:null,wins:0,losses:0,temporary:true},
-        {name:'6티어 미정',tier:'6티어',role:'임시',points:null,wins:0,losses:0,temporary:true},
-        {name:'7티어 미정',tier:'7티어',role:'임시',points:null,wins:0,losses:0,temporary:true}
-      ]
-    }));
+      {id:'ginew',group:'A',name:'기뉴다팀',captain:'기뉴다',players:[
+        {name:'기뉴다',tier:'조커이드',role:'팀장',race:'T',points:null,wins:0,losses:0},
+        {name:'지동원',tier:'잭티어',role:'잭티어',race:'T',points:0,wins:0,losses:0},
+        {name:'지두두',tier:'3티어',role:'3티어',race:'T',points:100,wins:0,losses:0},
+        {name:'졈니',tier:'4티어',role:'4/5티어',race:'P',points:360,wins:0,losses:0},
+        {name:'2라니',tier:'6티어',role:'6티어',race:'Z',points:5,wins:0,losses:0},
+        {name:'퀸주',tier:'7티어',role:'7티어',race:'Z',points:340,wins:0,losses:0}
+      ]},
+      {id:'chulgu',group:'A',name:'철구팀',captain:'철구',players:[
+        {name:'철구',tier:'조커이드',role:'팀장',race:'Z',points:null,wins:0,losses:0},
+        {name:'김윤환',tier:'잭티어',role:'잭티어',race:'Z',points:900,wins:0,losses:0},
+        {name:'시조새',tier:'3티어',role:'3티어',race:'P',points:0,wins:0,losses:0},
+        {name:'최세상',tier:'5티어',role:'4/5티어',race:'T',points:0,wins:0,losses:0},
+        {name:'비타밍',tier:'6티어',role:'6티어',race:'T',points:0,wins:0,losses:0},
+        {name:'갱이다',tier:'7티어',role:'7티어',race:'T',points:10,wins:0,losses:0}
+      ]},
+      {id:'parksungjun',group:'A',name:'박성준팀',captain:'박성준',players:[
+        {name:'박성준',tier:'조커이드',role:'팀장',race:'Z',points:null,wins:0,losses:0},
+        {name:'흑운장',tier:'잭티어',role:'잭티어',race:'T',points:200,wins:0,losses:0},
+        {name:'이유란',tier:'3티어',role:'3티어',race:'Z',points:15,wins:0,losses:0},
+        {name:'구루미',tier:'4티어',role:'4/5티어',race:'Z',points:200,wins:0,losses:0},
+        {name:'메옹',tier:'6티어',role:'6티어',race:'T',points:160,wins:0,losses:0},
+        {name:'막내현진',tier:'7티어',role:'7티어',race:'P',points:5,wins:0,losses:0}
+      ]},
+      {id:'iyunyeol',group:'B',name:'이윤열팀',captain:'이윤열',players:[
+        {name:'이윤열',tier:'조커이드',role:'팀장',race:'T',points:null,wins:0,losses:0},
+        {name:'박재혁',tier:'잭티어',role:'잭티어',race:'Z',points:25,wins:0,losses:0},
+        {name:'공다츠',tier:'3티어',role:'3티어',race:'Z',points:100,wins:0,losses:0},
+        {name:'키링',tier:'4티어',role:'4/5티어',race:'P',points:700,wins:0,losses:0},
+        {name:'임조이',tier:'6티어',role:'6티어',race:'Z',points:95,wins:0,losses:0},
+        {name:'경콩',tier:'7티어',role:'7티어',race:'T',points:5,wins:0,losses:0}
+      ]},
+      {id:'jeontae',group:'B',name:'전태규팀',captain:'전태규',players:[
+        {name:'전태규',tier:'조커이드',role:'팀장',race:'P',points:null,wins:0,losses:0},
+        {name:'왜냐맨',tier:'잭티어',role:'잭티어',race:'P',points:200,wins:0,losses:0},
+        {name:'박듀듀',tier:'3티어',role:'3티어',race:'P',points:95,wins:0,losses:0},
+        {name:'치리',tier:'5티어',role:'4/5티어',race:'Z',points:95,wins:0,losses:0},
+        {name:'박하악',tier:'6티어',role:'6티어',race:'Z',points:175,wins:0,losses:0},
+        {name:'아리송이',tier:'7티어',role:'7티어',race:'P',points:215,wins:0,losses:0}
+      ]},
+      {id:'kimhaksu',group:'B',name:'김학수팀',captain:'김학수',players:[
+        {name:'김학수',tier:'조커이드',role:'팀장',race:'P',points:null,wins:0,losses:0},
+        {name:'이경민',tier:'잭티어',role:'잭티어',race:'P',points:25,wins:0,losses:0},
+        {name:'토마토',tier:'3티어',role:'3티어',race:'P',points:640,wins:0,losses:0},
+        {name:'오조은',tier:'4티어',role:'4/5티어',race:'T',points:100,wins:0,losses:0},
+        {name:'정서린',tier:'6티어',role:'6티어',race:'P',points:235,wins:0,losses:0},
+        {name:'먼진',tier:'7티어',role:'7티어',race:'Z',points:0,wins:0,losses:0}
+      ]}
+    ];
     const ENTRY_AUCTION_API_URL = '/api/newcam-auction';
     let entryAuctionRemote = { ready:false, teams:[], players:[], matches:[], matchPlayers:[], loaded:false };
     let entryAuctionLoadPromise = null;
@@ -6083,6 +6115,7 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
             role:player.role_label||'',
             race:player.race||'',
             points:player.auction_points,
+            order:Number(player.sort_order||0),
             wins:statWins||Number(player.wins||0),
             losses:statLosses||Number(player.losses||0),
             temporary:Boolean(player.is_temporary)
@@ -6158,7 +6191,20 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       return team?team.name:'';
     }
     function entryAuctionPlayers(){
-      const names=new Set(entryAuctionTeamsData().flatMap(team=>(team.players||[]).filter(player=>!player.temporary).map(player=>player.name)));
+      const auctionMeta=new Map();
+      entryAuctionTeamsData().forEach((team,teamIndex)=>{
+        (team.players||[]).forEach((player,playerIndex)=>{
+          const name=String(player&&player.name||'').trim();
+          if(!name||player.temporary||auctionMeta.has(name)) return;
+          auctionMeta.set(name,{
+            teamName:team.name,
+            teamIndex,
+            playerIndex,
+            sortOrder:Number(player.order||0)
+          });
+        });
+      });
+      const names=new Set(auctionMeta.keys());
       const seen=new Set();
       return visibleTierData().filter(player=>{
         const name=String(player&&player.name||'').trim();
@@ -6166,8 +6212,14 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
         seen.add(name);
         return player&&player.race;
       }).sort((a,b)=>{
-        const teamDiff=entryAuctionPlayerTeam(a).localeCompare(entryAuctionPlayerTeam(b),'ko');
+        const metaA=auctionMeta.get(String(a&&a.name||'').trim())||{};
+        const metaB=auctionMeta.get(String(b&&b.name||'').trim())||{};
+        const teamDiff=(Number.isFinite(metaA.teamIndex)?metaA.teamIndex:999)-(Number.isFinite(metaB.teamIndex)?metaB.teamIndex:999);
         if(teamDiff) return teamDiff;
+        const orderA=metaA.sortOrder||metaA.playerIndex+1||999;
+        const orderB=metaB.sortOrder||metaB.playerIndex+1||999;
+        const orderDiff=orderA-orderB;
+        if(orderDiff) return orderDiff;
         return String(a.name||'').localeCompare(String(b.name||''),'ko');
       });
     }
@@ -6384,12 +6436,10 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
     }
     function renderEntryMapSlots(){
       const maps=entryAvailableSlotMaps();
-      const poolLabel=entryMapContextLabel(entrySelectedPoolMaps());
       entryMapSlots.innerHTML=Array.from({length:ENTRY_SLOT_COUNT},(_,index)=>{
         const value=entrySlotMap(index);
         const active=value?' active':'';
-        const defaultText=poolLabel==='디폴트'?'디폴트':'디폴트('+poolLabel+')';
-        const options=['<option value="">'+escapeHtml(defaultText)+'</option>'].concat(maps.map(name=>'<option value="'+escapeAttr(name)+'" '+(entryNormalizeMapName(name)===entryNormalizeMapName(value)?'selected':'')+'>'+escapeHtml(name)+'</option>')).join('');
+        const options=['<option value="">디폴트</option>'].concat(maps.map(name=>'<option value="'+escapeAttr(name)+'" '+(entryNormalizeMapName(name)===entryNormalizeMapName(value)?'selected':'')+'>'+escapeHtml(name)+'</option>')).join('');
         return '<div class="entry-map-slot'+active+'"><select class="entry-map-select" data-entry-map-index="'+index+'" aria-label="'+(index+1)+'매치 맵 선택">'+options+'</select></div>';
       }).join('');
     }
@@ -6813,13 +6863,15 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       const pending=pairs.length-loaded-loading;
       entryDataStatus.textContent=keys.length?('선택 '+keys.length+'명 · 상대전적 '+loaded+'/'+pairs.length+'쌍'+(loading?' 조회중':pending?' 자동조회 대기':'')+' · 1년전적 '+originalLoaded+'/'+keys.length+'명'+(originalLoading?' 조회중':'')):'대기중';
     }
-    function entryAuctionPointLabel(value){
+    function entryAuctionPointLabel(value,player){
+      if(String(player&&player.role||'').trim()==='팀장') return '팀장';
+      if(value===null||value===undefined||value==='') return '포인트 대기';
       const points=Number(value);
-      return Number.isFinite(points)&&points>0?points+'P':'포인트 대기';
+      return Number.isFinite(points)?points+'P':'포인트 대기';
     }
     function entryAuctionTeamsHtml(){
       return entryAuctionTeamsData().map(team=>{
-        const players=(team.players||[]).map(player=>'<div class="auction-player"><span><b>'+escapeHtml(player.name)+'</b><small>'+escapeHtml(player.role)+' · '+escapeHtml(player.tier)+(player.temporary?' · 임시':'')+'</small></span><span class="auction-points">'+escapeHtml(entryAuctionPointLabel(player.points))+'</span></div>').join('');
+        const players=(team.players||[]).map(player=>'<div class="auction-player"><span><b>'+escapeHtml(player.name)+'</b><small>'+escapeHtml(player.role)+' · '+escapeHtml(player.tier)+(player.temporary?' · 임시':'')+'</small></span><span class="auction-points">'+escapeHtml(entryAuctionPointLabel(player.points,player))+'</span></div>').join('');
         return '<article class="auction-team"><div class="auction-team-head"><div class="auction-team-name">'+escapeHtml(team.name)+'</div><span class="auction-pill">'+escapeHtml(team.group)+'조</span></div><div class="auction-player-list">'+players+'</div></article>';
       }).join('');
     }
