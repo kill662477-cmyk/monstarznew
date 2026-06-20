@@ -149,6 +149,10 @@ body{ line-height:1.55; }
 .view-tab.active{color:#eaf4ff;background:linear-gradient(180deg,rgba(90,167,255,.24),rgba(57,114,222,.16));border-color:rgba(90,167,255,.42);box-shadow:0 10px 28px rgba(44,117,220,.14)}
 .entry-tool[hidden],.tier-stack[hidden],.filter-summary[hidden]{display:none!important}
 .entry-tool{display:grid;grid-template-columns:minmax(560px,1.05fr) minmax(420px,.95fr);gap:18px;margin-bottom:40px}
+.entry-board-tabs{grid-column:1 / -1;display:flex;gap:8px;padding:6px;border:1px solid rgba(142,169,208,.16);border-radius:12px;background:rgba(5,15,28,.52)}
+.entry-board-tab{height:38px;border:1px solid transparent;border-radius:9px;background:transparent;color:#9fb5ce;font-size:13px;font-weight:900;padding:0 15px;cursor:pointer}
+.entry-board-tab:hover{color:#eef6ff;background:rgba(90,167,255,.10)}
+.entry-board-tab.active{color:#fff;background:linear-gradient(180deg,rgba(105,239,145,.22),rgba(90,167,255,.16));border-color:rgba(105,239,145,.38)}
 .entry-card{border:1px solid rgba(142,169,208,.18);border-radius:14px;background:linear-gradient(180deg,rgba(12,27,46,.94),rgba(7,18,33,.95));box-shadow:0 22px 60px rgba(0,0,0,.24);overflow:hidden}
 .entry-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid rgba(142,169,208,.14)}
 .entry-title{font-size:18px;font-weight:900;color:#eef6ff}
@@ -165,6 +169,8 @@ body{ line-height:1.55; }
 .entry-map-check:hover{background:rgba(90,167,255,.10)}
 .entry-map-check input{accent-color:#69ef91}
 .entry-map-empty{padding:10px 8px;color:#7f95b0;font-size:12px;font-weight:850;text-align:center}
+.entry-fixed-maps{display:flex;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:wrap;max-width:390px}
+.entry-fixed-map{display:inline-flex;align-items:center;height:28px;padding:0 9px;border-radius:999px;border:1px solid rgba(105,239,145,.28);background:rgba(105,239,145,.10);color:#dfffea;font-size:11px;font-weight:900}
 .entry-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px}
 .entry-team{border:1px solid rgba(142,169,208,.15);border-radius:12px;background:rgba(5,15,28,.40);min-width:0}
 .entry-team.team-a{border-color:rgba(90,167,255,.30)}
@@ -235,6 +241,28 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .entry-sim-row .entry-match-table,.entry-sim-row .sim-result{padding:0}
 /* 결과(상대전적+시뮬)는 전체 화면 폭으로 확장 */
 .entry-results-card{grid-column:1 / -1}
+.entry-auction-card{grid-column:1 / -1}
+.entry-auction-card[hidden]{display:none!important}
+.auction-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:16px}
+.auction-team{border:1px solid rgba(142,169,208,.13);border-radius:12px;background:rgba(5,15,28,.36);padding:12px;min-width:0}
+.auction-team-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.auction-team-name{font-size:15px;font-weight:950;color:#f4f8ff}
+.auction-pill{display:inline-flex;align-items:center;height:24px;padding:0 8px;border-radius:999px;border:1px solid rgba(90,167,255,.24);background:rgba(90,167,255,.10);color:#bfe0ff;font-size:11px;font-weight:900;white-space:nowrap}
+.auction-player-list{display:grid;gap:7px}
+.auction-player{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px;border:1px solid rgba(142,169,208,.11);border-radius:9px;background:rgba(12,27,46,.56)}
+.auction-player b{display:block;color:#eef6ff;font-size:13px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.auction-player small{display:block;color:#8fa6c2;font-size:11.5px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.auction-points{color:#ffd36a;font-size:12px;font-weight:950;white-space:nowrap}
+.auction-board{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:14px;padding:0 16px 16px}
+.auction-section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 8px;color:#9fc0ea;font-size:12px;font-weight:950}
+.auction-mode-tabs{display:flex;gap:6px}
+.auction-mode-tab{height:30px;border:1px solid rgba(142,169,208,.22);border-radius:8px;background:rgba(3,10,20,.52);color:#9fb5ce;font-size:12px;font-weight:900;padding:0 10px;cursor:pointer}
+.auction-mode-tab.active{color:#fff;background:#3f82f6;border-color:rgba(112,171,255,.62)}
+.auction-empty{display:grid;place-items:center;min-height:82px;border:1px dashed rgba(142,169,208,.18);border-radius:10px;color:#7f95b0;font-size:13px;font-weight:800;text-align:center}
+.auction-value-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.auction-captain-pick{margin-top:10px;border:1px solid rgba(142,169,208,.13);border-radius:10px;background:rgba(5,15,28,.32);padding:10px}
+.auction-captain-pick b{display:block;color:#eef6ff;font-size:14px}
+.auction-captain-pick small{display:block;margin-top:3px;color:#8fa6c2;font-size:12px;font-weight:750}
 .entry-record-loading{color:#7f97b2}
 .entry-rate-high{color:#69ef91!important}.entry-rate-mid{color:#ffd36a!important}.entry-rate-low{color:#ff8f8f!important}
 .entry-win-mark{display:inline-flex;align-items:center;height:20px;margin-left:6px;padding:0 7px;border-radius:999px;background:rgba(105,239,145,.14);border:1px solid rgba(105,239,145,.32);color:#69ef91;font-size:11px;font-weight:950;vertical-align:middle}
@@ -251,6 +279,8 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .sim-note{font-size:12px;color:#839ab6;font-weight:700;line-height:1.5}
 html.light .view-tabs,html.light .entry-card{background:#fff;border-color:var(--line);box-shadow:0 22px 60px rgba(40,90,160,.12)}
 html.light .view-tab{color:#607995} html.light .view-tab:hover,html.light .view-tab.active{color:#16436d;background:rgba(31,111,214,.09);border-color:rgba(31,111,214,.20)}
+html.light .entry-board-tabs{background:#fff;border-color:var(--line)}
+html.light .entry-board-tab{color:#607995} html.light .entry-board-tab:hover,html.light .entry-board-tab.active{color:#16436d;background:rgba(31,111,214,.09);border-color:rgba(31,111,214,.20)}
 html.light .entry-team,html.light .entry-roster,html.light .entry-stat-scroll,html.light .sim-card{background:#f7fbff;border-color:var(--line)}
 html.light .entry-title,html.light .entry-team-name,html.light .entry-roster-title,html.light .entry-player-name,html.light .entry-chip b,html.light .sim-side b,html.light .sim-side strong{color:#1f3a5c}
 html.light .entry-sub,html.light .entry-count,html.light .entry-player-meta,html.light .entry-chip small,html.light .sim-note{color:#6a809c}
@@ -260,6 +290,7 @@ html.light .entry-map-menu{background:#fff;border-color:var(--line);box-shadow:0
 html.light .entry-map-check{color:#1f3a5c}
 html.light .entry-map-check:hover{background:rgba(31,111,214,.08)}
 html.light .entry-map-empty{color:#6a809c}
+html.light .entry-fixed-map{background:rgba(15,150,70,.07);border-color:rgba(15,150,70,.20);color:#176239}
 html.light .entry-control,html.light .entry-small-select{background:#fff;color:#1f3a5c;border-color:var(--line)}
 html.light .entry-player,html.light .entry-chip{background:#fff;border-color:var(--line);color:#1f3a5c}
 html.light .entry-chip.entry-slot:hover,html.light .entry-chip.entry-slot.active{background:#eef5ff;border-color:rgba(31,111,214,.36);box-shadow:0 0 0 2px rgba(31,111,214,.08)}
@@ -272,8 +303,11 @@ html.light .entry-map-roster{background:rgba(247,251,255,.62);border-color:rgba(
 html.light .entry-map-select{background:#fff;color:#1f3a5c;border-color:var(--line)}
 html.light .entry-btn{background:#eef5ff;color:#1f3a5c;border-color:var(--line)} html.light .entry-btn.primary{background:#3f82f6;color:#fff}
 html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} html.light .entry-stat-scroll td{color:#1f3a5c;border-bottom-color:rgba(40,90,160,.10)}
+html.light .auction-team,.html.light .auction-player,.html.light .auction-captain-pick{background:#f7fbff;border-color:var(--line)}
+html.light .auction-team-name,.html.light .auction-player b,.html.light .auction-captain-pick b{color:#1f3a5c}
+html.light .auction-player small,.html.light .auction-captain-pick small,.html.light .auction-empty{color:#6a809c}
 @media (max-width:1050px){.entry-tool{grid-template-columns:1fr}.entry-list{height:330px}}
-@media (max-width:720px){.view-tabs{overflow:auto}.entry-card-head{align-items:stretch;flex-direction:column}.entry-map-pools{justify-content:stretch}.entry-map-pool{flex:1;min-width:0}.entry-columns,.entry-roster-grid,.entry-two-up,.entry-sim-row{grid-template-columns:1fr}.entry-toolbar{align-items:stretch}.entry-toolbar-left,.entry-toolbar-right{width:100%}.entry-small-select,.entry-btn{flex:1}.sim-score{grid-template-columns:1fr;gap:10px}}
+@media (max-width:720px){.view-tabs,.entry-board-tabs{overflow:auto}.entry-card-head{align-items:stretch;flex-direction:column}.entry-map-pools,.entry-fixed-maps{justify-content:stretch}.entry-map-pool{flex:1;min-width:0}.entry-columns,.entry-roster-grid,.entry-two-up,.entry-sim-row,.auction-grid,.auction-board,.auction-value-grid{grid-template-columns:1fr}.entry-toolbar{align-items:stretch}.entry-toolbar-left,.entry-toolbar-right{width:100%}.entry-small-select,.entry-btn{flex:1}.sim-score{grid-template-columns:1fr;gap:10px}}
 </style>
 
 <script>
@@ -325,6 +359,10 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
     <div class="filter-summary" id="filterSummary"></div>
     <main class="tier-stack" id="tierStack"></main>
     <section class="entry-tool" id="entryTool" hidden>
+      <div class="entry-board-tabs" id="entryBoardTabs" role="tablist" aria-label="엔트리 종류">
+        <button class="entry-board-tab active" type="button" role="tab" aria-selected="true" data-entry-board="main">메인</button>
+        <button class="entry-board-tab" type="button" role="tab" aria-selected="false" data-entry-board="auction">특별 뉴캄옥션</button>
+      </div>
       <section class="entry-card">
         <div class="entry-card-head">
           <div>
@@ -391,6 +429,41 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
             <button class="entry-btn warn" id="entryClear" type="button">초기화</button>
             <button class="entry-btn primary" id="entryRunSim" type="button">시뮬레이션</button>
           </div>
+        </div>
+      </section>
+      <section class="entry-card entry-auction-card" id="entryAuctionPanel" hidden>
+        <div class="entry-card-head">
+          <div>
+            <div class="entry-title">특별 뉴캄옥션</div>
+            <div class="entry-sub">6팀 이벤트 운영판</div>
+          </div>
+        </div>
+        <div class="auction-grid" id="entryAuctionTeams"></div>
+        <div class="auction-board">
+          <section>
+            <div class="auction-section-title">
+              <span>순위표</span>
+              <div class="auction-mode-tabs" id="entryAuctionModeTabs" role="tablist" aria-label="뉴캄옥션 순위 종류">
+                <button class="auction-mode-tab" type="button" data-auction-mode="scrim">스크림</button>
+                <button class="auction-mode-tab" type="button" data-auction-mode="official">본경기</button>
+              </div>
+            </div>
+            <div id="entryAuctionStandings"></div>
+          </section>
+          <section>
+            <div class="auction-section-title"><span>가성비</span></div>
+            <div class="auction-value-grid">
+              <div>
+                <div class="entry-two-up-title">최고의 가성비 TOP 5</div>
+                <div id="entryAuctionBestValues"></div>
+              </div>
+              <div>
+                <div class="entry-two-up-title">최악의 가성비 TOP 5</div>
+                <div id="entryAuctionWorstValues"></div>
+              </div>
+            </div>
+            <div id="entryAuctionCaptainValues"></div>
+          </section>
         </div>
       </section>
       <section class="entry-card entry-results-card">
@@ -5658,6 +5731,14 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
     const entryStatsTable = document.getElementById('entryStatsTable');
     const entryMatchTable = document.getElementById('entryMatchTable');
     const entrySimulation = document.getElementById('entrySimulation');
+    const entryBoardTabs = document.getElementById('entryBoardTabs');
+    const entryAuctionPanel = document.getElementById('entryAuctionPanel');
+    const entryAuctionTeams = document.getElementById('entryAuctionTeams');
+    const entryAuctionModeTabs = document.getElementById('entryAuctionModeTabs');
+    const entryAuctionStandings = document.getElementById('entryAuctionStandings');
+    const entryAuctionBestValues = document.getElementById('entryAuctionBestValues');
+    const entryAuctionWorstValues = document.getElementById('entryAuctionWorstValues');
+    const entryAuctionCaptainValues = document.getElementById('entryAuctionCaptainValues');
     const recordDialog = document.getElementById('recordDialog');
     const recordTitle = document.getElementById('recordTitle');
     const recordAvatar = document.getElementById('recordAvatar');
@@ -5680,6 +5761,28 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
     const ENTRY_SLOT_COUNT = 9;
     const ENTRY_DEFAULT_MAP = '';
     const ENTRY_FALLBACK_MAPS = ['투혼','폴리포이드','레트로','라데온','민스트럴','이클립스','데자뷰','네오 실피드','버미어','킥백'];
+    const ENTRY_BOARD_MAIN = 'main';
+    const ENTRY_BOARD_AUCTION = 'auction';
+    const ENTRY_AUCTION_START_AT = new Date('2026-06-23T00:00:00+09:00').getTime();
+    const ENTRY_AUCTION_MAPS = ['폴리포이드','라데온','녹아웃','네오 실피드'];
+    const ENTRY_AUCTION_TEAMS = [
+      {id:'chulgu',group:'A',name:'철구팀',captain:'철구',jack:'김윤환'},
+      {id:'parksungjun',group:'A',name:'박성준팀',captain:'박성준',jack:'박재혁'},
+      {id:'ginew',group:'A',name:'기뉴다팀',captain:'기뉴다',jack:'지동원'},
+      {id:'iyunyeol',group:'B',name:'이윤열팀',captain:'이윤열',jack:'흑운장'},
+      {id:'jeontae',group:'B',name:'전태규팀',captain:'전태규',jack:'왜냐맨'},
+      {id:'kimhaksu',group:'B',name:'김학수팀',captain:'김학수',jack:'이경민'}
+    ].map(team=>({
+      ...team,
+      players:[
+        {name:team.captain,tier:'조커이드',role:'팀장',points:null,wins:0,losses:0},
+        {name:team.jack,tier:'잭티어',role:'잭티어',points:null,wins:0,losses:0},
+        {name:'3티어 미정',tier:'3티어',role:'임시',points:null,wins:0,losses:0,temporary:true},
+        {name:'5티어 미정',tier:'5티어',role:'임시',points:null,wins:0,losses:0,temporary:true},
+        {name:'6티어 미정',tier:'6티어',role:'임시',points:null,wins:0,losses:0,temporary:true},
+        {name:'7티어 미정',tier:'7티어',role:'임시',points:null,wins:0,losses:0,temporary:true}
+      ]
+    }));
     function loadSavedFilters(){
       try{
         const saved=JSON.parse(localStorage.getItem(FILTER_STORAGE_KEY)||'{}');
@@ -5756,29 +5859,51 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
     }
     const requestedView = requestedMainView();
     if(requestedView) document.documentElement.classList.add('main-view-locked');
+    function entryDefaultAuctionMode(){
+      return Date.now() < ENTRY_AUCTION_START_AT ? 'scrim' : 'official';
+    }
+    function createEntryBoardState(type){
+      const auction=type===ENTRY_BOARD_AUCTION;
+      return {
+        type:type||ENTRY_BOARD_MAIN,
+        teamA:Array(ENTRY_SLOT_COUNT).fill(''),
+        teamB:Array(ENTRY_SLOT_COUNT).fill(''),
+        slotMaps:Array(ENTRY_SLOT_COUNT).fill(ENTRY_DEFAULT_MAP),
+        mapPoolMen:auction?ENTRY_AUCTION_MAPS.slice():[],
+        mapPoolWomen:auction?ENTRY_AUCTION_MAPS.slice():[],
+        selectedSlotA:0,
+        selectedSlotB:0,
+        academyA:'all',
+        academyB:'all',
+        searchA:'',
+        searchB:'',
+        simMode:auction?'bo9':'bo7',
+        simulation:null,
+        defaultAcademyAApplied:false,
+        auctionMode:entryDefaultAuctionMode(),
+        auctionMatches:[]
+      };
+    }
     const entryState = {
       view:'tier',
-      teamA:[],
-      teamB:[],
-      slotMaps:Array(ENTRY_SLOT_COUNT).fill(ENTRY_DEFAULT_MAP),
-      mapPoolMen:[],
-      mapPoolWomen:[],
-      selectedSlotA:0,
-      selectedSlotB:0,
-      academyA:'all',
-      academyB:'all',
-      searchA:'',
-      searchB:'',
-      simMode:'bo7',
+      activeBoard:ENTRY_BOARD_MAIN,
+      boards:{
+        [ENTRY_BOARD_MAIN]:createEntryBoardState(ENTRY_BOARD_MAIN),
+        [ENTRY_BOARD_AUCTION]:createEntryBoardState(ENTRY_BOARD_AUCTION)
+      },
       recordCache:new Map(),
       summaryCache:new Map(),
       h2hCache:new Map(),
       modelCache:new Map(),
       loadingRecords:new Set(),
-      loadingSummaries:new Set(),
-      simulation:null,
-      defaultAcademyAApplied:false
+      loadingSummaries:new Set()
     };
+    ['teamA','teamB','slotMaps','mapPoolMen','mapPoolWomen','selectedSlotA','selectedSlotB','academyA','academyB','searchA','searchB','simMode','simulation','defaultAcademyAApplied','auctionMode','auctionMatches'].forEach(field=>{
+      Object.defineProperty(entryState,field,{
+        get(){ return entryState.boards[entryState.activeBoard][field]; },
+        set(value){ entryState.boards[entryState.activeBoard][field]=value; }
+      });
+    });
 
     const FIREBASE_ROOT = 'starcraftTier/current';
     const firebaseConfig = { apiKey:"AIzaSyDG_A78a87l_vc3BdbAk-mX5DmoHOzMWNA", authDomain:"jddcontens.firebaseapp.com", databaseURL:"https://jddcontens-default-rtdb.asia-southeast1.firebasedatabase.app", projectId:"jddcontens", storageBucket:"jddcontens.firebasestorage.app", messagingSenderId:"173723966783", appId:"1:173723966783:web:ccd54e5417327b2600478a", measurementId:"G-5WCBP7YDRW" };
@@ -5906,6 +6031,25 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       {key:'y2026',label:'2026년'},
       {key:'all',label:'최근 1년'}
     ];
+    function entryBoardState(){
+      return entryState.boards[entryState.activeBoard] || entryState.boards[ENTRY_BOARD_MAIN];
+    }
+    function isAuctionEntryBoard(){
+      return entryState.activeBoard===ENTRY_BOARD_AUCTION;
+    }
+    function entryAuctionFixedMapKey(){
+      return entryMapContextKey(ENTRY_AUCTION_MAPS);
+    }
+    function setEntryBoard(board){
+      const next=board===ENTRY_BOARD_AUCTION?ENTRY_BOARD_AUCTION:ENTRY_BOARD_MAIN;
+      if(entryState.activeBoard===next) return;
+      entryState.activeBoard=next;
+      clearTimeout(entryRecordAutoTimer);
+      entryRecordAutoSeq++;
+      closeEntryMapPools();
+      renderEntry();
+      scheduleEntrySummaryAutoLoad();
+    }
     function setMainView(view){
       const entry=view==='entry';
       entryState.view=entry?'entry':'tier';
@@ -5921,8 +6065,42 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       if(entry) renderEntry();
       else render();
     }
+    function renderEntryBoardTabs(){
+      if(!entryBoardTabs) return;
+      entryBoardTabs.querySelectorAll('[data-entry-board]').forEach(btn=>{
+        const active=btn.dataset.entryBoard===entryState.activeBoard;
+        btn.classList.toggle('active',active);
+        btn.setAttribute('aria-selected',active?'true':'false');
+      });
+    }
+    function resetActiveEntryBoard(){
+      const fresh=createEntryBoardState(entryState.activeBoard);
+      const board=entryBoardState();
+      Object.keys(fresh).forEach(key=>{ board[key]=fresh[key]; });
+    }
     function academyName(player){ return String((player&&player.academy&&(player.academy.name||player.academy.title)) || player.academyName || player.school || '').trim() || '소속 없음'; }
+    function entryAuctionPlayerTeam(player){
+      const name=String(player&&player.name||'').trim();
+      if(!name) return '';
+      const team=ENTRY_AUCTION_TEAMS.find(item=>(item.players||[]).some(p=>!p.temporary&&p.name===name));
+      return team?team.name:'';
+    }
+    function entryAuctionPlayers(){
+      const names=new Set(ENTRY_AUCTION_TEAMS.flatMap(team=>(team.players||[]).filter(player=>!player.temporary).map(player=>player.name)));
+      const seen=new Set();
+      return visibleTierData().filter(player=>{
+        const name=String(player&&player.name||'').trim();
+        if(!names.has(name)||seen.has(name)) return false;
+        seen.add(name);
+        return player&&player.race;
+      }).sort((a,b)=>{
+        const teamDiff=entryAuctionPlayerTeam(a).localeCompare(entryAuctionPlayerTeam(b),'ko');
+        if(teamDiff) return teamDiff;
+        return String(a.name||'').localeCompare(String(b.name||''),'ko');
+      });
+    }
     function entryPlayers(){
+      if(isAuctionEntryBoard()) return entryAuctionPlayers();
       return visibleTierData().filter(player=>player&&player.name&&player.race).slice().sort((a,b)=>{
         const academyDiff=academyName(a).localeCompare(academyName(b),'ko');
         if(academyDiff) return academyDiff;
@@ -6009,6 +6187,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
     }
     function entryMapContextLabel(value){
       const list=entryMapContextList(value);
+      if(isAuctionEntryBoard()&&entryMapContextKey(list)===entryAuctionFixedMapKey()) return '대회맵 평균';
       return list.length?list.join(' / '):'디폴트';
     }
     function entryPlayerMapGender(player){
@@ -6058,6 +6237,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       return Boolean(time&&time>=Date.now()-ENTRY_RECORD_LOOKBACK_DAYS*86400000);
     }
     function entryBaseMapOptions(extra=[],gender=''){
+      if(isAuctionEntryBoard()) return ENTRY_AUCTION_MAPS.slice();
       const counts=new Map();
       function add(name,weight=1){
         const label=String(name||'').trim();
@@ -6080,11 +6260,23 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       return Array.from(counts.values()).sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'ko')).map(item=>item.label);
     }
     function entryAvailableSlotMaps(){
+      if(isAuctionEntryBoard()) return ENTRY_AUCTION_MAPS.slice();
       const pool=entrySelectedPoolMaps();
       if(pool.length) return pool;
       return entryBaseMapOptions(entryState.slotMaps||[]);
     }
     function cleanEntryMaps(){
+      if(isAuctionEntryBoard()){
+        const allowedSet=new Set(ENTRY_AUCTION_MAPS.map(entryNormalizeMapName));
+        const maps=Array.isArray(entryState.slotMaps)?entryState.slotMaps.slice(0,ENTRY_SLOT_COUNT):[];
+        entryState.mapPoolMen=ENTRY_AUCTION_MAPS.slice();
+        entryState.mapPoolWomen=ENTRY_AUCTION_MAPS.slice();
+        entryState.slotMaps=Array.from({length:ENTRY_SLOT_COUNT},(_,index)=>{
+          const value=String(maps[index]||ENTRY_DEFAULT_MAP).trim();
+          return value&&allowedSet.has(entryNormalizeMapName(value))?value:ENTRY_DEFAULT_MAP;
+        });
+        return;
+      }
       entryState.mapPoolMen=entryMapContextList(entryState.mapPoolMen||[]);
       entryState.mapPoolWomen=entryMapContextList(entryState.mapPoolWomen||[]);
       const allowed=entrySelectedPoolMaps();
@@ -6097,6 +6289,10 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       });
     }
     function renderEntryMapPools(){
+      if(isAuctionEntryBoard()){
+        entryMapPools.innerHTML='<div class="entry-fixed-maps" aria-label="뉴캄옥션 고정맵">'+ENTRY_AUCTION_MAPS.map(name=>'<span class="entry-fixed-map">'+escapeHtml(name)+'</span>').join('')+'</div>';
+        return;
+      }
       function poolHtml(pool,label,selected,gender){
         const options=entryBaseMapOptions(selected,gender);
         const selectedList=entryMapContextList(selected);
@@ -6136,6 +6332,19 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       entryState.defaultAcademyAApplied=true;
     }
     function renderEntryAcademyOptions(){
+      if(isAuctionEntryBoard()){
+        const teams=ENTRY_AUCTION_TEAMS.map(team=>team.name);
+        function html(selected){ return '<option value="all">대회참여 팀 선택</option>'+teams.map(name=>'<option value="'+escapeAttr(name)+'" '+(name===selected?'selected':'')+'>'+escapeHtml(name)+'</option>').join(''); }
+        if(!teams.includes(entryState.academyA)) entryState.academyA='all';
+        if(!teams.includes(entryState.academyB)) entryState.academyB='all';
+        entryAcademyA.innerHTML=html(entryState.academyA);
+        entryAcademyB.innerHTML=html(entryState.academyB);
+        entryAcademyA.setAttribute('aria-label','A팀 대회참여 팀 선택');
+        entryAcademyB.setAttribute('aria-label','B팀 대회참여 팀 선택');
+        entrySearchA.placeholder='A팀 대회참여 멤버 검색...';
+        entrySearchB.placeholder='B팀 대회참여 멤버 검색...';
+        return;
+      }
       const academies=Array.from(new Set(entryPlayers().map(academyName))).sort((a,b)=>a.localeCompare(b,'ko'));
       function html(selected){ return '<option value="all">교육기관 선택</option>'+academies.map(name=>'<option value="'+escapeAttr(name)+'" '+(name===selected?'selected':'')+'>'+escapeHtml(name)+'</option>').join(''); }
       if(!academies.includes(entryState.academyA)) entryState.academyA='all';
@@ -6143,14 +6352,18 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       applyDefaultEntryAcademyA(academies);
       entryAcademyA.innerHTML=html(entryState.academyA);
       entryAcademyB.innerHTML=html(entryState.academyB);
+      entryAcademyA.setAttribute('aria-label','A팀 대학 선택');
+      entryAcademyB.setAttribute('aria-label','B팀 대학 선택');
+      entrySearchA.placeholder='A팀 선수 검색...';
+      entrySearchB.placeholder='B팀 선수 검색...';
     }
     function entryFilteredPlayers(team){
       const academy=team==='A'?entryState.academyA:entryState.academyB;
       const q=(team==='A'?entryState.searchA:entryState.searchB).trim().toLowerCase();
       return entryPlayers().filter(player=>{
-        if(academy&&academy!=='all'&&academyName(player)!==academy) return false;
+        if(academy&&academy!=='all'&&(isAuctionEntryBoard()?entryAuctionPlayerTeam(player):academyName(player))!==academy) return false;
         if(!q) return true;
-        const hay=[player.name,player.race,raceName[player.race],player.tier,academyName(player),extractSoopUserId(player)].join(' ').toLowerCase();
+        const hay=[player.name,player.race,raceName[player.race],player.tier,isAuctionEntryBoard()?entryAuctionPlayerTeam(player):academyName(player),extractSoopUserId(player)].join(' ').toLowerCase();
         return hay.includes(q);
       });
     }
@@ -6160,7 +6373,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       return '<button class="entry-player" type="button" data-entry-add="'+team+'" data-player-key="'+escapeAttr(key)+'">'+
         '<span class="entry-add">'+(selected?'✓':'+')+'</span>'+
         '<img class="entry-avatar" src="'+escapeAttr(player.image||'')+'" alt="" loading="lazy" decoding="async">'+
-        '<span><span class="entry-player-name">'+escapeHtml(player.name)+'</span><span class="entry-player-meta">'+escapeHtml(academyName(player))+' · '+escapeHtml(player.tier)+' · '+escapeHtml(player.race)+'</span></span>'+
+        '<span><span class="entry-player-name">'+escapeHtml(player.name)+'</span><span class="entry-player-meta">'+escapeHtml(isAuctionEntryBoard()?entryAuctionPlayerTeam(player):academyName(player))+' · '+escapeHtml(player.tier)+' · '+escapeHtml(player.race)+'</span></span>'+
       '</button>';
     }
     function renderEntryList(team){
@@ -6181,7 +6394,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
         if(!player){
           return '<button class="entry-slot-empty'+active+'" type="button"'+slotAttr+'><span class="entry-slot-number">'+(index+1)+'</span><span><b>빈 슬롯</b><small>선수 선택 시 이 칸에 배치</small></span></button>';
         }
-        return '<div class="entry-chip entry-slot'+active+'"'+slotAttr+'><span class="entry-slot-number">'+(index+1)+'</span><img src="'+escapeAttr(player.image||'')+'" alt="" loading="lazy" decoding="async"><span><b>'+escapeHtml(player.name)+'</b><small>'+escapeHtml(academyName(player))+' · '+escapeHtml(player.tier)+' · '+escapeHtml(player.race)+'</small></span><button class="entry-remove" type="button" data-entry-remove="'+team+'" data-entry-slot-index="'+index+'" data-player-key="'+escapeAttr(key)+'" aria-label="삭제">×</button></div>';
+        return '<div class="entry-chip entry-slot'+active+'"'+slotAttr+'><span class="entry-slot-number">'+(index+1)+'</span><img src="'+escapeAttr(player.image||'')+'" alt="" loading="lazy" decoding="async"><span><b>'+escapeHtml(player.name)+'</b><small>'+escapeHtml(isAuctionEntryBoard()?entryAuctionPlayerTeam(player):academyName(player))+' · '+escapeHtml(player.tier)+' · '+escapeHtml(player.race)+'</small></span><button class="entry-remove" type="button" data-entry-remove="'+team+'" data-entry-slot-index="'+index+'" data-player-key="'+escapeAttr(key)+'" aria-label="삭제">×</button></div>';
       }).join('');
     }
     function entryRowTime(row){
@@ -6528,12 +6741,105 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       const pending=pairs.length-loaded-loading;
       entryDataStatus.textContent=keys.length?('선택 '+keys.length+'명 · 상대전적 '+loaded+'/'+pairs.length+'쌍'+(loading?' 조회중':pending?' 자동조회 대기':'')+' · 1년전적 '+originalLoaded+'/'+keys.length+'명'+(originalLoading?' 조회중':'')):'대기중';
     }
+    function entryAuctionPointLabel(value){
+      const points=Number(value);
+      return Number.isFinite(points)&&points>0?points+'P':'포인트 대기';
+    }
+    function entryAuctionTeamsHtml(){
+      return ENTRY_AUCTION_TEAMS.map(team=>{
+        const players=(team.players||[]).map(player=>'<div class="auction-player"><span><b>'+escapeHtml(player.name)+'</b><small>'+escapeHtml(player.role)+' · '+escapeHtml(player.tier)+(player.temporary?' · 임시':'')+'</small></span><span class="auction-points">'+escapeHtml(entryAuctionPointLabel(player.points))+'</span></div>').join('');
+        return '<article class="auction-team"><div class="auction-team-head"><div class="auction-team-name">'+escapeHtml(team.name)+'</div><span class="auction-pill">'+escapeHtml(team.group)+'조</span></div><div class="auction-player-list">'+players+'</div></article>';
+      }).join('');
+    }
+    function entryAuctionBaseRows(mode,group){
+      return ENTRY_AUCTION_TEAMS.filter(team=>mode==='scrim'||!group||team.group===group).map(team=>({
+        name:team.name,
+        group:team.group,
+        wins:0,
+        losses:0,
+        games:0
+      }));
+    }
+    function entryAuctionApplyMatches(rows,mode){
+      const byName=new Map(rows.map(row=>[row.name,row]));
+      (entryState.auctionMatches||[]).forEach(match=>{
+        if(!match||match.type!==mode) return;
+        const a=byName.get(match.teamA);
+        const b=byName.get(match.teamB);
+        if(!a||!b||!match.winner) return;
+        a.games+=1; b.games+=1;
+        if(match.winner===a.name){ a.wins+=1; b.losses+=1; }
+        else if(match.winner===b.name){ b.wins+=1; a.losses+=1; }
+      });
+      return rows;
+    }
+    function entryAuctionRankRows(rows){
+      const sorted=rows.slice().sort((a,b)=>b.wins-a.wins||a.losses-b.losses||a.name.localeCompare(b.name,'ko'));
+      let rank=0, prev=null;
+      return sorted.map((row,index)=>{
+        const key=row.wins+'|'+row.losses;
+        if(key!==prev){ rank=index+1; prev=key; }
+        return {...row,rank};
+      });
+    }
+    function entryAuctionStandingTable(rows){
+      const ranked=entryAuctionRankRows(rows);
+      return '<div class="entry-stat-scroll"><table><colgroup><col style="width:58px"><col><col style="width:70px"><col style="width:70px"><col style="width:78px"></colgroup><thead><tr><th>순위</th><th>팀</th><th>승</th><th>패</th><th>경기</th></tr></thead><tbody>'+ranked.map(row=>'<tr><td>'+row.rank+'위</td><td>'+escapeHtml(row.name)+'</td><td>'+row.wins+'</td><td>'+row.losses+'</td><td>'+row.games+'</td></tr>').join('')+'</tbody></table></div>';
+    }
+    function entryAuctionOfficialStandings(){
+      const groupA=entryAuctionApplyMatches(entryAuctionBaseRows('official','A'),'official');
+      const groupB=entryAuctionApplyMatches(entryAuctionBaseRows('official','B'),'official');
+      return '<div class="entry-two-up"><div><div class="entry-two-up-title">A조</div>'+entryAuctionStandingTable(groupA)+'</div><div><div class="entry-two-up-title">B조</div>'+entryAuctionStandingTable(groupB)+'</div></div>';
+    }
+    function entryAuctionScrimStandings(){
+      const rows=entryAuctionApplyMatches(entryAuctionBaseRows('scrim'),'scrim');
+      return entryAuctionStandingTable(rows);
+    }
+    function entryAuctionValueScore(player){
+      const points=Number(player.points);
+      const wins=Number(player.wins||0);
+      const losses=Number(player.losses||0);
+      const games=wins+losses;
+      if(!Number.isFinite(points)||points<=0||!games) return null;
+      const winRate=wins/games;
+      const impact=(wins*3)-(losses*1.2)+(winRate*2);
+      const confidence=Math.min(1,games/5);
+      return (impact/Math.max(1,points))*100*confidence;
+    }
+    function entryAuctionValueItems(){
+      return ENTRY_AUCTION_TEAMS.flatMap(team=>(team.players||[]).map(player=>({team:team.name,player,score:entryAuctionValueScore(player)}))).filter(item=>item.score!==null);
+    }
+    function entryAuctionValueList(items,reverse){
+      if(!items.length) return '<div class="auction-empty">포인트와 경기결과 입력 대기</div>';
+      const sorted=items.slice().sort((a,b)=>reverse?b.score-a.score:a.score-b.score).slice(0,5);
+      return '<div class="entry-stat-scroll"><table><thead><tr><th>선수</th><th>팀</th><th>점수</th></tr></thead><tbody>'+sorted.map(item=>'<tr><td>'+escapeHtml(item.player.name)+'</td><td>'+escapeHtml(item.team)+'</td><td>'+item.score.toFixed(1)+'</td></tr>').join('')+'</tbody></table></div>';
+    }
+    function renderEntryAuctionPanel(){
+      if(!entryAuctionPanel) return;
+      const active=isAuctionEntryBoard();
+      entryAuctionPanel.hidden=!active;
+      if(!active) return;
+      entryAuctionTeams.innerHTML=entryAuctionTeamsHtml();
+      entryAuctionModeTabs.querySelectorAll('[data-auction-mode]').forEach(btn=>{
+        const selected=btn.dataset.auctionMode===entryState.auctionMode;
+        btn.classList.toggle('active',selected);
+        btn.setAttribute('aria-selected',selected?'true':'false');
+      });
+      entryAuctionStandings.innerHTML=entryState.auctionMode==='official'?entryAuctionOfficialStandings():entryAuctionScrimStandings();
+      const values=entryAuctionValueItems();
+      entryAuctionBestValues.innerHTML=entryAuctionValueList(values,true);
+      entryAuctionWorstValues.innerHTML=entryAuctionValueList(values,false);
+      entryAuctionCaptainValues.innerHTML='<div class="auction-captain-pick"><b>팀장 평가 대기</b><small>낙찰 포인트와 경기결과가 들어오면 최고의 팀장/최악의 팀장을 계산합니다.</small></div>';
+    }
     function renderEntry(){
       cleanEntryTeams();
+      if(isAuctionEntryBoard()) entryState.simMode='bo9';
+      renderEntryBoardTabs();
       renderEntryAcademyOptions();
       if(document.activeElement!==entrySearchA) entrySearchA.value=entryState.searchA;
       if(document.activeElement!==entrySearchB) entrySearchB.value=entryState.searchB;
       entrySimMode.value=entryState.simMode;
+      entrySimMode.disabled=isAuctionEntryBoard();
       entryPlayerTotal.textContent=entryPlayers().length+'명';
       entryCountA.textContent=entryTeamCount('A')+'명';
       entryCountB.textContent=entryTeamCount('B')+'명';
@@ -6544,6 +6850,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       renderEntryMapSlots();
       renderEntryRoster('B');
       renderEntryStatus();
+      renderEntryAuctionPanel();
       renderEntryStats();
       renderEntryMatchTable();
       renderEntrySimulation();
@@ -6894,11 +7201,13 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
     filterSummary.addEventListener('click',e=>{ const btn=e.target.closest('[data-remove-filter]'); if(!btn) return; const k=btn.dataset.removeFilter; if(k==='live') filters.liveOnly=false; if(k==='race') filters.races=[]; if(k==='tier') filters.tiers=[]; if(k==='search') searchInput.value=''; render(); });
     tierStack.addEventListener('click',e=>{ const rec=e.target.closest('.record-action'); if(rec) openRecord(rec.dataset.playerKey); const toggle=e.target.closest('.live-first-toggle'); if(toggle){ filters.liveFirst=toggle.checked; render(); } });
     viewTabs.addEventListener('click',e=>{ const btn=e.target.closest('[data-view]'); if(!btn) return; setMainView(btn.dataset.view); });
+    entryBoardTabs.addEventListener('click',e=>{ const btn=e.target.closest('[data-entry-board]'); if(!btn) return; setEntryBoard(btn.dataset.entryBoard); });
+    entryAuctionModeTabs.addEventListener('click',e=>{ const btn=e.target.closest('[data-auction-mode]'); if(!btn) return; entryState.auctionMode=btn.dataset.auctionMode==='official'?'official':'scrim'; renderEntryAuctionPanel(); });
     entryAcademyA.addEventListener('change',()=>{ entryState.academyA=entryAcademyA.value; entryState.defaultAcademyAApplied=true; entryState.simulation=null; renderEntry(); });
     entryAcademyB.addEventListener('change',()=>{ entryState.academyB=entryAcademyB.value; entryState.simulation=null; renderEntry(); });
     entrySearchA.addEventListener('input',()=>{ entryState.searchA=entrySearchA.value; clearTimeout(entryRenderTimer); entryRenderTimer=setTimeout(renderEntry,90); });
     entrySearchB.addEventListener('input',()=>{ entryState.searchB=entrySearchB.value; clearTimeout(entryRenderTimer); entryRenderTimer=setTimeout(renderEntry,90); });
-    entrySimMode.addEventListener('change',()=>{ entryState.simMode=entrySimMode.value; entryState.simulation=null; renderEntry(); });
+    entrySimMode.addEventListener('change',()=>{ entryState.simMode=isAuctionEntryBoard()?'bo9':entrySimMode.value; entryState.simulation=null; renderEntry(); });
     entryTool.addEventListener('change',e=>{
       const poolMap=e.target.closest('[data-entry-pool-map]');
       if(poolMap){
@@ -6957,7 +7266,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       }
     });
     document.addEventListener('click',e=>{ if(!e.target.closest('.entry-map-pool')) closeEntryMapPools(); });
-    entryClear.addEventListener('click',()=>{ entryState.teamA=Array(ENTRY_SLOT_COUNT).fill(''); entryState.teamB=Array(ENTRY_SLOT_COUNT).fill(''); entryState.slotMaps=Array(ENTRY_SLOT_COUNT).fill(ENTRY_DEFAULT_MAP); entryState.mapPoolMen=[]; entryState.mapPoolWomen=[]; entryState.selectedSlotA=0; entryState.selectedSlotB=0; entryState.simulation=null; clearTimeout(entryRecordAutoTimer); entryRecordAutoSeq++; entryState.loadingSummaries.clear(); renderEntry(); });
+    entryClear.addEventListener('click',()=>{ resetActiveEntryBoard(); clearTimeout(entryRecordAutoTimer); entryRecordAutoSeq++; entryState.loadingSummaries.clear(); renderEntry(); });
     entryRunSim.addEventListener('click',async()=>{ entrySimulation.innerHTML='<div class="entry-empty">시뮬레이션 계산중</div>'; await runEntrySimulation(); });
     document.getElementById('closeRecord').addEventListener('click',()=>{ activeRecordKey=''; opponentCandidateCache=null; headToHeadMatchCache=null; recordLoadSeq++; headLoadSeq++; recordDialog.close(); });
     tabOverall.addEventListener('click',()=>setTab('overall')); tabHead.addEventListener('click',()=>setTab('head'));
