@@ -231,8 +231,10 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .entry-two-up-title{margin:0 2px 7px;font-size:12px;font-weight:900;color:#9fc0ea}
 .entry-map-tag{display:block;margin-top:2px;color:#69ef91;font-weight:800}
 /* 시뮬 결과: 왼=매치표 / 오=승리확률 요약 */
-.entry-sim-row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr);gap:12px;padding:0 16px 18px;align-items:start}
+.entry-sim-row{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:14px;padding:0 16px 18px;align-items:start}
 .entry-sim-row .entry-match-table,.entry-sim-row .sim-result{padding:0}
+/* 결과(상대전적+시뮬)는 전체 화면 폭으로 확장 */
+.entry-results-card{grid-column:1 / -1}
 .entry-record-loading{color:#7f97b2}
 .entry-rate-high{color:#69ef91!important}.entry-rate-mid{color:#ffd36a!important}.entry-rate-low{color:#ff8f8f!important}
 .entry-win-mark{display:inline-flex;align-items:center;height:20px;margin-left:6px;padding:0 7px;border-radius:999px;background:rgba(105,239,145,.14);border:1px solid rgba(105,239,145,.32);color:#69ef91;font-size:11px;font-weight:950;vertical-align:middle}
@@ -390,6 +392,8 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
             <button class="entry-btn primary" id="entryRunSim" type="button">시뮬레이션</button>
           </div>
         </div>
+      </section>
+      <section class="entry-card entry-results-card">
         <div class="entry-stat-table" id="entryStatsTable"></div>
         <div class="entry-sim-row">
           <div class="entry-match-table" id="entryMatchTable"></div>
