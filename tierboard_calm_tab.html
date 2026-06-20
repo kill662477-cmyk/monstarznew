@@ -221,10 +221,10 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .entry-match-table{padding:0 16px 16px}
 .entry-stat-scroll{overflow:hidden;border:1px solid rgba(142,169,208,.13);border-radius:12px;background:rgba(5,15,28,.34)}
 .entry-stat-scroll table{width:100%;border-collapse:collapse;table-layout:fixed}
-.entry-stat-scroll th,.entry-stat-scroll td{padding:8px 8px;border-bottom:1px solid rgba(142,169,208,.11);font-size:11.5px;text-align:left;white-space:normal;word-break:keep-all;overflow-wrap:anywhere;vertical-align:middle}
-.entry-stat-scroll th{color:#9eb5d0;background:rgba(90,167,255,.08);font-weight:900}
+.entry-stat-scroll th,.entry-stat-scroll td{padding:10px 12px;border-bottom:1px solid rgba(142,169,208,.11);font-size:13px;text-align:left;white-space:normal;word-break:keep-all;overflow-wrap:anywhere;vertical-align:middle}
+.entry-stat-scroll th{color:#9eb5d0;background:rgba(90,167,255,.08);font-weight:900;white-space:nowrap}
 .entry-stat-scroll td{color:#e8f2ff;font-weight:750}
-.entry-stat-scroll td small{display:inline-block;font-size:10.5px;color:#9fb4cf}
+.entry-stat-scroll td small{display:inline-block;font-size:11.5px;color:#9fb4cf}
 .entry-stat-scroll tr:last-child td{border-bottom:0}
 /* 상대전적 2단(왼=전체 / 오=선택맵) */
 .entry-two-up{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -6327,7 +6327,7 @@ html.light .entry-stat-scroll th{background:rgba(31,111,214,.07);color:#33506f} 
       const note=selectedA.length!==selectedB.length?'<div class="entry-sub" style="padding:0 16px 12px">빈 슬롯이 있는 선수는 상대전적 표에서 제외됩니다.</div>':'';
       const shortPeriods=[{key:'m1',label:'1개월'},{key:'m3',label:'3개월'},{key:'y2026',label:'2026'},{key:'all',label:'1년'}];
       function buildStatTable(useMap){
-        const colgroup='<colgroup><col style="width:30px"><col style="width:30%">'+shortPeriods.map(()=>'<col>').join('')+'</colgroup>';
+        const colgroup='<colgroup><col style="width:52px"><col style="width:27%">'+shortPeriods.map(()=>'<col>').join('')+'</colgroup>';
         const head='<thead><tr><th>매치</th><th>선수</th>'+shortPeriods.map(p=>'<th>'+p.label+'</th>').join('')+'</tr></thead>';
         const body=pairs.map(pair=>{
           const index=pair.slotIndex;
