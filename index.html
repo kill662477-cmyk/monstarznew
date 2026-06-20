@@ -7279,8 +7279,8 @@ body.funding-overlay-host .funding-temp-frame {
   grid-template-areas:
     "live    live    live    live    live    live    live     live     live     live   live   live"
     "notice  notice  notice  notice  notice  notice  schedule schedule schedule inout  inout  inout"
-    "fantube fantube fantube fantube boja    boja    boja     boja     other    other  other  other"
-    "tier    tier    tier    tier    tools   tools   tools    tools    links    links  links  links";
+    "fantube fantube fantube fantube boja    boja    boja     boja     tier     tier   tier   tier"
+    "tools   tools   tools   tools   tools   tools   links    links    links    links  links  links";
   gap: 14px;
   align-items: start;
 }
@@ -9145,7 +9145,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="nav-submenu">
           <button id="tabBoja" class="tab-btn" type="button">보자충</button>
           <button id="tabYoutube" class="tab-btn" type="button">팬튜브</button>
-          <button id="tabOtherVideos" class="tab-btn" type="button">기타영상</button>
           </div>
         </div>
         <div class="nav-cluster nav-tree is-open" data-nav-tree="tools">
@@ -9192,10 +9191,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <article class="hub-panel boja-panel">
             <div class="hub-panel-head"><div class="hub-panel-copy"><h3>보자충</h3></div><button class="panel-link" type="button" data-nav-tab="boja">보자충</button></div>
             <div id="homeBojaList" class="hub-list"></div>
-          </article>
-          <article class="hub-panel other-panel">
-            <div class="hub-panel-head"><div class="hub-panel-copy"><h3>기타영상</h3></div><button class="panel-link" type="button" data-nav-tab="otherVideos">기타영상</button></div>
-            <div id="homeOtherList" class="hub-list"></div>
           </article>
           <article class="hub-panel tier-panel">
             <div class="hub-panel-head"><div class="hub-panel-copy"><h3>티어/전적 포인트</h3></div><button class="panel-link" type="button" data-nav-tab="tier">티어표</button></div>
@@ -10892,7 +10887,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         return `${tier === "9" ? "유스" : tier + "티어"} ${count}명`;
       });
       homeTierList.innerHTML = [
-        renderInternalHubItem("티어 분포", tiers.join(" · "), "tier", "표"),
+        renderInternalHubItem("티어표", tiers.join(" · "), "tier", "표"),
         renderInternalHubItem("엔트리 바로가기", "상대전적 · 최근 1년 전적 · 승부 예측", "entry", "예측"),
         renderInternalHubItem("전적/랭킹", "", "links", "외부")
       ].filter(Boolean).join("");
@@ -10923,11 +10918,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   function renderVideosHub() {
     if (!videosHubList) return;
-    if (videosHubCount) videosHubCount.textContent = "3 MENU";
+    if (videosHubCount) videosHubCount.textContent = "2 MENU";
     videosHubList.innerHTML = `
       <button class="tool-card" type="button" data-nav-tab="boja"><b>보자충</b><small>영상</small></button>
       <button class="tool-card" type="button" data-nav-tab="youtube"><b>팬튜브</b><small>영상</small></button>
-      <button class="tool-card" type="button" data-nav-tab="otherVideos"><b>기타영상</b><small>${escapeHtml(otherVideoItems.length + "개")}</small></button>
     `;
   }
 
