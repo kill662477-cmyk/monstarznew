@@ -9914,6 +9914,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     { key: "notices", label: "공지 관리" },
     { key: "inout", label: "IN&OUT 관리" },
     { key: "links", label: "링크 관리" },
+    { key: "newcamTeams", label: "뉴캄 팀" },
+    { key: "newcamPlayers", label: "뉴캄 선수" },
+    { key: "newcamMatches", label: "뉴캄 경기" },
+    { key: "newcamMatchPlayers", label: "뉴캄 매치" },
     { key: "data-status", label: "데이터 상태" },
     { key: "settings", label: "설정" }
   ];
@@ -11107,7 +11111,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     videos: { resource: "videos", cols: [["title", "제목"], ["platform", "플랫폼"], ["member_code", "멤버"]], pin: true },
     notices: { resource: "notices", cols: [["title", "제목"], ["station_name", "출처"], ["notice_date", "날짜"]], pin: true },
     inout: { resource: "inout", cols: [["member_name", "이름"], ["event_type", "타입"], ["event_date", "날짜"]], pin: false },
-    links: { resource: "links", cols: [["title", "제목"], ["category", "카테고리"], ["sort_order", "순서"]], pin: false }
+    links: { resource: "links", cols: [["title", "제목"], ["category", "카테고리"], ["sort_order", "순서"]], pin: false },
+    newcamTeams: { resource: "newcamTeams", label: "뉴캄 팀", cols: [["team_name", "팀명"], ["captain_name", "팀장"], ["group_name", "조"]], pin: false },
+    newcamPlayers: { resource: "newcamPlayers", label: "뉴캄 선수/포인트", cols: [["player_name", "선수"], ["team_key", "팀"], ["auction_points", "포인트"]], pin: false },
+    newcamMatches: { resource: "newcamMatches", label: "뉴캄 경기결과", cols: [["match_type", "구분"], ["team_a_key", "A팀"], ["team_b_key", "B팀"], ["winner_team_key", "승리팀"]], pin: false },
+    newcamMatchPlayers: { resource: "newcamMatchPlayers", label: "뉴캄 매치별 선수", cols: [["player_name", "선수"], ["map_name", "맵"], ["result", "결과"]], pin: false }
   };
   const ADMIN_FIELDS = {
     members: [
@@ -11184,6 +11192,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       { name: "url", label: "URL", required: true },
       { name: "category", label: "카테고리" },
       { name: "note", label: "메모" },
+      { name: "sort_order", label: "정렬", type: "number" },
+      { name: "is_visible", label: "공개", type: "checkbox", defaultValue: true }
+    ],
+    newcamTeams: [
+      { name: "team_key", label: "팀 키", required: true, placeholder: "chulgu" },
+      { name: "team_name", label: "팀명", required: true, placeholder: "철구팀" },
+      { name: "captain_name", label: "팀장" },
+      { name: "group_name", label: "조", type: "select", options: [["", "선택"], ["A", "A조"], ["B", "B조"], ["FINAL", "결승"]] },
+      { name: "sort_order", label: "정렬", type: "number" },
+      { name: "is_visible", label: "공개", type: "checkbox", defaultValue: true }
+    ],
+    newcamPlayers: [
+      { name: "team_key", label: "팀 키", required: true, placeholder: "chulgu" },
+      { name: "player_name", label: "선수명", required: true },
+      { name: "tier_label", label: "티어", placeholder: "조커이드, 잭티어, 3티어" },
+      { name: "role_label", label: "역할", placeholder: "팀장, 잭티어, 임시" },
+      { name: "race", label: "종족", type: "select", options: [["", "선택"], ["T", "T"], ["P", "P"], ["Z", "Z"]] },
+      { name: "auction_points", label: "낙찰 포인트", type: "number" },
+      { name: "wins", label: "승", type: "number" },
+      { name: "losses", label: "패", type: "number" },
+      { name: "is_temporary", label: "임시 선수", type: "checkbox" },
+      { name: "sort_order", label: "정렬", type: "number" },
+      { name: "is_visible", label: "공개", type: "checkbox", defaultValue: true }
+    ],
+    newcamMatches: [
+      { name: "match_type", label: "경기 구분", type: "select", defaultValue: "scrim", options: [["scrim", "스크림"], ["official", "본경기"], ["final", "결승"]] },
+      { name: "group_name", label: "조", type: "select", options: [["", "선택"], ["A", "A조"], ["B", "B조"], ["FINAL", "결승"]] },
+      { name: "round_label", label: "라운드/메모", placeholder: "A조 1경기" },
+      { name: "team_a_key", label: "A팀 키" },
+      { name: "team_b_key", label: "B팀 키" },
+      { name: "winner_team_key", label: "승리팀 키" },
+      { name: "played_at", label: "경기 시간", type: "datetime-local" },
+      { name: "status", label: "상태", type: "select", defaultValue: "done", options: [["scheduled", "예정"], ["done", "완료"], ["cancelled", "취소"]] },
+      { name: "sort_order", label: "정렬", type: "number" },
+      { name: "is_visible", label: "공개", type: "checkbox", defaultValue: true }
+    ],
+    newcamMatchPlayers: [
+      { name: "match_id", label: "경기 ID", placeholder: "newcam_matches id" },
+      { name: "match_type", label: "경기 구분", type: "select", defaultValue: "scrim", options: [["scrim", "스크림"], ["official", "본경기"], ["final", "결승"]] },
+      { name: "game_no", label: "매치 번호", type: "number" },
+      { name: "map_name", label: "맵", type: "select", options: [["", "선택"], ["폴리포이드", "폴리포이드"], ["라데온", "라데온"], ["녹아웃", "녹아웃"], ["네오 실피드", "네오 실피드"]] },
+      { name: "team_key", label: "팀 키" },
+      { name: "player_name", label: "선수명", required: true },
+      { name: "opponent_name", label: "상대 선수" },
+      { name: "result", label: "결과", type: "select", options: [["", "선택"], ["win", "승"], ["loss", "패"]] },
       { name: "sort_order", label: "정렬", type: "number" },
       { name: "is_visible", label: "공개", type: "checkbox", defaultValue: true }
     ]

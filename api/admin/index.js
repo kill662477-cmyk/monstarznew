@@ -36,7 +36,11 @@ const RESOURCES = {
   notices: { table: "notices_meta" },
   inout: { table: "inout_events" },
   links: { table: "external_links" },
-  resources: { table: "resources" }
+  resources: { table: "resources" },
+  newcamTeams: { table: "newcam_teams" },
+  newcamPlayers: { table: "newcam_players" },
+  newcamMatches: { table: "newcam_matches" },
+  newcamMatchPlayers: { table: "newcam_match_players" }
 };
 
 // 입력으로 받을 수 있는 컬럼 화이트리스트 (그 외 키는 무시)
@@ -48,7 +52,11 @@ const FIELD_WHITELIST = {
   notices_meta: ["source_key", "title", "station_name", "link", "notice_date", "is_pinned", "sort_order", "is_visible"],
   inout_events: ["member_name", "event_type", "event_date", "race", "description", "sort_order", "is_visible"],
   external_links: ["title", "url", "category", "note", "sort_order", "is_visible"],
-  resources: ["title", "url", "category", "description", "sort_order", "is_visible"]
+  resources: ["title", "url", "category", "description", "sort_order", "is_visible"],
+  newcam_teams: ["team_key", "team_name", "captain_name", "group_name", "sort_order", "is_visible"],
+  newcam_players: ["team_key", "player_name", "tier_label", "role_label", "race", "auction_points", "wins", "losses", "is_temporary", "sort_order", "is_visible"],
+  newcam_matches: ["match_type", "group_name", "round_label", "team_a_key", "team_b_key", "winner_team_key", "played_at", "status", "sort_order", "is_visible"],
+  newcam_match_players: ["match_id", "match_type", "game_no", "map_name", "team_key", "player_name", "opponent_name", "result", "sort_order", "is_visible"]
 };
 
 function expectedToken() {

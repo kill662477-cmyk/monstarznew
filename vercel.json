@@ -28,6 +28,9 @@
     },
     "api/tier-state.js": {
       "maxDuration": 10
+    },
+    "api/newcam-auction.js": {
+      "maxDuration": 10
     }
   },
   "rewrites": [

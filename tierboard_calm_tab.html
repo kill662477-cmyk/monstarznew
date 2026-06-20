@@ -5783,6 +5783,9 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
         {name:'7티어 미정',tier:'7티어',role:'임시',points:null,wins:0,losses:0,temporary:true}
       ]
     }));
+    const ENTRY_AUCTION_API_URL = '/api/newcam-auction';
+    let entryAuctionRemote = { ready:false, teams:[], players:[], matches:[], matchPlayers:[], loaded:false };
+    let entryAuctionLoadPromise = null;
     function loadSavedFilters(){
       try{
         const saved=JSON.parse(localStorage.getItem(FILTER_STORAGE_KEY)||'{}');
@@ -6048,7 +6051,81 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       entryRecordAutoSeq++;
       closeEntryMapPools();
       renderEntry();
+      if(next===ENTRY_BOARD_AUCTION) loadEntryAuctionData();
       scheduleEntrySummaryAutoLoad();
+    }
+    function entryAuctionTeamKey(team){ return String(team&&(team.team_key||team.id)||'').trim(); }
+    function entryAuctionPlayerStats(){
+      const map=new Map();
+      (entryAuctionRemote.matchPlayers||[]).forEach(row=>{
+        const name=String(row.player_name||'').trim();
+        if(!name) return;
+        const key=String(row.team_key||'')+'|'+name;
+        const plain='|'+name;
+        const result=String(row.result||'').toLowerCase();
+        const item=map.get(key)||{wins:0,losses:0};
+        const plainItem=map.get(plain)||{wins:0,losses:0};
+        if(result==='win'||result==='승'){ item.wins+=1; plainItem.wins+=1; }
+        if(result==='loss'||result==='패'){ item.losses+=1; plainItem.losses+=1; }
+        map.set(key,item);
+        map.set(plain,plainItem);
+      });
+      return map;
+    }
+    function entryAuctionTeamsData(){
+      if(!entryAuctionRemote.ready||!entryAuctionRemote.teams.length) return ENTRY_AUCTION_TEAMS;
+      const playerRows=Array.isArray(entryAuctionRemote.players)?entryAuctionRemote.players:[];
+      const stats=entryAuctionPlayerStats();
+      return entryAuctionRemote.teams.map(team=>{
+        const teamKey=entryAuctionTeamKey(team);
+        const players=playerRows.filter(player=>String(player.team_key||'')===teamKey).map(player=>{
+          const stat=stats.get(teamKey+'|'+player.player_name)||stats.get('|'+player.player_name)||{};
+          const statWins=Number(stat.wins||0);
+          const statLosses=Number(stat.losses||0);
+          return {
+            name:player.player_name,
+            tier:player.tier_label||'',
+            role:player.role_label||'',
+            race:player.race||'',
+            points:player.auction_points,
+            wins:statWins||Number(player.wins||0),
+            losses:statLosses||Number(player.losses||0),
+            temporary:Boolean(player.is_temporary)
+          };
+        });
+        return {
+          id:teamKey,
+          group:team.group_name||'',
+          name:team.team_name||teamKey,
+          captain:team.captain_name||'',
+          players
+        };
+      });
+    }
+    async function loadEntryAuctionData(){
+      if(entryAuctionLoadPromise) return entryAuctionLoadPromise;
+      entryAuctionLoadPromise=fetch(ENTRY_AUCTION_API_URL,{cache:'no-store'})
+        .then(response=>response.ok?response.json():null)
+        .then(payload=>{
+          if(payload&&payload.ready){
+            entryAuctionRemote={
+              ready:true,
+              loaded:true,
+              teams:Array.isArray(payload.teams)?payload.teams:[],
+              players:Array.isArray(payload.players)?payload.players:[],
+              matches:Array.isArray(payload.matches)?payload.matches:[],
+              matchPlayers:Array.isArray(payload.matchPlayers)?payload.matchPlayers:[]
+            };
+          }else{
+            entryAuctionRemote={ ready:false, loaded:true, teams:[], players:[], matches:[], matchPlayers:[] };
+          }
+          if(isAuctionEntryBoard()) renderEntry();
+        })
+        .catch(()=>{
+          entryAuctionRemote={ ready:false, loaded:true, teams:[], players:[], matches:[], matchPlayers:[] };
+        })
+        .finally(()=>{ entryAuctionLoadPromise=null; });
+      return entryAuctionLoadPromise;
     }
     function setMainView(view){
       const entry=view==='entry';
@@ -6082,11 +6159,11 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
     function entryAuctionPlayerTeam(player){
       const name=String(player&&player.name||'').trim();
       if(!name) return '';
-      const team=ENTRY_AUCTION_TEAMS.find(item=>(item.players||[]).some(p=>!p.temporary&&p.name===name));
+      const team=entryAuctionTeamsData().find(item=>(item.players||[]).some(p=>!p.temporary&&p.name===name));
       return team?team.name:'';
     }
     function entryAuctionPlayers(){
-      const names=new Set(ENTRY_AUCTION_TEAMS.flatMap(team=>(team.players||[]).filter(player=>!player.temporary).map(player=>player.name)));
+      const names=new Set(entryAuctionTeamsData().flatMap(team=>(team.players||[]).filter(player=>!player.temporary).map(player=>player.name)));
       const seen=new Set();
       return visibleTierData().filter(player=>{
         const name=String(player&&player.name||'').trim();
@@ -6333,7 +6410,7 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
     }
     function renderEntryAcademyOptions(){
       if(isAuctionEntryBoard()){
-        const teams=ENTRY_AUCTION_TEAMS.map(team=>team.name);
+        const teams=entryAuctionTeamsData().map(team=>team.name);
         function html(selected){ return '<option value="all">대회참여 팀 선택</option>'+teams.map(name=>'<option value="'+escapeAttr(name)+'" '+(name===selected?'selected':'')+'>'+escapeHtml(name)+'</option>').join(''); }
         if(!teams.includes(entryState.academyA)) entryState.academyA='all';
         if(!teams.includes(entryState.academyB)) entryState.academyB='all';
@@ -6746,13 +6823,14 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       return Number.isFinite(points)&&points>0?points+'P':'포인트 대기';
     }
     function entryAuctionTeamsHtml(){
-      return ENTRY_AUCTION_TEAMS.map(team=>{
+      return entryAuctionTeamsData().map(team=>{
         const players=(team.players||[]).map(player=>'<div class="auction-player"><span><b>'+escapeHtml(player.name)+'</b><small>'+escapeHtml(player.role)+' · '+escapeHtml(player.tier)+(player.temporary?' · 임시':'')+'</small></span><span class="auction-points">'+escapeHtml(entryAuctionPointLabel(player.points))+'</span></div>').join('');
         return '<article class="auction-team"><div class="auction-team-head"><div class="auction-team-name">'+escapeHtml(team.name)+'</div><span class="auction-pill">'+escapeHtml(team.group)+'조</span></div><div class="auction-player-list">'+players+'</div></article>';
       }).join('');
     }
     function entryAuctionBaseRows(mode,group){
-      return ENTRY_AUCTION_TEAMS.filter(team=>mode==='scrim'||!group||team.group===group).map(team=>({
+      return entryAuctionTeamsData().filter(team=>mode==='scrim'||!group||team.group===group).map(team=>({
+        key:entryAuctionTeamKey(team),
         name:team.name,
         group:team.group,
         wins:0,
@@ -6762,14 +6840,18 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
     }
     function entryAuctionApplyMatches(rows,mode){
       const byName=new Map(rows.map(row=>[row.name,row]));
-      (entryState.auctionMatches||[]).forEach(match=>{
-        if(!match||match.type!==mode) return;
-        const a=byName.get(match.teamA);
-        const b=byName.get(match.teamB);
-        if(!a||!b||!match.winner) return;
+      const byKey=new Map(rows.map(row=>[row.key,row]));
+      const matches=entryAuctionRemote.ready&&entryAuctionRemote.matches.length?entryAuctionRemote.matches:(entryState.auctionMatches||[]);
+      matches.forEach(match=>{
+        const type=String(match.match_type||match.type||'scrim');
+        if(!match||type!==mode) return;
+        const a=byKey.get(match.team_a_key)||byName.get(match.teamA);
+        const b=byKey.get(match.team_b_key)||byName.get(match.teamB);
+        const winner=String(match.winner_team_key||match.winner||'');
+        if(!a||!b||!winner) return;
         a.games+=1; b.games+=1;
-        if(match.winner===a.name){ a.wins+=1; b.losses+=1; }
-        else if(match.winner===b.name){ b.wins+=1; a.losses+=1; }
+        if(winner===a.key||winner===a.name){ a.wins+=1; b.losses+=1; }
+        else if(winner===b.key||winner===b.name){ b.wins+=1; a.losses+=1; }
       });
       return rows;
     }
@@ -6807,12 +6889,31 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       return (impact/Math.max(1,points))*100*confidence;
     }
     function entryAuctionValueItems(){
-      return ENTRY_AUCTION_TEAMS.flatMap(team=>(team.players||[]).map(player=>({team:team.name,player,score:entryAuctionValueScore(player)}))).filter(item=>item.score!==null);
+      return entryAuctionTeamsData().flatMap(team=>(team.players||[]).map(player=>({team:team.name,player,score:entryAuctionValueScore(player)}))).filter(item=>item.score!==null);
     }
     function entryAuctionValueList(items,reverse){
       if(!items.length) return '<div class="auction-empty">포인트와 경기결과 입력 대기</div>';
       const sorted=items.slice().sort((a,b)=>reverse?b.score-a.score:a.score-b.score).slice(0,5);
       return '<div class="entry-stat-scroll"><table><thead><tr><th>선수</th><th>팀</th><th>점수</th></tr></thead><tbody>'+sorted.map(item=>'<tr><td>'+escapeHtml(item.player.name)+'</td><td>'+escapeHtml(item.team)+'</td><td>'+item.score.toFixed(1)+'</td></tr>').join('')+'</tbody></table></div>';
+    }
+    function entryAuctionCaptainHtml(values){
+      if(!values.length) return '<div class="auction-captain-pick"><b>팀장 평가 대기</b><small>낙찰 포인트와 경기결과가 들어오면 최고의 팀장/최악의 팀장을 계산합니다.</small></div>';
+      const byTeam=new Map();
+      values.forEach(item=>{
+        const current=byTeam.get(item.team)||{team:item.team,total:0,count:0};
+        current.total+=item.score;
+        current.count+=1;
+        byTeam.set(item.team,current);
+      });
+      const teams=Array.from(byTeam.values()).map(item=>({
+        ...item,
+        avg:item.total/Math.max(1,item.count),
+        captain:(entryAuctionTeamsData().find(team=>team.name===item.team)||{}).captain||item.team
+      })).sort((a,b)=>b.total-a.total||b.avg-a.avg);
+      const best=teams[0];
+      const worst=teams.slice().sort((a,b)=>a.total-b.total||a.avg-b.avg)[0];
+      return '<div class="auction-captain-pick"><b>최고의 팀장: '+escapeHtml(best.captain)+'</b><small>'+escapeHtml(best.team)+' · 팀 가성비 합계 '+best.total.toFixed(1)+'</small></div>'+
+        '<div class="auction-captain-pick"><b>최악의 팀장: '+escapeHtml(worst.captain)+'</b><small>'+escapeHtml(worst.team)+' · 팀 가성비 합계 '+worst.total.toFixed(1)+'</small></div>';
     }
     function renderEntryAuctionPanel(){
       if(!entryAuctionPanel) return;
@@ -6829,11 +6930,12 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       const values=entryAuctionValueItems();
       entryAuctionBestValues.innerHTML=entryAuctionValueList(values,true);
       entryAuctionWorstValues.innerHTML=entryAuctionValueList(values,false);
-      entryAuctionCaptainValues.innerHTML='<div class="auction-captain-pick"><b>팀장 평가 대기</b><small>낙찰 포인트와 경기결과가 들어오면 최고의 팀장/최악의 팀장을 계산합니다.</small></div>';
+      entryAuctionCaptainValues.innerHTML=entryAuctionCaptainHtml(values);
     }
     function renderEntry(){
       cleanEntryTeams();
       if(isAuctionEntryBoard()) entryState.simMode='bo9';
+      if(isAuctionEntryBoard()&&!entryAuctionRemote.loaded&&!entryAuctionLoadPromise) loadEntryAuctionData();
       renderEntryBoardTabs();
       renderEntryAcademyOptions();
       if(document.activeElement!==entrySearchA) entrySearchA.value=entryState.searchA;
