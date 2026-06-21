@@ -7917,6 +7917,39 @@ body.funding-overlay-host .funding-temp-frame {
   font-weight: 950;
 }
 
+
+.cctv-section-head {
+  align-items: center;
+}
+
+.cctv-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cctv-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border: 1px solid rgba(88,154,255,.32);
+  border-radius: 9px;
+  background: rgba(29,102,255,.18);
+  color: #dbeafe;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.cctv-action-btn:hover {
+  background: rgba(29,102,255,.28);
+  border-color: rgba(88,154,255,.52);
+}
+
 .cctv-picker {
   display: flex;
   gap: 8px;
@@ -7932,8 +7965,10 @@ body.funding-overlay-host .funding-temp-frame {
   border-radius: 999px;
   background: rgba(255,255,255,.045);
   color: var(--sr-button-text);
+  font-family: inherit;
   font-size: 12px;
   font-weight: 950;
+  cursor: pointer;
 }
 
 .cctv-picker button.active {
@@ -7943,9 +7978,19 @@ body.funding-overlay-host .funding-temp-frame {
 }
 
 .cctv-grid {
+  --cctv-gap: 12px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(var(--cctv-cols, 1), minmax(0, 1fr));
+  gap: var(--cctv-gap);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  align-items: start;
+  transition: max-width .18s ease;
+}
+
+.cctv-grid[data-layout="empty"] {
+  max-width: 100% !important;
 }
 
 .cctv-grid .hub-empty {
@@ -7958,6 +8003,7 @@ body.funding-overlay-host .funding-temp-frame {
   border-radius: 14px;
   background: linear-gradient(180deg, rgba(10,31,60,.95), rgba(5,14,28,.98));
   box-shadow: var(--sr-shadow);
+  min-width: 0;
 }
 
 .cctv-head {
@@ -7965,7 +8011,8 @@ body.funding-overlay-host .funding-temp-frame {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 12px;
+  min-height: 46px;
+  padding: 8px 10px;
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
@@ -8625,6 +8672,12 @@ body.light-mode .cctv-picker button {
   color: #2a4b7c !important;
   background: #eef5ff !important;
   border-color: rgba(37,99,235,.18) !important;
+}
+
+body.light-mode .cctv-action-btn {
+  color: #1d4ed8 !important;
+  background: rgba(37,99,235,.10) !important;
+  border-color: rgba(37,99,235,.22) !important;
 }
 
 body.light-mode .pinball-donation-main-btn,
@@ -9422,14 +9475,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="cctvScreen" class="screen hidden">
       <section class="cctv-shell">
-        <div class="section-head">
+        <div class="section-head cctv-section-head">
           <div>
             <h2>CCTV</h2>
             <div class="inout-title-sub">SOOP 라이브 여러 명 동시 재생</div>
           </div>
+          <div class="cctv-actions">
+            <button type="button" id="cctvFullscreenBtn" class="cctv-action-btn">전체화면</button>
+          </div>
         </div>
         <div id="cctvPicker" class="cctv-picker"></div>
-        <div id="cctvGrid" class="cctv-grid"><div class="hub-empty">CCTV 페이지에 들어가면 선택한 방송 플레이어가 열립니다.</div></div>
+        <div id="cctvGrid" class="cctv-grid" data-count="0" data-layout="empty"><div class="hub-empty">동시에 볼 멤버를 선택해주세요.</div></div>
       </section>
     </div>
 
@@ -10066,14 +10122,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let lastNoticeCheckedAt = "";
   let cctvSelectedIds = [];
   const CCTV_MAX_PLAYERS = 8;
-  // SOOP 라이브 임베드: local-network-access 권한이 없으면 "브라우저 권한 차단" 팝업이 뜬다.
-  const CCTV_IFRAME_ALLOW = "autoplay; fullscreen; picture-in-picture; encrypted-media; local-network-access; storage-access";
-  function cctvEmbedUrl(url) {
-    const u = String(url || "");
-    if (!/play\.sooplive\.com/i.test(u)) return u;
-    if (/\/embed\/?$/.test(u)) return u;
-    return u.replace(/\/+$/, "") + "/embed";
-  }
   let scheduleTodayItems = [];
   let scheduleTodayLoadError = false;
 
@@ -10163,6 +10211,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const cctvScreen = document.getElementById("cctvScreen");
   const cctvPicker = document.getElementById("cctvPicker");
   const cctvGrid = document.getElementById("cctvGrid");
+  const cctvFullscreenBtn = document.getElementById("cctvFullscreenBtn");
   const linksScreen = document.getElementById("linksScreen");
   const linksHubList = document.getElementById("linksHubList");
   const linksHubCount = document.getElementById("linksHubCount");
@@ -11896,19 +11945,103 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function ensureCctvSelection(rows) {
     const validIds = new Set(rows.map(cctvMemberId).filter(Boolean));
     cctvSelectedIds = cctvSelectedIds.filter(id => validIds.has(id)).slice(0, CCTV_MAX_PLAYERS);
-    if (cctvSelectedIds.length) return;
-    const liveDefaults = rows.filter(member => member.status === "live").slice(0, CCTV_MAX_PLAYERS).map(cctvMemberId).filter(Boolean);
-    cctvSelectedIds = liveDefaults.length ? liveDefaults : rows.slice(0, CCTV_MAX_PLAYERS).map(cctvMemberId).filter(Boolean);
+  }
+
+  function getCctvLayout(count) {
+    if (count <= 0) return { cols: 1, rows: 1, layout: "empty" };
+    if (count === 1) return { cols: 1, rows: 1, layout: "solo" };
+    if (count === 2) return { cols: 2, rows: 1, layout: "2x1" };
+    if (count <= 4) return { cols: 2, rows: 2, layout: "2x2" };
+    if (count <= 6) return { cols: 3, rows: 2, layout: "3x2" };
+    return { cols: 3, rows: 3, layout: "3x3" };
+  }
+
+  function updateCctvGridLayout(count) {
+    if (!cctvGrid) return;
+    const { cols, rows, layout } = getCctvLayout(count);
+    cctvGrid.dataset.count = String(count);
+    cctvGrid.dataset.layout = layout;
+    cctvGrid.style.setProperty("--cctv-cols", String(cols));
+    cctvGrid.style.setProperty("--cctv-rows", String(rows));
+    cctvGrid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+    if (!count) {
+      cctvGrid.style.maxWidth = "100%";
+      return;
+    }
+    requestAnimationFrame(() => {
+      if (!cctvGrid || cctvScreen?.classList.contains("hidden")) return;
+      const shell = cctvGrid.closest(".cctv-shell") || cctvGrid.parentElement;
+      const parentWidth = Math.max(320, (shell?.clientWidth || cctvGrid.parentElement?.clientWidth || window.innerWidth) - 2);
+      const rect = cctvGrid.getBoundingClientRect();
+      const availableHeight = Math.max(240, window.innerHeight - rect.top - 18);
+      const gap = 12;
+      const headHeight = 46;
+      const usableFrameHeight = Math.max(120, (availableHeight - gap * (rows - 1) - headHeight * rows) / rows);
+      const targetCellWidth = usableFrameHeight * 16 / 9;
+      const targetGridWidth = targetCellWidth * cols + gap * (cols - 1);
+      const nextMaxWidth = Math.min(parentWidth, Math.max(320, Math.floor(targetGridWidth)));
+      cctvGrid.style.maxWidth = `${nextMaxWidth}px`;
+    });
   }
 
   function stopCctvPlayers() {
-    if (cctvGrid) cctvGrid.innerHTML = renderHubEmpty("CCTV 페이지에 들어가면 선택한 방송 플레이어가 열립니다.");
+    if (!cctvGrid) return;
+    cctvGrid.innerHTML = renderHubEmpty("CCTV 페이지에 들어가면 선택한 방송 플레이어가 열립니다.");
+    updateCctvGridLayout(0);
   }
 
-  function renderCctv() {
-    if (!cctvPicker || !cctvGrid) return;
-    const rows = getCctvCandidates();
-    ensureCctvSelection(rows);
+  function createCctvPlayer(member) {
+    const id = cctvMemberId(member);
+    const url = safeLink(getMemberWatchUrl(member));
+    const article = document.createElement("article");
+    article.className = "cctv-player";
+    article.dataset.cctvPlayerId = id;
+    article.dataset.cctvUrl = url;
+    article.innerHTML = `
+      <div class="cctv-head">
+        <div class="cctv-name">${escapeHtml(member.name)} · ${escapeHtml(member.race || "")}</div>
+        <a class="cctv-open" href="${url}" target="_blank" rel="noopener noreferrer">새 창</a>
+      </div>
+      <iframe class="cctv-frame" src="${url}" title="${escapeHtml(member.name)} CCTV" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    `;
+    return article;
+  }
+
+  function syncCctvPlayers(selected) {
+    if (!cctvGrid) return;
+    const selectedIds = selected.map(cctvMemberId).filter(Boolean);
+    if (!selectedIds.length) {
+      cctvGrid.innerHTML = renderHubEmpty("동시에 볼 멤버를 선택해주세요.");
+      updateCctvGridLayout(0);
+      return;
+    }
+
+    cctvGrid.querySelectorAll(".hub-empty").forEach(el => el.remove());
+    cctvGrid.querySelectorAll(".cctv-player").forEach(el => {
+      if (!selectedIds.includes(el.dataset.cctvPlayerId)) el.remove();
+    });
+
+    selected.forEach(member => {
+      const id = cctvMemberId(member);
+      if (!id) return;
+      let article = Array.from(cctvGrid.querySelectorAll(".cctv-player")).find(el => el.dataset.cctvPlayerId === id);
+      if (!article) {
+        article = createCctvPlayer(member);
+      } else {
+        const url = safeLink(getMemberWatchUrl(member));
+        const nameEl = article.querySelector(".cctv-name");
+        const openEl = article.querySelector(".cctv-open");
+        if (nameEl) nameEl.textContent = `${member.name} · ${member.race || ""}`;
+        if (openEl) openEl.href = url;
+        article.dataset.cctvUrl = article.dataset.cctvUrl || url;
+      }
+      cctvGrid.appendChild(article);
+    });
+    updateCctvGridLayout(selected.length);
+  }
+
+  function renderCctvPicker(rows) {
+    if (!cctvPicker) return;
     cctvPicker.innerHTML = rows.length
       ? rows.map(member => {
           const id = cctvMemberId(member);
@@ -11917,34 +12050,74 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }).join("")
       : renderHubEmpty();
 
-    const selected = getSelectedCctvMembers(rows);
-    cctvGrid.innerHTML = selected.length
-      ? selected.map((member, i) => {
-          const url = getMemberWatchUrl(member);
-          const embedUrl = cctvEmbedUrl(url);
-          // 한 저장소당 SOOP 동시재생 ~4개 제한 → 5번째부터 credentialless(별도 저장소 파티션)로 8개 재생.
-          const credless = i >= 4 ? " credentialless" : "";
-          return `
-            <article class="cctv-player">
-              <div class="cctv-head">
-                <div class="cctv-name">${escapeHtml(member.name)} · ${escapeHtml(member.race || "")}</div>
-                <a class="cctv-open" href="${safeLink(url)}" target="_blank" rel="noopener noreferrer">새 창</a>
-              </div>
-              <iframe class="cctv-frame"${credless} src="${safeLink(embedUrl)}" title="${escapeHtml(member.name)} CCTV" loading="lazy" allow="${CCTV_IFRAME_ALLOW}" allowfullscreen></iframe>
-            </article>
-          `;
-        }).join("")
-      : renderHubEmpty("동시에 볼 멤버를 선택해주세요.");
-
     cctvPicker.querySelectorAll("[data-cctv-id]").forEach(button => {
       button.addEventListener("click", () => {
         const id = button.dataset.cctvId;
-        cctvSelectedIds = cctvSelectedIds.includes(id)
-          ? cctvSelectedIds.filter(value => value !== id)
-          : [...cctvSelectedIds, id].slice(-CCTV_MAX_PLAYERS);
+        if (!id) return;
+        if (cctvSelectedIds.includes(id)) {
+          cctvSelectedIds = cctvSelectedIds.filter(value => value !== id);
+        } else if (cctvSelectedIds.length >= CCTV_MAX_PLAYERS) {
+          showAdminToast(`CCTV는 최대 ${CCTV_MAX_PLAYERS}명까지 선택할 수 있습니다.`);
+          return;
+        } else {
+          cctvSelectedIds = [...cctvSelectedIds, id];
+        }
         renderCctv();
       });
     });
+  }
+
+  function renderCctv() {
+    if (!cctvPicker || !cctvGrid) return;
+    const rows = getCctvCandidates();
+    ensureCctvSelection(rows);
+    renderCctvPicker(rows);
+    syncCctvPlayers(getSelectedCctvMembers(rows));
+  }
+
+  function buildCctvFullscreenHtml(selected) {
+    const { cols, rows } = getCctvLayout(selected.length);
+    const cards = selected.map(member => {
+      const url = safeLink(getMemberWatchUrl(member));
+      return `
+        <article class="fs-card">
+          <iframe src="${url}" title="${escapeHtml(member.name)} CCTV" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </article>`;
+    }).join("");
+    return `<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>캄몬스타즈 CCTV 전체화면</title>
+<style>
+  *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#020817;color:#fff;font-family:Arial,'Malgun Gothic',sans-serif}
+  .fs-grid{width:100vw;height:100vh;display:grid;grid-template-columns:repeat(${cols},minmax(0,1fr));grid-template-rows:repeat(${rows},minmax(0,1fr));gap:6px;padding:6px;background:#020817}
+  .fs-card{position:relative;min-width:0;min-height:0;overflow:hidden;background:#000;border:1px solid rgba(96,165,250,.28)}
+  iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+</style>
+</head>
+<body>
+  <div class="fs-grid">${cards}</div>
+</body>
+</html>`;
+  }
+
+  function openCctvFullscreenWindow() {
+    const selected = getSelectedCctvMembers();
+    if (!selected.length) {
+      showAdminToast("전체화면으로 볼 멤버를 먼저 선택해주세요.");
+      return;
+    }
+    const popup = window.open("", "calmmonCctvFullscreen", "popup=yes,width=1280,height=720");
+    if (!popup) {
+      alert("팝업이 차단되었습니다. 브라우저 팝업 허용 후 다시 눌러주세요.");
+      return;
+    }
+    popup.document.open();
+    popup.document.write(buildCctvFullscreenHtml(selected));
+    popup.document.close();
+    popup.focus();
   }
 
   function getLeaderCoachCategory(member) {
@@ -13542,6 +13715,11 @@ function createMemberCard(member) {
   tabOtherVideos?.addEventListener("click", showOtherVideosScreen);
   tabTools?.addEventListener("click", showToolsScreen);
   tabCctv?.addEventListener("click", showCctvScreen);
+  cctvFullscreenBtn?.addEventListener("click", openCctvFullscreenWindow);
+  window.addEventListener("resize", () => {
+    if (!cctvScreen || cctvScreen.classList.contains("hidden")) return;
+    updateCctvGridLayout(getSelectedCctvMembers().length);
+  });
   if (tabGame) tabGame.addEventListener("click", showGameScreen);
   if (tabPinballDonation) tabPinballDonation.addEventListener("click", showPinballDonationScreen);
   if (tabFunding) tabFunding.addEventListener("click", showFundingScreen);
