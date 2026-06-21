@@ -253,7 +253,8 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .auction-player b{display:block;color:#eef6ff;font-size:12.5px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .auction-player small{display:block;color:#8fa6c2;font-size:11px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .auction-points{color:#ffd36a;font-size:11.5px;font-weight:950;white-space:nowrap}
-.auction-board{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:14px;padding:0 16px 16px}
+.auction-board{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,3.5fr) minmax(0,2.5fr);gap:14px;padding:0 16px 16px}
+.auction-record-block{margin-top:10px}
 .auction-section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 8px;color:#9fc0ea;font-size:12px;font-weight:950}
 .auction-mode-tabs{display:flex;gap:6px}
 .auction-mode-tab{height:30px;border:1px solid rgba(142,169,208,.22);border-radius:8px;background:rgba(3,10,20,.52);color:#9fb5ce;font-size:12px;font-weight:900;padding:0 10px;cursor:pointer}
@@ -525,6 +526,11 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
               </div>
             </div>
             <div id="entryAuctionCaptainValues"></div>
+          </section>
+          <section>
+            <div class="auction-section-title"><span>개인 기록</span></div>
+            <div><div class="entry-two-up-title">개인 다승왕 TOP 3</div><div id="entryAuctionTopWins"></div></div>
+            <div class="auction-record-block"><div class="entry-two-up-title">개인 다패왕 TOP 3</div><div id="entryAuctionTopLosses"></div></div>
           </section>
         </div>
       </section>
@@ -5811,6 +5817,8 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
     const entryAuctionStandings = document.getElementById('entryAuctionStandings');
     const entryAuctionBestValues = document.getElementById('entryAuctionBestValues');
     const entryAuctionCaptainValues = document.getElementById('entryAuctionCaptainValues');
+    const entryAuctionTopWins = document.getElementById('entryAuctionTopWins');
+    const entryAuctionTopLosses = document.getElementById('entryAuctionTopLosses');
     const entryAuctionMatchLogPanel = document.getElementById('entryAuctionMatchLogPanel');
     const entryAuctionMatchLog = document.getElementById('entryAuctionMatchLog');
     const recordDialog = document.getElementById('recordDialog');
@@ -7060,6 +7068,20 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
       const best=teams[0];
       return '<div class="auction-captain-pick"><b>최고의 팀장: '+escapeHtml(best.captain)+'</b><small>'+escapeHtml(best.team)+' · 팀 가성비 합계 '+best.total.toFixed(1)+'</small></div>';
     }
+    function entryAuctionRecordList(key){
+      const rows=[];
+      entryAuctionTeamsData().forEach(team=>{
+        (team.players||[]).forEach(player=>{
+          const wins=Number(player.wins||0),losses=Number(player.losses||0);
+          const val=key==='wins'?wins:losses;
+          if(val>0) rows.push({name:player.name,team:team.name,val:val});
+        });
+      });
+      if(!rows.length) return '<div class="auction-empty">경기결과 입력 대기</div>';
+      const sorted=rows.sort((a,b)=>b.val-a.val||a.name.localeCompare(b.name,'ko')).slice(0,3);
+      const head=key==='wins'?'승':'패';
+      return '<div class="entry-stat-scroll"><table><thead><tr><th>선수</th><th>팀</th><th>'+head+'</th></tr></thead><tbody>'+sorted.map(r=>'<tr><td>'+escapeHtml(r.name)+'</td><td>'+escapeHtml(r.team)+'</td><td>'+r.val+'</td></tr>').join('')+'</tbody></table></div>';
+    }
     function entryAuctionMatchTypeLabel(type){
       const t=String(type||'scrim');
       return t==='official'?'본경기':t==='final'?'결승':'스크림';
@@ -7311,6 +7333,8 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
       const values=entryAuctionValueItems();
       entryAuctionBestValues.innerHTML=entryAuctionValueList(values,true);
       entryAuctionCaptainValues.innerHTML=entryAuctionCaptainHtml(values);
+      if(entryAuctionTopWins) entryAuctionTopWins.innerHTML=entryAuctionRecordList('wins');
+      if(entryAuctionTopLosses) entryAuctionTopLosses.innerHTML=entryAuctionRecordList('losses');
       if(entryAuctionMatchLog) entryAuctionMatchLog.innerHTML=entryAuctionMatchesHtml();
     }
     function renderEntry(){
