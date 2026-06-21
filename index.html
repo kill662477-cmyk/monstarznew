@@ -11586,7 +11586,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const body = visibleMatches.map(row => {
       const actions = row.is_visible === false
         ? adminActionButton("복구", "newcamMatches:restore:" + row.id)
-        : adminActionButton("삭제", "newcamMatches:hide:" + row.id, true);
+        : adminEditButton("newcamMatches", row.id) + adminActionButton("삭제", "newcamMatches:hide:" + row.id, true);
       return [
         escapeHtml(row.match_type || "-"),
         escapeHtml(row.group_name || "-"),
@@ -11598,8 +11598,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         actions
       ];
     });
+    const editingMatch = adminEditorState && adminEditorState.section === "newcamMatches" && adminEditorState.row && adminEditorState.row.id;
     return adminToolbar("뉴캄 경기결과 (Supabase)", visibleMatches.length + "건")
-      + renderAdminNewcamMatchForm()
+      + (editingMatch ? adminEditorHtml("newcamMatches", ADMIN_MANAGED.newcamMatches) : renderAdminNewcamMatchForm())
       + adminTable(cols, body);
   }
 
