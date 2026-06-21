@@ -7033,11 +7033,13 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
       return entryAuctionStandingTable(rows);
     }
     function entryAuctionValueScore(player){
-      const points=Number(player.points);
+      if(String(player&&player.role||'').trim()==='팀장') return null; // 팀장 제외
+      let points=Number(player.points);
       const wins=Number(player.wins||0);
       const losses=Number(player.losses||0);
       const games=wins+losses;
-      if(!Number.isFinite(points)||points<=0||!games) return null;
+      if(!games) return null;
+      if(!Number.isFinite(points)||points<=0) points=1; // 팀원 0점은 계산식에서만 1점 처리
       const winRate=wins/games;
       const impact=(wins*3)-(losses*1.2)+(winRate*2);
       const confidence=Math.min(1,games/5);
