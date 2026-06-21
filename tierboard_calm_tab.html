@@ -263,6 +263,22 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .auction-captain-pick{margin-top:10px;border:1px solid rgba(142,169,208,.13);border-radius:10px;background:rgba(5,15,28,.32);padding:10px}
 .auction-captain-pick b{display:block;color:#eef6ff;font-size:14px}
 .auction-captain-pick small{display:block;margin-top:3px;color:#8fa6c2;font-size:12px;font-weight:750}
+.auction-matchlog{padding:0 16px 16px}
+.auction-match-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.auction-match-card{border:1px solid rgba(142,169,208,.14);border-radius:11px;background:rgba(5,15,28,.42);padding:11px 12px;min-width:0}
+.auction-match-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.auction-match-tag{display:inline-flex;align-items:center;height:21px;padding:0 8px;border-radius:999px;border:1px solid rgba(90,167,255,.26);background:rgba(90,167,255,.10);color:#bfe0ff;font-size:11px;font-weight:900;white-space:nowrap}
+.auction-match-date{color:#8fa6c2;font-size:11px;font-weight:800;white-space:nowrap}
+.auction-match-teams{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:900;color:#cdd9ea;min-width:0}
+.auction-match-team{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.auction-match-team:last-child{text-align:right}
+.auction-match-team.win{color:#69ef91}
+.auction-match-vs{flex:0 0 auto;color:#7f95b0;font-size:11px;font-weight:800}
+.auction-match-winner{margin-top:8px;color:#69ef91;font-size:12.5px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.auction-match-winner.pending{color:#8fa6c2}
+html.light .auction-match-card{background:#f7fbff;border-color:var(--line)}
+html.light .auction-match-teams{color:#23425f}
+html.light .auction-match-date{color:#6a809c}
 .entry-record-loading{color:#7f97b2}
 .entry-rate-high{color:#69ef91!important}.entry-rate-mid{color:#ffd36a!important}.entry-rate-low{color:#ff8f8f!important}
 .entry-win-mark{display:inline-flex;align-items:center;height:20px;margin-left:6px;padding:0 7px;border-radius:999px;background:rgba(105,239,145,.14);border:1px solid rgba(105,239,145,.32);color:#69ef91;font-size:11px;font-weight:950;vertical-align:middle}
@@ -460,6 +476,10 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
             </div>
             <div id="entryAuctionCaptainValues"></div>
           </section>
+        </div>
+        <div class="auction-matchlog">
+          <div class="auction-section-title"><span>경기 기록</span></div>
+          <div id="entryAuctionMatchLog"></div>
         </div>
       </section>
       <section class="entry-card entry-results-card">
@@ -5734,6 +5754,7 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
     const entryAuctionStandings = document.getElementById('entryAuctionStandings');
     const entryAuctionBestValues = document.getElementById('entryAuctionBestValues');
     const entryAuctionCaptainValues = document.getElementById('entryAuctionCaptainValues');
+    const entryAuctionMatchLog = document.getElementById('entryAuctionMatchLog');
     const recordDialog = document.getElementById('recordDialog');
     const recordTitle = document.getElementById('recordTitle');
     const recordAvatar = document.getElementById('recordAvatar');
@@ -6976,6 +6997,36 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       const best=teams[0];
       return '<div class="auction-captain-pick"><b>최고의 팀장: '+escapeHtml(best.captain)+'</b><small>'+escapeHtml(best.team)+' · 팀 가성비 합계 '+best.total.toFixed(1)+'</small></div>';
     }
+    function entryAuctionMatchTypeLabel(type){
+      const t=String(type||'scrim');
+      return t==='official'?'본경기':t==='final'?'결승':'스크림';
+    }
+    function entryAuctionMatchDateLabel(value){
+      if(!value) return '';
+      const d=new Date(value);
+      if(isNaN(d.getTime())) return '';
+      return d.toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false});
+    }
+    function entryAuctionMatchesHtml(){
+      const teamName=new Map();
+      entryAuctionTeamsData().forEach(team=>{ teamName.set(entryAuctionTeamKey(team),team.name); });
+      const source=entryAuctionRemote.ready&&entryAuctionRemote.matches.length?entryAuctionRemote.matches:(entryState.auctionMatches||[]);
+      const matches=source.filter(m=>m&&m.is_visible!==false);
+      if(!matches.length) return '<div class="auction-empty">입력된 경기결과가 없습니다.</div>';
+      const sorted=matches.slice().sort((a,b)=>String(b.played_at||'').localeCompare(String(a.played_at||'')));
+      return '<div class="auction-match-grid">'+sorted.map(m=>{
+        const aKey=String(m.team_a_key||m.teamA||''),bKey=String(m.team_b_key||m.teamB||''),wKey=String(m.winner_team_key||m.winner||'');
+        const aName=teamName.get(aKey)||aKey||'A팀',bName=teamName.get(bKey)||bKey||'B팀',wName=teamName.get(wKey)||wKey;
+        const aWin=wKey&&wKey===aKey,bWin=wKey&&wKey===bKey;
+        const date=entryAuctionMatchDateLabel(m.played_at);
+        const tag=entryAuctionMatchTypeLabel(m.match_type||m.type)+(m.group_name?' · '+escapeHtml(m.group_name)+'조':'');
+        return '<article class="auction-match-card">'
+          +'<div class="auction-match-top"><span class="auction-match-tag">'+escapeHtml(tag)+'</span>'+(date?'<span class="auction-match-date">'+escapeHtml(date)+'</span>':'')+'</div>'
+          +'<div class="auction-match-teams"><span class="auction-match-team '+(aWin?'win':'')+'">'+escapeHtml(aName)+'</span><span class="auction-match-vs">vs</span><span class="auction-match-team '+(bWin?'win':'')+'">'+escapeHtml(bName)+'</span></div>'
+          +(wName?'<div class="auction-match-winner">🏆 '+escapeHtml(wName)+'</div>':'<div class="auction-match-winner pending">결과 미정</div>')
+          +'</article>';
+      }).join('')+'</div>';
+    }
     function renderEntryAuctionPanel(){
       if(!entryAuctionPanel) return;
       const active=isAuctionEntryBoard();
@@ -6991,6 +7042,7 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       const values=entryAuctionValueItems();
       entryAuctionBestValues.innerHTML=entryAuctionValueList(values,true);
       entryAuctionCaptainValues.innerHTML=entryAuctionCaptainHtml(values);
+      if(entryAuctionMatchLog) entryAuctionMatchLog.innerHTML=entryAuctionMatchesHtml();
     }
     function renderEntry(){
       cleanEntryTeams();
