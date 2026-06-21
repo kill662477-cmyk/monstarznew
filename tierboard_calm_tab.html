@@ -7080,7 +7080,8 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
       if(!rows.length) return '<div class="auction-empty">경기결과 입력 대기</div>';
       const sorted=rows.sort((a,b)=>b.val-a.val||a.name.localeCompare(b.name,'ko')).slice(0,3);
       const head=key==='wins'?'승':'패';
-      return '<div class="entry-stat-scroll"><table><thead><tr><th>선수</th><th>팀</th><th>'+head+'</th></tr></thead><tbody>'+sorted.map(r=>'<tr><td>'+escapeHtml(r.name)+'</td><td>'+escapeHtml(r.team)+'</td><td>'+r.val+'</td></tr>').join('')+'</tbody></table></div>';
+      const teamShort=t=>String(t||'').replace(/\s*[\(（].*$/,'').trim();
+      return '<div class="entry-stat-scroll"><table><thead><tr><th>선수</th><th>팀</th><th>'+head+'</th></tr></thead><tbody>'+sorted.map(r=>'<tr><td>'+escapeHtml(r.name)+'</td><td>'+escapeHtml(teamShort(r.team))+'</td><td>'+r.val+'</td></tr>').join('')+'</tbody></table></div>';
     }
     function entryAuctionMatchTypeLabel(type){
       const t=String(type||'scrim');
