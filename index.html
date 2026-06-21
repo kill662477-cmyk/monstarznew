@@ -11972,10 +11972,77 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     adminToastTimer = setTimeout(() => el.classList.remove("show"), 2400);
   }
 
+  const CCTV_TIER_SORT_ORDER = {
+    God: 1,
+    "갓": 1,
+    King: 2,
+    "킹": 2,
+    Jack: 3,
+    "잭": 3,
+    Joker: 4,
+    "조커": 4,
+    "조커티어": 4,
+    Spade: 5,
+    "스페이드": 5,
+    Youth: 15,
+    "유스": 15,
+    "유스티어": 15,
+    Baby: 15,
+    "베이비": 15,
+    "베이비티어": 15
+  };
+
+  function getCctvOriginalIndex(member) {
+    const id = cctvMemberId(member);
+    const index = MEMBERS.findIndex(item => cctvMemberId(item) === id || item.name === member.name);
+    return index >= 0 ? index : 9999;
+  }
+
+  function getCctvTierRank(member) {
+    const name = String(member?.name || "").trim();
+    if (name === "김윤환") return 0;
+
+    const tierValue = member?.tier;
+    const tierLabel = formatTierLabel(tierValue);
+    const keys = [tierValue, tierLabel]
+      .map(value => String(value ?? "").trim())
+      .filter(Boolean);
+
+    for (const key of keys) {
+      if (Object.prototype.hasOwnProperty.call(CCTV_TIER_SORT_ORDER, key)) return CCTV_TIER_SORT_ORDER[key];
+      const numeric = key.match(/^(\d+)(?:티어)?$/);
+      if (numeric) {
+        const value = Number(numeric[1]);
+        if (Number.isFinite(value) && value >= 0 && value <= 8) return 6 + value;
+        if (Number.isFinite(value)) return 16 + value;
+      }
+    }
+
+    const role = getMemberRole(member);
+    if (Object.prototype.hasOwnProperty.call(CCTV_TIER_SORT_ORDER, role)) return CCTV_TIER_SORT_ORDER[role];
+    return 999;
+  }
+
+  function sortCctvMembers(list) {
+    return list.slice().sort((a, b) => {
+      const liveDiff = Number(b.status === "live") - Number(a.status === "live");
+      if (liveDiff) return liveDiff;
+
+      const tierDiff = getCctvTierRank(a) - getCctvTierRank(b);
+      if (tierDiff) return tierDiff;
+
+      const originalDiff = getCctvOriginalIndex(a) - getCctvOriginalIndex(b);
+      if (originalDiff) return originalDiff;
+
+      return String(a.name || "").localeCompare(String(b.name || ""), "ko");
+    });
+  }
+
   function getCctvCandidates() {
-    return getAllMembersWithStatus()
-      .filter(member => member.userId || extractSoopUserId(member.live || member.stream || ""))
-      .sort((a, b) => Number(b.status === "live") - Number(a.status === "live") || String(a.name).localeCompare(String(b.name), "ko"));
+    return sortCctvMembers(
+      getAllMembersWithStatus()
+        .filter(member => member.userId || extractSoopUserId(member.live || member.stream || ""))
+    );
   }
 
   function cctvMemberId(member) {
@@ -13665,6 +13732,12 @@ function createMemberCard(member) {
   async function refreshLiveStatuses() {
     await fetchLiveStatus();
     render();
+    // CCTV 화면이 열려 있고 아직 플레이어를 선택하지 않은 상태면
+    // 라이브 표시/우선 정렬만 즉시 반영한다.
+    // 선택된 플레이어가 있을 때 전체 renderCctv()를 돌리면 iframe이 새로고침되므로 제외한다.
+    if (cctvScreen && !cctvScreen.classList.contains("hidden") && cctvSelectedIds.length === 0) {
+      renderCctv();
+    }
   }
 
   initHeader();
