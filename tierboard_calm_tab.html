@@ -359,6 +359,12 @@ html.light .entry-auction-matchlog-panel{border-top-color:rgba(40,90,160,.10)}
 .entry-auction-matchlog-card .auction-score-left{text-align:left}
 .entry-auction-matchlog-card .auction-score-right{text-align:right}
 .entry-auction-matchlog-card .auction-match-winner{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.35}
+.entry-auction-matchlog-card .auction-match-games{display:grid;gap:5px;margin-top:9px;padding-top:9px;border-top:1px solid rgba(142,169,208,.12)}
+.entry-auction-matchlog-card .auction-game-row{display:grid;grid-template-columns:42px minmax(0,.9fr) minmax(0,1.1fr);gap:7px;align-items:center;color:#cddbf0;font-size:12px;font-weight:800;line-height:1.32}
+.entry-auction-matchlog-card .auction-game-no{color:#9fc0ea;font-weight:950;white-space:nowrap}
+.entry-auction-matchlog-card .auction-game-map{color:#91a7c3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry-auction-matchlog-card .auction-game-winner{color:#eaf4ff;white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
+.entry-auction-matchlog-card .auction-game-winner b{color:#69ef91;font-weight:950}
 html.light .entry-auction-matchlog-card .auction-match-score{background:#fff;border-color:var(--line)}
 html.light .entry-auction-matchlog-card .auction-score-num{color:#1f3a5c}
 html.light .entry-auction-matchlog-card .auction-score-num.win{color:#0f9646}
@@ -6204,14 +6210,19 @@ html.light .entry-auction-matchlog-card .auction-score-num.win{color:#0f9646}
       entryAuctionLoadPromise=fetch(ENTRY_AUCTION_API_URL,{cache:'no-store'})
         .then(response=>response.ok?response.json():null)
         .then(payload=>{
-          if(payload&&payload.ready){
+          if(payload){
+            const teams=Array.isArray(payload.teams)?payload.teams:(Array.isArray(payload.newcam_teams)?payload.newcam_teams:[]);
+            const players=Array.isArray(payload.players)?payload.players:(Array.isArray(payload.newcam_players)?payload.newcam_players:[]);
+            const matches=Array.isArray(payload.matches)?payload.matches:(Array.isArray(payload.newcam_matches)?payload.newcam_matches:(Array.isArray(payload.match_results)?payload.match_results:[]));
+            const matchPlayers=Array.isArray(payload.matchPlayers)?payload.matchPlayers:(Array.isArray(payload.match_players)?payload.match_players:(Array.isArray(payload.newcam_match_players)?payload.newcam_match_players:[]));
+            const hasData=teams.length||players.length||matches.length||matchPlayers.length;
             entryAuctionRemote={
-              ready:true,
+              ready:payload.ready!==false&&hasData,
               loaded:true,
-              teams:Array.isArray(payload.teams)?payload.teams:[],
-              players:Array.isArray(payload.players)?payload.players:[],
-              matches:Array.isArray(payload.matches)?payload.matches:[],
-              matchPlayers:Array.isArray(payload.matchPlayers)?payload.matchPlayers:[]
+              teams,
+              players,
+              matches,
+              matchPlayers
             };
           }else{
             entryAuctionRemote={ ready:false, loaded:true, teams:[], players:[], matches:[], matchPlayers:[] };
@@ -7064,9 +7075,43 @@ html.light .entry-auction-matchlog-card .auction-score-num.win{color:#0f9646}
       }
       return null;
     }
+    function entryAuctionNormalizeResult(value){
+      const result=String(value||'').trim().toLowerCase();
+      if(result==='win'||result==='winner'||result==='승'||result==='승리'||result==='w') return 'win';
+      if(result==='loss'||result==='lose'||result==='패'||result==='패배'||result==='l') return 'loss';
+      return result;
+    }
+    function entryAuctionTeamKeyFromMatch(match,side){
+      if(!match) return '';
+      if(side==='a') return String(match.team_a_key||match.teamA||match.team_a||match.a_team_key||match.aTeam||'').trim();
+      return String(match.team_b_key||match.teamB||match.team_b||match.b_team_key||match.bTeam||'').trim();
+    }
+    function entryAuctionWinnerKeyFromMatch(match){
+      if(!match) return '';
+      return String(match.winner_team_key||match.winner_team||match.winner_key||match.winner||match.winnerTeam||match.winnerTeamKey||'').trim();
+    }
     function entryAuctionMatchId(match){
       if(!match) return '';
       return String(match.id||match.match_id||match.auction_match_id||match.result_id||match.match_result_id||'').trim();
+    }
+    function entryAuctionPlayerRowMatchId(row){
+      if(!row) return '';
+      return String(row.match_id||row.id_match||row.auction_match_id||row.result_id||row.match_result_id||'').trim();
+    }
+    function entryAuctionRowsForMatch(matchOrId){
+      const matchId=typeof matchOrId==='string'?String(matchOrId||'').trim():entryAuctionMatchId(matchOrId);
+      if(!matchId) return [];
+      return (entryAuctionRemote.matchPlayers||[]).filter(row=>entryAuctionPlayerRowMatchId(row)===matchId);
+    }
+    function entryAuctionRowsByMatch(){
+      const map=new Map();
+      (entryAuctionRemote.matchPlayers||[]).forEach(row=>{
+        const id=entryAuctionPlayerRowMatchId(row);
+        if(!id) return;
+        if(!map.has(id)) map.set(id,[]);
+        map.get(id).push(row);
+      });
+      return map;
     }
     function entryAuctionParseScoreText(value){
       const text=String(value||'').trim();
@@ -7075,23 +7120,27 @@ html.light .entry-auction-matchlog-card .auction-score-num.win{color:#0f9646}
       if(!m) return null;
       return {a:Number(m[1]),b:Number(m[2])};
     }
-    function entryAuctionScoreFromPlayers(match,aKey,bKey){
-      const matchId=entryAuctionMatchId(match);
-      if(!matchId) return null;
+    function entryAuctionScoreFromRows(rows,aKey,bKey){
       let a=0,b=0,found=false;
-      (entryAuctionRemote.matchPlayers||[]).forEach(row=>{
-        const rowMatchId=String(row.match_id||row.auction_match_id||row.result_id||row.match_result_id||'').trim();
-        if(rowMatchId!==matchId) return;
-        const teamKey=String(row.team_key||row.team||'').trim();
-        const result=String(row.result||row.match_result||row.outcome||'').trim().toLowerCase();
-        const isWin=result==='win'||result==='winner'||result==='승'||result==='w';
-        if(!isWin) return;
+      const seen=new Set();
+      (rows||[]).forEach(row=>{
+        const result=entryAuctionNormalizeResult(row.result||row.match_result||row.outcome);
+        if(result!=='win') return;
+        const teamKey=String(row.team_key||row.team||row.winner_team_key||'').trim();
+        const gameNo=String(row.game_no||row.set_no||row.round_no||row.map_order||row.player_name||Math.random()).trim();
+        const player=String(row.player_name||row.winner_name||'').trim();
+        const dedupe=gameNo+'|'+teamKey+'|'+player;
+        if(seen.has(dedupe)) return;
+        seen.add(dedupe);
         if(teamKey===aKey){ a+=1; found=true; }
-        if(teamKey===bKey){ b+=1; found=true; }
+        else if(teamKey===bKey){ b+=1; found=true; }
       });
       return found?{a,b}:null;
     }
-    function entryAuctionScoreForMatch(match,aKey,bKey,wKey){
+    function entryAuctionScoreFromPlayers(match,aKey,bKey){
+      return entryAuctionScoreFromRows(entryAuctionRowsForMatch(match),aKey,bKey);
+    }
+    function entryAuctionScoreForMatch(match,aKey,bKey){
       const directA=entryAuctionFirstFinite(match.team_a_score,match.teamAScore,match.a_score,match.score_a,match.team_a_wins,match.a_wins,match.win_a,match.wins_a);
       const directB=entryAuctionFirstFinite(match.team_b_score,match.teamBScore,match.b_score,match.score_b,match.team_b_wins,match.b_wins,match.win_b,match.wins_b);
       if(directA!==null&&directB!==null) return {a:directA,b:directB};
@@ -7109,17 +7158,100 @@ html.light .entry-auction-matchlog-card .auction-score-num.win{color:#0f9646}
         +'<div class="auction-score-right"><span class="auction-score-num '+(bWin?'win':'')+'">'+escapeHtml(score.b)+'</span></div>'
         +'</div>';
     }
+    function entryAuctionTeamMetaMap(){
+      const map=new Map();
+      entryAuctionTeamsData().forEach(team=>{
+        const key=entryAuctionTeamKey(team);
+        if(!key) return;
+        map.set(key,{name:team.name||key,group:team.group||team.group_name||'',captain:team.captain||team.captain_name||''});
+      });
+      return map;
+    }
+    function entryAuctionMatchFromRows(matchId,rows,teamMeta){
+      const first=(rows||[])[0]||{};
+      const teamKeys=[];
+      (rows||[]).forEach(row=>{
+        const key=String(row.team_key||row.team||'').trim();
+        if(key&&!teamKeys.includes(key)) teamKeys.push(key);
+      });
+      const sortedKeys=teamKeys.slice().sort((a,b)=>{
+        const ga=String((teamMeta.get(a)||{}).group||'');
+        const gb=String((teamMeta.get(b)||{}).group||'');
+        return ga.localeCompare(gb,'ko')||a.localeCompare(b,'ko');
+      });
+      return {
+        id:matchId,
+        match_id:matchId,
+        match_type:first.match_type||first.type||'scrim',
+        group_name:first.group_name||first.group||'',
+        team_a_key:sortedKeys[0]||'',
+        team_b_key:sortedKeys[1]||'',
+        played_at:first.played_at||first.created_at||first.updated_at||'',
+        created_at:first.created_at||'',
+        updated_at:first.updated_at||'',
+        is_visible:first.is_visible!==false
+      };
+    }
+    function entryAuctionMergeMatchesFromPlayers(matches,teamMeta){
+      const byId=new Map();
+      (matches||[]).forEach(match=>{
+        const id=entryAuctionMatchId(match);
+        if(id) byId.set(id,{...match});
+      });
+      entryAuctionRowsByMatch().forEach((rows,id)=>{
+        if(byId.has(id)){
+          const match=byId.get(id);
+          const fromRows=entryAuctionMatchFromRows(id,rows,teamMeta);
+          if(!entryAuctionTeamKeyFromMatch(match,'a')) match.team_a_key=fromRows.team_a_key;
+          if(!entryAuctionTeamKeyFromMatch(match,'b')) match.team_b_key=fromRows.team_b_key;
+          if(!match.match_type&&!match.type) match.match_type=fromRows.match_type;
+          if(!match.played_at&&!match.created_at&&!match.updated_at){ match.played_at=fromRows.played_at; match.created_at=fromRows.created_at; match.updated_at=fromRows.updated_at; }
+          if(!match.group_name) match.group_name=fromRows.group_name;
+        }else{
+          byId.set(id,entryAuctionMatchFromRows(id,rows,teamMeta));
+        }
+      });
+      return Array.from(byId.values());
+    }
+    function entryAuctionGameRowsHtml(match){
+      const rows=entryAuctionRowsForMatch(match);
+      if(!rows.length) return '';
+      const byGame=new Map();
+      rows.forEach(row=>{
+        const rawNo=row.game_no||row.set_no||row.round_no||row.map_order||0;
+        const no=Number(rawNo)||0;
+        const key=String(no||rawNo||'0');
+        if(!byGame.has(key)) byGame.set(key,{no,mapName:'',rows:[]});
+        const item=byGame.get(key);
+        item.mapName=item.mapName||String(row.map_name||row.map||'').trim();
+        item.rows.push(row);
+      });
+      const games=Array.from(byGame.values()).sort((a,b)=>a.no-b.no);
+      if(!games.length) return '';
+      return '<div class="auction-match-games">'+games.map(game=>{
+        const winner=game.rows.find(row=>entryAuctionNormalizeResult(row.result||row.match_result||row.outcome)==='win');
+        if(!winner) return '';
+        const winnerName=String(winner.player_name||winner.winner_name||'').trim();
+        const opponent=String(winner.opponent_name||'').trim() || String(((game.rows.find(row=>entryAuctionNormalizeResult(row.result||row.match_result||row.outcome)==='loss')||{}).player_name)||'').trim();
+        const label=(game.no?game.no+'경기':'경기');
+        const versus=opponent?' vs '+escapeHtml(opponent):'';
+        return '<div class="auction-game-row"><span class="auction-game-no">'+escapeHtml(label)+'</span><span class="auction-game-map">'+escapeHtml(game.mapName||'-')+'</span><span class="auction-game-winner"><b>'+escapeHtml(winnerName||'-')+'</b>'+versus+'</span></div>';
+      }).join('')+'</div>';
+    }
     function entryAuctionMatchesHtml(){
+      const teamMeta=entryAuctionTeamMetaMap();
       const teamName=new Map();
-      entryAuctionTeamsData().forEach(team=>{ teamName.set(entryAuctionTeamKey(team),team.name); });
-      const source=entryAuctionRemote.ready&&entryAuctionRemote.matches.length?entryAuctionRemote.matches:(entryState.auctionMatches||[]);
+      teamMeta.forEach((value,key)=>{ teamName.set(key,value.name); });
+      const remoteMatches=entryAuctionRemote.ready&&entryAuctionRemote.matches.length?entryAuctionRemote.matches:[];
+      const localMatches=!remoteMatches.length?(entryState.auctionMatches||[]):[];
+      const source=entryAuctionMergeMatchesFromPlayers(remoteMatches.concat(localMatches),teamMeta);
       const matches=source.filter(m=>m&&m.is_visible!==false);
       if(!matches.length) return '<div class="auction-empty">입력된 경기결과가 없습니다.</div>';
       const sorted=matches.slice().sort((a,b)=>String(b.played_at||b.created_at||b.updated_at||'').localeCompare(String(a.played_at||a.created_at||a.updated_at||'')));
       return '<div class="auction-match-grid">'+sorted.map(m=>{
-        const aKey=String(m.team_a_key||m.teamA||''),bKey=String(m.team_b_key||m.teamB||'');
-        let wKey=String(m.winner_team_key||m.winner_team||m.winner||m.winnerTeam||'');
-        const score=entryAuctionScoreForMatch(m,aKey,bKey,wKey);
+        const aKey=entryAuctionTeamKeyFromMatch(m,'a'),bKey=entryAuctionTeamKeyFromMatch(m,'b');
+        let wKey=entryAuctionWinnerKeyFromMatch(m);
+        const score=entryAuctionScoreForMatch(m,aKey,bKey);
         if(!wKey&&score){
           if(score.a>score.b) wKey=aKey;
           if(score.b>score.a) wKey=bKey;
@@ -7127,12 +7259,14 @@ html.light .entry-auction-matchlog-card .auction-score-num.win{color:#0f9646}
         const aName=teamName.get(aKey)||aKey||'A팀',bName=teamName.get(bKey)||bKey||'B팀',wName=teamName.get(wKey)||wKey;
         const aWin=Boolean(wKey&&wKey===aKey),bWin=Boolean(wKey&&wKey===bKey);
         const date=entryAuctionMatchDateLabel(m.played_at||m.created_at||m.updated_at);
-        const tag=entryAuctionMatchTypeLabel(m.match_type||m.type)+(m.group_name?' · '+escapeHtml(m.group_name)+'조':'');
+        const groupName=m.group_name||((teamMeta.get(aKey)||{}).group&&((teamMeta.get(aKey)||{}).group===(teamMeta.get(bKey)||{}).group)?(teamMeta.get(aKey)||{}).group:'');
+        const tag=entryAuctionMatchTypeLabel(m.match_type||m.type)+(groupName?' · '+escapeHtml(groupName)+'조':'');
         return '<article class="auction-match-card">'
           +'<div class="auction-match-top"><span class="auction-match-tag">'+escapeHtml(tag)+'</span>'+(date?'<span class="auction-match-date">'+escapeHtml(date)+'</span>':'')+'</div>'
           +'<div class="auction-match-teams"><span class="auction-match-team '+(aWin?'win':'')+'">'+escapeHtml(aName)+'</span><span class="auction-match-vs">vs</span><span class="auction-match-team '+(bWin?'win':'')+'">'+escapeHtml(bName)+'</span></div>'
           +entryAuctionScoreHtml(score,aWin,bWin)
           +(wName?'<div class="auction-match-winner">🏆 승자 '+escapeHtml(wName)+'</div>':'<div class="auction-match-winner pending">결과 미정</div>')
+          +entryAuctionGameRowsHtml(m)
           +'</article>';
       }).join('')+'</div>';
     }
