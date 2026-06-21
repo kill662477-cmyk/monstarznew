@@ -7944,7 +7944,7 @@ body.funding-overlay-host .funding-temp-frame {
 
 .cctv-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 12px;
 }
 
@@ -10065,7 +10065,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let noticeLoadError = false;
   let lastNoticeCheckedAt = "";
   let cctvSelectedIds = [];
-  const CCTV_MAX_PLAYERS = 4;
+  const CCTV_MAX_PLAYERS = 8;
+  // SOOP 라이브 임베드: local-network-access 권한이 없으면 "브라우저 권한 차단" 팝업이 뜬다.
+  const CCTV_IFRAME_ALLOW = "autoplay; fullscreen; picture-in-picture; encrypted-media; local-network-access; storage-access";
+  function cctvEmbedUrl(url) {
+    const u = String(url || "");
+    if (!/play\.sooplive\.com/i.test(u)) return u;
+    if (/\/embed\/?$/.test(u)) return u;
+    return u.replace(/\/+$/, "") + "/embed";
+  }
   let scheduleTodayItems = [];
   let scheduleTodayLoadError = false;
 
@@ -11911,15 +11919,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     const selected = getSelectedCctvMembers(rows);
     cctvGrid.innerHTML = selected.length
-      ? selected.map(member => {
+      ? selected.map((member, i) => {
           const url = getMemberWatchUrl(member);
+          const embedUrl = cctvEmbedUrl(url);
+          // 한 저장소당 SOOP 동시재생 ~4개 제한 → 5번째부터 credentialless(별도 저장소 파티션)로 8개 재생.
+          const credless = i >= 4 ? " credentialless" : "";
           return `
             <article class="cctv-player">
               <div class="cctv-head">
                 <div class="cctv-name">${escapeHtml(member.name)} · ${escapeHtml(member.race || "")}</div>
                 <a class="cctv-open" href="${safeLink(url)}" target="_blank" rel="noopener noreferrer">새 창</a>
               </div>
-              <iframe class="cctv-frame" src="${safeLink(url)}" title="${escapeHtml(member.name)} CCTV" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+              <iframe class="cctv-frame"${credless} src="${safeLink(embedUrl)}" title="${escapeHtml(member.name)} CCTV" loading="lazy" allow="${CCTV_IFRAME_ALLOW}" allowfullscreen></iframe>
             </article>
           `;
         }).join("")
