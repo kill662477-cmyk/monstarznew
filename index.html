@@ -12012,17 +12012,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       return `
         <article class="viewer-card">
           <div class="viewer-name">${escapeHtml(member.name)}${member.race ? " · " + escapeHtml(member.race) : ""}</div>
-          <iframe${credless} src="${safeLink(embedUrl)}" title="${escapeHtml(member.name)} CCTV" allow="${CCTV_IFRAME_ALLOW}" allowfullscreen width="1920" height="1080"></iframe>
+          <iframe${credless} src="${safeLink(embedUrl)}" title="${escapeHtml(member.name)} CCTV" allow="${CCTV_IFRAME_ALLOW}" allowfullscreen></iframe>
         </article>
       `;
     }).join("");
 
-    const popup = window.open("", "calmmon-cctv-fullscreen", "width=1600,height=920,noopener");
+    const popup = window.open("about:blank", "calmmon-cctv-fullscreen", "width=1600,height=920,resizable=yes,scrollbars=no");
     if (!popup) {
       alert("팝업이 차단되었습니다. 브라우저 팝업 허용 후 다시 눌러주세요.");
       return;
     }
 
+    try { popup.opener = null; } catch (error) {}
     popup.document.open();
     popup.document.write(`<!doctype html>
 <html lang="ko">
