@@ -7043,7 +7043,8 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
       const winRate=wins/games;
       const impact=(wins*3)-(losses*1.2)+(winRate*2);
       const confidence=Math.min(1,games/5);
-      return (impact/Math.max(1,points))*100*confidence;
+      // 낙찰가는 제곱근으로 눌러 점수 격차를 완화한다(가격 0~900의 180배 차이 → 약 13배).
+      return (impact/Math.sqrt(Math.max(1,points)))*10*confidence;
     }
     function entryAuctionValueItems(){
       return entryAuctionTeamsData().flatMap(team=>(team.players||[]).map(player=>({team:team.name,player,score:entryAuctionValueScore(player)}))).filter(item=>item.score!==null);
