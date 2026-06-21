@@ -7950,6 +7950,9 @@ body.funding-overlay-host .funding-temp-frame {
 }
 
 .cctv-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 34px;
   padding: 0 14px;
   border: 1px solid rgba(137,192,255,.22);
@@ -7960,6 +7963,7 @@ body.funding-overlay-host .funding-temp-frame {
   font-size: 12px;
   font-weight: 950;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .cctv-action-btn:hover {
@@ -9498,7 +9502,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div id="cctvPicker" class="cctv-picker"></div>
         <div class="cctv-action-row">
-          <button id="cctvFullscreenBtn" class="cctv-action-btn" type="button">전체화면</button>
+          <a id="cctvFullscreenBtn" class="cctv-action-btn" href="#" target="_blank" rel="noopener noreferrer">전체화면</a>
         </div>
         <div id="cctvGrid" class="cctv-grid"><div class="hub-empty">동시에 볼 멤버를 선택해주세요.</div></div>
       </section>
@@ -11996,13 +12000,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return "cctv-count-" + Math.max(0, Math.min(CCTV_MAX_PLAYERS, Number(count) || 0));
   }
 
-  function openCctvFullscreen() {
-    const selected = getSelectedCctvMembers();
-    if (!selected.length) {
-      alert("전체화면으로 볼 멤버를 먼저 선택해주세요.");
-      return;
-    }
+  let cctvFullscreenObjectUrl = "";
 
+  function buildCctvFullscreenHtml(selected) {
     const count = selected.length;
     const layoutClass = getCctvLayoutClass(count);
     const playerHtml = selected.map((member, i) => {
@@ -12012,20 +12012,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       return `
         <article class="viewer-card">
           <div class="viewer-name">${escapeHtml(member.name)}${member.race ? " · " + escapeHtml(member.race) : ""}</div>
-          <iframe${credless} src="${safeLink(embedUrl)}" title="${escapeHtml(member.name)} CCTV" allow="${CCTV_IFRAME_ALLOW}" allowfullscreen></iframe>
+          <iframe${credless} src="${safeLink(embedUrl)}" title="${escapeHtml(member.name)} CCTV" allow="${CCTV_IFRAME_ALLOW}" allowfullscreen width="1920" height="1080"></iframe>
         </article>
       `;
     }).join("");
 
-    const popup = window.open("about:blank", "calmmon-cctv-fullscreen", "width=1600,height=920,resizable=yes,scrollbars=no");
-    if (!popup) {
-      alert("팝업이 차단되었습니다. 브라우저 팝업 허용 후 다시 눌러주세요.");
-      return;
-    }
-
-    try { popup.opener = null; } catch (error) {}
-    popup.document.open();
-    popup.document.write(`<!doctype html>
+    return `<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -12050,8 +12042,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     ${playerHtml}
   </main>
 </body>
-</html>`);
-    popup.document.close();
+</html>`;
+  }
+
+  function updateCctvFullscreenLink(selected) {
+    if (!cctvFullscreenBtn) return;
+    if (cctvFullscreenObjectUrl) {
+      try { URL.revokeObjectURL(cctvFullscreenObjectUrl); } catch (error) {}
+      cctvFullscreenObjectUrl = "";
+    }
+    if (!selected.length) {
+      cctvFullscreenBtn.setAttribute("href", "#");
+      cctvFullscreenBtn.setAttribute("aria-disabled", "true");
+      cctvFullscreenBtn.onclick = (event) => {
+        event.preventDefault();
+        alert("전체화면으로 볼 멤버를 먼저 선택해주세요.");
+      };
+      return;
+    }
+    const html = buildCctvFullscreenHtml(selected);
+    cctvFullscreenObjectUrl = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }));
+    cctvFullscreenBtn.setAttribute("href", cctvFullscreenObjectUrl);
+    cctvFullscreenBtn.removeAttribute("aria-disabled");
+    cctvFullscreenBtn.onclick = null;
   }
 
   function renderCctv() {
@@ -12096,7 +12109,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     });
 
-    if (cctvFullscreenBtn) cctvFullscreenBtn.onclick = openCctvFullscreen;
+    updateCctvFullscreenLink(selected);
   }
 
   function getLeaderCoachCategory(member) {
