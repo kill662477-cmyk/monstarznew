@@ -6869,9 +6869,25 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       const points=Number(value);
       return Number.isFinite(points)?points+'P':'포인트 대기';
     }
+    function entryAuctionRoleLabel(player){
+      return String(player&&player.role||'').trim()==='팀장'?'팀장':'팀원';
+    }
+    function entryAuctionRecordLabel(player){
+      const wins=Number(player&&player.wins||0);
+      const losses=Number(player&&player.losses||0);
+      if(!(wins+losses)) return '';
+      return wins+'승 '+losses+'패';
+    }
+    function entryAuctionPlayerMeta(player){
+      const parts=[entryAuctionRoleLabel(player),String(player&&player.tier||'').trim()].filter(Boolean);
+      if(player&&player.temporary) parts.push('임시');
+      const record=entryAuctionRecordLabel(player);
+      if(record) parts.push(record);
+      return parts.join(' · ');
+    }
     function entryAuctionTeamsHtml(){
       return entryAuctionTeamsData().map(team=>{
-        const players=(team.players||[]).map(player=>'<div class="auction-player"><span><b>'+escapeHtml(player.name)+'</b><small>'+escapeHtml(player.role)+' · '+escapeHtml(player.tier)+(player.temporary?' · 임시':'')+'</small></span><span class="auction-points">'+escapeHtml(entryAuctionPointLabel(player.points,player))+'</span></div>').join('');
+        const players=(team.players||[]).map(player=>'<div class="auction-player"><span><b>'+escapeHtml(player.name)+'</b><small>'+escapeHtml(entryAuctionPlayerMeta(player))+'</small></span><span class="auction-points">'+escapeHtml(entryAuctionPointLabel(player.points,player))+'</span></div>').join('');
         return '<article class="auction-team"><div class="auction-team-head"><div class="auction-team-name">'+escapeHtml(team.name)+'</div><span class="auction-pill">'+escapeHtml(team.group)+'조</span></div><div class="auction-player-list">'+players+'</div></article>';
       }).join('');
     }
