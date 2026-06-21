@@ -11947,6 +11947,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     cctvSelectedIds = cctvSelectedIds.filter(id => validIds.has(id)).slice(0, CCTV_MAX_PLAYERS);
   }
 
+  const CCTV_IFRAME_ALLOW = "autoplay; fullscreen; picture-in-picture; encrypted-media; storage-access; local-network-access";
+
+  function getCctvCinemaUrl(member) {
+    const rawUrl = getMemberWatchUrl(member);
+    if (!rawUrl) return "";
+    try {
+      const url = new URL(rawUrl, window.location.href);
+      const isSoopPlayer = /(^|\.)sooplive\.com$/i.test(url.hostname) && url.hostname.toLowerCase().startsWith("play.");
+      if (isSoopPlayer) {
+        const parts = url.pathname.split("/").filter(Boolean);
+        if (parts.length >= 2 && parts[2] !== "embed") {
+          url.pathname = "/" + parts.slice(0, 2).join("/") + "/embed";
+        }
+      }
+      return safeLink(url.toString());
+    } catch (error) {
+      return safeLink(rawUrl);
+    }
+  }
+
   function getCctvLayout(count) {
     if (count <= 0) return { cols: 1, rows: 1, layout: "empty" };
     if (count === 1) return { cols: 1, rows: 1, layout: "solo" };
@@ -11992,17 +12012,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   function createCctvPlayer(member) {
     const id = cctvMemberId(member);
-    const url = safeLink(getMemberWatchUrl(member));
+    const playerUrl = getCctvCinemaUrl(member);
+    const openUrl = safeLink(getMemberWatchUrl(member));
     const article = document.createElement("article");
     article.className = "cctv-player";
     article.dataset.cctvPlayerId = id;
-    article.dataset.cctvUrl = url;
+    article.dataset.cctvUrl = playerUrl;
     article.innerHTML = `
       <div class="cctv-head">
         <div class="cctv-name">${escapeHtml(member.name)} · ${escapeHtml(member.race || "")}</div>
-        <a class="cctv-open" href="${url}" target="_blank" rel="noopener noreferrer">새 창</a>
+        <a class="cctv-open" href="${openUrl}" target="_blank" rel="noopener noreferrer">새 창</a>
       </div>
-      <iframe class="cctv-frame" src="${url}" title="${escapeHtml(member.name)} CCTV" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <iframe class="cctv-frame" src="${playerUrl}" title="${escapeHtml(member.name)} CCTV" loading="lazy" allow="${CCTV_IFRAME_ALLOW}" allowfullscreen></iframe>
     `;
     return article;
   }
@@ -12028,12 +12049,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (!article) {
         article = createCctvPlayer(member);
       } else {
-        const url = safeLink(getMemberWatchUrl(member));
+        const playerUrl = getCctvCinemaUrl(member);
+        const openUrl = safeLink(getMemberWatchUrl(member));
         const nameEl = article.querySelector(".cctv-name");
         const openEl = article.querySelector(".cctv-open");
+        const frameEl = article.querySelector(".cctv-frame");
         if (nameEl) nameEl.textContent = `${member.name} · ${member.race || ""}`;
-        if (openEl) openEl.href = url;
-        article.dataset.cctvUrl = article.dataset.cctvUrl || url;
+        if (openEl) openEl.href = openUrl;
+        if (frameEl) frameEl.setAttribute("allow", CCTV_IFRAME_ALLOW);
+        if (playerUrl && article.dataset.cctvUrl !== playerUrl) {
+          article.dataset.cctvUrl = playerUrl;
+          if (frameEl) frameEl.src = playerUrl;
+        }
       }
       cctvGrid.appendChild(article);
     });
@@ -12078,10 +12105,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function buildCctvFullscreenHtml(selected) {
     const { cols, rows } = getCctvLayout(selected.length);
     const cards = selected.map(member => {
-      const url = safeLink(getMemberWatchUrl(member));
+      const url = getCctvCinemaUrl(member);
       return `
         <article class="fs-card">
-          <iframe src="${url}" title="${escapeHtml(member.name)} CCTV" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="${url}" title="${escapeHtml(member.name)} CCTV" allow="${CCTV_IFRAME_ALLOW}" allowfullscreen></iframe>
         </article>`;
     }).join("");
     return `<!doctype html>
