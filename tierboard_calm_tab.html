@@ -324,6 +324,20 @@ html.light .auction-team-name,.html.light .auction-player b,.html.light .auction
 html.light .auction-player small,.html.light .auction-captain-pick small,.html.light .auction-empty{color:#6a809c}
 @media (max-width:1050px){.entry-tool{grid-template-columns:1fr}.entry-list{height:330px}}
 @media (max-width:720px){.view-tabs,.entry-board-tabs{overflow:auto}.entry-card-head{align-items:stretch;flex-direction:column}.entry-map-pools,.entry-fixed-maps{justify-content:stretch}.entry-map-pool{flex:1;min-width:0}.entry-columns,.entry-roster-grid,.entry-two-up,.entry-sim-row,.auction-grid,.auction-board,.auction-value-grid{grid-template-columns:1fr}.entry-toolbar{align-items:stretch}.entry-toolbar-left,.entry-toolbar-right{width:100%}.entry-small-select,.entry-btn{flex:1}.sim-score{grid-template-columns:1fr;gap:10px}}
+
+/* 뉴캄옥션 경기 기록: 시뮬레이션 아래 별도 영역 + 카드 내용 전체 표시 */
+.entry-auction-matchlog-panel{padding:0 16px 18px;border-top:1px solid rgba(142,169,208,.10);margin-top:2px;padding-top:14px}
+.entry-auction-matchlog-panel[hidden]{display:none!important}
+.entry-auction-matchlog-panel .auction-section-title{margin-bottom:9px}
+.auction-match-grid{grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:12px}
+.auction-match-card{padding:14px 15px;min-height:116px}
+.auction-match-teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:start;gap:10px;font-size:14px;line-height:1.35}
+.auction-match-team{min-width:0;white-space:normal;overflow:visible;text-overflow:clip;word-break:keep-all;overflow-wrap:anywhere}
+.auction-match-team:last-child{text-align:right}
+.auction-match-vs{align-self:center}
+.auction-match-winner{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.35}
+html.light .entry-auction-matchlog-panel{border-top-color:rgba(40,90,160,.10)}
+@media (max-width:720px){.auction-match-grid{grid-template-columns:1fr}.auction-match-teams{grid-template-columns:1fr;gap:6px}.auction-match-vs{text-align:left}.auction-match-team:last-child{text-align:left}}
 </style>
 
 <script>
@@ -477,16 +491,16 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
             <div id="entryAuctionCaptainValues"></div>
           </section>
         </div>
-        <div class="auction-matchlog">
-          <div class="auction-section-title"><span>경기 기록</span></div>
-          <div id="entryAuctionMatchLog"></div>
-        </div>
       </section>
       <section class="entry-card entry-results-card">
         <div class="entry-stat-table" id="entryStatsTable"></div>
         <div class="entry-sim-row">
           <div class="entry-match-table" id="entryMatchTable"></div>
           <div class="sim-result" id="entrySimulation"></div>
+        </div>
+        <div class="entry-auction-matchlog-panel auction-matchlog" id="entryAuctionMatchLogPanel" hidden>
+          <div class="auction-section-title"><span>경기 기록</span></div>
+          <div id="entryAuctionMatchLog"></div>
         </div>
       </section>
     </section>
@@ -5754,6 +5768,7 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
     const entryAuctionStandings = document.getElementById('entryAuctionStandings');
     const entryAuctionBestValues = document.getElementById('entryAuctionBestValues');
     const entryAuctionCaptainValues = document.getElementById('entryAuctionCaptainValues');
+    const entryAuctionMatchLogPanel = document.getElementById('entryAuctionMatchLogPanel');
     const entryAuctionMatchLog = document.getElementById('entryAuctionMatchLog');
     const recordDialog = document.getElementById('recordDialog');
     const recordTitle = document.getElementById('recordTitle');
@@ -7031,7 +7046,11 @@ html.light .auction-player small,.html.light .auction-captain-pick small,.html.l
       if(!entryAuctionPanel) return;
       const active=isAuctionEntryBoard();
       entryAuctionPanel.hidden=!active;
-      if(!active) return;
+      if(entryAuctionMatchLogPanel) entryAuctionMatchLogPanel.hidden=!active;
+      if(!active){
+        if(entryAuctionMatchLog) entryAuctionMatchLog.innerHTML='';
+        return;
+      }
       entryAuctionTeams.innerHTML=entryAuctionTeamsHtml();
       entryAuctionModeTabs.querySelectorAll('[data-auction-mode]').forEach(btn=>{
         const selected=btn.dataset.auctionMode===entryState.auctionMode;
