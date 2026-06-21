@@ -7074,11 +7074,13 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
         (team.players||[]).forEach(player=>{
           const wins=Number(player.wins||0),losses=Number(player.losses||0);
           const val=key==='wins'?wins:losses;
-          if(val>0) rows.push({name:player.name,team:team.name,val:val});
+          if(val>0) rows.push({name:player.name,team:team.name,val:val,points:Number(player.points||0)});
         });
       });
       if(!rows.length) return '<div class="auction-empty">경기결과 입력 대기</div>';
-      const sorted=rows.sort((a,b)=>b.val-a.val||a.name.localeCompare(b.name,'ko')).slice(0,3);
+      // 동률 시: 다승왕은 포인트 적은 순(가성비), 다패왕은 포인트 많은 순.
+      const tie=key==='wins'?(a,b)=>a.points-b.points:(a,b)=>b.points-a.points;
+      const sorted=rows.sort((a,b)=>b.val-a.val||tie(a,b)||a.name.localeCompare(b.name,'ko')).slice(0,3);
       const head=key==='wins'?'승':'패';
       const teamShort=t=>String(t||'').replace(/\s*[\(（].*$/,'').trim();
       return '<div class="entry-stat-scroll"><table><thead><tr><th>선수</th><th>팀</th><th>'+head+'</th></tr></thead><tbody>'+sorted.map(r=>'<tr><td>'+escapeHtml(r.name)+'</td><td>'+escapeHtml(teamShort(r.team))+'</td><td>'+r.val+'</td></tr>').join('')+'</tbody></table></div>';
