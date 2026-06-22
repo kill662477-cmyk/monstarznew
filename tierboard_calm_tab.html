@@ -7052,7 +7052,7 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
       if(!games) return null;
       if(!Number.isFinite(points)||points<=0) points=1; // 팀원 0점은 계산식에서만 1점 처리
       const winRate=wins/games;
-      const impact=(wins*3)-(losses*2.4)+(winRate*2);
+      const impact=(wins*4.5)-(losses*3.6)+(winRate*2);
       const confidence=Math.min(1,games/5);
       // 낙찰가는 제곱근으로 눌러 점수 격차를 완화한다(가격 0~900의 180배 차이 → 약 13배).
       return (impact/Math.sqrt(Math.max(1,points)))*10*confidence;
