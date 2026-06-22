@@ -6169,10 +6169,19 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
       scheduleEntrySummaryAutoLoad();
     }
     function entryAuctionTeamKey(team){ return String(team&&(team.team_key||team.id)||'').trim(); }
+    function entryAuctionSetKey(row){
+      return entryAuctionPlayerRowMatchId(row)+'|'+String(row.game_no||'');
+    }
     function entryAuctionPlayerStats(){
       const map=new Map();
-      (entryAuctionRemote.matchPlayers||[]).forEach(row=>{
-        if(row.is_mercenary===true||row.is_mercenary==='true') return; // 용병 세트는 개인 전적 제외
+      const rows=entryAuctionRemote.matchPlayers||[];
+      // 용병이 한 명이라도 낀 세트(match_id+game_no)는 상대까지 양쪽 다 개인 전적 제외
+      const mercSets=new Set();
+      rows.forEach(row=>{
+        if(row.is_mercenary===true||row.is_mercenary==='true') mercSets.add(entryAuctionSetKey(row));
+      });
+      rows.forEach(row=>{
+        if(mercSets.has(entryAuctionSetKey(row))) return;
         const name=String(row.player_name||'').trim();
         if(!name) return;
         const key=String(row.team_key||'')+'|'+name;
