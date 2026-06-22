@@ -61,7 +61,7 @@ const FIELD_WHITELIST = {
   newcam_teams: ["team_key", "team_name", "captain_name", "group_name", "sort_order", "is_visible"],
   newcam_players: ["team_key", "player_name", "tier_label", "role_label", "race", "auction_points", "wins", "losses", "is_temporary", "sort_order", "is_visible"],
   newcam_matches: ["match_type", "group_name", "round_label", "team_a_key", "team_b_key", "winner_team_key", "played_at", "status", "sort_order", "is_visible"],
-  newcam_match_players: ["match_id", "match_type", "game_no", "map_name", "team_key", "player_name", "opponent_name", "result", "sort_order", "is_visible"]
+  newcam_match_players: ["match_id", "match_type", "game_no", "map_name", "team_key", "player_name", "opponent_name", "result", "is_mercenary", "sort_order", "is_visible"]
 };
 
 function expectedToken() {
@@ -184,7 +184,7 @@ function normalizePayload(table, payload) {
       out[key] = Math.max(-9999, Math.min(9999, Number(value) || 0));
       return;
     }
-    if (key === "is_visible" || key === "is_pinned") {
+    if (key === "is_visible" || key === "is_pinned" || key === "is_mercenary") {
       out[key] = value === true || value === "true" || value === 1;
       return;
     }
@@ -228,13 +228,13 @@ function normalizeNewcamMatchEntry(body) {
   if (teamA === teamB) throw validationError("A팀과 B팀은 서로 달라야 합니다.");
 
   const games = Array.isArray(body && body.games) ? body.games : [];
-  if (games.length > 9) throw validationError("세트는 최대 9개까지만 등록할 수 있습니다.");
+  if (games.length > 11) throw validationError("세트는 최대 11개까지만 등록할 수 있습니다.");
 
   let aWins = 0;
   let bWins = 0;
   const rows = [];
   games.forEach(function (game, index) {
-    const gameNo = Math.max(1, Math.min(9, Number(game && game.game_no) || (index + 1)));
+    const gameNo = Math.max(1, Math.min(11, Number(game && game.game_no) || (index + 1)));
     const mapName = safeText(game && game.map_name, "map_name") || "";
     const aPlayer = safeText(game && (game.a_player_name || game.player_a_name || game.a_player), "a_player_name") || "";
     const bPlayer = safeText(game && (game.b_player_name || game.player_b_name || game.b_player), "b_player_name") || "";
@@ -248,6 +248,8 @@ function normalizeNewcamMatchEntry(body) {
     const aWin = winnerSide === "A";
     if (aWin) aWins += 1;
     else bWins += 1;
+    const aMerc = game && (game.a_mercenary === true || game.a_mercenary === "true");
+    const bMerc = game && (game.b_mercenary === true || game.b_mercenary === "true");
     rows.push({
       match_type: matchType,
       game_no: gameNo,
@@ -256,6 +258,7 @@ function normalizeNewcamMatchEntry(body) {
       player_name: aPlayer,
       opponent_name: bPlayer,
       result: aWin ? "win" : "loss",
+      is_mercenary: Boolean(aMerc),
       sort_order: gameNo * 10,
       is_visible: true
     });
@@ -267,6 +270,7 @@ function normalizeNewcamMatchEntry(body) {
       player_name: bPlayer,
       opponent_name: aPlayer,
       result: aWin ? "loss" : "win",
+      is_mercenary: Boolean(bMerc),
       sort_order: gameNo * 10 + 1,
       is_visible: true
     });

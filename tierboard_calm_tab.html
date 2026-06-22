@@ -6172,6 +6172,7 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
     function entryAuctionPlayerStats(){
       const map=new Map();
       (entryAuctionRemote.matchPlayers||[]).forEach(row=>{
+        if(row.is_mercenary===true||row.is_mercenary==='true') return; // 용병 세트는 개인 전적 제외
         const name=String(row.player_name||'').trim();
         if(!name) return;
         const key=String(row.team_key||'')+'|'+name;

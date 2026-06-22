@@ -64,6 +64,7 @@ function matchPlayerRow(row) {
     player_name: row.player_name || "",
     opponent_name: row.opponent_name || "",
     result: row.result || "",
+    is_mercenary: row.is_mercenary === true,
     sort_order: Number(row.sort_order || 0)
   };
 }
@@ -81,7 +82,7 @@ module.exports = async function handler(req, res) {
       admin.rest("GET", "newcam_teams", { query: visibleQuery("id,team_key,team_name,captain_name,group_name,sort_order") }),
       admin.rest("GET", "newcam_players", { query: visibleQuery("id,team_key,player_name,tier_label,role_label,race,auction_points,wins,losses,is_temporary,sort_order") }),
       admin.rest("GET", "newcam_matches", { query: visibleQuery("id,match_type,group_name,round_label,team_a_key,team_b_key,winner_team_key,played_at,status,sort_order") }),
-      admin.rest("GET", "newcam_match_players", { query: visibleQuery("id,match_id,match_type,game_no,map_name,team_key,player_name,opponent_name,result,sort_order") })
+      admin.rest("GET", "newcam_match_players", { query: visibleQuery("id,match_id,match_type,game_no,map_name,team_key,player_name,opponent_name,result,is_mercenary,sort_order") })
     ]);
 
     return res.status(200).json({

@@ -8322,6 +8322,10 @@ table.admin-table a:hover { text-decoration: underline; }
   font-weight: 950;
 }
 .admin-newcam-group-head:first-child { margin-top: 0; }
+.admin-newcam-pcell { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.admin-newcam-pcell select { flex: 1; min-width: 0; }
+.admin-newcam-merc { display: inline-flex; align-items: center; gap: 3px; flex: none; color: rgba(255,176,116,.92); font-size: 10px; font-weight: 900; white-space: nowrap; cursor: pointer; }
+.admin-newcam-merc input { width: auto; min-height: 0; margin: 0; cursor: pointer; }
 .admin-newcam-set-head,
 .admin-newcam-set-row {
   display: grid;
@@ -11296,7 +11300,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     newcamTeams: { resource: "newcamTeams", label: "뉴캄 팀", cols: [["team_name", "팀명"], ["captain_name", "팀장"], ["group_name", "조"]], pin: false },
     newcamPlayers: { resource: "newcamPlayers", label: "뉴캄 선수/포인트", cols: [["player_name", "선수"], ["team_key", "팀"], ["auction_points", "포인트"]], pin: false },
     newcamMatches: { resource: "newcamMatches", label: "뉴캄 경기결과", cols: [["match_type", "구분"], ["team_a_key", "A팀"], ["team_b_key", "B팀"], ["winner_team_key", "승리팀"]], pin: false },
-    newcamMatchPlayers: { resource: "newcamMatchPlayers", label: "뉴캄 매치별 선수", cols: [["player_name", "선수"], ["map_name", "맵"], ["result", "결과"]], pin: false }
+    newcamMatchPlayers: { resource: "newcamMatchPlayers", label: "뉴캄 매치별 선수", cols: [["player_name", "선수"], ["map_name", "맵"], ["result", "결과"], ["is_mercenary", "용병"]], pin: false }
   };
   const ADMIN_FIELDS = {
     members: [
@@ -11418,6 +11422,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       { name: "player_name", label: "선수명", required: true },
       { name: "opponent_name", label: "상대 선수" },
       { name: "result", label: "결과", type: "select", options: [["", "선택"], ["win", "승"], ["loss", "패"]] },
+      { name: "is_mercenary", label: "용병(개인기록 제외)", type: "checkbox", defaultValue: false },
       { name: "sort_order", label: "정렬", type: "number" },
       { name: "is_visible", label: "공개", type: "checkbox", defaultValue: true }
     ]
@@ -11554,8 +11559,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="admin-newcam-set-row" data-newcam-set-row="${no}">
           <span class="admin-newcam-set-no">${no}세트</span>
           <select name="map_${no}" aria-label="${no}세트 맵">${adminNewcamMapOptions("", no)}</select>
-          <select name="a_player_${no}" data-newcam-player-side="a" data-current-value="" aria-label="${no}세트 A팀 선수"></select>
-          <select name="b_player_${no}" data-newcam-player-side="b" data-current-value="" aria-label="${no}세트 B팀 선수"></select>
+          <div class="admin-newcam-pcell"><select name="a_player_${no}" data-newcam-player-side="a" data-current-value="" aria-label="${no}세트 A팀 선수"></select><label class="admin-newcam-merc" title="A 선수 용병(개인기록 제외)"><input type="checkbox" name="a_merc_${no}">용병</label></div>
+          <div class="admin-newcam-pcell"><select name="b_player_${no}" data-newcam-player-side="b" data-current-value="" aria-label="${no}세트 B팀 선수"></select><label class="admin-newcam-merc" title="B 선수 용병(개인기록 제외)"><input type="checkbox" name="b_merc_${no}">용병</label></div>
           <select name="winner_${no}" data-newcam-winner aria-label="${no}세트 승자">
             <option value="">승자</option>
             <option value="A">A승</option>
@@ -11706,7 +11711,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         map_name: String(data.get("map_" + no) || "").trim(),
         a_player_name: aPlayer,
         b_player_name: bPlayer,
-        winner_side: winner
+        winner_side: winner,
+        a_mercenary: Boolean(form.elements["a_merc_" + no]?.checked),
+        b_mercenary: Boolean(form.elements["b_merc_" + no]?.checked)
       });
     }
     if (!games.length) throw new Error("저장할 세트 결과를 입력해주세요.");
@@ -11973,7 +11980,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
       const cols = conf.cols.map(c => c[1]).concat(["노출", "관리"]);
       const body = list.map(row => {
-        const cells = conf.cols.map(c => escapeHtml(String(row[c[0]] === null || row[c[0]] === undefined ? "-" : row[c[0]])));
+        const cells = conf.cols.map(c => {
+          if (c[0] === "is_mercenary") return row.is_mercenary === true ? adminStatusBadge("용병", "off") : "-";
+          return escapeHtml(String(row[c[0]] === null || row[c[0]] === undefined ? "-" : row[c[0]]));
+        });
         cells.push(adminStatusBadge(row.is_visible === false ? "숨김" : "노출", row.is_visible === false ? "off" : "on"));
         let actions = "";
         actions += adminEditButton(section, row.id);
