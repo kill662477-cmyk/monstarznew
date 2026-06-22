@@ -8311,6 +8311,17 @@ table.admin-table a:hover { text-decoration: underline; }
 .admin-newcam-entry { gap: 14px; }
 .admin-newcam-meta { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .admin-newcam-sets { display: grid; gap: 8px; }
+.admin-newcam-group-head {
+  margin-top: 4px;
+  padding: 7px 11px;
+  border-radius: 9px;
+  background: rgba(40,125,255,.15);
+  border: 1px solid rgba(120,180,255,.26);
+  color: #d8e9ff;
+  font-size: 12px;
+  font-weight: 950;
+}
+.admin-newcam-group-head:first-child { margin-top: 0; }
 .admin-newcam-set-head,
 .admin-newcam-set-row {
   display: grid;
@@ -11533,9 +11544,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const visibleTeams = adminNewcamVisibleRows(adminNewcamRuntime.teams);
     const teamA = visibleTeams[0]?.team_key || "";
     const teamB = visibleTeams[1]?.team_key || "";
-    const setRows = Array.from({ length: 9 }, (_, idx) => {
+    const setRows = Array.from({ length: 11 }, (_, idx) => {
       const no = idx + 1;
-      return `
+      let head = "";
+      if (no === 1) head = `<div class="admin-newcam-group-head" data-newcam-group-head>1차전 · 5판3선</div>`;
+      else if (no === 6) head = `<div class="admin-newcam-group-head" data-newcam-group-head>2차전 · 5판3선</div>`;
+      else if (no === 11) head = `<div class="admin-newcam-group-head" data-newcam-group-head>최종 결정전</div>`;
+      return head + `
         <div class="admin-newcam-set-row" data-newcam-set-row="${no}">
           <span class="admin-newcam-set-no">${no}세트</span>
           <select name="map_${no}" aria-label="${no}세트 맵">${adminNewcamMapOptions("", no)}</select>
@@ -11554,7 +11569,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="admin-editor-head">
           <div>
             <div class="admin-editor-title">뉴캄 경기 일괄 등록</div>
-            <div class="admin-editor-sub">경기 1건과 1~9세트 선수 결과를 한 번에 저장합니다. 빈 세트는 무시됩니다.</div>
+            <div class="admin-editor-sub">방식에 따라 세트 입력칸이 바뀝니다(5353은 5판3선 2블록+최종전). 빈 세트는 무시됩니다.</div>
           </div>
         </div>
         <div class="admin-editor-grid admin-newcam-meta">
@@ -11607,19 +11622,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   function newcamFormatMaxSets(value) {
     if (value === "7판4선") return 7;
-    if (value === "5353") return 5;
+    if (value === "5353") return 11; // 5판3선 2블록(각5) + 최종 결정전
     return 9;
+  }
+
+  function newcamSetLabel(value, no) {
+    if (value !== "5353") return no + "세트";
+    if (no <= 5) return "1차전 " + no + "세트";
+    if (no <= 10) return "2차전 " + (no - 5) + "세트";
+    return "최종전";
   }
 
   function applyNewcamFormatRows(form) {
     form = form || document.getElementById("adminNewcamMatchForm");
     if (!form) return;
-    const max = newcamFormatMaxSets(form.elements.match_format?.value || "9판5선");
+    const fmt = form.elements.match_format?.value || "9판5선";
+    const max = newcamFormatMaxSets(fmt);
+    const isDouble = fmt === "5353";
+    form.querySelectorAll("[data-newcam-group-head]").forEach(head => {
+      head.style.display = isDouble ? "" : "none";
+    });
     form.querySelectorAll("[data-newcam-set-row]").forEach(rowEl => {
       const no = Number(rowEl.dataset.newcamSetRow || 0);
       const hide = no > max;
       rowEl.style.display = hide ? "none" : "";
       if (hide) rowEl.querySelectorAll("select").forEach(sel => { sel.value = ""; });
+      const label = rowEl.querySelector(".admin-newcam-set-no");
+      if (label) label.textContent = newcamSetLabel(fmt, no);
     });
   }
 
@@ -11647,7 +11676,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (!form || !preview) return;
     let aWins = 0;
     let bWins = 0;
-    for (let no = 1; no <= 9; no += 1) {
+    for (let no = 1; no <= 11; no += 1) {
       const winner = form.elements["winner_" + no]?.value || "";
       if (winner === "A") aWins += 1;
       if (winner === "B") bWins += 1;
@@ -11665,7 +11694,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (!teamA || !teamB) throw new Error("A팀과 B팀을 선택해주세요.");
     if (teamA === teamB) throw new Error("A팀과 B팀은 서로 달라야 합니다.");
     const games = [];
-    for (let no = 1; no <= 9; no += 1) {
+    for (let no = 1; no <= 11; no += 1) {
       const aPlayer = String(data.get("a_player_" + no) || "").trim();
       const bPlayer = String(data.get("b_player_" + no) || "").trim();
       const winner = String(data.get("winner_" + no) || "").trim();
