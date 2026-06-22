@@ -8326,6 +8326,17 @@ table.admin-table a:hover { text-decoration: underline; }
 .admin-newcam-pcell select { flex: 1; min-width: 0; }
 .admin-newcam-merc { display: inline-flex; align-items: center; gap: 3px; flex: none; color: rgba(255,176,116,.92); font-size: 10px; font-weight: 900; white-space: nowrap; cursor: pointer; }
 .admin-newcam-merc input { width: auto; min-height: 0; margin: 0; cursor: pointer; }
+.admin-newcam-setlines { display: grid; gap: 6px; margin-top: 6px; }
+.admin-newcam-setline { display: grid; grid-template-columns: 22px 64px 1fr 1fr 40px auto; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid rgba(137,192,255,.16); border-radius: 10px; background: rgba(4,14,30,.34); cursor: pointer; }
+.admin-newcam-setline input { width: auto; min-height: 0; margin: 0; cursor: pointer; }
+.admin-newcam-setline-no { color: #cfe4ff; font-size: 12px; font-weight: 900; }
+.admin-newcam-setline-name { color: #f4f8ff; font-size: 13px; font-weight: 800; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-newcam-setline-team { color: #93a9c5; font-size: 12px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-newcam-setline-result { font-size: 12px; font-weight: 900; text-align: center; }
+.admin-newcam-setline-result.win { color: #22c55e; }
+.admin-newcam-setline-result.loss { color: #fb4b64; }
+.admin-newcam-setline-tag { color: rgba(255,176,116,.92); font-size: 10px; font-weight: 900; }
+.admin-newcam-setline:has(input:checked) { border-color: rgba(255,176,116,.55); background: rgba(255,140,70,.12); }
 .admin-newcam-set-head,
 .admin-newcam-set-row {
   display: grid;
@@ -10084,8 +10095,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   ];
   let currentAdminSection = "dashboard";
   let adminEditorState = null;
+  let adminNewcamSetsMatchId = null; // 경기결과에서 세트 용병 패널을 펼친 경기 id
   const adminRowsBySection = {};
-  const adminNewcamRuntime = { teams: [], players: [] };
+  const adminNewcamRuntime = { teams: [], players: [], matchPlayers: [] };
 
   const UI_EMPTY_TEXT = "표시할 데이터가 없습니다";
   const UI_LOADING_TEXT = "데이터를 불러오는 중입니다.";
@@ -11605,9 +11617,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const visibleMatches = Array.isArray(matches) ? matches : [];
     const cols = ["구분", "조", "A팀", "B팀", "승리팀", "시간", "노출", "관리"];
     const body = visibleMatches.map(row => {
+      const setsBtn = `<button type="button" class="admin-action-btn" data-newcam-sets="${escapeHtml(String(row.id))}">세트</button>`;
       const actions = row.is_visible === false
         ? adminActionButton("복구", "newcamMatches:restore:" + row.id)
-        : adminEditButton("newcamMatches", row.id) + adminActionButton("삭제", "newcamMatches:hide:" + row.id, true);
+        : setsBtn + adminEditButton("newcamMatches", row.id) + adminActionButton("삭제", "newcamMatches:hide:" + row.id, true);
       return [
         escapeHtml(row.match_type || "-"),
         escapeHtml(row.group_name || "-"),
@@ -11621,8 +11634,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
     const editingMatch = adminEditorState && adminEditorState.section === "newcamMatches" && adminEditorState.row && adminEditorState.row.id;
     return adminToolbar("뉴캄 경기결과 (Supabase)", visibleMatches.length + "건")
+      + (adminNewcamSetsMatchId ? renderAdminNewcamSetsPanel(adminNewcamSetsMatchId) : "")
       + (editingMatch ? adminEditorHtml("newcamMatches", ADMIN_MANAGED.newcamMatches) : renderAdminNewcamMatchForm())
       + adminTable(cols, body);
+  }
+
+  function renderAdminNewcamSetsPanel(matchId) {
+    const match = (adminRowsBySection.newcamMatches || []).find(m => String(m.id) === String(matchId));
+    const title = match ? (adminNewcamTeamName(match.team_a_key) + " vs " + adminNewcamTeamName(match.team_b_key)) : "경기";
+    const rows = (adminNewcamRuntime.matchPlayers || [])
+      .filter(r => String(r.match_id) === String(matchId))
+      .slice()
+      .sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0) || Number(a.game_no || 0) - Number(b.game_no || 0));
+    const head = `<div class="admin-editor-head"><div><div class="admin-editor-title">세트별 용병 표시 · ${escapeHtml(title)}</div><div class="admin-editor-sub">체크한 선수는 그 세트가 개인기록(다승/다패/가성비)에서 제외됩니다. 팀 성적·경기 점수엔 영향 없음.</div></div><button type="button" class="admin-action-btn" data-newcam-sets="">닫기</button></div>`;
+    if (!rows.length) {
+      return `<div class="admin-editor admin-newcam-sets-panel" data-newcam-sets-panel="${escapeHtml(String(matchId))}">${head}<div class="admin-editor-sub">이 경기에 저장된 세트 기록이 없습니다.</div></div>`;
+    }
+    const lines = rows.map(r => {
+      const resultLabel = r.result === "win" ? "승" : (r.result === "loss" ? "패" : "-");
+      return `<label class="admin-newcam-setline">
+        <input type="checkbox" data-newcam-merc-row="${escapeHtml(String(r.id))}" ${r.is_mercenary === true ? "checked" : ""}>
+        <span class="admin-newcam-setline-no">${escapeHtml(String(r.game_no || "-"))}세트</span>
+        <span class="admin-newcam-setline-name">${escapeHtml(r.player_name || "-")}</span>
+        <span class="admin-newcam-setline-team">${escapeHtml(adminNewcamTeamName(r.team_key) || r.team_key || "")}</span>
+        <span class="admin-newcam-setline-result ${r.result === "win" ? "win" : "loss"}">${resultLabel}</span>
+        <span class="admin-newcam-setline-tag">용병</span>
+      </label>`;
+    }).join("");
+    return `<div class="admin-editor admin-newcam-sets-panel" data-newcam-sets-panel="${escapeHtml(String(matchId))}">${head}
+      <div class="admin-newcam-setlines">${lines}</div>
+      <div class="admin-editor-actions"><button type="button" class="admin-submit-btn" data-newcam-merc-save="${escapeHtml(String(matchId))}">용병 표시 저장</button></div>
+    </div>`;
   }
 
   function newcamFormatMaxSets(value) {
@@ -11963,10 +12005,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const list = Array.isArray(rows) ? rows : [];
       adminRowsBySection[section] = list;
       if (section === "newcamMatches") {
-        const [teams, players] = await Promise.all([
+        const [teams, players, matchPlayers] = await Promise.all([
           adminApi("newcamTeams"),
-          adminApi("newcamPlayers")
+          adminApi("newcamPlayers"),
+          adminApi("newcamMatchPlayers")
         ]);
+        adminNewcamRuntime.matchPlayers = Array.isArray(matchPlayers) ? matchPlayers : [];
+        adminRowsBySection.newcamMatchPlayers = adminNewcamRuntime.matchPlayers;
         adminContent.innerHTML = renderAdminNewcamMatchSection(list, teams, players);
         refreshAdminNewcamMatchForm();
         return;
@@ -12006,7 +12051,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function setAdminSection(section, options) {
     const valid = ADMIN_SECTIONS.some(s => s.key === section);
     const nextSection = valid ? section : "dashboard";
-    if (currentAdminSection !== nextSection) adminEditorState = null;
+    if (currentAdminSection !== nextSection) { adminEditorState = null; adminNewcamSetsMatchId = null; }
     currentAdminSection = nextSection;
     renderAdmin();
     if (!options || options.updateUrl !== false) {
@@ -13855,6 +13900,47 @@ function createMemberCard(member) {
   });
 
   adminContent?.addEventListener("click", async (event) => {
+    const setsToggle = event.target.closest("[data-newcam-sets]");
+    if (setsToggle) {
+      const mid = setsToggle.dataset.newcamSets || "";
+      adminNewcamSetsMatchId = mid || null;
+      adminContent.innerHTML = renderAdminNewcamMatchSection(adminRowsBySection.newcamMatches || [], adminNewcamRuntime.teams, adminNewcamRuntime.players);
+      refreshAdminNewcamMatchForm();
+      if (adminNewcamSetsMatchId) adminContent.querySelector("[data-newcam-sets-panel]")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    const mercSave = event.target.closest("[data-newcam-merc-save]");
+    if (mercSave) {
+      if (!adminConn.authed || !adminConn.supabaseReady) {
+        showAdminToast("관리자 로그인과 Supabase 연결이 필요합니다.");
+        return;
+      }
+      const panel = adminContent.querySelector("[data-newcam-sets-panel]");
+      const boxes = panel ? Array.from(panel.querySelectorAll("[data-newcam-merc-row]")) : [];
+      try {
+        mercSave.disabled = true;
+        let changed = 0;
+        for (const box of boxes) {
+          const id = box.dataset.newcamMercRow;
+          const want = box.checked;
+          const row = (adminNewcamRuntime.matchPlayers || []).find(r => String(r.id) === String(id));
+          const current = row ? row.is_mercenary === true : false;
+          if (want !== current) {
+            await adminApi("newcamMatchPlayers/" + id, { method: "PATCH", body: { is_mercenary: want } });
+            changed += 1;
+          }
+        }
+        showAdminToast(changed ? ("용병 표시 저장 완료 · " + changed + "건") : "변경된 항목이 없습니다.");
+        adminNewcamSetsMatchId = null;
+        renderAdmin();
+      } catch (err) {
+        mercSave.disabled = false;
+        showAdminToast("저장 실패: " + (err.message || ""));
+      }
+      return;
+    }
+
     const edit = event.target.closest("[data-admin-edit]");
     if (edit) {
       const [section, id] = String(edit.dataset.adminEdit || "").split(":");
