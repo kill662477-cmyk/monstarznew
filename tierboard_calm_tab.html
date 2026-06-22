@@ -505,16 +505,16 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
             <div class="entry-title">특별 뉴캄옥션</div>
             <div class="entry-sub">6팀 이벤트 운영판</div>
           </div>
+          <div class="auction-mode-tabs" id="entryAuctionModeTabs" role="tablist" aria-label="뉴캄옥션 기록 종류">
+            <button class="auction-mode-tab" type="button" data-auction-mode="scrim">스크림</button>
+            <button class="auction-mode-tab" type="button" data-auction-mode="official">본경기</button>
+          </div>
         </div>
         <div class="auction-grid" id="entryAuctionTeams"></div>
         <div class="auction-board">
           <section>
             <div class="auction-section-title">
               <span>순위표</span>
-              <div class="auction-mode-tabs" id="entryAuctionModeTabs" role="tablist" aria-label="뉴캄옥션 순위 종류">
-                <button class="auction-mode-tab" type="button" data-auction-mode="scrim">스크림</button>
-                <button class="auction-mode-tab" type="button" data-auction-mode="official">본경기</button>
-              </div>
             </div>
             <div id="entryAuctionStandings"></div>
           </section>
@@ -6182,6 +6182,7 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
         if(row.is_mercenary===true||row.is_mercenary==='true') mercSets.add(entryAuctionSetKey(row));
       });
       rows.forEach(row=>{
+        if(String(row.match_type||'scrim')!==entryState.auctionMode) return; // 스크림/본경기 모드별 분리
         if(mercSets.has(entryAuctionSetKey(row))) return;
         const name=String(row.player_name||'').trim();
         if(!name) return;
