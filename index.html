@@ -11559,6 +11559,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="admin-editor-grid admin-newcam-meta">
           <div class="admin-field"><label for="newcamMatchType">경기 구분</label><select id="newcamMatchType" name="match_type"><option value="scrim">스크림</option><option value="official">본경기</option><option value="final">결승</option></select></div>
+          <div class="admin-field"><label for="newcamMatchFormat">방식</label><select id="newcamMatchFormat" name="match_format" data-newcam-format><option value="9판5선">9판5선</option><option value="7판4선">7판4선</option><option value="5353">5353</option></select></div>
           <div class="admin-field"><label for="newcamGroupName">조</label><select id="newcamGroupName" name="group_name"><option value="">선택</option><option value="A">A조</option><option value="B">B조</option><option value="FINAL">결승</option></select></div>
           <div class="admin-field"><label for="newcamRoundLabel">라운드/메모</label><input id="newcamRoundLabel" name="round_label" type="text" placeholder="예: A조 1경기"></div>
           <div class="admin-field"><label for="newcamPlayedAt">경기 시간</label><input id="newcamPlayedAt" name="played_at" type="datetime-local" value="${escapeHtml(formatAdminDateTimeLocal(new Date().toISOString()))}"></div>
@@ -11604,9 +11605,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       + adminTable(cols, body);
   }
 
+  function newcamFormatMaxSets(value) {
+    if (value === "7판4선") return 7;
+    if (value === "5353") return 5;
+    return 9;
+  }
+
+  function applyNewcamFormatRows(form) {
+    form = form || document.getElementById("adminNewcamMatchForm");
+    if (!form) return;
+    const max = newcamFormatMaxSets(form.elements.match_format?.value || "9판5선");
+    form.querySelectorAll("[data-newcam-set-row]").forEach(rowEl => {
+      const no = Number(rowEl.dataset.newcamSetRow || 0);
+      const hide = no > max;
+      rowEl.style.display = hide ? "none" : "";
+      if (hide) rowEl.querySelectorAll("select").forEach(sel => { sel.value = ""; });
+    });
+  }
+
   function refreshAdminNewcamMatchForm() {
     const form = document.getElementById("adminNewcamMatchForm");
     if (!form) return;
+    applyNewcamFormatRows(form);
     const teamA = form.elements.team_a_key?.value || "";
     const teamB = form.elements.team_b_key?.value || "";
     form.querySelectorAll("[data-newcam-player-side]").forEach(select => {
@@ -11661,11 +11681,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     }
     if (!games.length) throw new Error("저장할 세트 결과를 입력해주세요.");
+    const matchFormat = String(data.get("match_format") || "").trim();
+    const roundText = String(data.get("round_label") || "").trim();
     return {
       match: {
         match_type: String(data.get("match_type") || "scrim"),
         group_name: String(data.get("group_name") || ""),
-        round_label: String(data.get("round_label") || "").trim(),
+        round_label: [matchFormat, roundText].filter(Boolean).join(" · "),
         team_a_key: teamA,
         team_b_key: teamB,
         played_at: datetimeLocalToIso(String(data.get("played_at") || "")),
@@ -13850,6 +13872,11 @@ function createMemberCard(member) {
     if (!newcamForm) return;
     if (event.target.closest("[data-newcam-team-select]")) {
       refreshAdminNewcamMatchForm();
+      return;
+    }
+    if (event.target.closest("[data-newcam-format]")) {
+      applyNewcamFormatRows(newcamForm);
+      updateAdminNewcamMatchPreview(newcamForm);
       return;
     }
     updateAdminNewcamMatchPreview(newcamForm);
