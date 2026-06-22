@@ -253,7 +253,7 @@ select.entry-control option{background:#071321;color:#eef6ff}
 .auction-player b{display:block;color:#eef6ff;font-size:12.5px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .auction-player small{display:block;color:#8fa6c2;font-size:11px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .auction-points{color:#ffd36a;font-size:11.5px;font-weight:950;white-space:nowrap}
-.auction-board{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,3.5fr) minmax(0,2.5fr);gap:14px;padding:0 16px 16px}
+.auction-board{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,3fr) minmax(0,2fr);gap:14px;padding:0 16px 16px}
 .auction-record-block{margin-top:10px}
 .auction-section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 8px;color:#9fc0ea;font-size:12px;font-weight:950}
 .auction-mode-tabs{display:flex;gap:6px}
@@ -7031,7 +7031,8 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
     }
     function entryAuctionStandingTable(rows){
       const ranked=entryAuctionRankRows(rows);
-      return '<div class="entry-stat-scroll"><table><colgroup><col style="width:58px"><col><col style="width:70px"><col style="width:70px"><col style="width:78px"></colgroup><thead><tr><th>순위</th><th>팀</th><th>승</th><th>패</th><th>경기</th></tr></thead><tbody>'+ranked.map(row=>'<tr><td>'+row.rank+'위</td><td>'+escapeHtml(row.name)+'</td><td>'+row.wins+'</td><td>'+row.losses+'</td><td>'+row.games+'</td></tr>').join('')+'</tbody></table></div>';
+      const teamShort=t=>String(t||'').replace(/\s*[\(（].*$/,'').trim(); // 순위표 영역에서만 팀명 괄호 제거
+      return '<div class="entry-stat-scroll"><table><colgroup><col style="width:58px"><col><col style="width:70px"><col style="width:70px"><col style="width:78px"></colgroup><thead><tr><th>순위</th><th>팀</th><th>승</th><th>패</th><th>경기</th></tr></thead><tbody>'+ranked.map(row=>'<tr><td>'+row.rank+'위</td><td>'+escapeHtml(teamShort(row.name))+'</td><td>'+row.wins+'</td><td>'+row.losses+'</td><td>'+row.games+'</td></tr>').join('')+'</tbody></table></div>';
     }
     function entryAuctionOfficialStandings(){
       const groupA=entryAuctionApplyMatches(entryAuctionBaseRows('official','A'),'official');
