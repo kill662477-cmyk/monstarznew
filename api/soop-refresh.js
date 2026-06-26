@@ -1,4 +1,5 @@
 const soopRefreshRateBuckets = globalThis.__MONSTARZ_SOOP_REFRESH_BUCKETS || (globalThis.__MONSTARZ_SOOP_REFRESH_BUCKETS = new Map());
+const SOOP_DEFAULT_REDIRECT_URI = "https://monstarznew.vercel.app/";
 
 function rateLimit(req, res) {
   const ip = String(req.headers["x-forwarded-for"] || req.headers["x-real-ip"] || req.socket?.remoteAddress || "unknown").split(",")[0].trim();
@@ -31,6 +32,7 @@ export default async function handler(req, res) {
 
     const clientId = process.env.SOOP_CLIENT_ID || body.client_id;
     const clientSecret = process.env.SOOP_CLIENT_SECRET;
+    const redirectUri = process.env.SOOP_REDIRECT_URI || body.redirect_uri || SOOP_DEFAULT_REDIRECT_URI;
     const refreshToken = body.refresh_token || body.refreshToken;
 
     if (!clientId) throw new Error("Missing SOOP_CLIENT_ID.");
@@ -41,6 +43,7 @@ export default async function handler(req, res) {
     form.set("grant_type", "refresh_token");
     form.set("client_id", clientId);
     form.set("client_secret", clientSecret);
+    form.set("redirect_uri", redirectUri);
     form.set("refresh_token", refreshToken);
 
     const soopRes = await fetch("https://openapi.sooplive.com/auth/token", {
