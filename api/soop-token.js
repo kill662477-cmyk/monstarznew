@@ -13,7 +13,7 @@ function rateLimit(req, res) {
   bucket.count += 1;
   if (bucket.count <= max) return true;
   res.setHeader("Retry-After", String(Math.ceil((bucket.resetAt - now) / 1000)));
-  res.status(429).json({ error: "rate_limited", code: "RATE_LIMITED", message: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요." });
+  res.status(429).json({ error: "rate_limited", code: "RATE_LIMITED", message: "Too many requests. Please try again soon." });
   return false;
 }
 
@@ -31,19 +31,16 @@ export default async function handler(req, res) {
 
     const clientId = process.env.SOOP_CLIENT_ID || body.client_id;
     const clientSecret = process.env.SOOP_CLIENT_SECRET;
-    const redirectUri = process.env.SOOP_REDIRECT_URI || body.redirect_uri;
     const code = body.code || body.authCode;
 
-    if (!clientId) throw new Error("SOOP_CLIENT_ID 환경변수가 없습니다.");
-    if (!clientSecret) throw new Error("SOOP_CLIENT_SECRET 환경변수가 없습니다.");
-    if (!redirectUri) throw new Error("SOOP_REDIRECT_URI 또는 redirect_uri가 없습니다.");
-    if (!code) throw new Error("code/authCode가 없습니다.");
+    if (!clientId) throw new Error("Missing SOOP_CLIENT_ID.");
+    if (!clientSecret) throw new Error("Missing SOOP_CLIENT_SECRET.");
+    if (!code) throw new Error("Missing code/authCode.");
 
     const form = new URLSearchParams();
     form.set("grant_type", "authorization_code");
     form.set("client_id", clientId);
     form.set("client_secret", clientSecret);
-    form.set("redirect_uri", redirectUri);
     form.set("code", code);
 
     const soopRes = await fetch("https://openapi.sooplive.com/auth/token", {
@@ -66,8 +63,8 @@ export default async function handler(req, res) {
     if (!soopRes.ok || data.error) {
       return res.status(soopRes.status || 500).json({
         error: data.error || "soop_token_error",
-        code: "SOOP_TOKEN_ERROR",
-        message: data.message || data.error_description || "SOOP 토큰 발급에 실패했습니다."
+        code: data.code || "SOOP_TOKEN_ERROR",
+        message: data.message || data.error_description || raw || "SOOP token request failed."
       });
     }
 
@@ -76,7 +73,7 @@ export default async function handler(req, res) {
     return res.status(500).json({
       error: "server_error",
       code: "SERVER_ERROR",
-      message: err.message || "SOOP 토큰 발급을 처리하지 못했습니다."
+      message: err.message || String(err)
     });
   }
 }
