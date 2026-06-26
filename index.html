@@ -37,6 +37,33 @@
 </script>
 <script>
 (function () {
+  const STATE_PREFIX = "kammonbridge.";
+  const ALLOWED_RETURN_PREFIX = "https://kill662477-cmyk.github.io/calmmongrow/";
+  const params = new URLSearchParams(window.location.search || "");
+  const authCode = params.get("authCode") || params.get("code");
+  const state = params.get("state") || "";
+  if (!authCode || !state.startsWith(STATE_PREFIX)) return;
+
+  function decodeBase64Url(value) {
+    const base64 = String(value || "").replace(/-/g, "+").replace(/_/g, "/");
+    const padded = base64 + "=".repeat((4 - base64.length % 4) % 4);
+    return atob(padded);
+  }
+
+  try {
+    const returnUrl = decodeBase64Url(state.split(".")[1] || "");
+    const target = new URL(returnUrl);
+    if (!target.href.startsWith(ALLOWED_RETURN_PREFIX)) return;
+    target.searchParams.set("authCode", authCode);
+    target.searchParams.set("state", state);
+    window.location.replace(target.toString());
+  } catch (error) {
+    console.warn("[KAMMON SOOP BRIDGE]", error);
+  }
+})();
+</script>
+<script>
+(function () {
   const MOBILE_PATH = "/mobile/";
   const params = new URLSearchParams(window.location.search);
 
