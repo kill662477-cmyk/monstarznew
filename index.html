@@ -1955,10 +1955,15 @@ body.light-mode .inout-filter-btn.active {
   grid-template-columns: repeat(6,minmax(0,1fr));
 }
 
-.youtube-section-tools {
+.youtube-list-toolbar {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: flex-start;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--sr-line);
+  border-bottom: 0;
+  background: var(--sr-board-bg);
 }
 
 .youtube-type-tabs {
@@ -2024,6 +2029,10 @@ body.light-mode .youtube-type-tab.active {
   border-color: #2563eb;
   background: #1d4ed8;
   color: #ffffff;
+}
+
+#youtubeScreen .youtube-grid {
+  margin-top: 0;
 }
 
 .youtube-title {
@@ -7535,6 +7544,40 @@ body.funding-overlay-host .funding-temp-frame {
   cursor: pointer;
 }
 
+.home-video-tabs {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid rgba(88,154,255,.22);
+  background: rgba(4,14,30,.34);
+}
+
+.home-video-tab {
+  min-width: 68px;
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #9eb8dd;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 950;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.home-video-tab.active {
+  border-color: rgba(96,165,250,.42);
+  background: #174f9f;
+  color: #ffffff;
+}
+
+.home-video-tab:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
 .hub-list {
   display: grid;
   gap: 8px;
@@ -8727,6 +8770,21 @@ body.light-mode .cctv-open:hover {
   background: rgba(37,99,235,.16) !important;
 }
 
+body.light-mode .home-video-tabs {
+  border-color: rgba(37,99,235,.18);
+  background: #eef5ff;
+}
+
+body.light-mode .home-video-tab {
+  color: #526987;
+}
+
+body.light-mode .home-video-tab.active {
+  border-color: #2563eb;
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
 body.light-mode .home-live-empty span {
   color: #13233a !important;
 }
@@ -9192,19 +9250,8 @@ body.light-mode .notice-feed-sub {
 }
 
 @media (max-width: 760px) {
-  #youtubeScreen .section-head {
-    align-items: flex-start;
-  }
-
-  .youtube-section-tools {
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-
   .youtube-type-tabs {
-    flex: 1 1 auto;
+    width: 100%;
   }
 
   .youtube-type-tab {
@@ -9400,7 +9447,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div id="homeInoutList" class="hub-list"></div>
           </article>
           <article class="hub-panel fantube-panel">
-            <div class="hub-panel-head"><div class="hub-panel-copy"><h3>최신 팬튜브</h3></div><button class="panel-link" type="button" data-nav-tab="youtube">팬튜브</button></div>
+            <div class="hub-panel-head">
+              <div class="hub-panel-copy"><h3 id="homeVideoTitle">최신 팬튜브</h3></div>
+              <div id="homeVideoTabs" class="home-video-tabs" role="tablist" aria-label="홈 영상 유형">
+                <button class="home-video-tab active" type="button" role="tab" aria-selected="true" data-home-youtube-type="longform">팬튜브</button>
+                <button class="home-video-tab" type="button" role="tab" aria-selected="false" data-home-youtube-type="shorts">SHORTS</button>
+              </div>
+            </div>
             <div id="homeVideoList" class="hub-list"></div>
           </article>
           <article class="hub-panel boja-panel">
@@ -9530,13 +9583,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <section>
         <div class="section-head">
           <h2>팬튜브 모음</h2>
-          <div class="youtube-section-tools">
-            <div id="youtubeTypeTabs" class="youtube-type-tabs" role="tablist" aria-label="팬튜브 영상 유형">
-              <button class="youtube-type-tab active" type="button" role="tab" aria-selected="true" data-youtube-type="longform">팬튜브 <span id="youtubeLongformCount">0</span></button>
-              <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" data-youtube-type="shorts">SHORTS <span id="youtubeShortsCount">0</span></button>
-            </div>
-            <div class="count" id="youtubeCount">0개</div>
-          </div>
+          <div class="count" id="youtubeCount">0개</div>
         </div>
         <div id="youtubePlayer" class="youtube-player-card hidden">
           <div class="youtube-player-frame">
@@ -9549,6 +9596,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <button id="youtubeAutoplayToggle" class="youtube-autoplay-toggle" type="button" aria-pressed="false">자동재생 OFF</button>
               <a id="youtubePlayerOpen" class="youtube-open-link" href="#" target="_blank" rel="noopener noreferrer">유튜브에서 열기</a>
             </div>
+          </div>
+        </div>
+        <div class="youtube-list-toolbar">
+          <div id="youtubeTypeTabs" class="youtube-type-tabs" role="tablist" aria-label="팬튜브 영상 유형">
+            <button class="youtube-type-tab active" type="button" role="tab" aria-selected="true" data-youtube-type="longform">팬튜브 <span id="youtubeLongformCount">0</span></button>
+            <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" data-youtube-type="shorts">SHORTS <span id="youtubeShortsCount">0</span></button>
           </div>
         </div>
         <div id="youtubeList" class="youtube-grid">
@@ -10284,6 +10337,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let youtubeAllItems = [];
   let youtubeItems = [];
   let youtubeTypeFilter = "longform";
+  let homeYoutubeTypeFilter = "longform";
   let otherVideoItems = [];
   let activeOtherVideoUrl = "";
   let youtubeLoadError = false;
@@ -10332,6 +10386,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const homeScheduleList = document.getElementById("homeScheduleList");
   const homeNoticeList = document.getElementById("homeNoticeList");
   const homeVideoList = document.getElementById("homeVideoList");
+  const homeVideoTitle = document.getElementById("homeVideoTitle");
+  const homeVideoTabs = document.getElementById("homeVideoTabs");
   const homeBojaList = document.getElementById("homeBojaList");
   const homeOtherList = document.getElementById("homeOtherList");
   const homeInoutList = document.getElementById("homeInoutList");
@@ -11083,14 +11139,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     })).filter(item => item.url).slice(0, limit);
   }
 
+  function updateHomeYoutubeTabs() {
+    if (homeVideoTitle) homeVideoTitle.textContent = homeYoutubeTypeFilter === "shorts" ? "최신 SHORTS" : "최신 팬튜브";
+    homeVideoTabs?.querySelectorAll("[data-home-youtube-type]").forEach(button => {
+      const active = button.dataset.homeYoutubeType === homeYoutubeTypeFilter;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-selected", active ? "true" : "false");
+      button.tabIndex = active ? 0 : -1;
+    });
+  }
+
+  function setHomeYoutubeTypeFilter(nextType) {
+    if (!["longform", "shorts"].includes(nextType) || nextType === homeYoutubeTypeFilter) return;
+    homeYoutubeTypeFilter = nextType;
+    renderHomeDashboard();
+  }
+
   function getHomeVideoItems() {
-    return sortYoutubeItems(youtubeAllItems).slice(0, 5);
+    return sortYoutubeItems(
+      youtubeAllItems.filter(item => homeYoutubeTypeFilter === "shorts" ? isYoutubeShort(item) : !isYoutubeShort(item))
+    ).slice(0, 5);
   }
 
   function renderHomeDashboard() {
     const allMembers = getAllMembersWithStatus();
     const liveMembers = sortHomeLiveMembers(allMembers.filter(member => member.status === "live"));
     const playerCountValue = allMembers.filter(member => member.type === "player").length;
+    updateHomeYoutubeTabs();
 
     if (homeHeroStats) {
       homeHeroStats.innerHTML = [
@@ -14308,6 +14383,16 @@ function createMemberCard(member) {
     event.preventDefault();
     setYoutubeTypeFilter(youtubeTypeFilter === "longform" ? "shorts" : "longform");
     youtubeTypeTabs.querySelector(".youtube-type-tab.active")?.focus();
+  });
+  homeVideoTabs?.addEventListener("click", event => {
+    const button = event.target.closest("[data-home-youtube-type]");
+    if (button) setHomeYoutubeTypeFilter(button.dataset.homeYoutubeType);
+  });
+  homeVideoTabs?.addEventListener("keydown", event => {
+    if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+    event.preventDefault();
+    setHomeYoutubeTypeFilter(homeYoutubeTypeFilter === "longform" ? "shorts" : "longform");
+    homeVideoTabs.querySelector(".home-video-tab.active")?.focus();
   });
   inoutSearchInput?.addEventListener("input", renderInout);
   [inoutFilterIn, inoutFilterOut, inoutFilterAll].forEach((button) => {
