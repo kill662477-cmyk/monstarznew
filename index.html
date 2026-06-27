@@ -1955,6 +1955,77 @@ body.light-mode .inout-filter-btn.active {
   grid-template-columns: repeat(6,minmax(0,1fr));
 }
 
+.youtube-section-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.youtube-type-tabs {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid rgba(100,151,225,.22);
+  background: rgba(4,14,30,.38);
+}
+
+.youtube-type-tab {
+  min-width: 92px;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--sr-muted);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 950;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.youtube-type-tab span {
+  margin-left: 4px;
+  color: inherit;
+  font-size: 10px;
+}
+
+.youtube-type-tab:hover {
+  color: var(--sr-title);
+  background: rgba(96,165,250,.10);
+}
+
+.youtube-type-tab.active {
+  border-color: rgba(96,165,250,.42);
+  background: #174f9f;
+  color: #f8fbff;
+}
+
+.youtube-type-tab:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+body.light-mode .youtube-type-tabs {
+  border-color: rgba(37,99,235,.18);
+  background: #eef5ff;
+}
+
+body.light-mode .youtube-type-tab {
+  color: #526987;
+}
+
+body.light-mode .youtube-type-tab:hover {
+  color: #17335d;
+  background: rgba(37,99,235,.09);
+}
+
+body.light-mode .youtube-type-tab.active {
+  border-color: #2563eb;
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
 .youtube-title {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -9121,6 +9192,25 @@ body.light-mode .notice-feed-sub {
 }
 
 @media (max-width: 760px) {
+  #youtubeScreen .section-head {
+    align-items: flex-start;
+  }
+
+  .youtube-section-tools {
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .youtube-type-tabs {
+    flex: 1 1 auto;
+  }
+
+  .youtube-type-tab {
+    min-width: 0;
+  }
+
   .notice-feed-card,
   .notice-feed-card.has-thumbnail {
     grid-template-columns: 46px minmax(0, 1fr);
@@ -9440,7 +9530,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <section>
         <div class="section-head">
           <h2>팬튜브 모음</h2>
-          <div class="count" id="youtubeCount">0개</div>
+          <div class="youtube-section-tools">
+            <div id="youtubeTypeTabs" class="youtube-type-tabs" role="tablist" aria-label="팬튜브 영상 유형">
+              <button class="youtube-type-tab active" type="button" role="tab" aria-selected="true" data-youtube-type="longform">팬튜브 <span id="youtubeLongformCount">0</span></button>
+              <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" data-youtube-type="shorts">SHORTS <span id="youtubeShortsCount">0</span></button>
+            </div>
+            <div class="count" id="youtubeCount">0개</div>
+          </div>
         </div>
         <div id="youtubePlayer" class="youtube-player-card hidden">
           <div class="youtube-player-frame">
@@ -10185,7 +10281,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let liveStatusMap = {};
   let liveInfoMap = {};
   let lastCheckedAt = TEAM.updatedAt;
+  let youtubeAllItems = [];
   let youtubeItems = [];
+  let youtubeTypeFilter = "longform";
   let otherVideoItems = [];
   let activeOtherVideoUrl = "";
   let youtubeLoadError = false;
@@ -10331,6 +10429,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   const youtubeList = document.getElementById("youtubeList");
   const youtubeCount = document.getElementById("youtubeCount");
+  const youtubeTypeTabs = document.getElementById("youtubeTypeTabs");
+  const youtubeLongformCount = document.getElementById("youtubeLongformCount");
+  const youtubeShortsCount = document.getElementById("youtubeShortsCount");
   const youtubePlayer = document.getElementById("youtubePlayer");
   const youtubePlayerMount = document.getElementById("youtubePlayerMount");
   const youtubePlayerTitle = document.getElementById("youtubePlayerTitle");
@@ -10830,6 +10931,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       return;
     }
     // 기본: 팬튜브(youtube)
+    const targetItem = (youtubeAllItems || []).find(v => getVideoUrl(v) === url);
+    if (targetItem) {
+      youtubeTypeFilter = isYoutubeShort(targetItem) ? "shorts" : "longform";
+      selectedYoutubeIndex = 0;
+      destroyYoutubePlayer();
+    }
     showTabByKey("youtube");
     const idx = (youtubeItems || []).findIndex(v => getVideoUrl(v) === url);
     if (idx >= 0) selectYoutubeVideo(idx, true, false);
@@ -10977,7 +11084,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function getHomeVideoItems() {
-    return youtubeItems.slice(0, 5);
+    return sortYoutubeItems(youtubeAllItems).slice(0, 5);
   }
 
   function renderHomeDashboard() {
@@ -11151,7 +11258,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function getAdminVideoRows() {
-    const yt = (youtubeItems || []).map(v => ({
+    const yt = (youtubeAllItems || []).map(v => ({
       title: v.title || "영상",
       platform: v.sourceName || "YouTube",
       member: v.name || v.channelTitle || "-",
@@ -13104,7 +13211,81 @@ function createMemberCard(member) {
     void selectBojaVideo(selectedBojaIndex, false);
   }
 
+  function isYoutubeShort(item) {
+    const explicit = [item?.isShort, item?.is_short, item?.shorts].find(value => value !== undefined && value !== null && value !== "");
+    if (typeof explicit === "boolean") return explicit;
+    if (typeof explicit === "number") return explicit === 1;
+    if (typeof explicit === "string") {
+      const normalized = explicit.trim().toLowerCase();
+      if (["true", "1", "yes", "short", "shorts"].includes(normalized)) return true;
+      if (["false", "0", "no", "long", "longform"].includes(normalized)) return false;
+    }
+
+    const typeText = [item?.videoType, item?.video_type, item?.contentType, item?.content_type, item?.format]
+      .map(value => String(value || "").trim().toLowerCase())
+      .filter(Boolean)
+      .join(" ");
+    if (typeText.includes("short")) return true;
+    if (typeText.includes("longform") || typeText.includes("long-form")) return false;
+
+    const videoUrl = [item?.url, item?.link, item?.embedUrl].map(value => String(value || "")).join(" ");
+    if (/youtube\.com\/shorts\//i.test(videoUrl)) return true;
+
+    // 현재 캄냥이 RSS는 Shorts 경로와 재생시간이 빠진 채 내려온다.
+    const sourceText = [item?.sourceName, item?.name, item?.channelTitle]
+      .map(value => String(value || "").replace(/\s+/g, "").toLowerCase())
+      .join(" ");
+    const sourceMethod = String(item?.sourceMethod || "").trim().toLowerCase();
+    const lengthText = String(item?.lengthText || "").trim();
+    const durationSeconds = lengthText
+      ? lengthText.split(":").reduce((total, part) => (total * 60) + Number(part || 0), 0)
+      : 0;
+    if (sourceText.includes("캄냥이") && ((!lengthText && sourceMethod === "rss") || (durationSeconds > 0 && durationSeconds <= 180))) return true;
+
+    return false;
+  }
+
+  function sortYoutubeItems(items) {
+    return (items || [])
+      .slice()
+      .sort((a, b) => {
+        const pinDiff = Number(Boolean(b.isPinned || b.is_pinned)) - Number(Boolean(a.isPinned || a.is_pinned));
+        if (pinDiff) return pinDiff;
+        const timeDiff = getYoutubeSortTime(b) - getYoutubeSortTime(a);
+        if (timeDiff) return timeDiff;
+        const manualSortDiff = Number(a.sortOrder || 0) - Number(b.sortOrder || 0);
+        if (manualSortDiff) return manualSortDiff;
+        return (a._order || 0) - (b._order || 0);
+      });
+  }
+
+  function updateYoutubeTypeTabs() {
+    const shortsCount = youtubeAllItems.filter(isYoutubeShort).length;
+    const longformCount = youtubeAllItems.length - shortsCount;
+    if (youtubeLongformCount) youtubeLongformCount.textContent = String(longformCount);
+    if (youtubeShortsCount) youtubeShortsCount.textContent = String(shortsCount);
+    youtubeTypeTabs?.querySelectorAll("[data-youtube-type]").forEach(button => {
+      const active = button.dataset.youtubeType === youtubeTypeFilter;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-selected", active ? "true" : "false");
+      button.tabIndex = active ? 0 : -1;
+    });
+  }
+
+  function setYoutubeTypeFilter(nextType) {
+    if (!["longform", "shorts"].includes(nextType) || nextType === youtubeTypeFilter) return;
+    youtubeTypeFilter = nextType;
+    selectedYoutubeIndex = 0;
+    destroyYoutubePlayer();
+    renderYoutube();
+  }
+
   function renderYoutube() {
+    updateYoutubeTypeTabs();
+    youtubeItems = sortYoutubeItems(
+      youtubeAllItems.filter(item => youtubeTypeFilter === "shorts" ? isYoutubeShort(item) : !isYoutubeShort(item))
+    ).slice(0, 30);
+
     if (!youtubeItems.length) {
       youtubeCount.textContent = "0개";
       // 기존 재생 중인 영상까지 지우지 않도록, 데이터가 없을 때만 플레이어 숨김 처리
@@ -13112,7 +13293,10 @@ function createMemberCard(member) {
         youtubePlayer.classList.add("hidden");
         destroyYoutubePlayer();
       }
-      youtubeList.innerHTML = renderPageEmpty(youtubeLoadError ? UI_ERROR_TEXT : UI_EMPTY_TEXT, youtubeLoadError ? "error" : "empty");
+      const emptyText = youtubeLoadError
+        ? UI_ERROR_TEXT
+        : (youtubeTypeFilter === "shorts" ? "등록된 SHORTS 영상이 없습니다." : "등록된 팬튜브 영상이 없습니다.");
+      youtubeList.innerHTML = renderPageEmpty(emptyText, youtubeLoadError ? "error" : "empty");
       updateYoutubeAutoplayButton();
       renderHomeDashboard();
       renderVideosHub();
@@ -13120,22 +13304,6 @@ function createMemberCard(member) {
     }
 
     const playingVideoId = currentYoutubeVideoId;
-
-    youtubeItems = youtubeItems
-      .slice()
-      .sort((a, b) => {
-        const pinDiff = Number(Boolean(b.isPinned || b.is_pinned)) - Number(Boolean(a.isPinned || a.is_pinned));
-        if (pinDiff) return pinDiff;
-        // 날짜(최신순) 우선. sort_order 는 동일 날짜의 보조 정렬로만 사용한다.
-        // (큐레이션 영상의 sort_order 는 이미 날짜순이라 결과가 같고,
-        //  Supabase 에 없는 피드 영상이 sort_order=0 으로 상단에 몰리는 문제를 막는다.)
-        const timeDiff = getYoutubeSortTime(b) - getYoutubeSortTime(a);
-        if (timeDiff) return timeDiff;
-        const manualSortDiff = Number(a.sortOrder || 0) - Number(b.sortOrder || 0);
-        if (manualSortDiff) return manualSortDiff;
-        return (a._order || 0) - (b._order || 0);
-      })
-      .slice(0, 30);
 
     if (playingVideoId) {
       const playingIndex = youtubeItems.findIndex((item) => item.videoId === playingVideoId);
@@ -13233,14 +13401,14 @@ function createMemberCard(member) {
         throw normalResult?.error || kamriniResult?.error || results.find(result => result.status === "rejected")?.reason || new Error("영상 데이터 없음");
       }
 
-      youtubeItems = [
+      const fetchedYoutubeItems = [
         ...normalItems.map((item, index) => normalizeYoutubeItem(item, item.name || item.channelTitle || "팬유튜브", index)),
         ...kamriniItems.map((item, index) => normalizeYoutubeItem(item, "캄린이", 10000 + index))
       ].filter(item => item.videoId && item.url);
 
-      let mergedVideoItems = youtubeItems;
+      let mergedVideoItems = fetchedYoutubeItems;
       if (svc?.mergeVideoMeta) {
-        mergedVideoItems = await svc.mergeVideoMeta(youtubeItems);
+        mergedVideoItems = await svc.mergeVideoMeta(fetchedYoutubeItems);
       }
 
       const seen = new Set();
@@ -13251,20 +13419,21 @@ function createMemberCard(member) {
         return true;
       });
       otherVideoItems = uniqueItems.filter(isOtherVideoItem);
-      youtubeItems = uniqueItems.filter(item => !isOtherVideoItem(item));
+      youtubeAllItems = uniqueItems.filter(item => !isOtherVideoItem(item));
 
-      youtubeLoadError = Boolean(hasFreshFailure && youtubeItems.length === 0);
+      youtubeLoadError = Boolean(hasFreshFailure && youtubeAllItems.length === 0);
       lastYoutubeCheckedAt = normalData?.checkedAt || kamriniData?.scrapedAt || normalResult?.updatedAt || kamriniResult?.updatedAt || "";
       renderYoutube();
       renderOtherVideos();
       renderHomeDashboard();
       renderVideosHub();
-      console.log("유튜브 데이터 업데이트 성공", { normalData, kamriniData, total: youtubeItems.length, other: otherVideoItems.length });
+      console.log("유튜브 데이터 업데이트 성공", { normalData, kamriniData, total: youtubeAllItems.length, other: otherVideoItems.length });
     } catch (error) {
       console.log("유튜브 데이터 가져오기 실패", error);
       youtubeLoadError = true;
       // 재생 중 네트워크 오류가 나도 기존 목록/플레이어를 유지해서 영상이 끊기지 않게 함.
       if (!youtubePlayerActive) {
+        youtubeAllItems = [];
         youtubeItems = [];
         otherVideoItems = [];
         renderYoutube();
@@ -14130,6 +14299,16 @@ function createMemberCard(member) {
     showTabByKey(navTarget.getAttribute("data-nav-tab"));
   });
   youtubeAutoplayToggle.addEventListener("click", toggleYoutubeAutoplay);
+  youtubeTypeTabs?.addEventListener("click", event => {
+    const button = event.target.closest("[data-youtube-type]");
+    if (button) setYoutubeTypeFilter(button.dataset.youtubeType);
+  });
+  youtubeTypeTabs?.addEventListener("keydown", event => {
+    if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+    event.preventDefault();
+    setYoutubeTypeFilter(youtubeTypeFilter === "longform" ? "shorts" : "longform");
+    youtubeTypeTabs.querySelector(".youtube-type-tab.active")?.focus();
+  });
   inoutSearchInput?.addEventListener("input", renderInout);
   [inoutFilterIn, inoutFilterOut, inoutFilterAll].forEach((button) => {
     button?.addEventListener("click", () => {
