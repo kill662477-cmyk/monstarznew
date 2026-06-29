@@ -3190,12 +3190,7 @@
       "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/kt/kthrs9207/kthrs9207.jpg",
       "station": "https://www.sooplive.com/station/kthrs9207",
       "stationStatus": 200,
-      "academy": {
-        "id": 22,
-        "name": "캄몬스타즈",
-        "image": "assets/academy/22.jpg",
-        "position": "코치"
-      },
+      "academy": null,
       "monthWinRate": null,
       "yearWinRate": null,
       "winRate": "",
@@ -9004,12 +8999,7 @@
       "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/wl/wlswn6565/wlswn6565.jpg",
       "station": "https://www.sooplive.com/station/wlswn6565",
       "stationStatus": 200,
-      "academy": {
-        "id": 22,
-        "name": "캄몬스타즈",
-        "image": "assets/academy/22.jpg",
-        "position": ""
-      },
+      "academy": null,
       "monthWinRate": 46.3,
       "yearWinRate": 52.6,
       "winRate": "46%",
