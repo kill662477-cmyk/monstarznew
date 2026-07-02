@@ -38,10 +38,18 @@ function playerRow(row) {
   };
 }
 
+// match_type 정규화: 관리자 수동수정 중 생긴 오타(officail 등)까지 흡수
+function normalizeMatchType(value) {
+  const t = String(value || "").trim().toLowerCase();
+  if (t.indexOf("offic") === 0 || t === "본경기") return "official";
+  if (t.indexOf("final") === 0 || t === "결승") return "final";
+  return "scrim";
+}
+
 function matchRow(row) {
   return {
     id: row.id,
-    match_type: row.match_type || "scrim",
+    match_type: normalizeMatchType(row.match_type),
     group_name: row.group_name || "",
     round_label: row.round_label || "",
     team_a_key: row.team_a_key || "",
@@ -57,7 +65,7 @@ function matchPlayerRow(row) {
   return {
     id: row.id,
     match_id: row.match_id || "",
-    match_type: row.match_type || "scrim",
+    match_type: normalizeMatchType(row.match_type),
     game_no: Number(row.game_no || 0),
     map_name: row.map_name || "",
     team_key: row.team_key || "",
