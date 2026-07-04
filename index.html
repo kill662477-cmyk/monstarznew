@@ -15659,7 +15659,19 @@ ${line}` : line;
     }
   }
 
+  function isPinballSoopAuthReturn() {
+    try {
+      const params = new URLSearchParams(location.search || "");
+      if (!(params.has("code") || params.has("authCode"))) return false;
+      const returnTab = sessionStorage.getItem("soopReturnTab") || "";
+      return returnTab === "pinballDonation" || params.get("tab") === "pinballDonation";
+    } catch (error) {
+      return false;
+    }
+  }
+
   async function finishSoopAuthFromUrl() {
+    if (!isPinballSoopAuthReturn()) return false;
     const params = new URLSearchParams(location.search || "");
     const authCode = params.get("authCode") || params.get("code");
     if (!authCode) return false;
