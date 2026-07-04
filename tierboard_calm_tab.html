@@ -7673,7 +7673,6 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
     tierStack.addEventListener('click',e=>{ const rec=e.target.closest('.record-action'); if(rec) openRecord(rec.dataset.playerKey); const toggle=e.target.closest('.live-first-toggle'); if(toggle){ filters.liveFirst=toggle.checked; render(); } });
     viewTabs.addEventListener('click',e=>{ const btn=e.target.closest('[data-view]'); if(!btn) return; setMainView(btn.dataset.view); });
     entryBoardTabs.addEventListener('click',e=>{ const btn=e.target.closest('[data-entry-board]'); if(!btn) return; setEntryBoard(btn.dataset.entryBoard); });
-    entryAuctionModeTabs.addEventListener('click',e=>{ const btn=e.target.closest('[data-auction-mode]'); if(!btn) return; entryState.auctionMode=btn.dataset.auctionMode==='official'?'official':'scrim'; renderEntryAuctionPanel(); });
     entryAcademyA.addEventListener('change',()=>{ entryState.academyA=entryAcademyA.value; entryState.defaultAcademyAApplied=true; entryState.simulation=null; renderEntry(); });
     entryAcademyB.addEventListener('change',()=>{ entryState.academyB=entryAcademyB.value; entryState.simulation=null; renderEntry(); });
     entrySearchA.addEventListener('input',()=>{ entryState.searchA=entrySearchA.value; clearTimeout(entryRenderTimer); entryRenderTimer=setTimeout(renderEntry,90); });
