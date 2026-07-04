@@ -429,7 +429,6 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
     <section class="entry-tool" id="entryTool" hidden>
       <div class="entry-board-tabs" id="entryBoardTabs" role="tablist" aria-label="엔트리 종류">
         <button class="entry-board-tab active" type="button" role="tab" aria-selected="true" data-entry-board="main">메인</button>
-        <button class="entry-board-tab" type="button" role="tab" aria-selected="false" data-entry-board="auction">특별 뉴캄옥션</button>
       </div>
       <section class="entry-card">
         <div class="entry-card-head">
@@ -499,58 +498,11 @@ html.light .entry-auction-matchlog-card .auction-game-player.win{color:#0f9646}
           </div>
         </div>
       </section>
-      <section class="entry-card entry-auction-card" id="entryAuctionPanel" hidden>
-        <div class="entry-card-head">
-          <div>
-            <div class="entry-title">특별 뉴캄옥션</div>
-            <div class="entry-sub">6팀 이벤트 운영판</div>
-          </div>
-          <div class="auction-mode-tabs" id="entryAuctionModeTabs" role="tablist" aria-label="뉴캄옥션 기록 종류">
-            <button class="auction-mode-tab" type="button" data-auction-mode="scrim">스크림</button>
-            <button class="auction-mode-tab" type="button" data-auction-mode="official">본경기</button>
-          </div>
-        </div>
-        <div class="auction-grid" id="entryAuctionTeams"></div>
-        <div class="auction-board">
-          <section>
-            <div class="auction-section-title">
-              <span>순위표</span>
-            </div>
-            <div id="entryAuctionStandings"></div>
-          </section>
-          <section>
-            <div class="auction-section-title"><span>가성비</span></div>
-            <div class="auction-value-grid">
-              <div>
-                <div class="entry-two-up-title">최고의 가성비 TOP 5</div>
-                <div id="entryAuctionBestValues"></div>
-              </div>
-            </div>
-            <div id="entryAuctionCaptainValues"></div>
-          </section>
-          <section>
-            <div class="auction-section-title"><span>개인 기록</span></div>
-            <div><div class="entry-two-up-title">개인 다승왕 TOP 3</div><div id="entryAuctionTopWins"></div></div>
-            <div class="auction-record-block"><div class="entry-two-up-title">개인 다패왕 TOP 3</div><div id="entryAuctionTopLosses"></div></div>
-          </section>
-        </div>
-      </section>
       <section class="entry-card entry-results-card">
         <div class="entry-stat-table" id="entryStatsTable"></div>
         <div class="entry-sim-row">
           <div class="entry-match-table" id="entryMatchTable"></div>
           <div class="sim-result" id="entrySimulation"></div>
-        </div>
-      </section>
-      <section class="entry-card entry-auction-matchlog-card" id="entryAuctionMatchLogPanel" hidden>
-        <div class="entry-card-head">
-          <div>
-            <div class="entry-title">경기 기록</div>
-            <div class="entry-sub">SUPABASE 경기 결과 / 매치별 스코어</div>
-          </div>
-        </div>
-        <div class="entry-auction-matchlog-body">
-          <div id="entryAuctionMatchLog"></div>
         </div>
       </section>
     </section>
