@@ -13588,8 +13588,9 @@ function createMemberCard(member) {
     // which would throw an uncaught TypeError in the embed console.
     const observerGuardScript = "<script>(function(){if(typeof MutationObserver!==\"function\"||!MutationObserver.prototype)return;var isE=function(m){m=String(m||\"\");return m.indexOf(\"Failed to execute 'observe' on 'MutationObserver'\")!==-1&&m.indexOf(\"not of type 'Node'\")!==-1;};var prev=window.onerror;window.onerror=function(m,s,l,c,e){if(isE(m))return true;if(typeof prev===\"function\")return prev.apply(this,arguments);return false;};var o=MutationObserver.prototype.observe;MutationObserver.prototype.observe=function(t,op){if(!t||typeof t.nodeType!==\"number\")return;return o.call(this,t,op);};window.addEventListener(\"error\",function(e){if(isE(e&&e.message)){e.preventDefault();e.stopImmediatePropagation();return false;}},true);})();<\/script>";
     const injectedSearchScript = '<script>window.__FUNDING_EMBED_SEARCH__ = ' + JSON.stringify(embedSearch) + ';<\/script>';
-    const fundingDoc = FUNDING_TEMP_DOC.replace(/<script\s+src="https:\/\/www\.youtube\.com\/iframe_api"><\/script>\s*/i, "");
-    const nextSrcdoc = fundingDoc.replace('<head>', '<head>' + observerGuardScript + injectedSearchScript);
+    // observerGuardScript를 head 최상단(iframe_api 스크립트보다 먼저)에 두어 MutationObserver 패치가
+    // iframe_api 로드 전에 걸리도록 하되, iframe_api 스크립트 태그 자체는 유지해 유튜브 플레이어가 로드되게 한다.
+    const nextSrcdoc = FUNDING_TEMP_DOC.replace('<head>', '<head>' + observerGuardScript + injectedSearchScript);
     if (fundingTempFrame.srcdoc !== nextSrcdoc) {
       fundingTempFrame.srcdoc = nextSrcdoc;
     }
