@@ -1,0 +1,46 @@
+name: Sync External Schedule (tscam-schedule)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/3 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-external-schedule
+  cancel-in-progress: true
+
+jobs:
+  sync-schedule:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check Supabase environment
+        run: |
+          node -e "const hasUrl=Boolean(process.env.SUPABASE_URL||process.env.NEXT_PUBLIC_SUPABASE_URL); const hasKey=Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY||process.env.SUPABASE_SECRET_KEY); if(!hasUrl||!hasKey){ console.error('Missing required Supabase env'); process.exit(1); } console.log('Supabase env present');"
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+
+      - name: Sync external schedule
+        run: node scripts/sync-external-schedule.js
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
