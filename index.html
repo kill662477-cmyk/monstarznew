@@ -7945,22 +7945,99 @@ body.funding-overlay-host .funding-temp-frame {
   gap: 12px;
 }
 
-.schedule-embed-card {
+/* 자체 일정표 보드 (Supabase external_schedule_sync 미러 데이터) */
+.sb-board {
   grid-column: 1 / -1;
-  overflow: hidden;
-  min-height: min(820px, calc(100vh - 190px));
-  border: 1px solid rgba(137,192,255,.18);
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(10,31,60,.95), rgba(5,14,28,.98));
-  box-shadow: var(--sr-shadow);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 332px;
+  gap: 12px;
+  align-items: start;
+  --sbPanel: linear-gradient(180deg, rgba(10,31,60,.95), rgba(5,14,28,.98));
+  --sbCell: rgba(255,255,255,.025);
+  --sbLine: rgba(142,169,208,.16);
+  --sbText: #eef6ff;
+  --sbMuted: #8ea9c8;
+  --sbSun: #fb6b7e;
+  --sbSat: #5aa7ff;
+  --sbAccent: #2f80ed;
 }
-
-.schedule-embed-frame {
-  display: block;
-  width: 100%;
-  min-height: min(820px, calc(100vh - 190px));
-  border: 0;
-  background: #fff;
+body.light-mode .sb-board {
+  --sbPanel: linear-gradient(180deg, #ffffff, #eaf4ff);
+  --sbCell: rgba(29,116,255,.04);
+  --sbLine: rgba(36,99,168,.18);
+  --sbText: #13233a;
+  --sbMuted: #5f7390;
+  --sbSun: #e11d48;
+  --sbSat: #1d4ed8;
+}
+.sb-cal, .sb-card {
+  border: 1px solid var(--sbLine);
+  border-radius: 16px;
+  background: var(--sbPanel);
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  color: var(--sbText);
+}
+body.light-mode .sb-cal, body.light-mode .sb-card { box-shadow: 0 10px 24px rgba(52,108,176,.14); }
+.sb-cal { padding: 14px; }
+.sb-cal-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 11px; }
+.sb-cal-title { font-size: 19px; font-weight: 950; letter-spacing: -.04em; }
+.sb-cal-nav { display: flex; gap: 6px; }
+.sb-cal-nav button {
+  min-width: 52px; height: 30px; padding: 0 11px;
+  border: 1px solid var(--sbLine); border-radius: 999px;
+  background: var(--sbCell); color: var(--sbMuted);
+  font-size: 12px; font-weight: 950; cursor: pointer;
+}
+.sb-cal-nav button:hover { color: var(--sbText); border-color: rgba(47,128,237,.55); }
+.sb-cal-nav button.sb-today-btn { background: rgba(47,128,237,.16); color: var(--sbText); border-color: rgba(47,128,237,.45); }
+.sb-cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; }
+.sb-dow { text-align: center; padding: 3px 0 5px; font-size: 11px; font-weight: 950; color: var(--sbMuted); }
+.sb-dow.sun { color: var(--sbSun); }
+.sb-dow.sat { color: var(--sbSat); }
+.sb-day {
+  min-height: 84px; padding: 6px 7px;
+  border: 1px solid var(--sbLine); border-radius: 10px;
+  background: var(--sbCell);
+  display: flex; flex-direction: column; gap: 3px;
+  overflow: hidden;
+}
+.sb-day.out { opacity: .3; }
+.sb-day.has { background: rgba(47,128,237,.09); border-color: rgba(47,128,237,.28); }
+.sb-day.today { border-color: rgba(47,128,237,.9); box-shadow: inset 0 0 0 1px rgba(47,128,237,.55); background: rgba(47,128,237,.14); }
+.sb-day-num { font-size: 12px; font-weight: 950; color: var(--sbMuted); }
+.sb-day.sun .sb-day-num { color: var(--sbSun); }
+.sb-day.sat .sb-day-num { color: var(--sbSat); }
+.sb-day.today .sb-day-num { color: var(--sbText); }
+.sb-day-text { font-size: 11.5px; line-height: 1.34; font-weight: 850; color: var(--sbText); white-space: pre-line; word-break: keep-all; overflow: hidden; }
+.sb-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.sb-card { padding: 13px 14px; }
+.sb-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
+.sb-card-head b { font-size: 13px; font-weight: 950; letter-spacing: -.03em; }
+.sb-card-date { font-size: 11px; font-weight: 900; color: var(--sbMuted); }
+.sb-today-body { font-size: 14px; font-weight: 900; line-height: 1.5; white-space: pre-line; word-break: keep-all; }
+.sb-empty { color: var(--sbMuted); font-size: 12px; font-weight: 850; padding: 4px 0; }
+.sb-card.sb-mention { border-color: rgba(247,201,72,.38); background: linear-gradient(180deg, rgba(247,201,72,.10), rgba(5,14,28,.5)), var(--sbPanel); }
+body.light-mode .sb-card.sb-mention { background: linear-gradient(180deg, rgba(247,201,72,.14), rgba(255,255,255,.6)), var(--sbPanel); }
+.sb-mention-body { font-size: 13px; font-weight: 900; line-height: 1.5; white-space: pre-line; word-break: keep-all; }
+.sb-week { display: grid; gap: 5px; }
+.sb-week-row {
+  display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px; align-items: center;
+  min-height: 33px; padding: 4px 9px;
+  border: 1px solid var(--sbLine); border-radius: 9px; background: var(--sbCell);
+}
+.sb-week-row.today { border-color: rgba(47,128,237,.75); background: rgba(47,128,237,.13); }
+.sb-week-day { font-size: 11px; font-weight: 950; color: var(--sbMuted); text-align: center; }
+.sb-week-row.sun .sb-week-day { color: var(--sbSun); }
+.sb-week-row.sat .sb-week-day { color: var(--sbSat); }
+.sb-week-text { font-size: 12px; font-weight: 850; line-height: 1.35; white-space: pre-line; word-break: keep-all; }
+.sb-week-text.off { color: var(--sbMuted); font-weight: 800; }
+.sb-sync { text-align: right; font-size: 10px; font-weight: 850; color: var(--sbMuted); }
+.sb-state { grid-column: 1 / -1; padding: 42px 16px; text-align: center; color: var(--sbMuted); font-size: 13px; font-weight: 900; border: 1px dashed var(--sbLine); border-radius: 16px; }
+.sb-state button { margin-left: 8px; height: 30px; padding: 0 13px; border: 1px solid rgba(47,128,237,.5); border-radius: 999px; background: rgba(47,128,237,.14); color: var(--sbText); font-size: 12px; font-weight: 950; cursor: pointer; }
+@media (max-width: 960px) {
+  .sb-board { grid-template-columns: 1fr; }
+  .sb-day { min-height: 64px; }
+  .sb-day-text { font-size: 10.5px; }
 }
 
 .schedule-panel .hub-list {
@@ -9660,9 +9737,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="section-head">
           <div>
             <h2>일정</h2>
-            <div class="inout-title-sub">공개 일정표 연동 및 추후 관리자 입력 영역</div>
+            <div class="inout-title-sub">월간 캘린더 · 김윤환 주간 스케줄 · 오늘의 일정 (3분마다 자동 동기화)</div>
           </div>
-          <a class="hub-action" href="https://monumental-dolphin-3ac88f.netlify.app/" target="_blank" rel="noopener noreferrer">외부 일정표 열기</a>
+          <a class="hub-action" href="https://monumental-dolphin-3ac88f.netlify.app/" target="_blank" rel="noopener noreferrer">일정 수정 (외부 편집기)</a>
         </div>
         <div id="scheduleHubList" class="hub-card-grid"></div>
       </section>
@@ -11246,14 +11323,171 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
   }
 
+  // ===== 자체 일정표 (Supabase external_schedule_sync 미러) =====
+  const SB_DOW_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
+  const sbState = { loaded: false, fetching: false, fetchedAt: 0, data: null, error: null, viewY: 0, viewM: 0 };
+
+  function sbKstTodayKey() {
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit"
+    }).format(new Date());
+  }
+
+  function fetchExternalSchedule() {
+    if (sbState.fetching) return;
+    sbState.fetching = true;
+    window.MonstarzSupabase.load().then(s => {
+      if (!s.available) throw new Error("supabase_unavailable");
+      return fetch(s.url + "/rest/v1/external_schedule_sync?select=weekly,today,monthly,synced_at&id=eq.tscam", {
+        headers: { apikey: s.anonKey, Authorization: "Bearer " + s.anonKey }
+      });
+    }).then(r => {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }).then(rows => {
+      sbState.data = Array.isArray(rows) && rows[0] ? rows[0] : null;
+      sbState.error = sbState.data ? null : new Error("empty");
+    }).catch(err => {
+      sbState.error = err;
+    }).finally(() => {
+      sbState.loaded = true;
+      sbState.fetching = false;
+      sbState.fetchedAt = Date.now();
+      renderScheduleHub();
+    });
+  }
+
+  function sbCalendarHtml(y, m, monthly, todayKey) {
+    const firstDow = new Date(y, m - 1, 1).getDay();
+    const daysInMonth = new Date(y, m, 0).getDate();
+    const daysInPrev = new Date(y, m - 1, 0).getDate();
+    const totalCells = Math.ceil((firstDow + daysInMonth) / 7) * 7;
+    const pad = n => String(n).padStart(2, "0");
+    let cells = "";
+    for (let i = 0; i < totalCells; i += 1) {
+      const dayNum = i - firstDow + 1;
+      const dow = i % 7;
+      const out = dayNum < 1 || dayNum > daysInMonth;
+      const displayNum = dayNum < 1 ? daysInPrev + dayNum : (dayNum > daysInMonth ? dayNum - daysInMonth : dayNum);
+      const dateKey = out ? "" : `${y}-${pad(m)}-${pad(dayNum)}`;
+      const text = !out && monthly[dateKey] ? String(monthly[dateKey]) : "";
+      const cls = ["sb-day"];
+      if (out) cls.push("out");
+      if (dow === 0) cls.push("sun");
+      if (dow === 6) cls.push("sat");
+      if (!out && text) cls.push("has");
+      if (!out && dateKey === todayKey) cls.push("today");
+      cells += `<div class="${cls.join(" ")}"><span class="sb-day-num">${displayNum}</span>${text ? `<span class="sb-day-text">${escapeHtml(text)}</span>` : ""}</div>`;
+    }
+    const dowHead = SB_DOW_LABELS.map((label, i) =>
+      `<div class="sb-dow${i === 0 ? " sun" : (i === 6 ? " sat" : "")}">${label}</div>`
+    ).join("");
+    return dowHead + cells;
+  }
+
   function renderScheduleHub() {
     if (!scheduleHubList) return;
+    if (!sbState.loaded || (!sbState.fetching && Date.now() - sbState.fetchedAt > 180000)) fetchExternalSchedule();
+    if (!sbState.loaded) {
+      scheduleHubList.innerHTML = '<div class="sb-state">일정표를 불러오는 중입니다…</div>';
+      return;
+    }
+    if (!sbState.data) {
+      scheduleHubList.innerHTML = '<div class="sb-state">일정 데이터를 불러오지 못했습니다.<button type="button" data-sb-nav="retry">다시 시도</button></div>';
+      return;
+    }
+    const data = sbState.data;
+    const monthly = data.monthly && typeof data.monthly === "object" ? data.monthly : {};
+    const today = data.today && typeof data.today === "object" ? data.today : {};
+    const weeklyKim = data.weekly && Array.isArray(data.weekly.kim) ? data.weekly.kim : [];
+    const todayKey = sbKstTodayKey();
+    if (!sbState.viewY) {
+      sbState.viewY = Number(todayKey.slice(0, 4));
+      sbState.viewM = Number(todayKey.slice(5, 7));
+    }
+    const y = sbState.viewY;
+    const m = sbState.viewM;
+    const todayText = cleanupScheduleText(today.schedule) || cleanupScheduleText(monthly[todayKey]);
+    const mentionText = cleanupScheduleText(today.mention);
+    const todayDow = new Date(todayKey + "T00:00:00").getDay();
+    const weekRows = SB_DOW_LABELS.map((label, i) => {
+      const text = cleanupScheduleText(weeklyKim[i]);
+      const cls = ["sb-week-row"];
+      if (i === 0) cls.push("sun");
+      if (i === 6) cls.push("sat");
+      if (i === todayDow) cls.push("today");
+      return `<div class="${cls.join(" ")}"><span class="sb-week-day">${label}</span><span class="sb-week-text${text ? "" : " off"}">${text ? escapeHtml(text) : "-"}</span></div>`;
+    }).join("");
+    let syncLabel = "";
+    if (data.synced_at) {
+      try {
+        syncLabel = "동기화 " + new Intl.DateTimeFormat("ko-KR", {
+          timeZone: "Asia/Seoul", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit"
+        }).format(new Date(data.synced_at));
+      } catch (error) {}
+    }
     scheduleHubList.innerHTML = `
-      <div class="schedule-embed-card">
-        <iframe class="schedule-embed-frame" src="${safeLink(SCHEDULE_APP_URL)}" title="캄몬스타즈 일정표" loading="lazy"></iframe>
+      <div class="sb-board">
+        <section class="sb-cal" aria-label="월간 일정 캘린더">
+          <div class="sb-cal-head">
+            <div class="sb-cal-title">${y}년 ${m}월</div>
+            <div class="sb-cal-nav">
+              <button type="button" data-sb-nav="prev">◀ 이전</button>
+              <button type="button" class="sb-today-btn" data-sb-nav="today">오늘</button>
+              <button type="button" data-sb-nav="next">다음 ▶</button>
+            </div>
+          </div>
+          <div class="sb-cal-grid">${sbCalendarHtml(y, m, monthly, todayKey)}</div>
+        </section>
+        <aside class="sb-side">
+          <section class="sb-card">
+            <div class="sb-card-head"><b>오늘의 일정</b><span class="sb-card-date">${todayKey.replace(/-/g, ".")}</span></div>
+            ${todayText ? `<div class="sb-today-body">${escapeHtml(todayText)}</div>` : '<div class="sb-empty">등록된 일정이 없습니다.</div>'}
+          </section>
+          ${mentionText ? `
+          <section class="sb-card sb-mention">
+            <div class="sb-card-head"><b>언급노 (휴방)</b></div>
+            <div class="sb-mention-body">${escapeHtml(mentionText)}</div>
+          </section>` : ""}
+          <section class="sb-card">
+            <div class="sb-card-head"><b>김윤환 주간 스케줄</b></div>
+            <div class="sb-week">${weekRows}</div>
+          </section>
+          ${syncLabel ? `<div class="sb-sync">${escapeHtml(syncLabel)}</div>` : ""}
+        </aside>
       </div>
     `;
   }
+
+  function cleanupScheduleText(value) {
+    return String(value || "").replace(/\r/g, "").trim();
+  }
+
+  scheduleHubList?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-sb-nav]");
+    if (!btn) return;
+    const nav = btn.dataset.sbNav;
+    if (nav === "retry") {
+      sbState.loaded = false;
+      fetchExternalSchedule();
+      renderScheduleHub();
+      return;
+    }
+    const todayKey = sbKstTodayKey();
+    if (!sbState.viewY) {
+      sbState.viewY = Number(todayKey.slice(0, 4));
+      sbState.viewM = Number(todayKey.slice(5, 7));
+    }
+    if (nav === "today") {
+      sbState.viewY = Number(todayKey.slice(0, 4));
+      sbState.viewM = Number(todayKey.slice(5, 7));
+    } else if (nav === "prev" || nav === "next") {
+      const shifted = new Date(sbState.viewY, sbState.viewM - 1 + (nav === "next" ? 1 : -1), 1);
+      sbState.viewY = shifted.getFullYear();
+      sbState.viewM = shifted.getMonth() + 1;
+    }
+    renderScheduleHub();
+  });
 
   function renderVideosHub() {
     if (!videosHubList) return;
