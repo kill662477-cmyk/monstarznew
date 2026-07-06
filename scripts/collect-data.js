@@ -755,6 +755,19 @@ async function fetchEloboardHtml(url) {
   return page.html;
 }
 
+function extractEloboardProfileImage(html) {
+  if (!html) return "";
+  const match = html.match(/<img[^>]+src=["']([^"']+(?:data\/file\/bj_list|data\/file\/bj_m_list|data\/member_image)\/[^"']+)["']/i);
+  if (match) {
+    let url = match[1];
+    if (url.startsWith('/')) {
+      url = 'https://eloboard.com' + url;
+    }
+    return url;
+  }
+  return "";
+}
+
 function eloboardAjaxEndpoint(url) {
   const normalized = normalizeUrl(url);
   let section = normalized.includes("/men/") ? "men" : "women";
@@ -1011,6 +1024,10 @@ async function fetchRecordsFull(player) {
       const page = await fetchEloboardPage(url);
       assertEloboardOk(page.html);
 
+      if (!player.eloboardImage) {
+        player.eloboardImage = extractEloboardProfileImage(page.html);
+      }
+
       collector.add(parseEloboardRecords(page.html, player));
 
       let duplicatePageCount = 0;
@@ -1137,6 +1154,10 @@ async function fetchRecordsIncremental(player, existingRows) {
     try {
       const page = await fetchEloboardPage(url);
       assertEloboardOk(page.html);
+
+      if (!player.eloboardImage) {
+        player.eloboardImage = extractEloboardProfileImage(page.html);
+      }
 
       const firstRows = parseEloboardRecords(page.html, player);
       const firstResult = addOnlyNew(firstRows);
