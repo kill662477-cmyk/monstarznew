@@ -10295,6 +10295,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 ];
 
   const JOIN_DATES = {
+    "남덕선": "2026-07-08",
     "김윤환": "2024-07-08",
     "토마토": "2024-07-17",
     "임조이": "2024-07-17",
@@ -12869,7 +12870,7 @@ function createMemberCard(member) {
       return acc;
     }, {});
 
-    const tierOrder = ["3", "4", "5", "6", "7", "8", "9"];
+    const tierOrder = ["2", "3", "4", "5", "6", "7", "8", "9"];
     const knownTierHtml = tierOrder
       .filter((tier) => groups[tier]?.length)
       .map((tier) => `
