@@ -44,7 +44,10 @@ const INOUT_HISTORY = [
   { date: "26.03.26", events: [{ name: "사테", race: "T", status: "IN" }, { name: "찌킹", race: "Z", status: "IN" }] },
   { date: "26.04.28", events: [{ name: "낭니", race: "Z", status: "IN" }] },
   { date: "26.05.04", events: [{ name: "이경민", race: "P", status: "OUT" }] },
-  { date: "26.06.13", events: [{ name: "변현제", race: "P", status: "IN" }] }
+  { date: "26.06.13", events: [{ name: "변현제", race: "P", status: "IN" }] },
+  { date: "26.06.16", events: [{ name: "김민철", race: "Z", status: "IN" }]},
+  { date: "26.06.27", events: [{ name: "진땅콩", race: "P", status: "OUT" }, { name: "파도튜브", race: "P", status: "OUT" }]},
+  { date: "26.07.08", events: [{ name: "남덕선", race: "Z", status: "IN" }]}
 ];
 
 function toISODate(d) {
