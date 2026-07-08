@@ -9370,26 +9370,5 @@
     "monthWinRate": 0,
     "yearWinRate": 0,
     "winRate": "0%"
-  },
-  {
-    "id": 745,
-    "userId": "namdeoksun",
-    "name": "남덕선",
-    "description": "",
-    "race": "Z",
-    "tierCode": "B",
-    "tier": "베이비티어",
-    "tierId": "tier-B",
-    "sortOrder": 99,
-    "eloboardKey": "",
-    "elo": "",
-    "image": "",
-    "sourceImage": "",
-    "station": "",
-    "stationStatus": 200,
-    "academy": null,
-    "monthWinRate": 0,
-    "yearWinRate": 0,
-    "winRate": "0%"
   }
 ]
