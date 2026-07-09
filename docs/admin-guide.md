@@ -1,44 +1,74 @@
 # 관리자 가이드
 
+MONSTARZNEW 관리자 모드는 프론트 화면만 수정하는 기능이 아니라 `/api/admin/*` 서버 API와 Supabase 테이블을 통해 실제 공개 데이터를 추가, 수정, 숨김 처리하는 구조다.
+
 ## 접속
 
-- PC 상단 `관리자` 탭 또는 모바일 관리 메뉴에서 접근한다.
-- Supabase/Admin 환경변수가 없으면 읽기 fallback 안내가 표시된다.
-- `ADMIN_SECRET` 인증 후 Supabase 연결 상태와 운영 진단을 확인할 수 있다.
+- PC: 상단 `관리자` 탭
+- 모바일: 더보기 메뉴의 `관리 구조`
+- 로그인: `ADMIN_SECRET` 값으로 인증
+- 인증 상태: `/api/admin/auth/status`
 
-## 현재 가능한 확인
+## 백엔드 구조
 
-- 대시보드: 멤버 수, 방송중 멤버, 영상/공지/IN&OUT 요약
-- 멤버 관리: 멤버 목록, 종족, 티어, SOOP ID, YouTube 상태
-- 일정 관리: 현재 외부 일정표 연동 상태 안내
-- 영상 관리: 팬튜브/보자충 목록 확인
-- 공지 관리: 공지 목록과 노출/고정 상태 확인
-- IN&OUT 관리: 합류/이탈 히스토리 확인
-- 링크 관리: 외부 링크 목록 확인
-- 데이터 상태: 공개 데이터, 클라이언트 캐시, 서버 운영 진단 확인
+- 서버 API: `api/admin/index.js`
+- Supabase 서버 쓰기: `lib/supabase/admin.js`
+- 공개 보정 데이터: `api/public-overrides.js`
+- 일정 프록시: `api/schedule-today.js`
+- 감사 로그: `admin_audit_log`
 
-## 쓰기 기능 주의
+## 활성 관리자 리소스
 
-- 일부 Supabase 연결 섹션은 숨김/복구/고정 같은 제한된 관리 액션 기반만 준비되어 있다.
-- 추가/수정 폼, hard delete, 인증 권한 세분화는 다음 패치 범위로 남긴다.
-- 공개 사용자가 관리자 기능을 조작할 수 없도록 인증 상태와 API 응답을 반드시 확인한다.
+- `members`: 멤버 현황판, 방송 링크, 기본 로스터
+- `profiles`: 프로필 상세
+- `schedules`: 일정
+- `videos`: 영상
+- `notices`: 공지 보정, 숨김, 고정
+- `inout`: IN&OUT 히스토리
+- `links`: 외부 링크
+- `resources`: 자료실
 
-## 향후 CRUD 대상
+뉴캄 관련 관리자 리소스는 종료된 기능이라 `/api/admin`에서 `410 resource_retired`로 처리한다.
 
-- 멤버 추가/수정/숨김
-- 프로필 이미지 수정
-- 종족/티어/직책 수정
-- SOOP/YouTube 링크 수정
-- 일정 추가/고정/숨김
-- 영상 등록/고정/숨김
-- 공지 숨김/고정
-- IN&OUT 추가/수정
-- 외부 링크 추가/수정/순서 변경
-- 월간결산, 위클리 베스트 확정값 입력
+## 쓰기 동작
 
-## 운영자 체크
+- 추가: `POST /api/admin/<resource>`
+- 수정: `PATCH /api/admin/<resource>/<id>`
+- 숨김: `PATCH /api/admin/<resource>/<id>/hide`
+- 복구: `PATCH /api/admin/<resource>/<id>/restore`
+- 고정: `PATCH /api/admin/notices/<id>/pin`, `PATCH /api/admin/videos/<id>/pin`
+- 링크 정렬: `PATCH /api/admin/links/reorder`
 
-- 저장 전 입력값 길이와 URL 형식을 확인한다.
-- 저장 실패 시 toast 메시지와 API `code`를 확인한다.
-- Supabase 미연결 안내가 뜨면 public/server 환경변수를 먼저 확인한다.
-- secret 값은 화면 캡처, 문서, 커밋에 포함하지 않는다.
+모든 쓰기는 soft delete 기준이다. 실제 삭제는 하지 않는다.
+
+## 감사 로그
+
+`0008_admin_audit_log.sql` 마이그레이션 적용 후 관리자 쓰기 작업은 `admin_audit_log`에 남는다.
+
+기록 항목:
+
+- 작업 종류
+- 리소스
+- row id
+- payload
+- user agent
+- IP hash
+- 생성 시간
+
+관리자 데이터 상태 화면에서 최근 감사 로그를 확인할 수 있다.
+
+## 환경변수
+
+- `ADMIN_SECRET`
+- `SUPABASE_URL` 또는 `NEXT_PUBLIC_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY` 또는 `SUPABASE_SECRET_KEY`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` 또는 `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+
+## 점검 순서
+
+1. Supabase 마이그레이션 적용
+2. Vercel 환경변수 설정
+3. `/api/admin/auth/status` 확인
+4. 관리자 로그인
+5. 데이터 상태에서 Supabase, 감사 로그, 자동화 로그 확인
+6. 테스트 항목 하나 추가 후 숨김/복구까지 확인

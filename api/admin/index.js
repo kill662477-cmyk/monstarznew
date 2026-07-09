@@ -19,7 +19,8 @@
 //  PATCH  /api/admin/notices/:id/pin { pinned }    -> 고정 토글
 //  PATCH  /api/admin/videos/:id/pin  { pinned }    -> 고정 토글
 //  PATCH  /api/admin/links/reorder   { orders:[{id,sort_order}] } -> 정렬
-//  POST   /api/admin/newcam-match-entry { match, games } -> 뉴캄 경기 + 세트별 선수 결과 일괄 등록
+//  GET    /api/admin/meta                         -> 활성 관리자 리소스/필드 메타
+//  GET    /api/admin/audit                        -> 최근 관리자 변경 로그
 
 const crypto = require("crypto");
 const { getServerConfig, getPublicConfig } = require("../../lib/supabase/server");
@@ -28,25 +29,25 @@ const { checkRateLimit } = require("../_shared/rateLimit");
 
 const COOKIE_NAME = "mz_admin";
 const MAX_BODY_BYTES = 64 * 1024;
-const NEWCAM_MAPS = ["폴리포이드", "라데온", "녹아웃", "네오 실피드"];
-const NEWCAM_MATCH_TYPES = ["scrim", "official", "final"];
-const NEWCAM_GROUPS = ["", "A", "B", "FINAL"];
-const NEWCAM_STATUSES = ["scheduled", "done", "cancelled"];
-
+const ADMIN_AUDIT_TABLE = "admin_audit_log";
 const RESOURCES = {
-  members: { table: "members_admin" },
-  profiles: { table: "member_profiles" },
-  schedules: { table: "schedules" },
-  videos: { table: "videos" },
-  notices: { table: "notices_meta" },
-  inout: { table: "inout_events" },
-  links: { table: "external_links" },
-  resources: { table: "resources" },
-  newcamTeams: { table: "newcam_teams" },
-  newcamPlayers: { table: "newcam_players" },
-  newcamMatches: { table: "newcam_matches" },
-  newcamMatchPlayers: { table: "newcam_match_players" }
+  members: { table: "members_admin", label: "멤버", publicImpact: "현황판/프로필/방송 링크" },
+  profiles: { table: "member_profiles", label: "프로필", publicImpact: "프로필 상세" },
+  schedules: { table: "schedules", label: "일정", publicImpact: "일정표/홈 일정" },
+  videos: { table: "videos", label: "영상", publicImpact: "팬튜브/기타영상" },
+  notices: { table: "notices_meta", label: "공지", publicImpact: "공지 숨김/고정 보정" },
+  inout: { table: "inout_events", label: "IN&OUT", publicImpact: "IN&OUT 히스토리" },
+  links: { table: "external_links", label: "외부 링크", publicImpact: "외부 링크 목록" },
+  resources: { table: "resources", label: "자료", publicImpact: "자료실" }
 };
+
+const RETIRED_RESOURCES = new Set([
+  "newcamTeams",
+  "newcamPlayers",
+  "newcamMatches",
+  "newcamMatchPlayers",
+  "newcam-match-entry"
+]);
 
 // 입력으로 받을 수 있는 컬럼 화이트리스트 (그 외 키는 무시)
 const FIELD_WHITELIST = {
@@ -57,11 +58,24 @@ const FIELD_WHITELIST = {
   notices_meta: ["source_key", "title", "station_name", "link", "notice_date", "is_pinned", "sort_order", "is_visible"],
   inout_events: ["member_name", "event_type", "event_date", "race", "description", "sort_order", "is_visible"],
   external_links: ["title", "url", "category", "note", "sort_order", "is_visible"],
-  resources: ["title", "url", "category", "description", "sort_order", "is_visible"],
-  newcam_teams: ["team_key", "team_name", "captain_name", "group_name", "sort_order", "is_visible"],
-  newcam_players: ["team_key", "player_name", "tier_label", "role_label", "race", "auction_points", "wins", "losses", "is_temporary", "sort_order", "is_visible"],
-  newcam_matches: ["match_type", "group_name", "round_label", "team_a_key", "team_b_key", "winner_team_key", "played_at", "status", "sort_order", "is_visible"],
-  newcam_match_players: ["match_id", "match_type", "game_no", "map_name", "team_key", "player_name", "opponent_name", "result", "is_mercenary", "sort_order", "is_visible"]
+  resources: ["title", "url", "category", "description", "sort_order", "is_visible"]
+};
+
+const REQUIRED_FIELDS = {
+  members_admin: ["name"],
+  member_profiles: ["name"],
+  schedules: ["title"],
+  videos: ["title", "url"],
+  notices_meta: ["title"],
+  inout_events: ["member_name", "event_type"],
+  external_links: ["title", "url"],
+  resources: ["title"]
+};
+
+const CHOICE_FIELDS = {
+  race: ["", "T", "P", "Z"],
+  event_type: ["IN", "OUT"],
+  status: ["scheduled", "live", "done", "cancelled"]
 };
 
 function expectedToken() {
@@ -139,6 +153,30 @@ function pickFields(table, body) {
   return out;
 }
 
+function adminMetadata() {
+  const resources = {};
+  Object.keys(RESOURCES).forEach(function (key) {
+    const info = RESOURCES[key];
+    resources[key] = {
+      key: key,
+      table: info.table,
+      label: info.label || key,
+      publicImpact: info.publicImpact || "",
+      fields: (FIELD_WHITELIST[info.table] || []).slice(),
+      required: (REQUIRED_FIELDS[info.table] || []).slice(),
+      actions: ["list", "create", "update", "hide", "restore"].concat(
+        ["videos", "notices"].includes(key) ? ["pin"] : []
+      )
+    };
+  });
+  return {
+    resources: resources,
+    retired: Array.from(RETIRED_RESOURCES),
+    softDelete: true,
+    auditLog: ADMIN_AUDIT_TABLE
+  };
+}
+
 function ok(res, data) {
   return res.status(200).json({ ok: true, data: data === undefined ? null : data, updatedAt: new Date().toISOString() });
 }
@@ -151,6 +189,16 @@ function validationError(message) {
   err.status = 400;
   err.code = "invalid_payload";
   return err;
+}
+
+function requireFields(table, payload, isCreate) {
+  if (!isCreate) return;
+  (REQUIRED_FIELDS[table] || []).forEach(function (field) {
+    const value = payload[field];
+    if (value === undefined || value === null || String(value).trim() === "") {
+      throw validationError(field + " 값이 필요합니다.");
+    }
+  });
 }
 
 function safeText(value, field) {
@@ -192,6 +240,29 @@ function normalizePayload(table, payload) {
       out[key] = safeUrl(value, key);
       return;
     }
+    if (key === "event_date") {
+      const text = safeText(value, key);
+      if (text && !/^\d{4}-\d{2}-\d{2}$/.test(text)) throw validationError(key + " 날짜 형식은 YYYY-MM-DD 여야 합니다.");
+      out[key] = text || null;
+      return;
+    }
+    if (key === "start_at" || key === "end_at" || key === "published_at") {
+      const text = safeText(value, key);
+      if (!text) {
+        out[key] = null;
+        return;
+      }
+      const date = new Date(text);
+      if (Number.isNaN(date.getTime())) throw validationError(key + " 날짜/시간 형식이 올바르지 않습니다.");
+      out[key] = date.toISOString();
+      return;
+    }
+    if (CHOICE_FIELDS[key]) {
+      const text = safeText(value, key) || "";
+      if (!CHOICE_FIELDS[key].includes(text)) throw validationError(key + " 값이 올바르지 않습니다.");
+      out[key] = text;
+      return;
+    }
     if (key === "members" && Array.isArray(value)) {
       if (value.length > 80) throw validationError("members 항목이 너무 많습니다.");
       out[key] = value.map(function (item) { return safeText(item, key); }).filter(Boolean);
@@ -200,126 +271,6 @@ function normalizePayload(table, payload) {
     out[key] = safeText(value, key);
   });
   return out;
-}
-
-function cleanChoice(value, allowed, fallback, field) {
-  const text = safeText(value, field) || "";
-  if (!text) return fallback || "";
-  if (!allowed.includes(text)) throw validationError(field + " 값이 올바르지 않습니다.");
-  return text;
-}
-
-function normalizeDateTime(value) {
-  const text = safeText(value, "played_at") || "";
-  if (!text) return new Date().toISOString();
-  const date = new Date(text);
-  if (Number.isNaN(date.getTime())) throw validationError("경기 시간 값이 올바르지 않습니다.");
-  return date.toISOString();
-}
-
-function normalizeNewcamMatchEntry(body) {
-  const matchInput = body && typeof body.match === "object" ? body.match : (body || {});
-  const matchType = cleanChoice(matchInput.match_type || "scrim", NEWCAM_MATCH_TYPES, "scrim", "match_type");
-  const groupName = cleanChoice(matchInput.group_name || "", NEWCAM_GROUPS, "", "group_name");
-  const status = cleanChoice(matchInput.status || "done", NEWCAM_STATUSES, "done", "status");
-  const teamA = safeText(matchInput.team_a_key, "team_a_key");
-  const teamB = safeText(matchInput.team_b_key, "team_b_key");
-  if (!teamA || !teamB) throw validationError("A팀과 B팀을 선택해주세요.");
-  if (teamA === teamB) throw validationError("A팀과 B팀은 서로 달라야 합니다.");
-
-  const games = Array.isArray(body && body.games) ? body.games : [];
-  if (games.length > 11) throw validationError("세트는 최대 11개까지만 등록할 수 있습니다.");
-
-  let aWins = 0;
-  let bWins = 0;
-  const rows = [];
-  games.forEach(function (game, index) {
-    const gameNo = Math.max(1, Math.min(11, Number(game && game.game_no) || (index + 1)));
-    const mapName = safeText(game && game.map_name, "map_name") || "";
-    const aPlayer = safeText(game && (game.a_player_name || game.player_a_name || game.a_player), "a_player_name") || "";
-    const bPlayer = safeText(game && (game.b_player_name || game.player_b_name || game.b_player), "b_player_name") || "";
-    const winnerSide = String((game && (game.winner_side || game.winner)) || "").trim().toUpperCase();
-    const hasAnyValue = Boolean(mapName || aPlayer || bPlayer || winnerSide);
-    if (!hasAnyValue) return;
-    if (!mapName || !NEWCAM_MAPS.includes(mapName)) throw validationError(gameNo + "세트 맵을 선택해주세요.");
-    if (!aPlayer || !bPlayer) throw validationError(gameNo + "세트 A/B 선수를 모두 입력해주세요.");
-    if (!["A", "B"].includes(winnerSide)) throw validationError(gameNo + "세트 승자를 선택해주세요.");
-
-    const aWin = winnerSide === "A";
-    if (aWin) aWins += 1;
-    else bWins += 1;
-    const aMerc = game && (game.a_mercenary === true || game.a_mercenary === "true");
-    const bMerc = game && (game.b_mercenary === true || game.b_mercenary === "true");
-    rows.push({
-      match_type: matchType,
-      game_no: gameNo,
-      map_name: mapName,
-      team_key: teamA,
-      player_name: aPlayer,
-      opponent_name: bPlayer,
-      result: aWin ? "win" : "loss",
-      is_mercenary: Boolean(aMerc),
-      sort_order: gameNo * 10,
-      is_visible: true
-    });
-    rows.push({
-      match_type: matchType,
-      game_no: gameNo,
-      map_name: mapName,
-      team_key: teamB,
-      player_name: bPlayer,
-      opponent_name: aPlayer,
-      result: aWin ? "loss" : "win",
-      is_mercenary: Boolean(bMerc),
-      sort_order: gameNo * 10 + 1,
-      is_visible: true
-    });
-  });
-
-  if (!rows.length) throw validationError("저장할 세트 결과가 없습니다.");
-  const winnerTeam = aWins > bWins ? teamA : (bWins > aWins ? teamB : "");
-  const sortOrder = Number(matchInput.sort_order) || Math.floor(Date.now() / 1000);
-  return {
-    match: {
-      match_type: matchType,
-      group_name: groupName,
-      round_label: safeText(matchInput.round_label, "round_label") || "",
-      team_a_key: teamA,
-      team_b_key: teamB,
-      winner_team_key: winnerTeam,
-      played_at: normalizeDateTime(matchInput.played_at),
-      status: status,
-      sort_order: sortOrder,
-      is_visible: true
-    },
-    rows: rows,
-    score: { a: aWins, b: bWins, winner_team_key: winnerTeam }
-  };
-}
-
-async function createNewcamMatchEntry(body) {
-  const normalized = normalizeNewcamMatchEntry(body);
-  const createdMatchRows = await admin.insertRow("newcam_matches", normalized.match);
-  const match = Array.isArray(createdMatchRows) ? createdMatchRows[0] : createdMatchRows;
-  if (!match || !match.id) throw validationError("경기 저장 결과를 확인하지 못했습니다.");
-  const playerRows = normalized.rows.map(function (row) {
-    return Object.assign({}, row, { match_id: match.id });
-  });
-  try {
-    const createdPlayers = await admin.rest("POST", "newcam_match_players", {
-      body: playerRows,
-      prefer: "return=representation"
-    });
-    return {
-      match: match,
-      matchPlayers: Array.isArray(createdPlayers) ? createdPlayers : [],
-      games: playerRows.length / 2,
-      score: normalized.score
-    };
-  } catch (error) {
-    await admin.softDelete("newcam_matches", match.id).catch(function () {});
-    throw error;
-  }
 }
 
 async function systemHealth(req) {
@@ -338,6 +289,7 @@ async function systemHealth(req) {
 
   let latestAutomation = null;
   let automationError = "";
+  let auditLogReady = false;
   if (serverCfg.ready) {
     try {
       const rows = await admin.rest("GET", "automation_runs", { query: "?select=job_name,status,finished_at,created_at,error_message&order=created_at.desc&limit=1" });
@@ -345,12 +297,19 @@ async function systemHealth(req) {
     } catch (error) {
       automationError = "automation_runs_unavailable";
     }
+    try {
+      await admin.rest("GET", ADMIN_AUDIT_TABLE, { query: "?select=id&limit=1" });
+      auditLogReady = true;
+    } catch (error) {
+      auditLogReady = false;
+    }
   }
 
   return {
     supabase: { serverReady: serverCfg.ready, publicReady: publicCfg.ready },
     firebase: { configured: env.firebaseDatabaseUrl || env.firebaseServiceAccount },
     githubActions: { automationLogReady: Boolean(latestAutomation), latest: latestAutomation, error: automationError },
+    adminAudit: { table: ADMIN_AUDIT_TABLE, ready: auditLogReady },
     api: {
       admin: "protected",
       publicOverrides: serverCfg.ready ? "ready" : "fallback",
@@ -368,6 +327,42 @@ async function systemHealth(req) {
     env,
     note: "Secret 값은 표시하지 않고 설정 여부만 반환합니다.",
   };
+}
+
+function requestIpHash(req) {
+  const raw = String(
+    (req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
+    req.headers["x-real-ip"] ||
+    req.socket?.remoteAddress ||
+    ""
+  );
+  if (!raw) return "";
+  return crypto.createHash("sha256").update("mz-admin-ip::" + raw).digest("hex").slice(0, 24);
+}
+
+function auditPayload(payload) {
+  const clone = Object.assign({}, payload || {});
+  ["code", "password", "token", "secret"].forEach(function (key) {
+    if (Object.prototype.hasOwnProperty.call(clone, key)) clone[key] = "[redacted]";
+  });
+  return clone;
+}
+
+async function writeAuditLog(req, action, resourceKey, rowId, payload) {
+  try {
+    if (!getServerConfig().ready) return;
+    await admin.insertRow(ADMIN_AUDIT_TABLE, {
+      action: action,
+      resource_key: resourceKey,
+      table_name: RESOURCES[resourceKey] ? RESOURCES[resourceKey].table : "",
+      row_id: rowId ? String(rowId) : "",
+      payload: auditPayload(payload),
+      user_agent: String(req.headers["user-agent"] || "").slice(0, 300),
+      ip_hash: requestIpHash(req)
+    });
+  } catch (error) {
+    console.warn("[admin audit skipped]", error && error.message);
+  }
 }
 
 module.exports = async function handler(req, res) {
@@ -422,12 +417,20 @@ module.exports = async function handler(req, res) {
   const resourceKey = segments[0];
   const resource = RESOURCES[resourceKey];
 
+  if (RETIRED_RESOURCES.has(resourceKey)) {
+    return fail(res, 410, "resource_retired", "종료된 관리자 리소스입니다.");
+  }
+
   if (resourceKey === "system-health" && method === "GET") {
     try {
       return ok(res, await systemHealth(req));
     } catch (e) {
       return handleError(res, e);
     }
+  }
+
+  if (resourceKey === "meta" && method === "GET") {
+    return ok(res, adminMetadata());
   }
 
   // links/reorder
@@ -442,6 +445,7 @@ module.exports = async function handler(req, res) {
         if (!item || !item.id) continue;
         results.push(await admin.updateRow("external_links", item.id, { sort_order: Number(item.sort_order) || 0 }));
       }
+      await writeAuditLog(req, "reorder", "links", "", { orders: orders });
       return ok(res, { updated: results.length });
     } catch (e) {
       return handleError(res, e);
@@ -458,10 +462,12 @@ module.exports = async function handler(req, res) {
     }
   }
 
-  if (resourceKey === "newcam-match-entry" && method === "POST") {
+  if (resourceKey === "audit" && method === "GET") {
     try {
-      const body = await readJsonBody(req);
-      return ok(res, await createNewcamMatchEntry(body));
+      const data = await admin.rest("GET", ADMIN_AUDIT_TABLE, {
+        query: "?select=action,resource_key,table_name,row_id,created_at,user_agent&order=created_at.desc&limit=40"
+      });
+      return ok(res, data);
     } catch (e) {
       return handleError(res, e);
     }
@@ -479,33 +485,49 @@ module.exports = async function handler(req, res) {
       return ok(res, data);
     }
 
+    if (method === "GET" && id && !subAction) {
+      const data = await admin.rest("GET", table, { query: "?select=*&id=eq." + encodeURIComponent(id) + "&limit=1" });
+      return ok(res, Array.isArray(data) ? (data[0] || null) : data);
+    }
+
     // POST /admin/<resource>
     if (method === "POST" && !id) {
       const body = await readJsonBody(req);
       const payload = normalizePayload(table, pickFields(table, body));
       if (!Object.keys(payload).length) return fail(res, 400, "empty_payload", "저장할 값이 없습니다.");
+      requireFields(table, payload, true);
       const data = await admin.insertRow(table, payload);
+      await writeAuditLog(req, "create", resourceKey, Array.isArray(data) && data[0] ? data[0].id : "", payload);
       return ok(res, data);
     }
 
     // PATCH /admin/<resource>/:id ...
     if (method === "PATCH" && id) {
       if (subAction === "hide") {
-        return ok(res, await admin.softDelete(table, id));
+        const data = await admin.softDelete(table, id);
+        await writeAuditLog(req, "hide", resourceKey, id, {});
+        return ok(res, data);
       }
       if (subAction === "restore") {
-        return ok(res, await admin.restore(table, id));
+        const data = await admin.restore(table, id);
+        await writeAuditLog(req, "restore", resourceKey, id, {});
+        return ok(res, data);
       }
       if (subAction === "pin") {
         const body = await readJsonBody(req);
         const pinned = body && typeof body.pinned === "boolean" ? body.pinned : true;
-        return ok(res, await admin.updateRow(table, id, { is_pinned: pinned }));
+        const data = await admin.updateRow(table, id, { is_pinned: pinned });
+        await writeAuditLog(req, "pin", resourceKey, id, { is_pinned: pinned });
+        return ok(res, data);
       }
       // 일반 수정
       const body = await readJsonBody(req);
       const payload = normalizePayload(table, pickFields(table, body));
       if (!Object.keys(payload).length) return fail(res, 400, "empty_payload", "수정할 값이 없습니다.");
-      return ok(res, await admin.updateRow(table, id, payload));
+      requireFields(table, payload, false);
+      const data = await admin.updateRow(table, id, payload);
+      await writeAuditLog(req, "update", resourceKey, id, payload);
+      return ok(res, data);
     }
 
     return fail(res, 405, "method_not_allowed");
