@@ -13962,6 +13962,7 @@ function createMemberCard(member) {
     try {
       const params = new URLSearchParams(window.location.search || "");
       const returnTab = sessionStorage.getItem("soopReturnTab") || "";
+      if (params.get("tab") === tabKey) return true;
       if (returnTab === tabKey) return true;
       if (params.has("code") || params.has("authCode") || params.has("overlay")) return true;
     } catch (error) {}
