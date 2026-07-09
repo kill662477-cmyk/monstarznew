@@ -10753,20 +10753,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return `<div class="empty ${escapeHtml(state)}">${escapeHtml(message)}</div>`;
   }
 
-  function renderMemberHubItem(member) {
-    const watchUrl = getMemberWatchUrl(member);
-    return `
-      <a class="hub-item" href="${safeLink(watchUrl)}" target="_blank" rel="noopener noreferrer">
-        <img class="hub-thumb" src="${safeLink(member.profileImage || "")}" alt="${escapeHtml(member.name)} 프로필" loading="lazy" decoding="async">
-        <div>
-          <div class="hub-title">${escapeHtml(member.name)}</div>
-          <div class="hub-meta">${escapeHtml([member.role, formatTierLabel(member.tier), member.race].filter(Boolean).join(" · "))}</div>
-        </div>
-        <span class="hub-badge ${member.status === "live" ? "live" : ""}">${member.status === "live" ? "LIVE" : "OFF"}</span>
-      </a>
-    `;
-  }
-
   function renderInternalHubItem(title, meta, tabKey, badge = "") {
     return `
       <button class="hub-item no-thumb" type="button" data-nav-tab="${escapeHtml(tabKey)}">
@@ -11647,10 +11633,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   function adminEditButton(section, id) {
     return `<button type="button" class="admin-action-btn" data-admin-edit="${escapeHtml(section + ":" + id)}">수정</button>`;
-  }
-
-  function formatAdminDateTimeLocal(value) {
-    return ADMIN_CORE.formatDateTimeLocal(value);
   }
 
   function datetimeLocalToIso(value) {
@@ -14182,13 +14164,6 @@ function createMemberCard(member) {
     return String(value || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12);
   }
 
-  function randomSessionCode() {
-    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    let code = "";
-    for (let i = 0; i < 6; i += 1) code += alphabet[Math.floor(Math.random() * alphabet.length)];
-    return code;
-  }
-
   function isJointMode() {
     return state.joint.useMode === "joint";
   }
@@ -14835,12 +14810,6 @@ window.__PINBALL_DONATION_CONFIG__=${configJson};
     }
     postToFrame({ kind: "setNames", names: namesForRoulette() });
     postToFrame({ kind: "setWinnerMode", winnerMode: state.winnerMode });
-  }
-
-  function startFrameWhenReady() {
-    if (!state.frameReady) return;
-    state.pendingFrameStart = false;
-    postToFrame({ kind: "start" });
   }
 
   function openRouletteModal() {
@@ -15694,8 +15663,6 @@ ${line}` : line;
       score: row && row.score != null ? row.score : ""
     });
   }
-
-  function ensureRows() {}
 
   function renderRows() {
     if (!state.rows.length) {
