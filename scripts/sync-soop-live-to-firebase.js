@@ -3,6 +3,7 @@ const path = require("path");
 const admin = require("firebase-admin");
 const { withAutomationLog } = require("./lib/automationLogger");
 const { upsertTierStateSnapshots } = require("../lib/tier-state-snapshots");
+const r2TierState = require("../lib/r2/tier-state");
 
 const root = path.resolve(__dirname, "..");
 const manualPlayersPath = path.join(root, "data", "manual", "players.json");
@@ -24,6 +25,8 @@ const TIER_STATE_SNAPSHOT_UPLOAD =
 const TIER_STATE_SNAPSHOT_REQUIRED =
   process.env.TIER_STATE_SNAPSHOT_REQUIRED === "true" ||
   process.env.SUPABASE_TIER_STATE_REQUIRED === "true";
+const R2_TIER_STATE_UPLOAD = process.env.R2_TIER_STATE_UPLOAD === "true";
+const R2_TIER_STATE_REQUIRED = process.env.R2_TIER_STATE_REQUIRED === "true";
 let lastSoopFetchStats = { pagesChecked: 0, failedPages: 0 };
 
 function safeKey(value) {
@@ -317,35 +320,48 @@ function buildLiveStatus(players, liveMap) {
 
 async function uploadTierLiveSnapshot(liveStatus, liveMeta) {
   const stats = {
-    enabled: TIER_STATE_SNAPSHOT_UPLOAD,
+    enabled: TIER_STATE_SNAPSHOT_UPLOAD || R2_TIER_STATE_UPLOAD,
     attempted: 0,
     succeeded: 0,
     failed: 0,
+    r2Succeeded: 0,
+    r2Failed: 0,
   };
 
-  if (!TIER_STATE_SNAPSHOT_UPLOAD) {
-    console.log("[supabase] tier live snapshot upload disabled");
+  if (!TIER_STATE_SNAPSHOT_UPLOAD && !R2_TIER_STATE_UPLOAD) {
+    console.log("[tier-state] live snapshot uploads disabled");
     return stats;
   }
 
-  try {
-    const result = await upsertTierStateSnapshots(
-      {
-        liveStatus,
-        liveMeta,
-      },
-      "sync-soop-live"
-    );
-    stats.attempted = result.attempted;
-    stats.succeeded = result.succeeded;
-    console.log(`[supabase] tier live snapshots upserted ${stats.succeeded}/${stats.attempted}`);
-    return stats;
-  } catch (error) {
-    stats.failed = Math.max(stats.attempted, 1);
-    console.warn(`[supabase] tier live snapshot upload failed: ${error.message}`);
-    if (TIER_STATE_SNAPSHOT_REQUIRED) throw error;
-    return stats;
+  if (TIER_STATE_SNAPSHOT_UPLOAD) {
+    try {
+      const result = await upsertTierStateSnapshots(
+        { liveStatus, liveMeta },
+        "sync-soop-live"
+      );
+      stats.attempted = result.attempted;
+      stats.succeeded = result.succeeded;
+      console.log(`[supabase] tier live snapshots upserted ${stats.succeeded}/${stats.attempted}`);
+    } catch (error) {
+      stats.failed = Math.max(stats.attempted, 1);
+      console.warn(`[supabase] tier live snapshot upload failed: ${error.message}`);
+      if (TIER_STATE_SNAPSHOT_REQUIRED) throw error;
+    }
   }
+
+  if (R2_TIER_STATE_UPLOAD) {
+    try {
+      const result = await r2TierState.uploadLive(liveStatus, liveMeta, "sync-soop-live");
+      stats.r2Succeeded = result.succeeded;
+      console.log(`[r2] tier live snapshot uploaded ${result.succeeded}/${result.attempted}`);
+    } catch (error) {
+      stats.r2Failed = 1;
+      console.warn(`[r2] tier live snapshot upload failed: ${error.message}`);
+      if (R2_TIER_STATE_REQUIRED) throw error;
+    }
+  }
+
+  return stats;
 }
 
 async function main(run = {}) {
@@ -356,6 +372,8 @@ async function main(run = {}) {
     SOOP_LIVE_PAGE_BATCH,
     TIER_STATE_SNAPSHOT_UPLOAD,
     TIER_STATE_SNAPSHOT_REQUIRED,
+    R2_TIER_STATE_UPLOAD,
+    R2_TIER_STATE_REQUIRED,
   });
 
   const db = initFirebase();

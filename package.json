@@ -11,7 +11,8 @@
     "video-thumbnails": "node scripts/generate-video-thumbnails.js",
     "seed-record-storage": "node scripts/seed-tier-records-storage.js",
     "seed-h2h-summary": "node scripts/seed-tier-head-to-head-summaries.js",
-    "seed-tier-state": "node scripts/seed-tier-state-snapshots.js"
+    "seed-tier-state": "node scripts/seed-tier-state-snapshots.js",
+    "migrate:r2": "node scripts/migrate-supabase-to-r2.js"
   },
   "dependencies": {
     "firebase-admin": "^13.5.0"

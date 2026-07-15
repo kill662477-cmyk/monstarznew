@@ -12,6 +12,58 @@ function normalizeList(value) {
   return Object.values(value);
 }
 
+function r2ObjectUrl(name) {
+  const base = String(process.env.R2_PUBLIC_BASE_URL || "").replace(/\/+$/, "");
+  const prefix = String(process.env.R2_TIER_STATE_PREFIX || "tier-state")
+    .replace(/^\/+|\/+$/g, "");
+  return base ? `${base}/${prefix}/${name}.json` : "";
+}
+
+async function readR2TierState() {
+  const coreUrl = r2ObjectUrl("core");
+  if (!coreUrl) return null;
+
+  const [coreResponse, liveResponse] = await Promise.all([
+    fetch(coreUrl),
+    fetch(r2ObjectUrl("live")),
+  ]);
+  if (!coreResponse.ok) throw new Error(`r2_core_${coreResponse.status}`);
+
+  const core = await coreResponse.json();
+  const live = liveResponse.ok ? await liveResponse.json() : {};
+  return {
+    source: "r2",
+    updatedAt: live.updatedAt || core.updatedAt || null,
+    meta: Object.assign({}, core.meta || {}, live.liveMeta || {}),
+    players: normalizeList(core.players),
+    liveStatus: live.liveStatus || {},
+    winRates: core.winRates || {},
+    // Kept for frontend compatibility. Full record metadata is not needed by the board.
+    recordMeta: {},
+  };
+}
+
+async function readSupabaseTierState() {
+  const snapshots = await readTierStateSnapshots(SNAPSHOT_KEYS);
+  return {
+    source: "supabase",
+    updatedAt:
+      (snapshots.meta && snapshots.meta.updatedAt) ||
+      (snapshots.players && snapshots.players.updatedAt) ||
+      (snapshots.liveStatus && snapshots.liveStatus.updatedAt) ||
+      null,
+    meta: Object.assign(
+      {},
+      snapshotPayload(snapshots, "meta", {}),
+      snapshotPayload(snapshots, "liveMeta", {})
+    ),
+    players: normalizeList(snapshotPayload(snapshots, "players", [])),
+    liveStatus: snapshotPayload(snapshots, "liveStatus", {}),
+    winRates: snapshotPayload(snapshots, "winRates", {}),
+    recordMeta: {},
+  };
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
@@ -19,32 +71,16 @@ module.exports = async function handler(req, res) {
   if (req.method !== "GET") return res.status(405).json({ error: "method_not_allowed" });
 
   try {
-    const snapshots = await readTierStateSnapshots(SNAPSHOT_KEYS);
-    const meta = Object.assign(
-      {},
-      snapshotPayload(snapshots, "meta", {}),
-      snapshotPayload(snapshots, "liveMeta", {})
-    );
-    const players = normalizeList(snapshotPayload(snapshots, "players", []));
-    const liveStatus = snapshotPayload(snapshots, "liveStatus", {});
-    const winRates = snapshotPayload(snapshots, "winRates", {});
-    const recordMeta = snapshotPayload(snapshots, "recordMeta", {});
-    const updatedAt =
-      (snapshots.meta && snapshots.meta.updatedAt) ||
-      (snapshots.players && snapshots.players.updatedAt) ||
-      (snapshots.liveStatus && snapshots.liveStatus.updatedAt) ||
-      null;
+    let payload = null;
+    try {
+      payload = await readR2TierState();
+    } catch (error) {
+      console.warn("[tier-state] R2 fallback:", error.message);
+    }
+    if (!payload) payload = await readSupabaseTierState();
 
-    res.setHeader("Cache-Control", "s-maxage=45, stale-while-revalidate=180");
-    return res.status(200).json({
-      source: "supabase",
-      updatedAt,
-      meta,
-      players,
-      liveStatus,
-      winRates,
-      recordMeta,
-    });
+    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
+    return res.status(200).json(payload);
   } catch (error) {
     if (error && error.code === "supabase_not_configured") {
       return res.status(503).json({ error: "supabase_not_configured" });

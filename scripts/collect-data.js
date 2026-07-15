@@ -8,6 +8,8 @@ const {
   downloadGzJson,
   DEFAULT_BUCKET,
 } = require("../lib/supabase/storage");
+const r2Storage = require("../lib/r2/storage");
+const r2TierState = require("../lib/r2/tier-state");
 const supabaseAdmin = require("../lib/supabase/admin");
 const {
   buildHeadToHeadSummaries,
@@ -61,6 +63,8 @@ const TIER_RECORD_STORAGE_UPLOAD =
   process.env.TIER_RECORD_STORAGE_UPLOAD === "true" ||
   process.env.UPLOAD_SUPABASE_RECORD_FILES === "true";
 const TIER_RECORD_STORAGE_REQUIRED = process.env.TIER_RECORD_STORAGE_REQUIRED === "true";
+const R2_TIER_RECORD_UPLOAD = process.env.R2_TIER_RECORD_UPLOAD === "true";
+const R2_TIER_RECORD_REQUIRED = process.env.R2_TIER_RECORD_REQUIRED === "true";
 const TIER_RECORD_STORAGE_BUCKET = process.env.TIER_RECORD_STORAGE_BUCKET || DEFAULT_BUCKET;
 const TIER_RECORD_STORAGE_PREFIX = normalizeStoragePrefix(
   process.env.TIER_RECORD_STORAGE_PREFIX || "records"
@@ -86,6 +90,8 @@ const TIER_STATE_SNAPSHOT_UPLOAD =
 const TIER_STATE_SNAPSHOT_REQUIRED =
   process.env.TIER_STATE_SNAPSHOT_REQUIRED === "true" ||
   process.env.SUPABASE_TIER_STATE_REQUIRED === "true";
+const R2_TIER_STATE_UPLOAD = process.env.R2_TIER_STATE_UPLOAD === "true";
+const R2_TIER_STATE_REQUIRED = process.env.R2_TIER_STATE_REQUIRED === "true";
 
 function normalizeStoragePrefix(value) {
   return String(value || "")
@@ -1358,7 +1364,7 @@ async function readExistingRecordState(rootRef, key) {
 }
 
 async function readExistingRecordStatePreferStorage(rootRef, key) {
-  if (TIER_RECORD_STORAGE_UPLOAD) {
+  if (TIER_RECORD_STORAGE_UPLOAD || R2_TIER_RECORD_UPLOAD || process.env.R2_PUBLIC_BASE_URL) {
     try {
       const value = await downloadGzJson(
         TIER_RECORD_STORAGE_BUCKET,
@@ -2012,23 +2018,25 @@ async function uploadRecordsInChunks(ref, records, rowChunkSize, label) {
 }
 
 function queueRecordStorageUpload(recordStorageUploads, key, rows) {
-  if (!TIER_RECORD_STORAGE_UPLOAD || !key) return;
+  if ((!TIER_RECORD_STORAGE_UPLOAD && !R2_TIER_RECORD_UPLOAD) || !key) return;
   recordStorageUploads[key] = normalizeRecordRows(rows);
 }
 
 async function uploadRecordStorageFiles(recordStorageUploads) {
   const stats = {
-    enabled: TIER_RECORD_STORAGE_UPLOAD,
+    enabled: TIER_RECORD_STORAGE_UPLOAD || R2_TIER_RECORD_UPLOAD,
     bucket: TIER_RECORD_STORAGE_BUCKET,
     prefix: TIER_RECORD_STORAGE_PREFIX,
     attempted: 0,
     succeeded: 0,
     failed: 0,
     totalGzipBytes: 0,
+    r2Succeeded: 0,
+    r2Failed: 0,
   };
 
-  if (!TIER_RECORD_STORAGE_UPLOAD) {
-    console.log("[storage] tier record gzip upload disabled");
+  if (!TIER_RECORD_STORAGE_UPLOAD && !R2_TIER_RECORD_UPLOAD) {
+    console.log("[storage] tier record gzip uploads disabled");
     return stats;
   }
 
@@ -2040,31 +2048,50 @@ async function uploadRecordStorageFiles(recordStorageUploads) {
     return stats;
   }
 
-  try {
-    await ensureBucket(TIER_RECORD_STORAGE_BUCKET);
-  } catch (error) {
-    stats.failed = entries.length;
-    console.warn(`[storage] bucket prepare failed: ${error.message}`);
-    if (TIER_RECORD_STORAGE_REQUIRED) throw error;
-    return stats;
+  if (TIER_RECORD_STORAGE_UPLOAD) {
+    try {
+      await ensureBucket(TIER_RECORD_STORAGE_BUCKET);
+    } catch (error) {
+      stats.failed = entries.length;
+      console.warn(`[storage] Supabase bucket prepare failed: ${error.message}`);
+      if (TIER_RECORD_STORAGE_REQUIRED) throw error;
+    }
   }
 
   for (let i = 0; i < entries.length; i += 1) {
     const [key, rows] = entries[i];
 
-    try {
-      const result = await uploadGzJson(
-        TIER_RECORD_STORAGE_BUCKET,
-        tierRecordStoragePath(key),
-        normalizeRecordRows(rows)
-      );
-      stats.succeeded += 1;
-      stats.totalGzipBytes += Number(result.size || 0);
-      console.log(`[storage] records/${key}.json.gz uploaded ${i + 1}/${entries.length}`);
-    } catch (error) {
-      stats.failed += 1;
-      console.warn(`[storage] records/${key}.json.gz upload failed: ${error.message}`);
-      if (TIER_RECORD_STORAGE_REQUIRED) throw error;
+    if (TIER_RECORD_STORAGE_UPLOAD) {
+      try {
+        const result = await uploadGzJson(
+          TIER_RECORD_STORAGE_BUCKET,
+          tierRecordStoragePath(key),
+          normalizeRecordRows(rows)
+        );
+        stats.succeeded += 1;
+        stats.totalGzipBytes += Number(result.size || 0);
+        console.log(`[storage] Supabase records/${key}.json.gz uploaded ${i + 1}/${entries.length}`);
+      } catch (error) {
+        stats.failed += 1;
+        console.warn(`[storage] Supabase records/${key}.json.gz upload failed: ${error.message}`);
+        if (TIER_RECORD_STORAGE_REQUIRED) throw error;
+      }
+    }
+
+    if (R2_TIER_RECORD_UPLOAD) {
+      try {
+        await r2Storage.uploadGzJson(
+          TIER_RECORD_STORAGE_BUCKET,
+          tierRecordStoragePath(key),
+          normalizeRecordRows(rows)
+        );
+        stats.r2Succeeded += 1;
+        console.log(`[storage] R2 records/${key}.json.gz uploaded ${i + 1}/${entries.length}`);
+      } catch (error) {
+        stats.r2Failed += 1;
+        console.warn(`[storage] R2 records/${key}.json.gz upload failed: ${error.message}`);
+        if (R2_TIER_RECORD_REQUIRED) throw error;
+      }
     }
   }
 
@@ -2174,37 +2201,52 @@ async function uploadHeadToHeadSummaries(players, recordStorageUploads) {
 
 async function uploadTierStateSnapshotPayload(payload) {
   const stats = {
-    enabled: TIER_STATE_SNAPSHOT_UPLOAD,
+    enabled: TIER_STATE_SNAPSHOT_UPLOAD || R2_TIER_STATE_UPLOAD,
     attempted: 0,
     succeeded: 0,
     failed: 0,
+    r2Succeeded: 0,
+    r2Failed: 0,
   };
 
-  if (!TIER_STATE_SNAPSHOT_UPLOAD) {
-    console.log("[supabase] tier state snapshot upload disabled");
+  if (!TIER_STATE_SNAPSHOT_UPLOAD && !R2_TIER_STATE_UPLOAD) {
+    console.log("[tier-state] snapshot uploads disabled");
     return stats;
   }
 
-  try {
-    const result = await upsertTierStateSnapshots(
-      {
-        meta: payload.meta || {},
-        players: payload.players || [],
-        recordMeta: payload.recordMeta || {},
-        winRates: payload.winRates || {},
-      },
-      "collect-data"
-    );
-    stats.attempted = result.attempted;
-    stats.succeeded = result.succeeded;
-    console.log(`[supabase] tier state snapshots upserted ${stats.succeeded}/${stats.attempted}`);
-    return stats;
-  } catch (error) {
-    stats.failed = Math.max(stats.attempted, 1);
-    console.warn(`[supabase] tier state snapshot upload failed: ${error.message}`);
-    if (TIER_STATE_SNAPSHOT_REQUIRED) throw error;
-    return stats;
+  const snapshot = {
+    meta: payload.meta || {},
+    players: payload.players || [],
+    recordMeta: payload.recordMeta || {},
+    winRates: payload.winRates || {},
+  };
+
+  if (TIER_STATE_SNAPSHOT_UPLOAD) {
+    try {
+      const result = await upsertTierStateSnapshots(snapshot, "collect-data");
+      stats.attempted = result.attempted;
+      stats.succeeded = result.succeeded;
+      console.log(`[supabase] tier state snapshots upserted ${stats.succeeded}/${stats.attempted}`);
+    } catch (error) {
+      stats.failed = Math.max(stats.attempted, 1);
+      console.warn(`[supabase] tier state snapshot upload failed: ${error.message}`);
+      if (TIER_STATE_SNAPSHOT_REQUIRED) throw error;
+    }
   }
+
+  if (R2_TIER_STATE_UPLOAD) {
+    try {
+      const result = await r2TierState.uploadCore(snapshot, "collect-data");
+      stats.r2Succeeded = result.succeeded;
+      console.log(`[r2] tier state snapshots uploaded ${result.succeeded}/${result.attempted}`);
+    } catch (error) {
+      stats.r2Failed = 2;
+      console.warn(`[r2] tier state snapshot upload failed: ${error.message}`);
+      if (R2_TIER_STATE_REQUIRED) throw error;
+    }
+  }
+
+  return stats;
 }
 
 async function readExistingLiveState(rootRef) {
@@ -2818,8 +2860,10 @@ async function main(run = {}) {
   run.status =
     recordFailCount > 0 ||
     recordStorageUploadStats.failed > 0 ||
+    recordStorageUploadStats.r2Failed > 0 ||
     headToHeadSummaryStats.failed > 0 ||
     tierStateSnapshotStats.failed > 0
+    || tierStateSnapshotStats.r2Failed > 0
       ? "partial"
       : "success";
   run.itemsFound = players.length;
@@ -2827,15 +2871,19 @@ async function main(run = {}) {
     visiblePlayers.length +
     recordUploadRowCount +
     recordStorageUploadStats.succeeded +
+    recordStorageUploadStats.r2Succeeded +
     headToHeadSummaryStats.succeeded +
     tierStateSnapshotStats.succeeded;
+  run.itemsWritten += tierStateSnapshotStats.r2Succeeded;
   run.itemsSkipped =
     recordSkipCount +
     recordFailCount +
     hiddenInactivePlayers.length +
     recordStorageUploadStats.failed +
+    recordStorageUploadStats.r2Failed +
     headToHeadSummaryStats.failed +
     tierStateSnapshotStats.failed;
+  run.itemsSkipped += tierStateSnapshotStats.r2Failed;
   run.meta = {
     firebaseRoot: FIREBASE_ROOT,
     recordSyncMode: RECORD_SYNC_MODE,
@@ -2846,6 +2894,8 @@ async function main(run = {}) {
     recordUploadRowCount,
     recordStorageUploadSucceeded: recordStorageUploadStats.succeeded,
     recordStorageUploadFailed: recordStorageUploadStats.failed,
+    r2RecordStorageUploadSucceeded: recordStorageUploadStats.r2Succeeded,
+    r2RecordStorageUploadFailed: recordStorageUploadStats.r2Failed,
     headToHeadSummaryRebuildAll: headToHeadSummaryStats.rebuildAll,
     headToHeadSummaryUploadSucceeded: headToHeadSummaryStats.succeeded,
     headToHeadSummaryUploadFailed: headToHeadSummaryStats.failed,
@@ -2854,6 +2904,8 @@ async function main(run = {}) {
     headToHeadSummaryStorageReadFailed: headToHeadSummaryStats.storageReadFailed,
     tierStateSnapshotUploadSucceeded: tierStateSnapshotStats.succeeded,
     tierStateSnapshotUploadFailed: tierStateSnapshotStats.failed,
+    r2TierStateSnapshotUploadSucceeded: tierStateSnapshotStats.r2Succeeded,
+    r2TierStateSnapshotUploadFailed: tierStateSnapshotStats.r2Failed,
     firebaseRecordRowsUpload: FIREBASE_RECORD_ROWS_UPLOAD,
     recordFailCount,
     recordSkipCount,
@@ -2877,11 +2929,14 @@ withAutomationLog({
   jobName: "collect-tier-data",
   jobType: process.env.GITHUB_EVENT_NAME || "scheduled",
   source: "manual-players+eloboard",
-  target: TIER_RECORD_STORAGE_UPLOAD ? "firebase+supabase-storage" : "firebase",
+  target: R2_TIER_RECORD_UPLOAD
+    ? "firebase+supabase-storage+r2"
+    : (TIER_RECORD_STORAGE_UPLOAD ? "firebase+supabase-storage" : "firebase"),
   meta: {
     firebaseRoot: FIREBASE_ROOT,
     recordSyncMode: RECORD_SYNC_MODE,
     tierRecordStorageUpload: TIER_RECORD_STORAGE_UPLOAD,
+    r2TierRecordUpload: R2_TIER_RECORD_UPLOAD,
     firebaseRecordRowsUpload: FIREBASE_RECORD_ROWS_UPLOAD
   }
 }, main)

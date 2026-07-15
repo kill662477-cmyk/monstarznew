@@ -13,3 +13,4 @@ Thumbs.db
 
 # Local Supabase/key notes
 Publishable key *.txt
+.wrangler/
