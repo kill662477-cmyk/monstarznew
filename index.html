@@ -14596,7 +14596,7 @@ function createMemberCard(member) {
 html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#111}
 #notice,.copyright{display:none!important}
 canvas{width:100vw!important;height:100vh!important}
-#settings{z-index:20}
+#duckSettings{z-index:20}
 
 /* Local fallback style for embedded Marble Roulette.
    The public roulette stylesheet URL can change, so keep this inside the srcdoc. */
@@ -14605,16 +14605,16 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#080b12;col
 body{position:relative}
 canvas{position:absolute;inset:0;width:100vw!important;height:100vh!important;display:block;background:#05070d}
 #notice,.copyright,#btnNotice,#btnShop,.sep{display:none!important}
-#settings{position:absolute;inset:0;z-index:50;pointer-events:none;transition:opacity .18s ease}
-#settings.hide{opacity:0;pointer-events:none}
-#settings .right,#settings .left{position:absolute;left:16px;width:230px;pointer-events:auto;border:1px solid rgba(96,165,250,.28);background:rgba(12,23,42,.92);box-shadow:0 18px 36px rgba(0,0,0,.42);backdrop-filter:blur(8px)}
-#settings .right{top:16px;padding:10px}
-#settings .left{bottom:16px;padding:12px}
+#duckSettings{position:absolute;inset:0;z-index:50;pointer-events:none;transition:opacity .18s ease}
+#duckSettings.hide{opacity:0;pointer-events:none}
+#duckSettings .right,#duckSettings .left{position:absolute;left:16px;width:230px;pointer-events:auto;border:1px solid rgba(96,165,250,.28);background:rgba(12,23,42,.92);box-shadow:0 18px 36px rgba(0,0,0,.42);backdrop-filter:blur(8px)}
+#duckSettings .right{top:16px;padding:10px}
+#duckSettings .left{bottom:16px;padding:12px}
 .btn-toggle-settings{width:100%;height:34px;border:0;border-radius:8px;background:linear-gradient(135deg,#1d4ed8,#0f2e63);color:#fff;font-size:12px;font-weight:950;text-align:left;padding:0 11px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
 .collapsible-rows{display:grid;gap:9px;margin-top:10px}
 .row{display:grid;gap:5px;min-width:0}
-.row label,.toggle-item label,#settings h3{margin:0;color:#c7d7ea;font-size:11px;font-weight:950;letter-spacing:-.02em}
-#settings h3{font-size:13px;color:#fff;margin-bottom:8px}
+.row label,.toggle-item label,#duckSettings h3{margin:0;color:#c7d7ea;font-size:11px;font-weight:950;letter-spacing:-.02em}
+#duckSettings h3{font-size:13px;color:#fff;margin-bottom:8px}
 .row select,.row input[type="number"],#in_names{width:100%;border:1px solid rgba(148,163,184,.32);border-radius:8px;background:#07111f;color:#f8fafc;font-family:inherit;font-size:12px;font-weight:900;outline:none}
 .row select,.row input[type="number"]{height:32px;padding:0 8px}
 #in_names{height:112px;resize:none;padding:8px;line-height:1.45;white-space:pre-wrap}
@@ -14629,21 +14629,21 @@ canvas{position:absolute;inset:0;width:100vw!important;height:100vh!important;di
 #btnStart,#btnShuffle{display:inline-flex;align-items:center;justify-content:center;gap:5px}
 .icon{display:none!important}
 .light body,html.light body{background:#eef6ff;color:#13233a}
-html.light #settings .right,html.light #settings .left{background:rgba(255,255,255,.92);border-color:rgba(37,99,235,.22)}
-html.light .row label,html.light .toggle-item label,html.light #settings h3{color:#13233a}
+html.light #duckSettings .right,html.light #duckSettings .left{background:rgba(255,255,255,.92);border-color:rgba(37,99,235,.22)}
+html.light .row label,html.light .toggle-item label,html.light #duckSettings h3{color:#13233a}
 html.light .row select,html.light .row input[type="number"],html.light #in_names{background:#fff;color:#13233a;border-color:rgba(37,99,235,.22)}
 html.light .toggle-item,html.light .theme,html.light .actions #btnShuffle{background:#eaf4ff;color:#13233a}
 @media(max-width:760px){
-  #settings .right,#settings .left{width:210px;left:10px}
-  #settings .right{top:10px}
-  #settings .left{bottom:10px}
+  #duckSettings .right,#duckSettings .left{width:210px;left:10px}
+  #duckSettings .right{top:10px}
+  #duckSettings .left{bottom:10px}
 }
 
 </style>
 </head>
 <body>
 <script type="module" src="https://lazygyu.github.io/roulette/roulette.eb907812.js"><\/script>
-<div id="settings" class="settings">
+<div id="duckSettings" class="duck-settings">
   <div class="right">
     <button id="btnToggleSettings" class="btn-toggle-settings"><span data-trans="">Settings</span><i class="toggle-arrow">▲</i></button>
     <div class="collapsed collapsible-rows">
@@ -14738,7 +14738,7 @@ window.__PINBALL_DONATION_CONFIG__=${configJson};
   function finish(winner){
     const order = collectOrder(winner);
     send({ kind:"result", winner, order });
-    setTimeout(() => $("#settings")?.classList.remove("hide"), 700);
+    setTimeout(() => $("#duckSettings")?.classList.remove("hide"), 700);
   }
   function waitReady(){
     if (initialized) return;
@@ -14756,7 +14756,7 @@ window.__PINBALL_DONATION_CONFIG__=${configJson};
     $("#btnStart")?.addEventListener("click", () => {
       if (!ready) prepare();
       if (!ready) return;
-      $("#settings")?.classList.add("hide");
+      $("#duckSettings")?.classList.add("hide");
       send({ kind:"started" });
       window.roulette.start();
     });
@@ -14776,11 +14776,11 @@ window.__PINBALL_DONATION_CONFIG__=${configJson};
     if (message.source !== "pinball-donation-parent" || message.frameId !== cfg.frameId) return;
     if (message.kind === "setNames") { cfg.names = Array.isArray(message.names) && message.names.length ? message.names.slice() : ["대기중"]; prepare(); send({ kind:"ready" }); }
     if (message.kind === "setWinnerMode") { winnerType = message.winnerMode === "last" ? "last" : "first"; cfg.mode = winnerType; prepare(); }
-    if (message.kind === "prepare") { prepare(); $("#settings")?.classList.remove("hide"); send({ kind:"ready" }); }
+    if (message.kind === "prepare") { prepare(); $("#duckSettings")?.classList.remove("hide"); send({ kind:"ready" }); }
     if (message.kind === "start") {
       if (!ready) prepare();
       if (!ready) return;
-      $("#settings")?.classList.add("hide");
+      $("#duckSettings")?.classList.add("hide");
       window.roulette.start();
     }
   });
@@ -16130,7 +16130,7 @@ ${line}` : line;
 html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#111}
 #notice,.copyright{display:none!important}
 canvas{width:100vw!important;height:100vh!important}
-#settings{z-index:20}
+#duckSettings{z-index:20}
 
 /* Local fallback style for embedded Marble Roulette.
    The public roulette stylesheet URL can change, so keep this inside the srcdoc. */
@@ -16139,16 +16139,16 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#080b12;col
 body{position:relative}
 canvas{position:absolute;inset:0;width:100vw!important;height:100vh!important;display:block;background:#05070d}
 #notice,.copyright,#btnNotice,#btnShop,.sep{display:none!important}
-#settings{position:absolute;inset:0;z-index:50;pointer-events:none;transition:opacity .18s ease}
-#settings.hide{opacity:0;pointer-events:none}
-#settings .right,#settings .left{position:absolute;left:16px;width:230px;pointer-events:auto;border:1px solid rgba(96,165,250,.28);background:rgba(12,23,42,.92);box-shadow:0 18px 36px rgba(0,0,0,.42);backdrop-filter:blur(8px)}
-#settings .right{top:16px;padding:10px}
-#settings .left{bottom:16px;padding:12px}
+#duckSettings{position:absolute;inset:0;z-index:50;pointer-events:none;transition:opacity .18s ease}
+#duckSettings.hide{opacity:0;pointer-events:none}
+#duckSettings .right,#duckSettings .left{position:absolute;left:16px;width:230px;pointer-events:auto;border:1px solid rgba(96,165,250,.28);background:rgba(12,23,42,.92);box-shadow:0 18px 36px rgba(0,0,0,.42);backdrop-filter:blur(8px)}
+#duckSettings .right{top:16px;padding:10px}
+#duckSettings .left{bottom:16px;padding:12px}
 .btn-toggle-settings{width:100%;height:34px;border:0;border-radius:8px;background:linear-gradient(135deg,#1d4ed8,#0f2e63);color:#fff;font-size:12px;font-weight:950;text-align:left;padding:0 11px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
 .collapsible-rows{display:grid;gap:9px;margin-top:10px}
 .row{display:grid;gap:5px;min-width:0}
-.row label,.toggle-item label,#settings h3{margin:0;color:#c7d7ea;font-size:11px;font-weight:950;letter-spacing:-.02em}
-#settings h3{font-size:13px;color:#fff;margin-bottom:8px}
+.row label,.toggle-item label,#duckSettings h3{margin:0;color:#c7d7ea;font-size:11px;font-weight:950;letter-spacing:-.02em}
+#duckSettings h3{font-size:13px;color:#fff;margin-bottom:8px}
 .row select,.row input[type="number"],#in_names{width:100%;border:1px solid rgba(148,163,184,.32);border-radius:8px;background:#07111f;color:#f8fafc;font-family:inherit;font-size:12px;font-weight:900;outline:none}
 .row select,.row input[type="number"]{height:32px;padding:0 8px}
 #in_names{height:112px;resize:none;padding:8px;line-height:1.45;white-space:pre-wrap}
@@ -16163,21 +16163,21 @@ canvas{position:absolute;inset:0;width:100vw!important;height:100vh!important;di
 #btnStart,#btnShuffle{display:inline-flex;align-items:center;justify-content:center;gap:5px}
 .icon{display:none!important}
 .light body,html.light body{background:#eef6ff;color:#13233a}
-html.light #settings .right,html.light #settings .left{background:rgba(255,255,255,.92);border-color:rgba(37,99,235,.22)}
-html.light .row label,html.light .toggle-item label,html.light #settings h3{color:#13233a}
+html.light #duckSettings .right,html.light #duckSettings .left{background:rgba(255,255,255,.92);border-color:rgba(37,99,235,.22)}
+html.light .row label,html.light .toggle-item label,html.light #duckSettings h3{color:#13233a}
 html.light .row select,html.light .row input[type="number"],html.light #in_names{background:#fff;color:#13233a;border-color:rgba(37,99,235,.22)}
 html.light .toggle-item,html.light .theme,html.light .actions #btnShuffle{background:#eaf4ff;color:#13233a}
 @media(max-width:760px){
-  #settings .right,#settings .left{width:210px;left:10px}
-  #settings .right{top:10px}
-  #settings .left{bottom:10px}
+  #duckSettings .right,#duckSettings .left{width:210px;left:10px}
+  #duckSettings .right{top:10px}
+  #duckSettings .left{bottom:10px}
 }
 
 </style>
 </head>
 <body>
 <script type="module" src="https://lazygyu.github.io/roulette/roulette.eb907812.js"><\/script>
-<div id="settings" class="settings">
+<div id="duckSettings" class="duck-settings">
   <div class="right">
     <button id="btnToggleSettings" class="btn-toggle-settings"><span data-trans="">Settings</span><i class="toggle-arrow">▲</i></button>
     <div class="collapsed collapsible-rows">
@@ -16271,7 +16271,7 @@ window.__DUCK_ROULETTE_CONFIG__=${configJson};
   function finish(winner){
     const order = collectOrder(winner);
     send({ kind: "result", type: cfg.type, winner, order });
-    setTimeout(() => $("#settings")?.classList.remove("hide"), 700);
+    setTimeout(() => $("#duckSettings")?.classList.remove("hide"), 700);
   }
   function waitReady(){
     if (initialized) return;
@@ -16292,7 +16292,7 @@ window.__DUCK_ROULETTE_CONFIG__=${configJson};
     $("#btnStart")?.addEventListener("click", () => {
       if (!ready) prepare();
       if (!ready) return;
-      $("#settings")?.classList.add("hide");
+      $("#duckSettings")?.classList.add("hide");
       window.roulette.start();
     });
     $("#btnToggleSettings")?.addEventListener("click", () => {
