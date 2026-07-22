@@ -1,5 +1,5 @@
 const DEFAULT_SOURCE =
-  "https://monumental-dolphin-3ac88f.netlify.app/.netlify/functions/save-schedule";
+  "https://tscam-schedule-kill662477-cmyks-projects.vercel.app/api/save-schedule";
 
 function koreaDateKey(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-CA", {

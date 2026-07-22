@@ -9,7 +9,7 @@ const SOURCE = [
   { title: "CALM HOXY", url: "https://calm-hoxy.vercel.app/", category: "캄몬 관련 외부 페이지" },
   { title: "ELOBOARD", url: "https://eloboard.com/", category: "전적/랭킹 확인" },
   { title: "모의고사", url: "https://machugi.io/quiz/GJQTMpLt4usVzZyeGMJO", category: "캄몬스타즈 퀴즈" },
-  { title: "일정표", url: "https://monumental-dolphin-3ac88f.netlify.app/", category: "외부 일정표" },
+  { title: "일정표", url: "https://tscam-schedule-kill662477-cmyks-projects.vercel.app/", category: "외부 일정표" },
   { title: "그것이알고싶캄몬", url: "https://fmcalm.vercel.app/", category: "팬 제작 자료" },
   { title: "손실바 방송국", url: "https://www.sooplive.com/station/silver0love", category: "made by 손실바" }
 ];
