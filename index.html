@@ -1967,8 +1967,8 @@ body.light-mode .inout-filter-btn.active {
 }
 
 .youtube-type-tabs {
-  display: inline-grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: inline-flex;
+  flex-wrap: wrap;
   gap: 3px;
   padding: 3px;
   border: 1px solid rgba(100,151,225,.22);
@@ -1976,6 +1976,7 @@ body.light-mode .inout-filter-btn.active {
 }
 
 .youtube-type-tab {
+  flex: 1 1 auto;
   min-width: 92px;
   min-height: 30px;
   padding: 0 10px;
@@ -7552,8 +7553,8 @@ body.funding-overlay-host .funding-temp-frame {
 }
 
 .home-video-tabs {
-  display: inline-grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 3px;
   padding: 3px;
   border: 1px solid rgba(88,154,255,.22);
@@ -7561,7 +7562,8 @@ body.funding-overlay-host .funding-temp-frame {
 }
 
 .home-video-tab {
-  min-width: 68px;
+  flex: 1 1 auto;
+  min-width: 0;
   min-height: 28px;
   padding: 0 9px;
   border: 1px solid transparent;
@@ -9433,6 +9435,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div id="homeVideoTabs" class="home-video-tabs" role="tablist" aria-label="홈 영상 유형">
                 <button class="home-video-tab active" type="button" role="tab" aria-selected="true" data-home-youtube-type="longform">팬튜브</button>
                 <button class="home-video-tab" type="button" role="tab" aria-selected="false" data-home-youtube-type="shorts">SHORTS</button>
+                <button class="home-video-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-home-youtube-type="chzcam24">츠캄24</button>
+                <button class="home-video-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-home-youtube-type="chzcam25">츠캄25</button>
+                <button class="home-video-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-home-youtube-type="kamongus">캄몽어스</button>
               </div>
             </div>
             <div id="homeVideoList" class="hub-list"></div>
@@ -10959,6 +10964,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (otherVideoPlayer) otherVideoPlayer.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
+    // 아카이브 서브탭(츠캄24/25/캄몽어스)
+    if (isYoutubeArchiveKey(tabKey)) {
+      youtubeTypeFilter = tabKey;
+      selectedYoutubeIndex = 0;
+      destroyYoutubePlayer();
+      showTabByKey("youtube");
+      const archiveIdx = (youtubeItems || []).findIndex(v => getVideoUrl(v) === url);
+      if (archiveIdx >= 0) selectYoutubeVideo(archiveIdx, true, false);
+      return;
+    }
     // 기본: 팬튜브(youtube)
     const targetItem = (youtubeAllItems || []).find(v => getVideoUrl(v) === url);
     if (targetItem) {
@@ -11113,7 +11128,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function updateHomeYoutubeTabs() {
-    if (homeVideoTitle) homeVideoTitle.textContent = homeYoutubeTypeFilter === "shorts" ? "최신 SHORTS" : "최신 팬튜브";
+    const homeArchiveGroup = getYoutubeArchiveGroup(homeYoutubeTypeFilter);
+    if (homeVideoTitle) homeVideoTitle.textContent = homeArchiveGroup
+      ? `최신 ${homeArchiveGroup.tabTitle || "영상"}`
+      : (homeYoutubeTypeFilter === "shorts" ? "최신 SHORTS" : "최신 팬튜브");
     homeVideoTabs?.querySelectorAll("[data-home-youtube-type]").forEach(button => {
       const active = button.dataset.homeYoutubeType === homeYoutubeTypeFilter;
       button.classList.toggle("active", active);
@@ -11123,12 +11141,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function setHomeYoutubeTypeFilter(nextType) {
-    if (!["longform", "shorts"].includes(nextType) || nextType === homeYoutubeTypeFilter) return;
+    const valid = ["longform", "shorts"].includes(nextType) || isYoutubeArchiveKey(nextType);
+    if (!valid || nextType === homeYoutubeTypeFilter) return;
     homeYoutubeTypeFilter = nextType;
     renderHomeDashboard();
   }
 
   function getHomeVideoItems() {
+    const homeArchiveGroup = getYoutubeArchiveGroup(homeYoutubeTypeFilter);
+    if (homeArchiveGroup) return sortYoutubeItems(homeArchiveGroup.items || []).slice(0, 5);
     return sortYoutubeItems(
       youtubeAllItems.filter(item => homeYoutubeTypeFilter === "shorts" ? isYoutubeShort(item) : !isYoutubeShort(item))
     ).slice(0, 5);
@@ -11166,8 +11187,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     if (homeVideoList) {
       const homeVideoItems = getHomeVideoItems();
+      const homeVideoTabKey = isYoutubeArchiveKey(homeYoutubeTypeFilter) ? homeYoutubeTypeFilter : "youtube";
       homeVideoList.innerHTML = homeVideoItems.length
-        ? homeVideoItems.map(it => renderVideoHubItem(it, "youtube")).join("")
+        ? homeVideoItems.map(it => renderVideoHubItem(it, homeVideoTabKey)).join("")
         : renderHubEmpty(youtubeLoadError ? UI_ERROR_TEXT : UI_EMPTY_TEXT, youtubeLoadError ? "error" : "empty");
     }
 
@@ -14042,7 +14064,12 @@ function createMemberCard(member) {
   homeVideoTabs?.addEventListener("keydown", event => {
     if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
     event.preventDefault();
-    setHomeYoutubeTypeFilter(homeYoutubeTypeFilter === "longform" ? "shorts" : "longform");
+    const buttons = Array.from(homeVideoTabs.querySelectorAll("[data-home-youtube-type]"));
+    if (!buttons.length) return;
+    const currentIndex = Math.max(0, buttons.findIndex(btn => btn.dataset.homeYoutubeType === homeYoutubeTypeFilter));
+    const delta = event.key === "ArrowRight" ? 1 : -1;
+    const nextButton = buttons[(currentIndex + delta + buttons.length) % buttons.length];
+    setHomeYoutubeTypeFilter(nextButton.dataset.homeYoutubeType);
     homeVideoTabs.querySelector(".home-video-tab.active")?.focus();
   });
   inoutSearchInput?.addEventListener("input", renderInout);
