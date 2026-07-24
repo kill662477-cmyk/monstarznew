@@ -9583,6 +9583,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div id="youtubeTypeTabs" class="youtube-type-tabs" role="tablist" aria-label="팬튜브 영상 유형">
             <button class="youtube-type-tab active" type="button" role="tab" aria-selected="true" data-youtube-type="longform">팬튜브 <span id="youtubeLongformCount">0</span></button>
             <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" data-youtube-type="shorts">SHORTS <span id="youtubeShortsCount">0</span></button>
+            <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-youtube-type="chzcam24">츠캄24 <span class="yt-archive-count" data-archive-count="chzcam24">0</span></button>
+            <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-youtube-type="chzcam25">츠캄25 <span class="yt-archive-count" data-archive-count="chzcam25">0</span></button>
+            <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-youtube-type="kamongus">캄몽어스 <span class="yt-archive-count" data-archive-count="kamongus">0</span></button>
           </div>
         </div>
         <div id="youtubeList" class="youtube-grid">
@@ -10312,6 +10315,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let liveInfoMap = {};
   let lastCheckedAt = TEAM.updatedAt;
   let youtubeAllItems = [];
+  let youtubeArchive = [];
   let youtubeItems = [];
   let youtubeTypeFilter = "longform";
   let homeYoutubeTypeFilter = "longform";
@@ -13021,11 +13025,23 @@ function createMemberCard(member) {
       });
   }
 
+  function getYoutubeArchiveGroup(key) {
+    return (youtubeArchive || []).find(group => group && group.key === key) || null;
+  }
+
+  function isYoutubeArchiveKey(key) {
+    return Boolean(getYoutubeArchiveGroup(key));
+  }
+
   function updateYoutubeTypeTabs() {
     const shortsCount = youtubeAllItems.filter(isYoutubeShort).length;
     const longformCount = youtubeAllItems.length - shortsCount;
     if (youtubeLongformCount) youtubeLongformCount.textContent = String(longformCount);
     if (youtubeShortsCount) youtubeShortsCount.textContent = String(shortsCount);
+    youtubeTypeTabs?.querySelectorAll("[data-archive-count]").forEach(span => {
+      const group = getYoutubeArchiveGroup(span.dataset.archiveCount);
+      span.textContent = String(group ? (group.items || []).length : 0);
+    });
     youtubeTypeTabs?.querySelectorAll("[data-youtube-type]").forEach(button => {
       const active = button.dataset.youtubeType === youtubeTypeFilter;
       button.classList.toggle("active", active);
@@ -13035,7 +13051,8 @@ function createMemberCard(member) {
   }
 
   function setYoutubeTypeFilter(nextType) {
-    if (!["longform", "shorts"].includes(nextType) || nextType === youtubeTypeFilter) return;
+    const valid = ["longform", "shorts"].includes(nextType) || isYoutubeArchiveKey(nextType);
+    if (!valid || nextType === youtubeTypeFilter) return;
     youtubeTypeFilter = nextType;
     selectedYoutubeIndex = 0;
     destroyYoutubePlayer();
@@ -13044,9 +13061,12 @@ function createMemberCard(member) {
 
   function renderYoutube() {
     updateYoutubeTypeTabs();
-    youtubeItems = sortYoutubeItems(
-      youtubeAllItems.filter(item => youtubeTypeFilter === "shorts" ? isYoutubeShort(item) : !isYoutubeShort(item))
-    ).slice(0, 30);
+    const archiveGroup = getYoutubeArchiveGroup(youtubeTypeFilter);
+    youtubeItems = archiveGroup
+      ? sortYoutubeItems(archiveGroup.items || [])
+      : sortYoutubeItems(
+          youtubeAllItems.filter(item => youtubeTypeFilter === "shorts" ? isYoutubeShort(item) : !isYoutubeShort(item))
+        ).slice(0, 30);
 
     if (!youtubeItems.length) {
       youtubeCount.textContent = "0개";
@@ -13055,9 +13075,11 @@ function createMemberCard(member) {
         youtubePlayer.classList.add("hidden");
         destroyYoutubePlayer();
       }
+      const emptyArchiveGroup = getYoutubeArchiveGroup(youtubeTypeFilter);
       const emptyText = youtubeLoadError
         ? UI_ERROR_TEXT
-        : (youtubeTypeFilter === "shorts" ? "등록된 SHORTS 영상이 없습니다." : "등록된 팬튜브 영상이 없습니다.");
+        : (emptyArchiveGroup ? `등록된 ${emptyArchiveGroup.tabTitle || "영상"} 영상이 없습니다.`
+          : youtubeTypeFilter === "shorts" ? "등록된 SHORTS 영상이 없습니다." : "등록된 팬튜브 영상이 없습니다.");
       youtubeList.innerHTML = renderPageEmpty(emptyText, youtubeLoadError ? "error" : "empty");
       updateYoutubeAutoplayButton();
       renderHomeDashboard();
@@ -13183,6 +13205,14 @@ function createMemberCard(member) {
       otherVideoItems = uniqueItems.filter(isOtherVideoItem);
       youtubeAllItems = uniqueItems.filter(item => !isOtherVideoItem(item));
 
+      youtubeArchive = (Array.isArray(normalData?.archive) ? normalData.archive : []).map(group => ({
+        key: group?.key || "",
+        tabTitle: group?.tabTitle || group?.title || group?.key || "",
+        items: (Array.isArray(group?.items) ? group.items : [])
+          .map((item, index) => normalizeYoutubeItem(item, item.name || item.channelTitle || "캄린이", index))
+          .filter(item => item.videoId && item.url)
+      })).filter(group => group.key);
+
       youtubeLoadError = Boolean(hasFreshFailure && youtubeAllItems.length === 0);
       lastYoutubeCheckedAt = normalData?.checkedAt || kamriniData?.scrapedAt || normalResult?.updatedAt || kamriniResult?.updatedAt || "";
       renderYoutube();
@@ -13196,6 +13226,7 @@ function createMemberCard(member) {
       // 재생 중 네트워크 오류가 나도 기존 목록/플레이어를 유지해서 영상이 끊기지 않게 함.
       if (!youtubePlayerActive) {
         youtubeAllItems = [];
+        youtubeArchive = [];
         youtubeItems = [];
         otherVideoItems = [];
         renderYoutube();
@@ -13996,7 +14027,12 @@ function createMemberCard(member) {
   youtubeTypeTabs?.addEventListener("keydown", event => {
     if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
     event.preventDefault();
-    setYoutubeTypeFilter(youtubeTypeFilter === "longform" ? "shorts" : "longform");
+    const buttons = Array.from(youtubeTypeTabs.querySelectorAll("[data-youtube-type]"));
+    if (!buttons.length) return;
+    const currentIndex = Math.max(0, buttons.findIndex(btn => btn.dataset.youtubeType === youtubeTypeFilter));
+    const delta = event.key === "ArrowRight" ? 1 : -1;
+    const nextButton = buttons[(currentIndex + delta + buttons.length) % buttons.length];
+    setYoutubeTypeFilter(nextButton.dataset.youtubeType);
     youtubeTypeTabs.querySelector(".youtube-type-tab.active")?.focus();
   });
   homeVideoTabs?.addEventListener("click", event => {
