@@ -42,13 +42,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/gk/gks2wl/gks2wl.jpg",
     "station": "https://www.sooplive.com/station/gks2wl",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "학생회장"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -204,7 +198,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ee/eeceec/eeceec.jpg",
     "station": "https://www.sooplive.com/station/eeceec",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 35,
+      "name": "BGM",
+      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -306,7 +306,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/pa/parkle1006/parkle1006.jpg",
     "station": "https://www.sooplive.com/station/parkle1006",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 20,
+      "name": "뉴캣슬",
+      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -709,10 +715,10 @@
     "station": "https://www.sooplive.com/station/2ahgo1203",
     "stationStatus": 200,
     "academy": {
-      "id": 13,
-      "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "id": 20,
+      "name": "뉴캣슬",
+      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
       "position": ""
     },
     "monthWinRate": 66.7,
@@ -735,13 +741,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/by/byflash/byflash.jpg",
     "station": "https://www.sooplive.com/station/byflash",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": 62.5,
     "yearWinRate": 66.9,
     "winRate": "63%"
@@ -912,13 +912,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/y1/y1026/y1026.jpg",
     "station": "https://www.sooplive.com/station/y1026",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "이사장"
-    },
+    "academy": null,
     "monthWinRate": 0,
     "yearWinRate": 33.3,
     "winRate": "0%"
@@ -1164,13 +1158,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/jk/jk890202/jk890202.jpg",
     "station": "https://www.sooplive.com/station/jk890202",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -1191,13 +1179,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/rl/rlaxordyd/rlaxordyd.jpg",
     "station": "https://www.sooplive.com/station/rlaxordyd",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": 56.3,
     "yearWinRate": 56.7,
     "winRate": "56%"
@@ -1320,13 +1302,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/jo/jou1025/jou1025.jpg",
     "station": "https://www.sooplive.com/station/jou1025",
     "stationStatus": 200,
-    "academy": {
-      "id": 35,
-      "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": 30,
     "yearWinRate": 34.3,
     "winRate": "30%"
@@ -1347,13 +1323,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/mo/moguleave/moguleave.jpg",
     "station": "https://www.sooplive.com/station/moguleave",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": 60.4,
     "yearWinRate": 62.7,
     "winRate": "60%"
@@ -1773,13 +1743,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/yo/youaregood/youaregood.jpg",
     "station": "https://www.sooplive.com/station/youaregood",
     "stationStatus": 200,
-    "academy": {
-      "id": 35,
-      "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": 35.3,
     "yearWinRate": 38,
     "winRate": "35%"
@@ -1848,7 +1812,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/by/byromantic/byromantic.jpg",
     "station": "https://www.sooplive.com/station/byromantic",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 28,
+      "name": "엠비대",
+      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -2040,7 +2010,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ov/ovoa3316/ovoa3316.jpg",
     "station": "https://www.sooplive.com/station/ovoa3316",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 13,
+      "name": "흑카데미",
+      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "position": ""
+    },
     "monthWinRate": 50,
     "yearWinRate": 41.8,
     "winRate": "50%"
@@ -2307,13 +2283,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/tj/tjgpdus97/tjgpdus97.jpg",
     "station": "https://www.sooplive.com/station/tjgpdus97",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -2334,13 +2304,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/sc/scan1014/scan1014.jpg",
     "station": "https://www.sooplive.com/station/scan1014",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": 42.9,
     "yearWinRate": 46.5,
     "winRate": "43%"
@@ -2892,13 +2856,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/rl/rlekfu6/rlekfu6.jpg",
     "station": "https://www.sooplive.com/station/rlekfu6",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "총장"
-    },
+    "academy": null,
     "monthWinRate": 46.8,
     "yearWinRate": 32.1,
     "winRate": "47%"
@@ -2946,13 +2904,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/vl/vlfvlf789/vlfvlf789.jpg",
     "station": "https://www.sooplive.com/station/vlfvlf789",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "선도부장"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -3225,13 +3177,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/db/dbsdydx/dbsdydx.jpg",
     "station": "https://www.sooplive.com/station/dbsdydx",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": 50,
     "yearWinRate": 33.3,
     "winRate": "50%"
@@ -3273,13 +3219,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/yo/yochba0402/yochba0402.jpg",
     "station": "https://www.sooplive.com/station/yochba0402",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -3504,13 +3444,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/qu/queen030/queen030.jpg",
     "station": "https://www.sooplive.com/station/queen030",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": 51.2,
     "yearWinRate": 54.1,
     "winRate": "51%"
@@ -3552,7 +3486,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/bu/bumsoo552/bumsoo552.jpg",
     "station": "https://www.sooplive.com/station/bumsoo552",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 35,
+      "name": "BGM",
+      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "position": ""
+    },
     "monthWinRate": 37.5,
     "yearWinRate": 28.2,
     "winRate": "38%"
@@ -3831,13 +3771,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/dj/djdbstn/djdbstn.jpg",
     "station": "https://www.sooplive.com/station/djdbstn",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -4665,13 +4599,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/za/zalalz/zalalz.jpg",
     "station": "https://www.sooplive.com/station/zalalz",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": 83.3,
     "yearWinRate": 54.1,
     "winRate": "83%"
@@ -4692,13 +4620,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/jm/jmc06170/jmc06170.jpg",
     "station": "https://www.sooplive.com/station/jmc06170",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -5073,13 +4995,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/9r/9rumee/9rumee.jpg",
     "station": "https://www.sooplive.com/station/9rumee",
     "stationStatus": 200,
-    "academy": {
-      "id": 5,
-      "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": 36.4,
     "winRate": ""
@@ -5250,13 +5166,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/yj/yjk011599/yjk011599.jpg",
     "station": "https://www.sooplive.com/station/yjk011599",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": 38.1,
     "winRate": ""
@@ -5304,13 +5214,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/rh/rhf104/rhf104.jpg",
     "station": "https://www.sooplive.com/station/rhf104",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -5748,13 +5652,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ku/kuyol/kuyol.jpg",
     "station": "https://www.sooplive.com/station/kuyol",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -5925,13 +5823,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/me/mew030709/mew030709.jpg",
     "station": "https://www.sooplive.com/station/mew030709",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": 56.3,
     "yearWinRate": 55.3,
     "winRate": "56%"
@@ -6822,13 +6714,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/sa/sa03030/sa03030.jpg",
     "station": "https://www.sooplive.com/station/sa03030",
     "stationStatus": 200,
-    "academy": {
-      "id": 5,
-      "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": 68.6,
     "winRate": ""
@@ -7131,13 +7017,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/er/erosrainbow/erosrainbow.jpg",
     "station": "https://www.sooplive.com/station/erosrainbow",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -7206,13 +7086,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ba/bangsong12/bangsong12.jpg",
     "station": "https://www.sooplive.com/station/bangsong12",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -7437,13 +7311,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/im/imducko3o/imducko3o.jpg",
     "station": "https://www.sooplive.com/station/imducko3o",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -7533,13 +7401,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/qp/qpqpro/qpqpro.jpg",
     "station": "https://www.sooplive.com/station/qpqpro",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": 50,
     "yearWinRate": 42,
     "winRate": "50%"
@@ -7827,13 +7689,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ye/yeom1020/yeom1020.jpg",
     "station": "https://www.sooplive.com/station/yeom1020",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -8016,7 +7872,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/kj/kjhanna824/kjhanna824.jpg",
     "station": "https://www.sooplive.com/station/kjhanna824",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 7,
+      "name": "JSA",
+      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -8038,10 +7900,10 @@
     "station": "https://www.sooplive.com/station/haeun5513",
     "stationStatus": 200,
     "academy": {
-      "id": 20,
-      "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "id": 42,
+      "name": "신세계",
+      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
       "position": ""
     },
     "monthWinRate": 50,
@@ -8247,13 +8109,7 @@
     "sourceImage": "https://profile.img.sooplive.com/LOGO/mi/miiing0620/miiing0620.jpg",
     "station": "https://www.sooplive.com/station/miiing0620",
     "stationStatus": 200,
-    "academy": {
-      "id": 31,
-      "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -8601,13 +8457,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/wj/wjddlf4695/wjddlf4695.jpg",
     "station": "https://www.sooplive.com/station/wjddlf4695",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -8781,13 +8631,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/yu/yunhee1222/yunhee1222.jpg",
     "station": "https://www.sooplive.com/station/yunhee1222",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -9111,13 +8955,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ro/roa0216/roa0216.jpg",
     "station": "https://www.sooplive.com/station/roa0216",
     "stationStatus": 200,
-    "academy": {
-      "id": 1,
-      "name": "씨나인",
-      "image": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260312/31dff9e0aec947998652a9f247999e89.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": 28.6,
     "yearWinRate": 25,
     "winRate": "29%"
@@ -9370,5 +9208,59 @@
     "monthWinRate": 0,
     "yearWinRate": 0,
     "winRate": "0%"
+  },
+  {
+    "id": 745,
+    "userId": "faker1004",
+    "name": "가영",
+    "description": "",
+    "race": "T",
+    "tierCode": "B",
+    "tier": "베이비티어",
+    "tierId": "tier-B",
+    "sortOrder": 99,
+    "eloboardKey": "W_1047_T",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1047",
+    "image": "https://profile.img.sooplive.com/LOGO/fa/faker1004/faker1004.jpg",
+    "sourceImage": "https://profile.img.sooplive.com/LOGO/fa/faker1004/faker1004.jpg",
+    "station": "https://www.sooplive.com/station/faker1004",
+    "stationStatus": 200,
+    "academy": {
+      "id": 13,
+      "name": "흑카데미",
+      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "position": ""
+    },
+    "monthWinRate": 69.2,
+    "yearWinRate": null,
+    "winRate": "69%"
+  },
+  {
+    "id": 746,
+    "userId": "soonhani",
+    "name": "최하니",
+    "description": "",
+    "race": "P",
+    "tierCode": "3",
+    "tier": "3티어",
+    "tierId": "tier-3",
+    "sortOrder": 0,
+    "eloboardKey": "W_46_P",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=46",
+    "image": "https://profile.img.sooplive.co.kr/LOGO/so/soonhani/soonhani.jpg",
+    "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/so/soonhani/soonhani.jpg",
+    "station": "https://www.sooplive.com/station/soonhani",
+    "stationStatus": 200,
+    "academy": {
+      "id": 29,
+      "name": "와플대",
+      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "position": ""
+    },
+    "monthWinRate": 33.3,
+    "yearWinRate": null,
+    "winRate": "33%"
   }
 ]
