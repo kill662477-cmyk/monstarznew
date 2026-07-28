@@ -49,6 +49,7 @@ const RECORD_AJAX_DELAY_MS = Math.max(0, Number(process.env.RECORD_AJAX_DELAY_MS
 const RECORD_BACKFILL_VERSION = Math.max(1, Number(process.env.RECORD_BACKFILL_VERSION || 1));
 const RECORD_SYNC_MODE = normalizeRecordSyncMode(process.env.RECORD_SYNC_MODE || "auto");
 const ELOBOARD_MAX_ROWS_PER_PLAYER = Math.max(1, Number(process.env.ELOBOARD_MAX_ROWS_PER_PLAYER || 5000));
+const ELOBOARD_RETRY_ATTEMPTS = Math.max(1, Number(process.env.ELOBOARD_RETRY_ATTEMPTS || 3));
 const INACTIVE_RECORD_MONTHS = Math.max(1, Number(process.env.INACTIVE_RECORD_MONTHS || 4));
 const HIDE_INACTIVE_PLAYERS = process.env.HIDE_INACTIVE_PLAYERS !== "false";
 const RECORD_META_SCHEMA_VERSION = 1;
@@ -734,26 +735,31 @@ function extractCookieHeader(response) {
 }
 
 async function fetchEloboardPage(url) {
-  const { response, body } = await fetchBodyWithTimeout(
-    url,
-    {
-      headers: {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
-        accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+  return fetchEloboardWithRetry(`page ${url}`, async () => {
+    const { response, body } = await fetchBodyWithTimeout(
+      url,
+      {
+        headers: {
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
+          accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+        },
       },
-    },
-    (res) => res.text()
-  );
+      (res) => res.text()
+    );
 
-  if (!response.ok) {
-    throw new Error(`${response.status} ${url}`);
-  }
+    if (!response.ok) {
+      throw new Error(`${response.status} ${url}`);
+    }
 
-  return {
-    html: body || "",
-    cookieHeader: extractCookieHeader(response),
-  };
+    const page = {
+      html: body || "",
+      cookieHeader: extractCookieHeader(response),
+    };
+
+    assertEloboardOk(page.html);
+    return page;
+  });
 }
 
 async function fetchEloboardHtml(url) {
@@ -804,27 +810,67 @@ async function fetchEloboardMoreHtml(url, player, lastId, cookieHeader = "") {
     headers.cookie = cookieHeader;
   }
 
-  const { response, body } = await fetchBodyWithTimeout(
-    endpoint,
-    {
-      method: "POST",
-      headers,
-      body: form.toString(),
-    },
-    (res) => res.text()
-  );
+  return fetchEloboardWithRetry(`records ${player.name} page ${lastId}`, async () => {
+    const { response, body } = await fetchBodyWithTimeout(
+      endpoint,
+      {
+        method: "POST",
+        headers,
+        body: form.toString(),
+      },
+      (res) => res.text()
+    );
 
-  if (!response.ok) {
-    throw new Error(`${response.status} ${endpoint}`);
-  }
+    if (!response.ok) {
+      throw new Error(`${response.status} ${endpoint}`);
+    }
 
-  return body || "";
+    const html = body || "";
+    assertEloboardOk(html);
+    return html;
+  });
 }
 
 function assertEloboardOk(html) {
   if (/max_user_connections|Too many connections|DB Connect Error/i.test(html)) {
     throw new Error("ELOBOARD connection limit page detected");
   }
+}
+
+async function fetchEloboardWithRetry(label, worker) {
+  let lastError;
+
+  for (let attempt = 1; attempt <= ELOBOARD_RETRY_ATTEMPTS; attempt += 1) {
+    try {
+      return await worker();
+    } catch (error) {
+      lastError = error;
+
+      if (attempt >= ELOBOARD_RETRY_ATTEMPTS) break;
+
+      const waitMs = 1500 * attempt;
+      console.warn(
+        `[eloboard] ${label} failed (${error.message}). retry ${attempt}/${
+          ELOBOARD_RETRY_ATTEMPTS - 1
+        } after ${waitMs}ms`
+      );
+      await sleep(waitMs);
+    }
+  }
+
+  throw lastError;
+}
+
+async function getEloboardRankCheck() {
+  const page = await fetchEloboardPage(
+    "https://eloboard.com/women/bbs/board.php?bo_table=rank_list"
+  );
+  const monthMatch = page.html.match(/data:\s*\{\s*sear:\s*"(\d{8})"\s*,\s*b_id:\s*"eloboard"\s*\}/);
+
+  return {
+    lastUpdatedAt: new Date().toISOString(),
+    rankMonth: monthMatch ? monthMatch[1] : null,
+  };
 }
 
 function rowDate(row) {
@@ -2389,6 +2435,7 @@ async function main(run = {}) {
     RECORD_SYNC_MODE,
     RECORD_BACKFILL_VERSION,
     ELOBOARD_MAX_ROWS_PER_PLAYER,
+    ELOBOARD_RETRY_ATTEMPTS,
     INACTIVE_RECORD_MONTHS,
     HIDE_INACTIVE_PLAYERS,
     RECORD_META_SCHEMA_VERSION,
@@ -2405,8 +2452,9 @@ async function main(run = {}) {
 
   const [manualPlayers, lastUpdated] = await Promise.all([
     readManualPlayers(),
-    getJson("https://www.cnine.kr/api/v2/p/starcraft/eloboard/last-updated-at").catch(() => ({
+    getEloboardRankCheck().catch(() => ({
       lastUpdatedAt: null,
+      rankMonth: null,
     })),
   ]);
 
@@ -2740,6 +2788,7 @@ async function main(run = {}) {
     updatedAt: nowIso,
     sourceLastUpdatedAt: lastUpdated.lastUpdatedAt || null,
     eloboardUpdatedAt: lastUpdated.lastUpdatedAt || null,
+    eloboardRankMonth: lastUpdated.rankMonth || null,
     playerCount: visiblePlayers.length,
     sourcePlayerCount: players.length,
     hiddenInactivePlayerCount: hiddenInactivePlayers.length,
