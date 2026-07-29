@@ -2,13 +2,13 @@
   "meta": {
     "collectedAt": "2026-05-25T08:59:46.120Z",
     "sourceLastUpdatedAt": "2026-05-25T06:31:00",
-    "playerCount": 378,
+    "playerCount": 377,
     "stationVisitedCount": 360,
     "imageCachedCount": 360,
     "recordPlayerCount": 344,
     "recordErrorCount": 0,
     "recordErrors": [],
-    "sourcePlayerCount": 378
+    "sourcePlayerCount": 377
   },
   "players": [
     {
@@ -7956,30 +7956,6 @@
       "image": "assets/profile/chanmeyo.jpg",
       "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ch/chanmeyo/chanmeyo.jpg",
       "station": "https://www.sooplive.com/station/chanmeyo",
-      "stationStatus": 200,
-      "academy": null,
-      "monthWinRate": null,
-      "yearWinRate": null,
-      "winRate": "",
-      "live": false,
-      "broad": null,
-      "broadcastUrl": ""
-    },
-    {
-      "id": 335,
-      "userId": "son4069",
-      "name": "빵지니",
-      "description": "",
-      "race": "T",
-      "tierCode": "7",
-      "tierId": "tier-7",
-      "tier": "7티어",
-      "sortOrder": 5,
-      "eloboardKey": "W_646_T",
-      "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=646",
-      "image": "assets/profile/son4069.jpg",
-      "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/so/son4069/son4069.jpg",
-      "station": "https://www.sooplive.com/station/son4069",
       "stationStatus": 200,
       "academy": null,
       "monthWinRate": null,

@@ -9177,27 +9177,6 @@
     "winRate": ""
   },
   {
-    "id": 335,
-    "userId": "son4069",
-    "name": "빵지니",
-    "description": "",
-    "race": "T",
-    "tierCode": "7",
-    "tierId": "tier-7",
-    "tier": "7티어",
-    "sortOrder": 5,
-    "eloboardKey": "W_646_T",
-    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=646",
-    "image": "https://profile.img.sooplive.co.kr/LOGO/so/son4069/son4069.jpg",
-    "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/so/son4069/son4069.jpg",
-    "station": "https://www.sooplive.com/station/son4069",
-    "stationStatus": 200,
-    "academy": null,
-    "monthWinRate": null,
-    "yearWinRate": null,
-    "winRate": ""
-  },
-  {
     "id": 438,
     "userId": "zzonii",
     "name": "한쪼니",
