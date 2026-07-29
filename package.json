@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node scripts/validate-static-site.js",
     "collect": "node scripts/collect-data.js",
+    "sync-player-data": "node scripts/sync-player-data.js",
     "sync-live": "node scripts/sync-soop-live-to-firebase.js",
     "export-players": "node scripts/export-manual-players.js",
     "video-thumbnails": "node scripts/generate-video-thumbnails.js",
