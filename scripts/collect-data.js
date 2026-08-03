@@ -51,7 +51,9 @@ const RECORD_SYNC_MODE = normalizeRecordSyncMode(process.env.RECORD_SYNC_MODE ||
 const ELOBOARD_MAX_ROWS_PER_PLAYER = Math.max(1, Number(process.env.ELOBOARD_MAX_ROWS_PER_PLAYER || 5000));
 const ELOBOARD_RETRY_ATTEMPTS = Math.max(1, Number(process.env.ELOBOARD_RETRY_ATTEMPTS || 3));
 const INACTIVE_RECORD_MONTHS = Math.max(1, Number(process.env.INACTIVE_RECORD_MONTHS || 4));
-const HIDE_INACTIVE_PLAYERS = process.env.HIDE_INACTIVE_PLAYERS !== "false";
+// data/manual/players.json is the authoritative roster. Record inactivity must not
+// remove manually curated players from the published tier-state snapshots.
+const HIDE_INACTIVE_PLAYERS = process.env.HIDE_INACTIVE_PLAYERS === "true";
 const RECORD_META_SCHEMA_VERSION = 1;
 const RECORD_META_RECENT_ID_LIMIT = Math.max(
   20,

@@ -58,7 +58,7 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
 
-      - name: Run collect and upload to Firebase
+      - name: Run collect and publish tier state
         run: node scripts/collect-data.js
         env:
           FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
@@ -109,4 +109,4 @@ jobs:
 
           ELOBOARD_MAX_ROWS_PER_PLAYER: "5000"
           INACTIVE_RECORD_MONTHS: "4"
-          HIDE_INACTIVE_PLAYERS: "true"
+          HIDE_INACTIVE_PLAYERS: "false"
