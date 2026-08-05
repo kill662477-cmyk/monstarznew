@@ -9266,7 +9266,7 @@ body.light-mode .notice-feed-sub {
 /* ===== 조문 배너 (기간 지나면 자동 숨김) ===== */
 .condolence-bar{display:none;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.10);background:rgba(10,16,26,.92);color:#c9d4e2;font-size:13px;line-height:1.5;letter-spacing:-.01em}
 .condolence-bar.show{display:flex}
-.condolence-bar .condolence-text{flex:1;min-width:0;text-align:center}
+.condolence-bar .condolence-text{flex:1;min-width:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:4px 18px;text-align:center}
 .condolence-bar .condolence-close{flex:0 0 auto;width:24px;height:24px;border:0;background:transparent;color:#7f8ea3;font-size:15px;line-height:1;cursor:pointer;border-radius:6px}
 .condolence-bar .condolence-close:hover{background:rgba(255,255,255,.07);color:#c9d4e2}
 body.light-mode .condolence-bar{background:rgba(238,241,246,.96);border-bottom-color:rgba(0,0,0,.10);color:#4a5666}
@@ -9361,7 +9361,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
   <div id="condolenceBar" class="condolence-bar" role="status">
-    <span class="condolence-text">삼가 고인의 명복을 빕니다 &middot; 김윤환님의 부친상에 깊은 위로를 전합니다</span>
+    <span class="condolence-text"><span class="condolence-lead">삼가 고인의 명복을 빕니다</span><span class="condolence-sub">김윤환님의 부친상에 깊은 위로를 전합니다</span></span>
     <button type="button" class="condolence-close" id="condolenceClose" aria-label="닫기">&times;</button>
   </div>
   <script>
