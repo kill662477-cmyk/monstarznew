@@ -1,5 +1,5 @@
 const DEFAULT_SOURCE =
-  "https://tscam-schedule-kill662477-cmyks-projects.vercel.app/api/save-schedule";
+  "https://calm-schedule.vercel.app/api/save-schedule";
 
 function koreaDateKey(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-CA", {
