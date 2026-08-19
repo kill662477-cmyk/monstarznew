@@ -10082,7 +10082,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     img.src = img.dataset.fallback || TEAM.logo;
   }, true);
 
-  const LIVE_STATUS_URL = "https://livecheck-2.onrender.com/live-status";
+  const LIVE_STATUS_URL = "/api/tier-state";
   const YOUTUBE_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/youtube/refs/heads/main/youtube.json";
   const KAMRINI_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/RINI/main/data/kamrini-videos.json";
   const NOTICE_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/silver0love/main/notices.json";
@@ -13843,7 +13843,8 @@ function createMemberCard(member) {
       if (result.error && !result.data) throw result.error;
       const data = result.data || {};
 
-      if (data && data.statuses) {
+      if (data && !data.statuses && data.liveStatus) data.statuses = data.liveStatus;
+        if (data && data.statuses) {
         liveStatusMap = data.statuses || {};
         rebuildLiveInfo(data);
         lastCheckedAt = data.checkedAt || result.updatedAt || TEAM.updatedAt;
