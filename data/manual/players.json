@@ -15,13 +15,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/su/suhi370erw/suhi370erw.jpg",
     "station": "https://www.sooplive.com/station/suhi370erw",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": "이사장"
-    },
+    "academy": null,
     "monthWinRate": 42.1,
     "yearWinRate": 42.1,
     "winRate": "42%"
@@ -36,7 +30,7 @@
     "tier": "4티어",
     "tierId": "tier-4",
     "sortOrder": 11,
-    "eloboardKey": "W_14_Z",
+    "eloboardKey": "M_14_Z,W_14_Z",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=14",
     "image": "https://profile.img.sooplive.co.kr/LOGO/gk/gks2wl/gks2wl.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/gk/gks2wl/gks2wl.jpg",
@@ -66,8 +60,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": "이사장"
     },
     "monthWinRate": 42.9,
@@ -93,8 +87,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": "총장"
     },
     "monthWinRate": 40,
@@ -120,8 +114,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "총장"
     },
     "monthWinRate": null,
@@ -147,8 +141,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -174,8 +168,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": 57.1,
@@ -201,8 +195,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -228,8 +222,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -255,8 +249,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": 84.6,
@@ -282,8 +276,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": "교수"
     },
     "monthWinRate": 59.5,
@@ -309,8 +303,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -336,8 +330,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": "부총장"
     },
     "monthWinRate": 56.3,
@@ -363,8 +357,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": "교수"
     },
     "monthWinRate": 36.4,
@@ -411,8 +405,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "코치"
     },
     "monthWinRate": null,
@@ -438,8 +432,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -465,8 +459,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": "코치"
     },
     "monthWinRate": 50,
@@ -492,8 +486,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -540,8 +534,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": 55.6,
@@ -567,8 +561,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": "코치"
     },
     "monthWinRate": null,
@@ -591,7 +585,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/by/byebye22/byebye22.jpg",
     "station": "https://www.sooplive.com/station/byebye22",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 29,
+      "name": "와플대",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "position": "코치"
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -636,8 +636,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -663,8 +663,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -711,8 +711,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": 66.7,
@@ -780,8 +780,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": 64.8,
@@ -807,8 +807,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "교수"
     },
     "monthWinRate": 59.2,
@@ -834,8 +834,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "코치"
     },
     "monthWinRate": 80,
@@ -882,8 +882,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": "교수"
     },
     "monthWinRate": 55.3,
@@ -930,8 +930,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": 63.2,
@@ -1020,8 +1020,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 45.7,
@@ -1047,8 +1047,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "교수"
     },
     "monthWinRate": 0,
@@ -1074,8 +1074,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -1101,8 +1101,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": 43.8,
@@ -1128,8 +1128,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": "교수"
     },
     "monthWinRate": 38.9,
@@ -1152,7 +1152,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/jk/jk890202/jk890202.jpg",
     "station": "https://www.sooplive.com/station/jk890202",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": "총장"
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -1197,8 +1203,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -1224,8 +1230,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": ""
     },
     "monthWinRate": 34.5,
@@ -1272,8 +1278,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": ""
     },
     "monthWinRate": 63.6,
@@ -1317,7 +1323,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/mo/moguleave/moguleave.jpg",
     "station": "https://www.sooplive.com/station/moguleave",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": ""
+    },
     "monthWinRate": 60.4,
     "yearWinRate": 62.7,
     "winRate": "60%"
@@ -1341,8 +1353,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": 61.1,
@@ -1368,8 +1380,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": "총장"
     },
     "monthWinRate": null,
@@ -1395,8 +1407,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": 83.3,
@@ -1422,8 +1434,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -1449,8 +1461,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -1476,8 +1488,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 73.3,
@@ -1495,7 +1507,7 @@
     "tierId": "tier-S",
     "sortOrder": 2,
     "eloboardKey": "M_325_P,M_325_T,M_694_T,P_198_T,P_212_P",
-    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_m_list&wr_id=694",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_m_list&wr_id=325",
     "image": "https://profile.img.sooplive.co.kr/LOGO/mi/minyoo3972/minyoo3972.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/mi/minyoo3972/minyoo3972.jpg",
     "station": "https://www.sooplive.com/station/minyoo3972",
@@ -1503,8 +1515,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -1530,8 +1542,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 54.2,
@@ -1548,7 +1560,7 @@
     "tier": "7티어",
     "tierId": "tier-7",
     "sortOrder": 2,
-    "eloboardKey": "W_906_P",
+    "eloboardKey": "M_1042_Z,W_906_P",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=906",
     "image": "https://profile.img.sooplive.co.kr/LOGO/eu/eunseo0152/eunseo0152.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/eu/eunseo0152/eunseo0152.jpg",
@@ -1557,8 +1569,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": ""
     },
     "monthWinRate": 54.8,
@@ -1584,8 +1596,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "교수"
     },
     "monthWinRate": 55.6,
@@ -1632,8 +1644,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -1659,8 +1671,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": 25,
@@ -1683,7 +1695,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ys/ys9024/ys9024.jpg",
     "station": "https://www.sooplive.com/station/ys9024",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": ""
+    },
     "monthWinRate": 65.2,
     "yearWinRate": 48.5,
     "winRate": "65%"
@@ -1707,8 +1725,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": 56,
@@ -1752,7 +1770,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/wl/wlswn6565/wlswn6565.jpg",
     "station": "https://www.sooplive.com/station/wlswn6565",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": ""
+    },
     "monthWinRate": 46.3,
     "yearWinRate": 52.6,
     "winRate": "46%"
@@ -1776,8 +1800,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": 56,
@@ -1803,9 +1827,9 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "position": ""
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "position": "교수"
     },
     "monthWinRate": null,
     "yearWinRate": null,
@@ -1830,8 +1854,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -1878,8 +1902,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -1923,13 +1947,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/rn/rnfma14/rnfma14.jpg",
     "station": "https://www.sooplive.com/station/rnfma14",
     "stationStatus": 200,
-    "academy": {
-      "id": 42,
-      "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -1953,8 +1971,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": "교수"
     },
     "monthWinRate": 83.3,
@@ -2001,8 +2019,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 50,
@@ -2028,8 +2046,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": 51.4,
@@ -2046,7 +2064,7 @@
     "tier": "4티어",
     "tierId": "tier-4",
     "sortOrder": 3,
-    "eloboardKey": "W_724_P",
+    "eloboardKey": "M_801_P,W_724_P",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=724",
     "image": "https://profile.img.sooplive.co.kr/LOGO/ag/agah1106/agah1106.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ag/agah1106/agah1106.jpg",
@@ -2055,8 +2073,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": 63.3,
@@ -2124,8 +2142,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -2151,8 +2169,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": 28.6,
@@ -2196,7 +2214,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ar/aram1213/aram1213.jpg",
     "station": "https://www.sooplive.com/station/aram1213",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": ""
+    },
     "monthWinRate": 76.5,
     "yearWinRate": 60,
     "winRate": "77%"
@@ -2220,8 +2244,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": 40,
@@ -2247,8 +2271,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -2271,7 +2295,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/tj/tjgpdus97/tjgpdus97.jpg",
     "station": "https://www.sooplive.com/station/tjgpdus97",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -2295,8 +2325,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": "교수"
     },
     "monthWinRate": 42.9,
@@ -2343,8 +2373,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "교수"
     },
     "monthWinRate": 0,
@@ -2370,8 +2400,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": "교수"
     },
     "monthWinRate": 0,
@@ -2397,8 +2427,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "교수"
     },
     "monthWinRate": 71.4,
@@ -2445,8 +2475,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": ""
     },
     "monthWinRate": 51.9,
@@ -2472,8 +2502,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": "교수"
     },
     "monthWinRate": 50,
@@ -2499,8 +2529,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -2547,8 +2577,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": "코치"
     },
     "monthWinRate": null,
@@ -2595,8 +2625,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -2622,8 +2652,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": "수장"
     },
     "monthWinRate": null,
@@ -2649,8 +2679,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -2676,8 +2706,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -2724,8 +2754,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": 33.3,
@@ -2751,8 +2781,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -2778,8 +2808,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": "총장"
     },
     "monthWinRate": null,
@@ -2805,8 +2835,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -2850,7 +2880,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/rl/rlekfu6/rlekfu6.jpg",
     "station": "https://www.sooplive.com/station/rlekfu6",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": "총장"
+    },
     "monthWinRate": 46.8,
     "yearWinRate": 32.1,
     "winRate": "47%"
@@ -2874,8 +2910,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": 45.6,
@@ -2898,7 +2934,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/vl/vlfvlf789/vlfvlf789.jpg",
     "station": "https://www.sooplive.com/station/vlfvlf789",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": "이사장"
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -2929,24 +2971,18 @@
     "userId": "asdsa1113",
     "name": "세월",
     "description": "",
-    "race": "T",
+    "race": "P",
     "tierCode": "7",
     "tier": "7티어",
     "tierId": "tier-7",
     "sortOrder": 4,
     "eloboardKey": "M_785_T,W_703_T,W_948_P",
-    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=703",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=948",
     "image": "https://profile.img.sooplive.co.kr/LOGO/as/asdsa1113/asdsa1113.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/as/asdsa1113/asdsa1113.jpg",
     "station": "https://www.sooplive.com/station/asdsa1113",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": 29.6,
     "yearWinRate": 30.2,
     "winRate": "30%"
@@ -2970,8 +3006,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": 75,
@@ -3018,8 +3054,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -3045,8 +3081,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": ""
     },
     "monthWinRate": 36.1,
@@ -3069,13 +3105,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/yn/ynblbee/ynblbee.jpg",
     "station": "https://www.sooplive.com/station/ynblbee",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": "학생회장"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -3099,8 +3129,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -3147,8 +3177,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": "교수"
     },
     "monthWinRate": 50.9,
@@ -3171,7 +3201,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/db/dbsdydx/dbsdydx.jpg",
     "station": "https://www.sooplive.com/station/dbsdydx",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": "교수"
+    },
     "monthWinRate": 50,
     "yearWinRate": 33.3,
     "winRate": "50%"
@@ -3276,13 +3312,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/gh/ghtjs3833/ghtjs3833.jpg",
     "station": "https://www.sooplive.com/station/ghtjs3833",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -3327,8 +3357,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": 31.8,
@@ -3354,8 +3384,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -3372,7 +3402,7 @@
     "tier": "7티어",
     "tierId": "tier-7",
     "sortOrder": 4,
-    "eloboardKey": "W_864_T",
+    "eloboardKey": "W_864_T,W_864_Z",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=864",
     "image": "https://profile.img.sooplive.co.kr/LOGO/gk/gkgus99/gkgus99.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/gk/gkgus99/gkgus99.jpg",
@@ -3381,8 +3411,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": ""
     },
     "monthWinRate": 42,
@@ -3408,8 +3438,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -3432,7 +3462,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/qu/queen030/queen030.jpg",
     "station": "https://www.sooplive.com/station/queen030",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": ""
+    },
     "monthWinRate": 51.2,
     "yearWinRate": 54.1,
     "winRate": "51%"
@@ -3477,9 +3513,9 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "position": ""
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "position": "교수"
     },
     "monthWinRate": 37.5,
     "yearWinRate": 28.2,
@@ -3525,8 +3561,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -3552,8 +3588,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -3579,8 +3615,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": 47.7,
@@ -3606,8 +3642,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": "총장"
     },
     "monthWinRate": 53.7,
@@ -3633,8 +3669,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": 38.5,
@@ -3702,8 +3738,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": "코치"
     },
     "monthWinRate": null,
@@ -3729,8 +3765,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -3753,7 +3789,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/dj/djdbstn/djdbstn.jpg",
     "station": "https://www.sooplive.com/station/djdbstn",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": "교수"
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -3777,8 +3819,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": ""
     },
     "monthWinRate": 48.6,
@@ -3804,8 +3846,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -3831,8 +3873,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": "교수"
     },
     "monthWinRate": 33.3,
@@ -3858,8 +3900,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -3906,8 +3948,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": "교수"
     },
     "monthWinRate": 57.1,
@@ -3933,8 +3975,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": 42.9,
@@ -3960,8 +4002,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": "교수"
     },
     "monthWinRate": 10,
@@ -3987,8 +4029,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -4014,8 +4056,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -4059,13 +4101,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ig/igoldtree/igoldtree.jpg",
     "station": "https://www.sooplive.com/station/igoldtree",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": "코치"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -4086,13 +4122,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ze/zealotmaru/zealotmaru.jpg",
     "station": "https://www.sooplive.com/station/zealotmaru",
     "stationStatus": 200,
-    "academy": {
-      "id": 42,
-      "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": 20,
     "yearWinRate": 40.6,
     "winRate": "20%"
@@ -4158,8 +4188,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -4185,8 +4215,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 55,
@@ -4212,8 +4242,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": 52.9,
@@ -4239,8 +4269,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -4287,8 +4317,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -4314,8 +4344,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": "교수"
     },
     "monthWinRate": 49.3,
@@ -4341,8 +4371,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": 26.7,
@@ -4386,13 +4416,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/jh/jhyhlli123/jhyhlli123.jpg",
     "station": "https://www.sooplive.com/station/jhyhlli123",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -4437,8 +4461,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": "교수"
     },
     "monthWinRate": 67.1,
@@ -4464,8 +4488,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": 35.7,
@@ -4491,8 +4515,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -4515,13 +4539,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/sn/snowssa/snowssa.jpg",
     "station": "https://www.sooplive.com/station/snowssa",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -4545,8 +4563,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": ""
     },
     "monthWinRate": 41.3,
@@ -4593,9 +4611,9 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "position": "코치"
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "position": "교수"
     },
     "monthWinRate": null,
     "yearWinRate": null,
@@ -4683,8 +4701,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": 47.8,
@@ -4710,8 +4728,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": "총장"
     },
     "monthWinRate": null,
@@ -4737,8 +4755,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "교수"
     },
     "monthWinRate": 63.2,
@@ -4764,8 +4782,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -4791,8 +4809,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -4818,8 +4836,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "학생회장"
     },
     "monthWinRate": null,
@@ -4845,8 +4863,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "코치"
     },
     "monthWinRate": 100,
@@ -4872,8 +4890,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "교수"
     },
     "monthWinRate": 33.3,
@@ -4899,8 +4917,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -4923,7 +4941,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/hb/hby0724/hby0724.jpg",
     "station": "https://www.sooplive.com/station/hby0724",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": "교수"
+    },
     "monthWinRate": 43.3,
     "yearWinRate": 49.4,
     "winRate": "43%"
@@ -4947,8 +4971,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -4995,8 +5019,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": "교수"
     },
     "monthWinRate": 33.3,
@@ -5019,7 +5043,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/qn/qndnd12/qndnd12.jpg",
     "station": "https://www.sooplive.com/station/qndnd12",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 31,
+      "name": "수술대",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -5043,8 +5073,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -5091,8 +5121,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -5160,8 +5190,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": 25,
@@ -5208,8 +5238,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -5235,8 +5265,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -5262,8 +5292,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": 51.2,
@@ -5289,8 +5319,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": 45.5,
@@ -5302,12 +5332,12 @@
     "userId": "roket0829",
     "name": "박퍼니",
     "description": "퍼니",
-    "race": "T",
+    "race": "P",
     "tierCode": "8",
     "tier": "8티어",
     "tierId": "tier-8",
     "sortOrder": 7,
-    "eloboardKey": "M_1118_T",
+    "eloboardKey": "M_1118_P,M_1118_T",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_m_list&wr_id=1118",
     "image": "https://profile.img.sooplive.co.kr/LOGO/ro/roket0829/roket0829.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ro/roket0829/roket0829.jpg",
@@ -5334,13 +5364,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/bt/bts150/bts150.jpg",
     "station": "https://www.sooplive.com/station/bts150",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": 44,
     "yearWinRate": 35.7,
     "winRate": "44%"
@@ -5364,8 +5388,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -5391,8 +5415,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": "이사장"
     },
     "monthWinRate": null,
@@ -5439,8 +5463,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": "교수"
     },
     "monthWinRate": 43.8,
@@ -5484,7 +5508,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/dp/dptmfl1258/dptmfl1258.jpg",
     "station": "https://www.sooplive.com/station/dptmfl1258",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -5589,13 +5619,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/he/heksd/heksd.jpg",
     "station": "https://www.sooplive.com/station/heksd",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": "코치"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -5616,7 +5640,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ku/kuyol/kuyol.jpg",
     "station": "https://www.sooplive.com/station/kuyol",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": "코치"
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -5640,8 +5670,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": "교수"
     },
     "monthWinRate": 30.8,
@@ -5709,8 +5739,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -5736,8 +5766,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": "교수"
     },
     "monthWinRate": 57.1,
@@ -5763,8 +5793,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -5811,8 +5841,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": 50,
@@ -5838,8 +5868,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -5865,8 +5895,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -5892,8 +5922,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -5919,8 +5949,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": ""
     },
     "monthWinRate": 25.8,
@@ -5946,8 +5976,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": "교수"
     },
     "monthWinRate": 38.5,
@@ -5994,8 +6024,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "부총장"
     },
     "monthWinRate": null,
@@ -6021,8 +6051,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 51,
@@ -6048,8 +6078,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -6075,8 +6105,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -6102,8 +6132,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -6129,8 +6159,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 61.8,
@@ -6156,8 +6186,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "교수"
     },
     "monthWinRate": 39.7,
@@ -6180,13 +6210,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/by/byspire/byspire.jpg",
     "station": "https://www.sooplive.com/station/byspire",
     "stationStatus": 200,
-    "academy": {
-      "id": 42,
-      "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -6210,8 +6234,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -6249,7 +6273,7 @@
     "tier": "5티어",
     "tierId": "tier-5",
     "sortOrder": 9,
-    "eloboardKey": "W_722_T,M_800_T",
+    "eloboardKey": "M_800_T,W_722_T",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=722",
     "image": "https://profile.img.sooplive.co.kr/LOGO/li/lingolinga/lingolinga.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/li/lingolinga/lingolinga.jpg",
@@ -6258,8 +6282,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 57.1,
@@ -6285,8 +6309,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -6304,7 +6328,7 @@
     "tierId": "tier-5",
     "sortOrder": 9,
     "eloboardKey": "M_1003_P,M_871_P,W_773_P,W_773_T,W_870_P",
-    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=870",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=773",
     "image": "https://profile.img.sooplive.co.kr/LOGO/zz/zzzz809/zzzz809.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/zz/zzzz809/zzzz809.jpg",
     "station": "https://www.sooplive.com/station/zzzz809",
@@ -6312,8 +6336,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": 42.5,
@@ -6339,9 +6363,9 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "position": ""
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "position": "학생회장"
     },
     "monthWinRate": 57.8,
     "yearWinRate": 60.4,
@@ -6378,19 +6402,13 @@
     "tier": "4티어",
     "tierId": "tier-4",
     "sortOrder": 9,
-    "eloboardKey": "W_57_P,W_57_Z",
-    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=57",
+    "eloboardKey": "W_1046_P,W_1046_Z,W_57_P,W_57_Z",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1046",
     "image": "https://profile.img.sooplive.co.kr/LOGO/ek/ekfrqkf/ekfrqkf.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ek/ekfrqkf/ekfrqkf.jpg",
     "station": "https://www.sooplive.com/station/ekfrqkf",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": 27.3,
     "winRate": ""
@@ -6414,8 +6432,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": "이사장"
     },
     "monthWinRate": null,
@@ -6441,8 +6459,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": 66.7,
@@ -6531,8 +6549,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": "총장"
     },
     "monthWinRate": null,
@@ -6555,7 +6573,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/wj/wjswpalssla1/wjswpalssla1.jpg",
     "station": "https://www.sooplive.com/station/wjswpalssla1",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 31,
+      "name": "수술대",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -6600,8 +6624,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": "교수"
     },
     "monthWinRate": 16.7,
@@ -6627,8 +6651,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": "총장"
     },
     "monthWinRate": 44.6,
@@ -6654,8 +6678,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -6765,8 +6789,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": ""
     },
     "monthWinRate": 44.4,
@@ -6855,8 +6879,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": 52.5,
@@ -6882,8 +6906,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": "이사장"
     },
     "monthWinRate": 0,
@@ -6930,8 +6954,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": 71.7,
@@ -6975,13 +6999,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/hc/hckkhc21/hckkhc21.jpg",
     "station": "https://www.sooplive.com/station/hckkhc21",
     "stationStatus": 200,
-    "academy": {
-      "id": 35,
-      "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "position": "구단주"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": 55.3,
     "winRate": ""
@@ -7068,8 +7086,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "교수"
     },
     "monthWinRate": null,
@@ -7095,8 +7113,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": 54.3,
@@ -7119,7 +7137,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/co/comcmxx/comcmxx.jpg",
     "station": "https://www.sooplive.com/station/comcmxx",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 31,
+      "name": "수술대",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": 25,
     "winRate": ""
@@ -7143,8 +7167,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": 50,
@@ -7167,13 +7191,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/na/nalra82/nalra82.jpg",
     "station": "https://www.sooplive.com/station/nalra82",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": "총장"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -7188,7 +7206,7 @@
     "tier": "잭티어",
     "tierId": "tier-J",
     "sortOrder": 12,
-    "eloboardKey": "P_171_Z",
+    "eloboardKey": "P_171_T,P_171_Z",
     "elo": "https://eloboard.com/men/bbs/board.php?bo_table=bj_list&wr_id=171",
     "image": "https://profile.img.sooplive.co.kr/LOGO/ks/kss33325/kss33325.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ks/kss33325/kss33325.jpg",
@@ -7197,8 +7215,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": "교수"
     },
     "monthWinRate": 50,
@@ -7266,8 +7284,8 @@
     "academy": {
       "id": 41,
       "name": "DM",
-      "image": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260427/b67ca255b00740cca1df58d0a87ce610.png",
+      "image": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/405245514d4f4ee08df96b5559d3b99d.png",
       "position": ""
     },
     "monthWinRate": 40,
@@ -7356,8 +7374,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": ""
     },
     "monthWinRate": 49.2,
@@ -7383,8 +7401,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -7431,8 +7449,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": 60.7,
@@ -7458,8 +7476,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": "교수"
     },
     "monthWinRate": 40,
@@ -7527,8 +7545,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": 42.3,
@@ -7554,8 +7572,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "이사장"
     },
     "monthWinRate": 75,
@@ -7644,8 +7662,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": "이사장"
     },
     "monthWinRate": null,
@@ -7671,8 +7689,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": "이사장"
     },
     "monthWinRate": 100,
@@ -7698,8 +7716,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": "이사장"
     },
     "monthWinRate": null,
@@ -7725,8 +7743,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -7749,13 +7767,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/on/onzzang/onzzang.jpg",
     "station": "https://www.sooplive.com/station/onzzang",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": 27.8,
     "yearWinRate": 42.9,
     "winRate": "28%"
@@ -7776,13 +7788,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/sr/sr629/sr629.jpg",
     "station": "https://www.sooplive.com/station/sr629",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -7797,7 +7803,7 @@
     "tier": "8티어",
     "tierId": "tier-8",
     "sortOrder": 30,
-    "eloboardKey": "W_1028_P",
+    "eloboardKey": "W_1026_T",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1028",
     "image": "https://profile.img.sooplive.co.kr/LOGO/kj/kjhanna824/kjhanna824.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/kj/kjhanna824/kjhanna824.jpg",
@@ -7806,8 +7812,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -7833,8 +7839,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": ""
     },
     "monthWinRate": 50,
@@ -7860,8 +7866,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -7887,8 +7893,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -7914,8 +7920,8 @@
     "academy": {
       "id": 28,
       "name": "엠비대",
-      "image": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250121/b342be6cbb534cd180a9892645f6c618.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/38d7afd4c6d44e50b90057e6bf6986cb.jpg",
       "position": ""
     },
     "monthWinRate": 56.9,
@@ -7941,8 +7947,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": 53.3,
@@ -7968,8 +7974,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 46.2,
@@ -8049,19 +8055,13 @@
     "tier": "베이비티어",
     "tierId": "tier-B",
     "sortOrder": 51,
-    "eloboardKey": "",
+    "eloboardKey": "W_1036_P",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1036",
     "image": "https://profile.img.sooplive.com/LOGO/ar/ara9687/ara9687.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/ar/ara9687/ara9687.jpg",
     "station": "https://www.sooplive.com/station/ara9687",
     "stationStatus": 200,
-    "academy": {
-      "id": 38,
-      "name": "HM",
-      "image": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/49020e43fc0547339e49b6bca022a816.png",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -8085,8 +8085,8 @@
     "academy": {
       "id": 20,
       "name": "뉴캣슬",
-      "image": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250815/69f42ee69b974894b04b16ab007523c2.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/2c280a30e0514c6689212ba76d169aed.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -8103,7 +8103,7 @@
     "tier": "베이비티어",
     "tierId": "tier-B",
     "sortOrder": 54,
-    "eloboardKey": "",
+    "eloboardKey": "W_1039_Z",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1039",
     "image": "https://profile.img.sooplive.com/LOGO/sk/sksmsskdsl10/sksmsskdsl10.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/sk/sksmsskdsl10/sksmsskdsl10.jpg",
@@ -8112,8 +8112,8 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -8130,7 +8130,7 @@
     "tier": "8티어",
     "tierId": "tier-8",
     "sortOrder": 55,
-    "eloboardKey": "",
+    "eloboardKey": "W_1038_P",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1038",
     "image": "https://profile.img.sooplive.com/LOGO/zi/zinsim/zinsim.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/zi/zinsim/zinsim.jpg",
@@ -8139,8 +8139,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -8157,7 +8157,7 @@
     "tier": "베이비티어",
     "tierId": "tier-B",
     "sortOrder": 57,
-    "eloboardKey": "W_1040_T,M_1191_T",
+    "eloboardKey": "W_1040_T",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1040",
     "image": "https://profile.img.sooplive.com/LOGO/od/ode0411/ode0411.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/od/ode0411/ode0411.jpg",
@@ -8166,8 +8166,8 @@
     "academy": {
       "id": 31,
       "name": "수술대",
-      "image": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250705/244a3ab07b7546b2b6ddd368d16b28cb.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/95769d66ed214503833574e5fbe64814.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -8184,7 +8184,7 @@
     "tier": "8티어",
     "tierId": "tier-8",
     "sortOrder": 59,
-    "eloboardKey": "W_1043_Z,M_1194_Z",
+    "eloboardKey": "W_1043_Z",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1043",
     "image": "https://profile.img.sooplive.com/LOGO/jo/jooyoung0040/jooyoung0040.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/jo/jooyoung0040/jooyoung0040.jpg",
@@ -8193,8 +8193,8 @@
     "academy": {
       "id": 5,
       "name": "케이대",
-      "image": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/c8ac0351f03e45859ad56ca5002295cc.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/c533fed8bee34b75ab14b35acc16b029.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -8211,7 +8211,7 @@
     "tier": "베이비티어",
     "tierId": "tier-B",
     "sortOrder": 60,
-    "eloboardKey": "W_1041_Z,M_1192_Z",
+    "eloboardKey": "W_1041_Z",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1041",
     "image": "https://profile.img.sooplive.com/LOGO/li/littlekim12/littlekim12.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/li/littlekim12/littlekim12.jpg",
@@ -8220,8 +8220,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -8238,7 +8238,7 @@
     "tier": "베이비티어",
     "tierId": "tier-B",
     "sortOrder": 61,
-    "eloboardKey": "W_1042_Z,M_1193_Z",
+    "eloboardKey": "W_1042_Z",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1042",
     "image": "https://profile.img.sooplive.com/LOGO/ki/kidsaoq/kidsaoq.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/ki/kidsaoq/kidsaoq.jpg",
@@ -8247,8 +8247,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -8463,8 +8463,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": ""
     },
     "monthWinRate": 66.7,
@@ -8595,8 +8595,8 @@
     "academy": {
       "id": 42,
       "name": "신세계",
-      "image": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
-      "sourceImage": "https://dn.cnine.kr/file/20260613/d5d811c5b390484c93102ed06c96ba55.png",
+      "image": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/5164d6fe333948bab33c38db640765af.png",
       "position": "이사장"
     },
     "monthWinRate": null,
@@ -8706,8 +8706,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -8724,7 +8724,7 @@
     "tier": "베이비티어",
     "tierId": "tier-B",
     "sortOrder": 83,
-    "eloboardKey": "W_1044_T,M_1195_T",
+    "eloboardKey": "W_1044_T",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1044",
     "image": "https://profile.img.sooplive.com/LOGO/ta/tamama88/tamama88.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/ta/tamama88/tamama88.jpg",
@@ -8733,8 +8733,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -8751,7 +8751,7 @@
     "tier": "베이비티어",
     "tierId": "tier-B",
     "sortOrder": 84,
-    "eloboardKey": "W_1045_P,M_1196_P",
+    "eloboardKey": "W_1045_P",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1045",
     "image": "https://profile.img.sooplive.com/LOGO/rl/rldyal71/rldyal71.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/rl/rldyal71/rldyal71.jpg",
@@ -8760,8 +8760,8 @@
     "academy": {
       "id": 7,
       "name": "JSA",
-      "image": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/d665b775bd2b458185a8df57b7b9a702.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/a088eeaf20f746eba7ae6e50580bddac.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -8787,8 +8787,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -8853,7 +8853,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ro/roa0216/roa0216.jpg",
     "station": "https://www.sooplive.com/station/roa0216",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": ""
+    },
     "monthWinRate": 28.6,
     "yearWinRate": 25,
     "winRate": "29%"
@@ -8940,8 +8946,8 @@
     "academy": {
       "id": 35,
       "name": "BGM",
-      "image": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
-      "sourceImage": "https://dn.cnine.kr/file/20251218/bcc0dd67f1724e4ab4738fdc328e01aa.png",
+      "image": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/06d3f86474ae4c65a4c4b62eadd8d4cf.png",
       "position": ""
     },
     "monthWinRate": null,
@@ -8985,7 +8991,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/mw/mwhdgus/mwhdgus.jpg",
     "station": "https://www.sooplive.com/station/mwhdgus",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": "교수"
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -9000,7 +9012,7 @@
     "tier": "티어없음",
     "tierId": "tier-N",
     "sortOrder": 95,
-    "eloboardKey": "M_352_T,P_125_P",
+    "eloboardKey": "M_352_P,M_352_T,P_125_P",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_m_list&wr_id=352",
     "image": "https://profile.img.sooplive.co.kr/LOGO/cl/clubsexybj/clubsexybj.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/cl/clubsexybj/clubsexybj.jpg",
@@ -9063,8 +9075,8 @@
     "tier": "베이비티어",
     "tierId": "tier-B",
     "sortOrder": 98,
-    "eloboardKey": "",
-    "elo": "",
+    "eloboardKey": "W_1049_P",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=1049",
     "image": "https://profile.img.sooplive.com/LOGO/e2/e2003jin/e2003jin.jpg",
     "sourceImage": "https://profile.img.sooplive.com/LOGO/e2/e2003jin/e2003jin.jpg",
     "station": "https://www.sooplive.com/station/e2003jin",
@@ -9072,8 +9084,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": ""
     },
     "monthWinRate": null,
@@ -9090,7 +9102,7 @@
     "tier": "2티어",
     "tierId": "tier-2",
     "sortOrder": 1,
-    "eloboardKey": "W_35_T",
+    "eloboardKey": "M_392_T,W_324_P,W_35_Z,W_854_T",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=35",
     "image": "https://stimg.sooplive.com/COMMENT/0/12635700/64451783504265163.jpg",
     "sourceImage": "https://stimg.sooplive.com/COMMENT/0/12635700/64451783504265163.jpg",
@@ -9099,9 +9111,9 @@
     "academy": {
       "id": 22,
       "name": "캄몬스타즈",
-      "image": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240717/b46949204d2d4a299b0631742dbceece.jpg",
-      "position": "학생"
+      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
+      "position": ""
     },
     "monthWinRate": 0,
     "yearWinRate": 0,
@@ -9126,8 +9138,8 @@
     "academy": {
       "id": 13,
       "name": "흑카데미",
-      "image": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20240529/7097858d59f840948d219cf5cfeef03d.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/0108c599dd244918a053c7c5878327b8.jpg",
       "position": ""
     },
     "monthWinRate": 69.2,
@@ -9144,7 +9156,7 @@
     "tier": "3티어",
     "tierId": "tier-3",
     "sortOrder": 0,
-    "eloboardKey": "W_46_P",
+    "eloboardKey": "M_432_P,W_46_P,W_46_T,W_46_Z,W_70_Z",
     "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=46",
     "image": "https://profile.img.sooplive.co.kr/LOGO/so/soonhani/soonhani.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/so/soonhani/soonhani.jpg",
@@ -9153,8 +9165,8 @@
     "academy": {
       "id": 29,
       "name": "와플대",
-      "image": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
-      "sourceImage": "https://dn.cnine.kr/file/20250205/6cef23d3fa584a9d8365840d3f2ca7f5.jpg",
+      "image": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
+      "sourceImage": "https://dn.playdk.kr/file/20260816/7b5437dac19249ccb2b370a5bb75e9b0.jpg",
       "position": ""
     },
     "monthWinRate": 33.3,
@@ -9172,7 +9184,7 @@
     "tier": "4티어",
     "sortOrder": 1,
     "eloboardKey": "M_722_T,W_653_T",
-    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_m_list&wr_id=722",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=653",
     "image": "https://profile.img.sooplive.co.kr/LOGO/xo/xodud1898/xodud1898.jpg",
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/xo/xodud1898/xodud1898.jpg",
     "station": "https://www.sooplive.com/station/xodud1898",
@@ -9198,7 +9210,13 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/zz/zzonii/zzonii.jpg",
     "station": "https://www.sooplive.com/station/zzonii",
     "stationStatus": 200,
-    "academy": null,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -9304,6 +9322,210 @@
     "station": "https://www.sooplive.com/station/rlatldgus",
     "stationStatus": 200,
     "academy": null,
+    "monthWinRate": null,
+    "yearWinRate": null,
+    "winRate": ""
+  },
+  {
+    "id": 758,
+    "userId": "hicn0825",
+    "name": "히추",
+    "description": "",
+    "race": "T",
+    "tierCode": "8",
+    "tier": "8티어",
+    "tierId": "tier-8",
+    "sortOrder": 2,
+    "eloboardKey": "M_1038_P,W_903_T",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=903",
+    "image": "https://profile.img.sooplive.co.kr/LOGO/hi/hicn0825/hicn0825.jpg",
+    "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/hi/hicn0825/hicn0825.jpg",
+    "station": "https://www.sooplive.com/station/hicn0825",
+    "stationStatus": 200,
+    "academy": null,
+    "monthWinRate": null,
+    "yearWinRate": null,
+    "winRate": ""
+  },
+  {
+    "id": 759,
+    "userId": "jinhi1004",
+    "name": "브희",
+    "description": "",
+    "race": "T",
+    "tierCode": "8",
+    "tier": "8티어",
+    "tierId": "tier-8",
+    "sortOrder": 5,
+    "eloboardKey": "W_518_T",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=518",
+    "image": "https://profile.img.sooplive.co.kr/LOGO/ji/jinhi1004/jinhi1004.jpg",
+    "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ji/jinhi1004/jinhi1004.jpg",
+    "station": "https://www.sooplive.com/station/jinhi1004",
+    "stationStatus": 200,
+    "academy": null,
+    "monthWinRate": null,
+    "yearWinRate": null,
+    "winRate": ""
+  },
+  {
+    "id": 760,
+    "userId": "suji84",
+    "name": "두디",
+    "description": "",
+    "race": "Z",
+    "tierCode": "4",
+    "tier": "4티어",
+    "tierId": "tier-4",
+    "sortOrder": 7,
+    "eloboardKey": "W_654_T,W_707_T,W_707_Z",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=707",
+    "image": "https://profile.img.sooplive.co.kr/LOGO/su/suji84/suji84.jpg",
+    "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/su/suji84/suji84.jpg",
+    "station": "https://www.sooplive.com/station/suji84",
+    "stationStatus": 200,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": ""
+    },
+    "monthWinRate": null,
+    "yearWinRate": null,
+    "winRate": ""
+  },
+  {
+    "id": 761,
+    "userId": "viwi05",
+    "name": "럭키위키",
+    "description": "",
+    "race": "Z",
+    "tierCode": "B",
+    "tier": "베이비티어",
+    "tierId": "tier-B",
+    "sortOrder": 12,
+    "eloboardKey": "",
+    "elo": "",
+    "image": "https://stimg.afreecatv.com/LOGO/vi/viwi05/viwi05.jpg",
+    "sourceImage": "https://stimg.afreecatv.com/LOGO/vi/viwi05/viwi05.jpg",
+    "station": "https://www.sooplive.com/station/viwi05",
+    "stationStatus": 200,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": ""
+    },
+    "monthWinRate": null,
+    "yearWinRate": null,
+    "winRate": ""
+  },
+  {
+    "id": 762,
+    "userId": "kysvic2",
+    "name": "빵체리",
+    "description": "",
+    "race": "P",
+    "tierCode": "B",
+    "tier": "베이비티어",
+    "tierId": "tier-B",
+    "sortOrder": 12,
+    "eloboardKey": "",
+    "elo": "",
+    "image": "https://profile.img.sooplive.com/LOGO/ky/kysvic2/kysvic2.jpg",
+    "sourceImage": "https://profile.img.sooplive.com/LOGO/ky/kysvic2/kysvic2.jpg",
+    "station": "https://www.sooplive.com/station/kysvic2",
+    "stationStatus": 200,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": ""
+    },
+    "monthWinRate": null,
+    "yearWinRate": null,
+    "winRate": ""
+  },
+  {
+    "id": 763,
+    "userId": "j4141h",
+    "name": "요괴버스",
+    "description": "",
+    "race": "T",
+    "tierCode": "B",
+    "tier": "베이비티어",
+    "tierId": "tier-B",
+    "sortOrder": 67,
+    "eloboardKey": "",
+    "elo": "",
+    "image": "https://profile.img.sooplive.com/LOGO/j4/j4141h/j4141h.jpg",
+    "sourceImage": "https://profile.img.sooplive.com/LOGO/j4/j4141h/j4141h.jpg",
+    "station": "https://www.sooplive.com/station/j4141h",
+    "stationStatus": 200,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": ""
+    },
+    "monthWinRate": null,
+    "yearWinRate": null,
+    "winRate": ""
+  },
+  {
+    "id": 764,
+    "userId": "nmirifo7795",
+    "name": "이나",
+    "description": "",
+    "race": "P",
+    "tierCode": "B",
+    "tier": "베이비티어",
+    "tierId": "tier-B",
+    "sortOrder": 68,
+    "eloboardKey": "",
+    "elo": "",
+    "image": "https://profile.img.sooplive.com/LOGO/nm/nmirifo7795/nmirifo7795.jpg",
+    "sourceImage": "https://profile.img.sooplive.com/LOGO/nm/nmirifo7795/nmirifo7795.jpg",
+    "station": "https://www.sooplive.com/station/nmirifo7795",
+    "stationStatus": 200,
+    "academy": {
+      "id": 43,
+      "name": "드림즈",
+      "image": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260815/014452547cf647b2807500d8de9ecfec.png",
+      "position": ""
+    },
+    "monthWinRate": null,
+    "yearWinRate": null,
+    "winRate": ""
+  },
+  {
+    "id": 765,
+    "userId": "fidfidfid",
+    "name": "박쭈이",
+    "description": "",
+    "race": "Z",
+    "tierCode": "8",
+    "tier": "8티어",
+    "tierId": "tier-8",
+    "sortOrder": 14,
+    "eloboardKey": "W_998_Z",
+    "elo": "https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=998",
+    "image": "https://profile.img.sooplive.co.kr/LOGO/fi/fidfidfid/fidfidfid.jpg",
+    "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/fi/fidfidfid/fidfidfid.jpg",
+    "station": "https://www.sooplive.com/station/fidfidfid",
+    "stationStatus": 200,
+    "academy": {
+      "id": 44,
+      "name": "더블비",
+      "image": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "sourceImage": "https://dn.playdk.kr/file/20260820/9ee94cba251e4a8483a737bfd5a81321.png",
+      "position": ""
+    },
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
