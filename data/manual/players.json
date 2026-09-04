@@ -1851,13 +1851,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/db/db001202/db001202.jpg",
     "station": "https://www.sooplive.com/station/db001202",
     "stationStatus": 200,
-    "academy": {
-      "id": 22,
-      "name": "캄몬스타즈",
-      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -2139,13 +2133,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ji/jihoon002/jihoon002.jpg",
     "station": "https://www.sooplive.com/station/jihoon002",
     "stationStatus": 200,
-    "academy": {
-      "id": 22,
-      "name": "캄몬스타즈",
-      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -3999,13 +3987,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/ro/rondobba/rondobba.jpg",
     "station": "https://www.sooplive.com/station/rondobba",
     "stationStatus": 200,
-    "academy": {
-      "id": 22,
-      "name": "캄몬스타즈",
-      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": 10,
     "yearWinRate": 37.2,
     "winRate": "10%"
@@ -4026,13 +4008,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/al/alaelddl97/alaelddl97.jpg",
     "station": "https://www.sooplive.com/station/alaelddl97",
     "stationStatus": 200,
-    "academy": {
-      "id": 22,
-      "name": "캄몬스타즈",
-      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "position": ""
-    },
+    "academy": null,
     "monthWinRate": null,
     "yearWinRate": null,
     "winRate": ""
@@ -4458,13 +4434,7 @@
     "sourceImage": "https://profile.img.sooplive.co.kr/LOGO/by/bye1013/bye1013.jpg",
     "station": "https://www.sooplive.com/station/bye1013",
     "stationStatus": 200,
-    "academy": {
-      "id": 22,
-      "name": "캄몬스타즈",
-      "image": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "sourceImage": "https://dn.playdk.kr/file/20260816/e2b6a088af62498884ff7e4a763cba2a.jpg",
-      "position": "교수"
-    },
+    "academy": null,
     "monthWinRate": 67.1,
     "yearWinRate": 53.3,
     "winRate": "67%"
