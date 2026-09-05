@@ -3,7 +3,7 @@ name: Sync External Schedule (tscam-schedule)
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/3 * * * *"
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: read
