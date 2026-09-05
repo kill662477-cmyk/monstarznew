@@ -14089,6 +14089,84 @@ function createMemberCard(member) {
   }
 </script>
 
+<script id="roulette-assets-script">
+// Marble Roulette(lazygyu.github.io/roulette)의 번들 파일명에는 콘텐츠 해시가 붙어 있어서
+// 원본이 재배포될 때마다 우리가 박아둔 URL이 404가 되고 룰렛이 통째로 먹통이 된다.
+// 해시를 손으로 따라다니는 대신, 실행 시점에 원본 index.html에서 현재 주소를 읽어온다.
+window.MonstarzRouletteAssets = (function () {
+  var BASE = "https://lazygyu.github.io/roulette/";
+  var FALLBACK_IMPORTS = {
+    "2rDQN": BASE + "Box2D.simd.dd31b167.wasm",
+    "8BShk": BASE + "Box2D.simd.13a3a125.js",
+    "9DwmV": BASE + "kkwak.673a610d.png",
+    "9YLvj": BASE + "waldokun.7e88dd59.png",
+    "cdgIR": BASE + "chamru.d6926a56.png",
+    "fkRhi": BASE + "junyoop.d27f0cbf.png",
+    "h7cmx": BASE + "Box2D.b9b16b27.wasm",
+    "ilUZb": BASE + "Box2D.4b04ba8e.js",
+    "juMvj": BASE + "ff.7fdc9e82.svg",
+    "lfSvD": BASE + "kubin.f3647b70.png"
+  };
+  var resolved = null;
+  var pending = null;
+
+  function build(css, js, imports) {
+    return {
+      css: css,
+      js: js,
+      imports: imports,
+      importmapJson: JSON.stringify({ imports: imports }).replace(/</g, "\u003c")
+    };
+  }
+
+  // 원본을 읽지 못할 때만 쓰이는 마지막 확인값(2026-09-05).
+  var FALLBACK = build(BASE + "roulette.6e568647.css", BASE + "roulette.b506d0b9.js", FALLBACK_IMPORTS);
+
+  function parse(html) {
+    var css = html.match(/roulette\.[0-9a-f]+\.css/);
+    var js = html.match(/roulette\.[0-9a-f]+\.js/);
+    if (!css || !js) return null;
+    var imports = FALLBACK_IMPORTS;
+    var map = html.match(/<script[^>]+type=["']?importmap["']?[^>]*>([\s\S]*?)<\/script>/i);
+    if (map) {
+      try {
+        var raw = JSON.parse(map[1]).imports || {};
+        var next = {};
+        Object.keys(raw).forEach(function (key) { next[key] = new URL(raw[key], BASE).href; });
+        if (Object.keys(next).length) imports = next;
+      } catch (error) {}
+    }
+    return build(BASE + css[0], BASE + js[0], imports);
+  }
+
+  function current() {
+    return resolved || FALLBACK;
+  }
+
+  function refresh() {
+    if (pending) return pending;
+    pending = fetch(BASE, { cache: "no-cache" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.text();
+      })
+      .then(function (html) {
+        var next = parse(html);
+        if (next) resolved = next;
+      })
+      .catch(function () {})
+      .then(function () {
+        pending = null;
+        return current();
+      });
+    return pending;
+  }
+
+  refresh();
+  return { current: current, refresh: refresh };
+})();
+</script>
+
 <script id="pinball-donation-script">
 (function(){
   const $ = (id) => document.getElementById(id);
@@ -14633,6 +14711,7 @@ function createMemberCard(member) {
   }
 
   function createRouletteDoc(names) {
+    const assets = window.MonstarzRouletteAssets.current();
     const safeNames = names.length ? names : ["대기중"];
     const config = {
       frameId: state.frameId,
@@ -14648,8 +14727,8 @@ function createMemberCard(member) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <base href="https://lazygyu.github.io/roulette/">
-<script type="importmap">{"imports":{"2rDQN":"https://lazygyu.github.io/roulette/Box2D.simd.dd31b167.wasm","8BShk":"https://lazygyu.github.io/roulette/Box2D.simd.13a3a125.js","9DwmV":"https://lazygyu.github.io/roulette/kkwak.673a610d.png","9YLvj":"https://lazygyu.github.io/roulette/waldokun.7e88dd59.png","cdgIR":"https://lazygyu.github.io/roulette/chamru.d6926a56.png","fkRhi":"https://lazygyu.github.io/roulette/junyoop.d27f0cbf.png","h7cmx":"https://lazygyu.github.io/roulette/Box2D.b9b16b27.wasm","ilUZb":"https://lazygyu.github.io/roulette/Box2D.4b04ba8e.js","juMvj":"https://lazygyu.github.io/roulette/ff.7fdc9e82.svg","lfSvD":"https://lazygyu.github.io/roulette/kubin.f3647b70.png"}}<\/script>
-<link rel="stylesheet" href="https://lazygyu.github.io/roulette/roulette.2bd30a79.css">
+<script type="importmap">${assets.importmapJson}<\/script>
+<link rel="stylesheet" href="${assets.css}">
 <title>핀볼후원연동 룰렛</title>
 <style>
 html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#111}
@@ -14701,7 +14780,7 @@ html.light .toggle-item,html.light .theme,html.light .actions #btnShuffle{backgr
 </style>
 </head>
 <body>
-<script type="module" src="https://lazygyu.github.io/roulette/roulette.532618e9.js"><\/script>
+<script type="module" src="${assets.js}"><\/script>
 <div id="duckSettings" class="duck-settings">
   <div class="right">
     <button id="btnToggleSettings" class="btn-toggle-settings"><span data-trans="">Settings</span><i class="toggle-arrow">▲</i></button>
@@ -16165,6 +16244,7 @@ ${line}` : line;
   }
 
   function originalRouletteDoc(modal) {
+    const assets = window.MonstarzRouletteAssets.current();
     const rank = originalRankForModal(modal);
     const mode = modal.type === "final" || modal.mode === "rank" || modal.mode === "random" ? "rank" : modal.mode;
     const config = {
@@ -16182,8 +16262,8 @@ ${line}` : line;
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <base href="https://lazygyu.github.io/roulette/">
-<script type="importmap">{"imports":{"2rDQN":"https://lazygyu.github.io/roulette/Box2D.simd.dd31b167.wasm","8BShk":"https://lazygyu.github.io/roulette/Box2D.simd.13a3a125.js","9DwmV":"https://lazygyu.github.io/roulette/kkwak.673a610d.png","9YLvj":"https://lazygyu.github.io/roulette/waldokun.7e88dd59.png","cdgIR":"https://lazygyu.github.io/roulette/chamru.d6926a56.png","fkRhi":"https://lazygyu.github.io/roulette/junyoop.d27f0cbf.png","h7cmx":"https://lazygyu.github.io/roulette/Box2D.b9b16b27.wasm","ilUZb":"https://lazygyu.github.io/roulette/Box2D.4b04ba8e.js","juMvj":"https://lazygyu.github.io/roulette/ff.7fdc9e82.svg","lfSvD":"https://lazygyu.github.io/roulette/kubin.f3647b70.png"}}<\/script>
-<link rel="stylesheet" href="https://lazygyu.github.io/roulette/roulette.2bd30a79.css">
+<script type="importmap">${assets.importmapJson}<\/script>
+<link rel="stylesheet" href="${assets.css}">
 <title>Marble Roulette</title>
 <style>
 html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#111}
@@ -16235,7 +16315,7 @@ html.light .toggle-item,html.light .theme,html.light .actions #btnShuffle{backgr
 </style>
 </head>
 <body>
-<script type="module" src="https://lazygyu.github.io/roulette/roulette.532618e9.js"><\/script>
+<script type="module" src="${assets.js}"><\/script>
 <div id="duckSettings" class="duck-settings">
   <div class="right">
     <button id="btnToggleSettings" class="btn-toggle-settings"><span data-trans="">Settings</span><i class="toggle-arrow">▲</i></button>
