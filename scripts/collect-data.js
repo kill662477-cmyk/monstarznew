@@ -58,6 +58,13 @@ const HIDE_INACTIVE_PLAYERS = process.env.HIDE_INACTIVE_PLAYERS === "true";
 // way as players with no recent records, but the roster entry itself is kept.
 const PLAYDK_PLAYER_API = process.env.PLAYDK_PLAYER_API
   || "https://www.playdk.kr/api/v2/p/starcraft/soop/player";
+
+// eloboard replaced its PHP board with a Next.js app in 2026-09; the old
+// board.php?wr_id= URLs now redirect to the home page. Records come from its JSON API
+// instead, and players are matched by SOOP id rather than the retired wr_id.
+const ELOBOARD_API_BASE = process.env.ELOBOARD_API_BASE || "https://eloboard.com/api";
+const ELOBOARD_API_PAGE_SIZE = Math.max(1, Number(process.env.ELOBOARD_API_PAGE_SIZE || 200));
+const ELOBOARD_MATCH_PAGE_SIZE = Math.max(1, Number(process.env.ELOBOARD_MATCH_PAGE_SIZE || 200));
 const RECORD_META_SCHEMA_VERSION = 1;
 const RECORD_META_RECENT_ID_LIMIT = Math.max(
   20,
@@ -169,69 +176,6 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function eloboardUrlFromType(type, id) {
-  if (type === "W") {
-    return `https://eloboard.com/women/bbs/board.php?bo_table=bj_list&wr_id=${id}`;
-  }
-
-  if (type === "M") {
-    return `https://eloboard.com/women/bbs/board.php?bo_table=bj_m_list&wr_id=${id}`;
-  }
-
-  if (type === "P") {
-    return `https://eloboard.com/men/bbs/board.php?bo_table=bj_list&wr_id=${id}`;
-  }
-
-  return "";
-}
-
-function eloboardUrlsFromKey(key, race) {
-  if (!key) return [];
-
-  const targetRace = String(race || "").trim().toUpperCase();
-  const priority = { W: 0, M: 1, P: 2 };
-
-  return String(key)
-    .split(",")
-    .map((item) => item.trim())
-    .map((item, index) => {
-      const [type, id, itemRace] = item.split("_").map((part) => String(part || "").trim());
-      return { type, id, race: itemRace.toUpperCase(), index };
-    })
-    .filter((item) => item.type && item.id && item.race === targetRace)
-    .sort((a, b) => {
-      const priorityDiff = (priority[a.type] ?? 99) - (priority[b.type] ?? 99);
-      return priorityDiff || a.index - b.index;
-    })
-    .map((item) => normalizeUrl(eloboardUrlFromType(item.type, item.id)))
-    .filter(Boolean);
-}
-
-function eloboardUrl(key, race) {
-  return eloboardUrlsFromKey(key, race)[0] || "";
-}
-
-function eloboardRecordUrls(player) {
-  const urls = [];
-  const seen = new Set();
-
-  function add(url) {
-    const normalized = normalizeUrl(url);
-    if (!normalized || seen.has(normalized)) return;
-    seen.add(normalized);
-    urls.push(normalized);
-  }
-
-  eloboardUrlsFromKey(player && player.eloboardKey, player && player.race).forEach(add);
-  add(player && player.elo);
-
-  return urls;
-}
-
-function eloboardRecordUrl(player) {
-  return eloboardRecordUrls(player)[0] || "";
-}
-
 function normalizeRace(value) {
   const raw = String(value || "").trim().toUpperCase();
 
@@ -332,7 +276,7 @@ function normalizeManualPlayer(item, index) {
     sortOrder: Number(item.sortOrder ?? item.order ?? item.rank ?? index + 1),
 
     eloboardKey,
-    elo: item.elo || item.eloboardUrl || eloboardUrl(eloboardKey, race),
+    elo: item.elo || item.eloboardUrl || "",
 
     image: CACHE_LOCAL_ASSETS ? localPath(path.join("assets", "profile", `${userId}.jpg`)) : profileImage,
     sourceImage: profileImage,
@@ -563,160 +507,6 @@ function parseOpponentCell(text) {
   };
 }
 
-function makeEloboardRecord({ player, date, opponentName, opponentRace, map, eloChange, matchType, memo }) {
-  const ownRace = normalizeRace(player.race);
-  const numericEloChange = Number(eloChange);
-  const isWin = numericEloChange > 0;
-
-  const winnerPlayer = isWin ? player.name : opponentName;
-  const winnerRace = isWin ? ownRace : opponentRace;
-  const losePlayer = isWin ? opponentName : player.name;
-  const loseRace = isWin ? opponentRace : ownRace;
-
-  return {
-    id: `${player.userId || player.name}_${date}_${opponentName}_${opponentRace}_${map}_${numericEloChange}_${matchType || ""}_${memo || ""}`
-      .replace(/\s+/g, "_")
-      .slice(0, 240),
-    date,
-    standardDate: date,
-    playedAt: date,
-    playerName: player.name,
-    playerRace: ownRace,
-    playerUserId: player.userId || "",
-    opponentName,
-    opponentRace,
-    map,
-    elo: numericEloChange,
-    eloChange: numericEloChange,
-    matchType: matchType || "",
-    memo: memo || "",
-    result: isWin ? "win" : "lose",
-    isWin,
-
-    winnerPlayer,
-    winnerName: winnerPlayer,
-    winnerRace,
-    losePlayer,
-    loseName: losePlayer,
-    loseRace,
-
-    winnerSoopUserId: isWin ? player.userId || "" : "",
-    winnerUserId: isWin ? player.userId || "" : "",
-    loseSoopUserId: isWin ? "" : player.userId || "",
-    loserSoopUserId: isWin ? "" : player.userId || "",
-    loseUserId: isWin ? "" : player.userId || "",
-    loserUserId: isWin ? "" : player.userId || "",
-  };
-}
-
-function parseEloboardRecordCells(cells, player) {
-  const clean = cells
-    .map((cell) => String(cell || "").replace(/\s+/g, " ").trim())
-    .filter(Boolean);
-
-  if (clean.length < 5) return null;
-
-  const dateMatch = clean[0].match(/\d{4}-\d{2}-\d{2}/);
-  if (!dateMatch) return null;
-
-  const eloIndex = clean.findIndex((cell, index) => index >= 3 && /^[+-]\d+(?:\.\d+)?$/.test(cell));
-  if (eloIndex < 3) return null;
-
-  const date = dateMatch[0];
-  const { opponentName, opponentRace } = parseOpponentCell(clean[1]);
-  const map = clean.slice(2, eloIndex).join(" ").trim();
-  const numericEloChange = Number(clean[eloIndex]);
-  const matchType = clean[eloIndex + 1] || "";
-  const memo = clean.slice(eloIndex + 2).join(" ").trim();
-
-  if (!opponentName || !opponentRace || !map || !Number.isFinite(numericEloChange)) return null;
-
-  return makeEloboardRecord({
-    player,
-    date,
-    opponentName,
-    opponentRace,
-    map,
-    eloChange: numericEloChange,
-    matchType,
-    memo,
-  });
-}
-
-function parseEloboardRowsByTable(html, player) {
-  const records = [];
-  const trRegex = /<tr\b[\s\S]*?<\/tr>/gi;
-  const cellRegex = /<t[dh]\b[\s\S]*?<\/t[dh]>/gi;
-
-  let trMatch;
-
-  while ((trMatch = trRegex.exec(html))) {
-    const rowHtml = trMatch[0];
-    if (!/\d{4}-\d{2}-\d{2}/.test(rowHtml)) continue;
-
-    const cells = [];
-    let cellMatch;
-
-    while ((cellMatch = cellRegex.exec(rowHtml))) {
-      cells.push(stripTags(cellMatch[0]));
-    }
-
-    const record = parseEloboardRecordCells(cells, player);
-
-    if (record) {
-      records.push(record);
-      if (records.length >= ELOBOARD_MAX_ROWS_PER_PLAYER) break;
-    }
-  }
-
-  return records;
-}
-
-function parseEloboardRecordLine(line, player) {
-  const compact = String(line || "").replace(/\s+/g, " ").trim();
-  const match = compact.match(
-    /^(\d{4}-\d{2}-\d{2})\s+(.+?)\s*\((T|Z|P|테란|저그|토스|프로토스)\)\s+(.+?)\s+([+-]\d+(?:\.\d+)?)\s+([0-9/()]+|단판)\s*(.*)$/
-  );
-
-  if (!match) return null;
-
-  return makeEloboardRecord({
-    player,
-    date: match[1],
-    opponentName: match[2].trim(),
-    opponentRace: normalizeRace(match[3]),
-    map: match[4].trim(),
-    eloChange: Number(match[5]),
-    matchType: match[6] || "",
-    memo: match[7] || "",
-  });
-}
-
-function parseEloboardRowsByText(html, player) {
-  const lines = htmlToTextLines(html);
-  const records = [];
-
-  for (const line of lines) {
-    if (!/^\d{4}-\d{2}-\d{2}\s+/.test(line)) continue;
-
-    const row = parseEloboardRecordLine(line, player);
-
-    if (row) {
-      records.push(row);
-      if (records.length >= ELOBOARD_MAX_ROWS_PER_PLAYER) break;
-    }
-  }
-
-  return records;
-}
-
-function parseEloboardRecords(html, player) {
-  const byTable = parseEloboardRowsByTable(html, player);
-  if (byTable.length > 0) return byTable;
-
-  return parseEloboardRowsByText(html, player);
-}
-
 function extractCookieHeader(response) {
   if (!response || !response.headers) return "";
 
@@ -738,109 +528,6 @@ function extractCookieHeader(response) {
   }
 
   return Array.from(new Set(cookies)).join("; ");
-}
-
-async function fetchEloboardPage(url) {
-  return fetchEloboardWithRetry(`page ${url}`, async () => {
-    const { response, body } = await fetchBodyWithTimeout(
-      url,
-      {
-        headers: {
-          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
-          accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-          "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
-        },
-      },
-      (res) => res.text()
-    );
-
-    if (!response.ok) {
-      throw new Error(`${response.status} ${url}`);
-    }
-
-    const page = {
-      html: body || "",
-      cookieHeader: extractCookieHeader(response),
-    };
-
-    assertEloboardOk(page.html);
-    return page;
-  });
-}
-
-async function fetchEloboardHtml(url) {
-  const page = await fetchEloboardPage(url);
-  return page.html;
-}
-
-function eloboardAjaxEndpoint(url) {
-  const normalized = normalizeUrl(url);
-  let section = normalized.includes("/men/") ? "men" : "women";
-
-  try {
-    const parsed = new URL(normalized);
-
-    if (parsed.pathname.includes("/men/")) {
-      section = "men";
-    } else if (parsed.pathname.includes("/women/")) {
-      section = "women";
-    }
-  } catch {
-    // keep the fallback section parsed from the normalized string above
-  }
-
-  // ELOBOARD uses the same AJAX script for bj_list and bj_m_list.
-  // Do not convert bo_table=bj_m_list into view_m_list.php; that endpoint returns 404.
-  return `https://eloboard.com/${section}/bbs/view_list.php`;
-}
-
-async function fetchEloboardMoreHtml(url, player, lastId, cookieHeader = "") {
-  const endpoint = eloboardAjaxEndpoint(url);
-
-  const form = new URLSearchParams({
-    p_name: player.name,
-    last_id: String(lastId),
-  });
-
-  const headers = {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
-    accept: "*/*",
-    "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
-    "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-    "x-requested-with": "XMLHttpRequest",
-    origin: "https://eloboard.com",
-    referer: url,
-  };
-
-  if (cookieHeader) {
-    headers.cookie = cookieHeader;
-  }
-
-  return fetchEloboardWithRetry(`records ${player.name} page ${lastId}`, async () => {
-    const { response, body } = await fetchBodyWithTimeout(
-      endpoint,
-      {
-        method: "POST",
-        headers,
-        body: form.toString(),
-      },
-      (res) => res.text()
-    );
-
-    if (!response.ok) {
-      throw new Error(`${response.status} ${endpoint}`);
-    }
-
-    const html = body || "";
-    assertEloboardOk(html);
-    return html;
-  });
-}
-
-function assertEloboardOk(html) {
-  if (/max_user_connections|Too many connections|DB Connect Error/i.test(html)) {
-    throw new Error("ELOBOARD connection limit page detected");
-  }
 }
 
 async function fetchEloboardWithRetry(label, worker) {
@@ -867,15 +554,22 @@ async function fetchEloboardWithRetry(label, worker) {
   throw lastError;
 }
 
+// The rank board is client-rendered now; the API index doubles as a liveness check
+// and gives the most recent match date across the roster.
 async function getEloboardRankCheck() {
-  const page = await fetchEloboardPage(
-    "https://eloboard.com/women/bbs/board.php?bo_table=rank_list"
-  );
-  const monthMatch = page.html.match(/data:\s*\{\s*sear:\s*"(\d{8})"\s*,\s*b_id:\s*"eloboard"\s*\}/);
+  const index = await loadEloboardPlayerIndex();
+  let lastPlayedOn = "";
+
+  index.bySoopId.forEach((rows) => {
+    rows.forEach((row) => {
+      const played = String(row.last_played_on || "").slice(0, 10);
+      if (played && played > lastPlayedOn) lastPlayedOn = played;
+    });
+  });
 
   return {
     lastUpdatedAt: new Date().toISOString(),
-    rankMonth: monthMatch ? monthMatch[1] : null,
+    rankMonth: lastPlayedOn ? lastPlayedOn.slice(0, 7).replace("-", "") : null,
   };
 }
 
@@ -1093,71 +787,188 @@ function makeRowCollector(player) {
   };
 }
 
+async function fetchEloboardApi(pathAndQuery) {
+  const url = `${ELOBOARD_API_BASE}${pathAndQuery}`;
+  const { response, body } = await fetchBodyWithTimeout(
+    url,
+    { headers: { accept: "application/json" } },
+    (res) => res.json()
+  );
+
+  if (!response.ok) throw new Error(`HTTP ${response.status}: ${url}`);
+
+  return body;
+}
+
+let eloboardPlayerIndexPromise = null;
+
+// soop_id and name both map to a list because eloboard keeps one entry per race.
+async function loadEloboardPlayerIndex() {
+  if (eloboardPlayerIndexPromise) return eloboardPlayerIndexPromise;
+
+  eloboardPlayerIndexPromise = (async () => {
+    const rows = [];
+
+    for (let offset = 0; ; offset += ELOBOARD_API_PAGE_SIZE) {
+      const page = await fetchEloboardWithRetry(`eloboard players offset=${offset}`, () =>
+        fetchEloboardApi(`/players?limit=${ELOBOARD_API_PAGE_SIZE}&offset=${offset}`)
+      );
+
+      const batch = Array.isArray(page) ? page : [];
+      rows.push(...batch);
+
+      if (batch.length < ELOBOARD_API_PAGE_SIZE) break;
+      if (offset > 50000) break;
+    }
+
+    const bySoopId = new Map();
+    const byName = new Map();
+
+    rows.forEach((row) => {
+      if (!row || !row.id) return;
+
+      const soopId = String(row.soop_id || "").trim().toLowerCase();
+      if (soopId) {
+        if (!bySoopId.has(soopId)) bySoopId.set(soopId, []);
+        bySoopId.get(soopId).push(row);
+      }
+
+      const name = String(row.name || "").trim();
+      if (name) {
+        if (!byName.has(name)) byName.set(name, []);
+        byName.get(name).push(row);
+      }
+    });
+
+    console.log(`[eloboard] player index: ${rows.length} rows, ${bySoopId.size} soop ids`);
+
+    return { bySoopId, byName };
+  })().catch((error) => {
+    eloboardPlayerIndexPromise = null;
+    throw error;
+  });
+
+  return eloboardPlayerIndexPromise;
+}
+
+function pickEloboardEntry(candidates, race) {
+  if (!candidates || !candidates.length) return null;
+
+  const target = String(race || "").trim().toUpperCase();
+  const sameRace = candidates.filter(
+    (row) => String(row.main_race || "").trim().toUpperCase() === target
+  );
+
+  const pool = sameRace.length ? sameRace : candidates;
+
+  return pool.find((row) => row.is_main_race) || pool[0];
+}
+
+async function resolveEloboardEntry(player) {
+  if (!player) return null;
+
+  const index = await loadEloboardPlayerIndex();
+  const race = player.race;
+
+  const bySoop = index.bySoopId.get(String(player.userId || "").trim().toLowerCase());
+  const soopHit = pickEloboardEntry(bySoop, race);
+  if (soopHit) return soopHit;
+
+  const byName = index.byName.get(String(player.name || "").trim());
+  return pickEloboardEntry(byName, race);
+}
+
+function eloboardProfileUrl(entryId) {
+  return entryId ? `https://eloboard.com/players/${entryId}?tab=matches` : "";
+}
+
+// Turns one API match into the row shape the rest of the pipeline already expects.
+function makeEloboardApiRecord({ player, entryId, match }) {
+  const participants = Array.isArray(match && match.participants) ? match.participants : [];
+  const self = participants.find((row) => row && Number(row.player_id) === Number(entryId));
+  if (!self) return null;
+
+  const opponents = participants.filter((row) => row && Number(row.player_id) !== Number(entryId));
+  const opponent = opponents[0] || null;
+
+  const ownRace = normalizeRace(self.race || player.race);
+  const opponentName = opponents.map((row) => row.name).filter(Boolean).join(", ");
+  const opponentRace = normalizeRace(opponent && opponent.race);
+  const isWin = String(self.result || "").toLowerCase() === "win";
+  const date = String(match.played_on || "").slice(0, 10);
+  const eloChange = Number(match.elo_delta);
+
+  const winnerPlayer = isWin ? player.name : opponentName;
+  const losePlayer = isWin ? opponentName : player.name;
+
+  return {
+    id: `elo_${match.id}_${entryId}`,
+    matchId: match.id,
+    date,
+    standardDate: date,
+    playedAt: date,
+    playerName: player.name,
+    playerRace: ownRace,
+    playerUserId: player.userId || "",
+    opponentName,
+    opponentRace,
+    map: String(match.map_name || match.map_raw || "").trim(),
+    elo: Number.isFinite(eloChange) ? eloChange : 0,
+    eloChange: Number.isFinite(eloChange) ? eloChange : 0,
+    matchType: String(match.event_name || match.format_raw || "").trim(),
+    memo: String(match.memo || "").trim(),
+    result: isWin ? "win" : "lose",
+    isWin,
+
+    winnerPlayer,
+    winnerName: winnerPlayer,
+    winnerRace: isWin ? ownRace : opponentRace,
+    losePlayer,
+    loseName: losePlayer,
+    loseRace: isWin ? opponentRace : ownRace,
+
+    winnerSoopUserId: isWin ? player.userId || "" : "",
+    winnerUserId: isWin ? player.userId || "" : "",
+    loseSoopUserId: isWin ? "" : player.userId || "",
+    loserSoopUserId: isWin ? "" : player.userId || "",
+    loseUserId: isWin ? "" : player.userId || "",
+    loserUserId: isWin ? "" : player.userId || "",
+  };
+}
+
+async function fetchEloboardMatchPage(entryId, offset) {
+  const page = await fetchEloboardWithRetry(`eloboard matches ${entryId} offset=${offset}`, () =>
+    fetchEloboardApi(
+      `/matches?player_id=${encodeURIComponent(entryId)}&limit=${ELOBOARD_MATCH_PAGE_SIZE}&offset=${offset}`
+    )
+  );
+
+  return Array.isArray(page) ? page : [];
+}
+
 async function fetchRecordsFull(player) {
-  const urls = eloboardRecordUrls(player);
-  if (!urls.length) return { rows: [], mode: "full", sourceRowCount: 0, morePagesFetched: 0 };
+  const entry = await resolveEloboardEntry(player);
+  if (!entry) {
+    console.warn(`[records skip] ${player.name}(${player.userId}/${player.race}) not found on eloboard`);
+    return { rows: [], mode: "full", sourceRowCount: 0, morePagesFetched: 0, eloboardEntry: null };
+  }
 
   const collector = makeRowCollector(player);
   let morePagesFetched = 0;
-  let anySuccess = false;
-  let lastError = null;
 
-  for (const url of urls) {
-    try {
-      const page = await fetchEloboardPage(url);
-      assertEloboardOk(page.html);
+  for (let offset = 0; ; offset += ELOBOARD_MATCH_PAGE_SIZE) {
+    const matches = await fetchEloboardMatchPage(entry.id, offset);
+    morePagesFetched += 1;
 
-      collector.add(parseEloboardRecords(page.html, player));
+    matches
+      .map((match) => makeEloboardApiRecord({ player, entryId: entry.id, match }))
+      .filter(Boolean)
+      .forEach((row) => collector.add([row]));
 
-      let duplicatePageCount = 0;
+    if (matches.length < ELOBOARD_MATCH_PAGE_SIZE) break;
+    if (collector.size() >= ELOBOARD_MAX_ROWS_PER_PLAYER) break;
 
-      for (let lastId = 1; lastId <= RECORD_FULL_MAX_PAGES; lastId += 1) {
-        const moreHtml = await fetchEloboardMoreHtml(url, player, lastId, page.cookieHeader);
-        assertEloboardOk(moreHtml);
-
-        const rows = parseEloboardRecords(moreHtml, player);
-        const added = collector.add(rows);
-        morePagesFetched += 1;
-
-        if (rows.length === 0) {
-          break;
-        }
-
-        if (added === 0) {
-          duplicatePageCount += 1;
-        } else {
-          duplicatePageCount = 0;
-        }
-
-        if (duplicatePageCount >= 2) {
-          break;
-        }
-
-        if (collector.size() >= ELOBOARD_MAX_ROWS_PER_PLAYER) {
-          break;
-        }
-
-        if (RECORD_AJAX_DELAY_MS > 0) {
-          await sleep(RECORD_AJAX_DELAY_MS);
-        }
-      }
-
-      anySuccess = true;
-
-      if (collector.size() >= ELOBOARD_MAX_ROWS_PER_PLAYER) {
-        break;
-      }
-    } catch (error) {
-      lastError = error;
-      console.warn(
-        `[records url fail] ${player.name}(${player.userId}/${player.race}) full ${url}: ${error.message}`
-      );
-    }
-  }
-
-  // 모든 주소가 실패한 경우에만 throw → 한 주소라도 성공하면 그 전적을 보존.
-  if (!anySuccess && lastError) {
-    throw lastError;
+    if (RECORD_AJAX_DELAY_MS > 0) await sleep(RECORD_AJAX_DELAY_MS);
   }
 
   const records = collector.rows();
@@ -1166,127 +977,76 @@ async function fetchRecordsFull(player) {
     console.warn(`[records warn] ${player.name}(${player.userId}/${player.race}) full ELOBOARD parsed 0 rows`);
   }
 
-  await sleep(250);
-
   return {
     rows: records,
     mode: "full",
     sourceRowCount: records.length,
     morePagesFetched,
+    eloboardEntry: entry,
   };
 }
 
 async function fetchRecordsIncremental(player, existingRows) {
-  const urls = eloboardRecordUrls(player);
-  if (!urls.length) {
+  const existing = normalizeRecordRows(existingRows);
+  if (existing.length === 0) return fetchRecordsFull(player);
+
+  const entry = await resolveEloboardEntry(player);
+  if (!entry) {
+    console.warn(`[records skip] ${player.name}(${player.userId}/${player.race}) not found on eloboard`);
     return {
-      rows: normalizeRecordRows(existingRows),
+      rows: existing,
       mode: "incremental",
       sourceRowCount: 0,
       newRowCount: 0,
       morePagesFetched: 0,
       stoppedByExisting: false,
+      eloboardEntry: null,
     };
-  }
-
-  const existing = normalizeRecordRows(existingRows);
-  if (existing.length === 0) {
-    return fetchRecordsFull(player);
   }
 
   const existingKeys = new Set(existing.map((row) => recordDedupKey(row, player)).filter(Boolean));
   const newRows = [];
   const newSeen = new Set();
+  let morePagesFetched = 0;
+  let stoppedByExisting = false;
 
-  function addOnlyNew(batch) {
-    let added = 0;
-    let foundExisting = false;
+  // Matches come back newest first, so the first already-known match ends the walk.
+  for (let offset = 0; offset < ELOBOARD_MAX_ROWS_PER_PLAYER; offset += ELOBOARD_MATCH_PAGE_SIZE) {
+    const matches = await fetchEloboardMatchPage(entry.id, offset);
+    morePagesFetched += 1;
 
-    normalizeRecordRows(batch).forEach((row) => {
+    for (const match of matches) {
+      const row = makeEloboardApiRecord({ player, entryId: entry.id, match });
+      if (!row) continue;
+
       const key = recordDedupKey(row, player);
-      if (!key) return;
+      if (!key) continue;
 
       if (existingKeys.has(key)) {
-        foundExisting = true;
-        return;
+        stoppedByExisting = true;
+        continue;
       }
 
-      if (newSeen.has(key)) return;
+      if (newSeen.has(key)) continue;
 
       newSeen.add(key);
       newRows.push(row);
-      added += 1;
-    });
-
-    return {
-      added,
-      foundExisting,
-    };
-  }
-
-  let morePagesFetched = 0;
-  let stoppedByExisting = false;
-  let anySuccess = false;
-  let lastError = null;
-
-  for (const url of urls) {
-    try {
-      const page = await fetchEloboardPage(url);
-      assertEloboardOk(page.html);
-
-      const firstRows = parseEloboardRecords(page.html, player);
-      const firstResult = addOnlyNew(firstRows);
-      let urlStopped = firstResult.foundExisting;
-      if (firstResult.foundExisting) stoppedByExisting = true;
-
-      if (!urlStopped || firstRows.length === 0) {
-        for (let lastId = 1; lastId <= RECORD_INCREMENTAL_MAX_PAGES; lastId += 1) {
-          const moreHtml = await fetchEloboardMoreHtml(url, player, lastId, page.cookieHeader);
-          assertEloboardOk(moreHtml);
-
-          const rows = parseEloboardRecords(moreHtml, player);
-          const result = addOnlyNew(rows);
-          morePagesFetched += 1;
-
-          if (result.foundExisting) {
-            stoppedByExisting = true;
-            break;
-          }
-
-          if (rows.length === 0) {
-            break;
-          }
-
-          if (RECORD_AJAX_DELAY_MS > 0) {
-            await sleep(RECORD_AJAX_DELAY_MS);
-          }
-        }
-      }
-
-      anySuccess = true;
-    } catch (error) {
-      lastError = error;
-      console.warn(
-        `[records url fail] ${player.name}(${player.userId}/${player.race}) incremental ${url}: ${error.message}`
-      );
     }
+
+    if (stoppedByExisting) break;
+    if (matches.length < ELOBOARD_MATCH_PAGE_SIZE) break;
+
+    if (RECORD_AJAX_DELAY_MS > 0) await sleep(RECORD_AJAX_DELAY_MS);
   }
-
-  if (!anySuccess && lastError) {
-    throw lastError;
-  }
-
-  const merged = mergeRecordRows(newRows, existing, player);
-
-  await sleep(250);
 
   return {
-    rows: merged,
+    rows: mergeRecordRows(newRows, existing, player),
     mode: "incremental",
     sourceRowCount: newRows.length,
     newRowCount: newRows.length,
     morePagesFetched,
     stoppedByExisting,
+    eloboardEntry: entry,
   };
 }
 
@@ -1481,119 +1241,61 @@ async function readExistingRecordStatePreferStorage(rootRef, key) {
 }
 
 async function fetchRecordsIncrementalByCheckpoint(player, recordMeta) {
-  const urls = eloboardRecordUrls(player);
   const checkpoint = new Set(normalizeRecentRecordIds(recordMeta.recentRecordIds));
 
-  if (!urls.length) {
-    return {
-      rows: [],
-      mode: "incremental-checkpoint",
-      newRowCount: 0,
-      sourceRowCount: 0,
-      morePagesFetched: 0,
-      stoppedByExisting: false,
-      checkpointMissing: checkpoint.size === 0,
-      checkpointMiss: false,
-    };
-  }
+  const empty = (extra) => ({
+    rows: [],
+    mode: "incremental-checkpoint",
+    newRowCount: 0,
+    sourceRowCount: 0,
+    morePagesFetched: 0,
+    stoppedByExisting: false,
+    checkpointMissing: false,
+    checkpointMiss: false,
+    ...extra,
+  });
 
-  if (checkpoint.size === 0) {
-    return {
-      rows: [],
-      mode: "incremental-checkpoint",
-      newRowCount: 0,
-      sourceRowCount: 0,
-      morePagesFetched: 0,
-      stoppedByExisting: false,
-      checkpointMissing: true,
-      checkpointMiss: false,
-    };
-  }
+  if (checkpoint.size === 0) return empty({ checkpointMissing: true });
+
+  const entry = await resolveEloboardEntry(player);
+  if (!entry) return empty({ checkpointMissing: checkpoint.size === 0 });
 
   const newRows = [];
   const newSeen = new Set();
-
-  function addOnlyNew(batch) {
-    let foundExisting = false;
-
-    normalizeRecordRows(batch).forEach((row) => {
-      const key = recordDedupKey(row, player);
-      if (!key) return;
-
-      if (checkpoint.has(key)) {
-        foundExisting = true;
-        return;
-      }
-
-      if (newSeen.has(key)) return;
-      newSeen.add(key);
-      newRows.push(row);
-    });
-
-    return foundExisting;
-  }
-
   let morePagesFetched = 0;
   let stoppedByExisting = false;
-  let checkpointMiss = false;
-  let anySuccess = false;
-  let lastError = null;
+  let exhaustedSource = false;
 
-  for (const url of urls) {
-    try {
-      const page = await fetchEloboardPage(url);
-      assertEloboardOk(page.html);
+  for (let offset = 0; offset < ELOBOARD_MAX_ROWS_PER_PLAYER; offset += ELOBOARD_MATCH_PAGE_SIZE) {
+    const matches = await fetchEloboardMatchPage(entry.id, offset);
+    morePagesFetched += 1;
 
-      const firstRows = parseEloboardRecords(page.html, player);
-      let urlStopped = addOnlyNew(firstRows);
-      if (urlStopped) stoppedByExisting = true;
-      let exhaustedSource = firstRows.length === 0;
+    for (const match of matches) {
+      const row = makeEloboardApiRecord({ player, entryId: entry.id, match });
+      if (!row) continue;
 
-      if (!urlStopped && !exhaustedSource) {
-        for (let lastId = 1; lastId <= RECORD_INCREMENTAL_MAX_PAGES; lastId += 1) {
-          const moreHtml = await fetchEloboardMoreHtml(url, player, lastId, page.cookieHeader);
-          assertEloboardOk(moreHtml);
+      const key = recordDedupKey(row, player);
+      if (!key) continue;
 
-          const rows = parseEloboardRecords(moreHtml, player);
-          morePagesFetched += 1;
-
-          if (addOnlyNew(rows)) {
-            urlStopped = true;
-            stoppedByExisting = true;
-            break;
-          }
-
-          if (rows.length === 0) {
-            exhaustedSource = true;
-            break;
-          }
-
-          if (RECORD_AJAX_DELAY_MS > 0) {
-            await sleep(RECORD_AJAX_DELAY_MS);
-          }
-        }
+      if (checkpoint.has(key)) {
+        stoppedByExisting = true;
+        continue;
       }
 
-      // 이 주소에서 체크포인트도 못 만나고 끝까지 소진도 못 했으면(예: 새 보조 주소)
-      // 풀 병합으로 넘어가도록 표시한다.
-      if (!urlStopped && !exhaustedSource) {
-        checkpointMiss = true;
-      }
-
-      anySuccess = true;
-    } catch (error) {
-      lastError = error;
-      console.warn(
-        `[records url fail] ${player.name}(${player.userId}/${player.race}) checkpoint ${url}: ${error.message}`
-      );
+      if (newSeen.has(key)) continue;
+      newSeen.add(key);
+      newRows.push(row);
     }
-  }
 
-  if (!anySuccess && lastError) {
-    throw lastError;
-  }
+    if (stoppedByExisting) break;
 
-  await sleep(250);
+    if (matches.length < ELOBOARD_MATCH_PAGE_SIZE) {
+      exhaustedSource = true;
+      break;
+    }
+
+    if (RECORD_AJAX_DELAY_MS > 0) await sleep(RECORD_AJAX_DELAY_MS);
+  }
 
   return {
     rows: sortRecordRows(newRows),
@@ -1603,7 +1305,9 @@ async function fetchRecordsIncrementalByCheckpoint(player, recordMeta) {
     morePagesFetched,
     stoppedByExisting,
     checkpointMissing: false,
-    checkpointMiss,
+    // Never met the checkpoint and never ran out of matches: fall back to a full merge.
+    checkpointMiss: !stoppedByExisting && !exhaustedSource,
+    eloboardEntry: entry,
   };
 }
 
@@ -2577,6 +2281,7 @@ async function main(run = {}) {
   let recordFetchRowCount = 0;
   let recordFailCount = 0;
   let recordSkipCount = 0;
+  const eloboardEntryByKey = {};
   let recordPreservedPlayerCount = 0;
   let recordPreservedRowCount = 0;
   let recordPreserveReadFailCount = 0;
@@ -2591,12 +2296,14 @@ async function main(run = {}) {
 
   await mapLimit(players, RECORD_CONCURRENCY, async (player, index) => {
     const key = safeKey(`${player.userId}_${player.race}`);
-    const urls = eloboardRecordUrls(player);
+    const eloboardEntry = await resolveEloboardEntry(player).catch(() => null);
     const previousMeta = normalizeRecordMetaEntry(recordMetaState[key]);
 
-    if (!urls.length) {
+    if (eloboardEntry) {
+      eloboardEntryByKey[key] = eloboardEntry;
+    } else {
       recordSkipCount += 1;
-      console.warn(`[records skip] ${player.name}(${player.userId}/${player.race}): ELO URL 없음`);
+      console.warn(`[records skip] ${player.name}(${player.userId}/${player.race}): eloboard 선수 없음`);
 
       if ((index + 1) % 25 === 0 || index + 1 === players.length) {
         console.log(`records ${index + 1}/${players.length}`);
@@ -2790,8 +2497,14 @@ async function main(run = {}) {
     );
     const inactive = !academyExempt && !youthTierExempt && (recordInactive || sourceInactive);
 
+    const eloboardEntry = eloboardEntryByKey[key] || null;
+
     return {
       ...player,
+      // The wr_id URLs in the manual roster are dead, so publish the profile eloboard
+      // actually serves today whenever the player could be matched.
+      elo: eloboardEntry ? eloboardProfileUrl(eloboardEntry.id) : player.elo,
+      eloboardId: eloboardEntry ? eloboardEntry.id : null,
       recordKey: key,
       recordCount: playerRecordMeta.recordCount,
       lastRecordDate,
