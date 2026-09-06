@@ -54,6 +54,10 @@ const INACTIVE_RECORD_MONTHS = Math.max(1, Number(process.env.INACTIVE_RECORD_MO
 // data/manual/players.json is the authoritative roster. Record inactivity must not
 // remove manually curated players from the published tier-state snapshots.
 const HIDE_INACTIVE_PLAYERS = process.env.HIDE_INACTIVE_PLAYERS === "true";
+// playdk marks players it no longer tracks with enabled=false. They are hidden the same
+// way as players with no recent records, but the roster entry itself is kept.
+const PLAYDK_PLAYER_API = process.env.PLAYDK_PLAYER_API
+  || "https://www.playdk.kr/api/v2/p/starcraft/soop/player";
 const RECORD_META_SCHEMA_VERSION = 1;
 const RECORD_META_RECENT_ID_LIMIT = Math.max(
   20,
@@ -946,6 +950,44 @@ function sumRecordRows(records) {
     0
   );
 }
+// Returns the set of userIds playdk has switched off, or null when the roster could not
+// be read. A null result means "no information", so nothing gets hidden on its account.
+async function fetchPlaydkDisabledUserIds() {
+  const disabled = new Set();
+  let page = 0;
+
+  try {
+    for (;;) {
+      const url = `${PLAYDK_PLAYER_API}?page=${page}&size=500`;
+      const { response, body } = await fetchBodyWithTimeout(
+        url,
+        { headers: { accept: "application/json" } },
+        (res) => res.json()
+      );
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const rows = Array.isArray(body && body.data) ? body.data : [];
+      rows.forEach((row) => {
+        if (!row || !row.userId) return;
+        if (row.enabled === false || row.activated === false) {
+          disabled.add(String(row.userId).toLowerCase());
+        }
+      });
+
+      if (!body || !body.more) break;
+      page += 1;
+      if (page > 40) break;
+    }
+  } catch (error) {
+    console.warn(`[playdk] roster fetch failed, skipping upstream inactivity: ${error.message}`);
+    return null;
+  }
+
+  console.log(`[playdk] disabled players: ${disabled.size}`);
+  return disabled;
+}
+
 function isYouthTierPlayer(player) {
   const tierCode = normalizeTierCode(
     player.tierCode || player.tierId || player.tier,
@@ -2728,17 +2770,25 @@ async function main(run = {}) {
   console.log("[5/6] Firebase 업로드 데이터 구성");
 
   const activityNow = new Date();
+  const playdkDisabled = HIDE_INACTIVE_PLAYERS ? await fetchPlaydkDisabledUserIds() : null;
   const playersWithRecordStatus = players.map((player) => {
     const key = safeKey(`${player.userId}_${player.race}`);
     const playerRecordMeta = normalizeRecordMetaEntry(recordMetaState[key]);
     const lastRecordDate = playerRecordMeta.lastRecordDate;
     const preserveReadFailed = recordPreserveReadFailed[key] === true;
     const youthTierExempt = isYouthTierPlayer(player);
+    // Academy members stay on the board even when their records go quiet: an empty
+    // record history is not the same as having left the scene.
+    const academyExempt = Boolean(player.academy);
     const recordInactive = youthTierExempt
       ? false
       : preserveReadFailed && playerRecordMeta.recordCount === 0
         ? false
         : isInactiveByLastRecordDate(lastRecordDate, activityNow);
+    const sourceInactive = Boolean(
+      playdkDisabled && playdkDisabled.has(String(player.userId || "").toLowerCase())
+    );
+    const inactive = !academyExempt && !youthTierExempt && (recordInactive || sourceInactive);
 
     return {
       ...player,
@@ -2746,12 +2796,15 @@ async function main(run = {}) {
       recordCount: playerRecordMeta.recordCount,
       lastRecordDate,
       recordInactive,
-      recordInactiveExempt: youthTierExempt ? "youth-tier" : "",
+      sourceInactive,
+      recordInactiveExempt: youthTierExempt ? "youth-tier" : academyExempt ? "academy" : "",
       recordPreserveReadFailed: preserveReadFailed,
-      hiddenByRecordInactivity: HIDE_INACTIVE_PLAYERS && recordInactive,
+      hiddenByRecordInactivity: HIDE_INACTIVE_PLAYERS && inactive,
       recordVisibility:
-        HIDE_INACTIVE_PLAYERS && recordInactive
-          ? "hidden-inactive-records"
+        HIDE_INACTIVE_PLAYERS && inactive
+          ? sourceInactive
+            ? "hidden-inactive-source"
+            : "hidden-inactive-records"
           : "visible",
     };
   });

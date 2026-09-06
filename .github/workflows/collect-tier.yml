@@ -109,4 +109,4 @@ jobs:
 
           ELOBOARD_MAX_ROWS_PER_PLAYER: "5000"
           INACTIVE_RECORD_MONTHS: "4"
-          HIDE_INACTIVE_PLAYERS: "false"
+          HIDE_INACTIVE_PLAYERS: "true"
