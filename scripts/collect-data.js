@@ -878,6 +878,22 @@ async function resolveEloboardEntry(player) {
   return pickEloboardEntry(byName, race);
 }
 
+// eloboard groups matches into the categories its own board filters by. Rank 1 is the
+// most meaningful result, rank 4 the least; categories sharing a rank are equivalent.
+const ELOBOARD_CATEGORIES = {
+  college_event: { label: "대학대전(대회)", rank: 1 },
+  college_war: { label: "대학대전", rank: 2 },
+  team_event: { label: "팀리그", rank: 3 },
+  pro_league: { label: "프로리그", rank: 3 },
+  college_mini: { label: "미니대전", rank: 3 },
+  solo_event: { label: "개인전", rank: 4 },
+  sponsored: { label: "스폰", rank: 4 },
+};
+
+function eloboardCategoryInfo(category) {
+  const key = String(category || "").trim();
+  return ELOBOARD_CATEGORIES[key] || { label: "", rank: 4 };
+}
 function eloboardProfileUrl(entryId) {
   return entryId ? `https://eloboard.com/players/${entryId}?tab=matches` : "";
 }
@@ -897,6 +913,7 @@ function makeEloboardApiRecord({ player, entryId, match }) {
   const isWin = String(self.result || "").toLowerCase() === "win";
   const date = String(match.played_on || "").slice(0, 10);
   const eloChange = Number(match.elo_delta);
+  const categoryInfo = eloboardCategoryInfo(match.category);
 
   const winnerPlayer = isWin ? player.name : opponentName;
   const losePlayer = isWin ? opponentName : player.name;
@@ -917,6 +934,15 @@ function makeEloboardApiRecord({ player, entryId, match }) {
     eloChange: Number.isFinite(eloChange) ? eloChange : 0,
     matchType: String(match.event_name || match.format_raw || "").trim(),
     memo: String(match.memo || "").trim(),
+    category: String(match.category || "").trim(),
+    categoryLabel: categoryInfo.label,
+    categoryRank: categoryInfo.rank,
+    eventId: match.event_id == null ? null : match.event_id,
+    eventName: String(match.event_name || "").trim(),
+    formatRaw: String(match.format_raw || "").trim(),
+    roundLabel: String(match.round_label || "").trim(),
+    isProLeague: match.is_pro_league === true,
+    teamSetKind: String(match.team_set_kind || "").trim(),
     result: isWin ? "win" : "lose",
     isWin,
 
