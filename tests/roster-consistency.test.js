@@ -21,6 +21,7 @@ test('desktop/mobile members and profiles match the current CALM source', () => 
     assert.deepEqual(profiles, team.map(p => p.profile));
     for (const p of profiles) if (p.image.startsWith('/')) assert.ok(fs.existsSync(path.join(root, p.image.slice(1))));
     const events = extract(file, 'const INOUT_HISTORY');
+    assert.ok(events.some(day => day.date === '26.10.19' && day.events.some(e => e.name === '김지성' && e.status === 'IN')));
     for (const name of ['진영화', '서희']) assert.ok(events.some(day => day.date === '26.10.22' && day.events.some(e => e.name === name && e.status === 'IN')));
   }
 });

@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
-const team = require('../data/manual/calm-members.json').members;
+const {members: team, admissions} = require('../data/manual/calm-members.json');
 
 function replaceArray(html, marker, rows) {
   const at = html.indexOf(marker);
@@ -23,15 +23,24 @@ for (const file of ['index.html', 'mobile/index.html']) {
     html = html.replace(/const PROFILE_IMAGE_MAP=[^\r\n]*/, 'const PROFILE_IMAGE_MAP=' + JSON.stringify(images) + ';');
     html = html.replace('m.name==="낭니"?"유스":', '');
   } else {
-    html = html.replace('const JOIN_DATES = {', 'const JOIN_DATES = {\n    "진영화": "2026-10-22",\n    "서희": "2026-10-22",');
-    // Idempotent join dates when the generator is run again.
-    html = html.replace(/("진영화": "2026-10-22",\s*"서희": "2026-10-22",\s*)+/g, '$1');
+    html = html.replace(/const JOIN_DATES = (\{[\s\S]*?\});/, (_, literal) => {
+      const dates = Function('return (' + literal + ')')();
+      for (const admission of admissions) dates[admission.name] = admission.date;
+      return 'const JOIN_DATES = ' + JSON.stringify(dates, null, 2) + ';';
+    });
   }
-  const event = '{ date: "26.10.22", events: [{ name: "진영화", race: "P", status: "IN" }, { name: "서희", race: "P", status: "IN" }] }';
   const historyAt = html.indexOf('const INOUT_HISTORY');
-  if (historyAt >= 0 && !html.slice(historyAt, html.indexOf('];', historyAt)).includes('26.10.22')) {
-    const end = html.indexOf('];', historyAt);
-    html = html.slice(0, end).trimEnd() + ',\n    ' + event + '\n  ' + html.slice(end);
+  if (historyAt >= 0) {
+    const start = html.indexOf('[', historyAt), end = html.indexOf('];', start) + 1;
+    const history = Function('return ' + html.slice(start, end))();
+    for (const admission of admissions) {
+      const date = admission.date.slice(2).replaceAll('-', '.');
+      let day = history.find(row => row.date === date);
+      if (!day) {day = {date, events: []}; history.push(day);}
+      if (!day.events.some(event => event.name === admission.name && event.status === 'IN')) day.events.push({name: admission.name, race: admission.race, status: 'IN'});
+    }
+    history.sort((a, b) => a.date.localeCompare(b.date));
+    html = replaceArray(html, 'const INOUT_HISTORY', history);
   }
   fs.writeFileSync(target, html);
 }

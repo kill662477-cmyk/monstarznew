@@ -101,7 +101,8 @@
         "tier": "God",
         "role": "Coach · God",
         "fallbackImage": "https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg",
-        "image": "https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg"
+        "image": "https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg",
+        "joinDate": "2026-10-19"
       }
     },
     {
@@ -194,7 +195,8 @@
         "tier": "Jack",
         "role": "Coach · Jack",
         "fallbackImage": "https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg",
-        "image": "https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg"
+        "image": "https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg",
+        "joinDate": "2026-10-22"
       }
     },
     {
@@ -586,8 +588,29 @@
         "tier": "유스",
         "role": "유스 · Player",
         "fallbackImage": "https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg",
-        "image": "https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg"
+        "image": "https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg",
+        "joinDate": "2026-10-22"
       }
+    }
+  ],
+  "admissions": [
+    {
+      "name": "김지성",
+      "date": "2026-10-19",
+      "race": "T",
+      "source": "User confirmed 2026-10-23"
+    },
+    {
+      "name": "진영화",
+      "date": "2026-10-22",
+      "race": "P",
+      "source": "https://eloboard.com/news/2026-10-23"
+    },
+    {
+      "name": "서희",
+      "date": "2026-10-22",
+      "race": "P",
+      "source": "https://eloboard.com/news/2026-10-23"
     }
   ]
 }

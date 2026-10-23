@@ -1,5 +1,5 @@
 const {rest} = require('../lib/supabase/admin');
-const team = require('../data/manual/calm-members.json').members;
+const {members: team, admissions} = require('../data/manual/calm-members.json');
 
 async function main() {
   const apply = process.argv.includes('--apply');
@@ -19,10 +19,10 @@ async function main() {
   for (const [table, rows, keep] of [['members_admin', members, row => ids.has(row.member_code)], ['member_profiles', profiles, row => names.has(row.name)]]) {
     for (const row of rows) if (row.is_visible && !keep(row)) await rest('PATCH', table, {query: '?id=eq.' + row.id, body: {is_visible: false, hidden_at: new Date().toISOString()}, prefer: 'return=minimal'});
   }
-  for (const name of ['진영화', '서희']) {
-    if (events.some(e => e.member_name === name && e.event_date === '2026-10-22' && e.event_type === 'IN')) continue;
-    await rest('POST', 'inout_events', {body: {member_name: name, event_type: 'IN', event_date: '2026-10-22', race: 'P', is_visible: true, sort_order: events.length}, prefer: 'return=minimal'});
+  for (const {name, date, race} of admissions) {
+    if (events.some(e => e.member_name === name && e.event_date === date && e.event_type === 'IN')) continue;
+    await rest('POST', 'inout_events', {body: {member_name: name, event_type: 'IN', event_date: date, race, is_visible: true, sort_order: events.length}, prefer: 'return=minimal'});
   }
-  console.log('Published 19 members/profiles and verified October 22 admission events');
+  console.log('Published 19 members/profiles and verified admission events');
 }
 main().catch(error => {console.error(error.message); process.exitCode = 1;});

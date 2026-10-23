@@ -339,49 +339,582 @@
   ];
 
   const INOUT_HISTORY = [
-    { date: "24.07.08", events: [{ name: "김윤환", race: "Z", status: "IN" }, { name: "이경민", race: "P", status: "IN" }] },
-    { date: "24.07.09", events: [{ name: "졈니", race: "P", status: "IN" }, { name: "디임", race: "P", status: "IN" }] },
-    { date: "24.07.12", events: [{ name: "앵지", race: "Z", status: "IN" }] },
-    { date: "24.07.17", events: [{ name: "토마토", race: "P", status: "IN" }, { name: "임조이", race: "Z", status: "IN" }] },
-    { date: "24.07.20", events: [{ name: "킹지", race: "P", status: "IN" }, { name: "킹지", race: "P", status: "OUT" }] },
-    { date: "24.08.07", events: [{ name: "효짱", race: "P", status: "IN" }, { name: "한쪼니", race: "P", status: "IN" }] },
-    { date: "24.08.17", events: [{ name: "모리", race: "T", status: "IN" }, { name: "몽군", race: "T", status: "IN" }] },
-    { date: "24.08.19", events: [{ name: "치리", race: "Z", status: "IN" }] },
-    { date: "24.09.01", events: [{ name: "강덕구", race: "T", status: "IN" }] },
-    { date: "24.09.25", events: [{ name: "강덕구", race: "T", status: "OUT" }] },
-    { date: "24.09.30", events: [{ name: "수입뿌드", race: "P", status: "IN" }] },
-    { date: "24.10.18", events: [{ name: "박준오", race: "Z", status: "IN" }] },
-    { date: "24.10.31", events: [{ name: "정윤종", race: "P", status: "IN" }] },
-    { date: "24.11.02", events: [{ name: "세나", race: "Z", status: "IN" }] },
-    { date: "25.01.08", events: [{ name: "디임", race: "P", status: "OUT" }] },
-    { date: "25.02.28", events: [{ name: "다예", race: "Z", status: "IN" }] },
-    { date: "25.03.06", events: [{ name: "막내현진", race: "P", status: "IN" }, { name: "송혜림", race: "T", status: "IN" }, { name: "진땅콩", race: "T", status: "IN" }] },
-    { date: "25.03.07", events: [{ name: "진땅콩", race: "T", status: "OUT" }] },
-    { date: "25.06.12", events: [{ name: "송혜림", race: "T", status: "OUT" }] },
-    { date: "25.07.14", events: [{ name: "세나", race: "Z", status: "OUT" }, { name: "앵지", race: "Z", status: "OUT" }, { name: "졈니", race: "P", status: "OUT" }, { name: "몽군", race: "T", status: "OUT" }, { name: "효짱", race: "P", status: "OUT" }, { name: "한쪼니", race: "P", status: "OUT" }] },
-    { date: "25.07.26", events: [{ name: "황병영", race: "T", status: "IN" }, { name: "지동원", race: "T", status: "IN" }] },
-    { date: "25.07.27", events: [{ name: "진땅콩", race: "P", status: "IN" }] },
-    { date: "25.08.04", events: [{ name: "두디", race: "Z", status: "IN" }, { name: "조일장", race: "Z", status: "IN" }] },
-    { date: "25.08.05", events: [{ name: "주하랑", race: "P", status: "IN" }] },
-    { date: "25.08.07", events: [{ name: "햇살", race: "T", status: "IN" }] },
-    { date: "25.09.24", events: [{ name: "소주양", race: "T", status: "IN" }] },
-    { date: "25.10.30", events: [{ name: "두디", race: "Z", status: "OUT" }, { name: "모리", race: "T", status: "OUT" }, { name: "막내현진", race: "P", status: "OUT" }] },
-    { date: "25.11.03", events: [{ name: "파도튜브", race: "P", status: "IN" }] },
-    { date: "25.12.05", events: [{ name: "박쭈이", race: "Z", status: "IN" }] },
-    { date: "26.01.14", events: [{ name: "정윤종", race: "P", status: "OUT" }] },
-    { date: "26.01.17", events: [{ name: "박수범", race: "P", status: "IN" }, { name: "배성흠", race: "Z", status: "IN" }, { name: "먼진", race: "Z", status: "IN" }, { name: "다예", race: "Z", status: "OUT" }] },
-    { date: "26.03.14", events: [{ name: "조일장", race: "Z", status: "OUT" }, { name: "황병영", race: "T", status: "OUT" }, { name: "수뿌", race: "P", status: "OUT" }] },
-    { date: "26.03.16", events: [{ name: "비타밍", race: "T", status: "IN" }] },
-    { date: "26.03.19", events: [{ name: "지두두", race: "T", status: "IN" }, { name: "아리송이", race: "P", status: "IN" }] },
-    { date: "26.03.21", events: [{ name: "박쭈이", race: "Z", status: "OUT" }] },
-    { date: "26.03.26", events: [{ name: "사테", race: "T", status: "IN" }, { name: "찌킹", race: "Z", status: "IN" }] },
-    { date: "26.04.28", events: [{ name: "낭니", race: "Z", status: "IN" }] }, 
-    { date: "26.05.04", events: [{ name: "이경민", race: "P", status: "OUT" }] },
-    { date: "26.06.13", events: [{ name: "변현제", race: "P", status: "IN" }] },
-    { date: "26.06.16", events: [{ name: "김민철", race: "Z", status: "IN" }] },
-    { date: "26.09.04", events: [{ name: "변현제", race: "P", status: "OUT" }, { name: "박수범", race: "P", status: "OUT" }, { name: "지동원", race: "T", status: "OUT" }, { name: "치리", race: "Z", status: "OUT" }, { name: "찌킹", race: "Z", status: "OUT" }] },
-    { date: "26.10.22", events: [{ name: "진영화", race: "P", status: "IN" }, { name: "서희", race: "P", status: "IN" }] }
-  ];
+  {
+    "date": "24.07.08",
+    "events": [
+      {
+        "name": "김윤환",
+        "race": "Z",
+        "status": "IN"
+      },
+      {
+        "name": "이경민",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.07.09",
+    "events": [
+      {
+        "name": "졈니",
+        "race": "P",
+        "status": "IN"
+      },
+      {
+        "name": "디임",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.07.12",
+    "events": [
+      {
+        "name": "앵지",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.07.17",
+    "events": [
+      {
+        "name": "토마토",
+        "race": "P",
+        "status": "IN"
+      },
+      {
+        "name": "임조이",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.07.20",
+    "events": [
+      {
+        "name": "킹지",
+        "race": "P",
+        "status": "IN"
+      },
+      {
+        "name": "킹지",
+        "race": "P",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "24.08.07",
+    "events": [
+      {
+        "name": "효짱",
+        "race": "P",
+        "status": "IN"
+      },
+      {
+        "name": "한쪼니",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.08.17",
+    "events": [
+      {
+        "name": "모리",
+        "race": "T",
+        "status": "IN"
+      },
+      {
+        "name": "몽군",
+        "race": "T",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.08.19",
+    "events": [
+      {
+        "name": "치리",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.09.01",
+    "events": [
+      {
+        "name": "강덕구",
+        "race": "T",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.09.25",
+    "events": [
+      {
+        "name": "강덕구",
+        "race": "T",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "24.09.30",
+    "events": [
+      {
+        "name": "수입뿌드",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.10.18",
+    "events": [
+      {
+        "name": "박준오",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.10.31",
+    "events": [
+      {
+        "name": "정윤종",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "24.11.02",
+    "events": [
+      {
+        "name": "세나",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.01.08",
+    "events": [
+      {
+        "name": "디임",
+        "race": "P",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "25.02.28",
+    "events": [
+      {
+        "name": "다예",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.03.06",
+    "events": [
+      {
+        "name": "막내현진",
+        "race": "P",
+        "status": "IN"
+      },
+      {
+        "name": "송혜림",
+        "race": "T",
+        "status": "IN"
+      },
+      {
+        "name": "진땅콩",
+        "race": "T",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.03.07",
+    "events": [
+      {
+        "name": "진땅콩",
+        "race": "T",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "25.06.12",
+    "events": [
+      {
+        "name": "송혜림",
+        "race": "T",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "25.07.14",
+    "events": [
+      {
+        "name": "세나",
+        "race": "Z",
+        "status": "OUT"
+      },
+      {
+        "name": "앵지",
+        "race": "Z",
+        "status": "OUT"
+      },
+      {
+        "name": "졈니",
+        "race": "P",
+        "status": "OUT"
+      },
+      {
+        "name": "몽군",
+        "race": "T",
+        "status": "OUT"
+      },
+      {
+        "name": "효짱",
+        "race": "P",
+        "status": "OUT"
+      },
+      {
+        "name": "한쪼니",
+        "race": "P",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "25.07.26",
+    "events": [
+      {
+        "name": "황병영",
+        "race": "T",
+        "status": "IN"
+      },
+      {
+        "name": "지동원",
+        "race": "T",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.07.27",
+    "events": [
+      {
+        "name": "진땅콩",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.08.04",
+    "events": [
+      {
+        "name": "두디",
+        "race": "Z",
+        "status": "IN"
+      },
+      {
+        "name": "조일장",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.08.05",
+    "events": [
+      {
+        "name": "주하랑",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.08.07",
+    "events": [
+      {
+        "name": "햇살",
+        "race": "T",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.09.24",
+    "events": [
+      {
+        "name": "소주양",
+        "race": "T",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.10.30",
+    "events": [
+      {
+        "name": "두디",
+        "race": "Z",
+        "status": "OUT"
+      },
+      {
+        "name": "모리",
+        "race": "T",
+        "status": "OUT"
+      },
+      {
+        "name": "막내현진",
+        "race": "P",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "25.11.03",
+    "events": [
+      {
+        "name": "파도튜브",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "25.12.05",
+    "events": [
+      {
+        "name": "박쭈이",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "26.01.14",
+    "events": [
+      {
+        "name": "정윤종",
+        "race": "P",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "26.01.17",
+    "events": [
+      {
+        "name": "박수범",
+        "race": "P",
+        "status": "IN"
+      },
+      {
+        "name": "배성흠",
+        "race": "Z",
+        "status": "IN"
+      },
+      {
+        "name": "먼진",
+        "race": "Z",
+        "status": "IN"
+      },
+      {
+        "name": "다예",
+        "race": "Z",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "26.03.14",
+    "events": [
+      {
+        "name": "조일장",
+        "race": "Z",
+        "status": "OUT"
+      },
+      {
+        "name": "황병영",
+        "race": "T",
+        "status": "OUT"
+      },
+      {
+        "name": "수뿌",
+        "race": "P",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "26.03.16",
+    "events": [
+      {
+        "name": "비타밍",
+        "race": "T",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "26.03.19",
+    "events": [
+      {
+        "name": "지두두",
+        "race": "T",
+        "status": "IN"
+      },
+      {
+        "name": "아리송이",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "26.03.21",
+    "events": [
+      {
+        "name": "박쭈이",
+        "race": "Z",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "26.03.26",
+    "events": [
+      {
+        "name": "사테",
+        "race": "T",
+        "status": "IN"
+      },
+      {
+        "name": "찌킹",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "26.04.28",
+    "events": [
+      {
+        "name": "낭니",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "26.05.04",
+    "events": [
+      {
+        "name": "이경민",
+        "race": "P",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "26.06.13",
+    "events": [
+      {
+        "name": "변현제",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "26.06.16",
+    "events": [
+      {
+        "name": "김민철",
+        "race": "Z",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "26.09.04",
+    "events": [
+      {
+        "name": "변현제",
+        "race": "P",
+        "status": "OUT"
+      },
+      {
+        "name": "박수범",
+        "race": "P",
+        "status": "OUT"
+      },
+      {
+        "name": "지동원",
+        "race": "T",
+        "status": "OUT"
+      },
+      {
+        "name": "치리",
+        "race": "Z",
+        "status": "OUT"
+      },
+      {
+        "name": "찌킹",
+        "race": "Z",
+        "status": "OUT"
+      }
+    ]
+  },
+  {
+    "date": "26.10.19",
+    "events": [
+      {
+        "name": "김지성",
+        "race": "T",
+        "status": "IN"
+      }
+    ]
+  },
+  {
+    "date": "26.10.22",
+    "events": [
+      {
+        "name": "진영화",
+        "race": "P",
+        "status": "IN"
+      },
+      {
+        "name": "서희",
+        "race": "P",
+        "status": "IN"
+      }
+    ]
+  }
+];
 
   const MEMBERS = [
   {
@@ -701,7 +1234,8 @@
     "tier": "God",
     "role": "Coach · God",
     "fallbackImage": "https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg",
-    "image": "https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg"
+    "image": "https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg",
+    "joinDate": "2026-10-19"
   },
   {
     "name": "박준오",
@@ -746,7 +1280,8 @@
     "tier": "Jack",
     "role": "Coach · Jack",
     "fallbackImage": "https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg",
-    "image": "https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg"
+    "image": "https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg",
+    "joinDate": "2026-10-22"
   },
   {
     "name": "왜냐맨",
@@ -930,7 +1465,8 @@
     "tier": "유스",
     "role": "유스 · Player",
     "fallbackImage": "https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg",
-    "image": "https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg"
+    "image": "https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg",
+    "joinDate": "2026-10-22"
   }
 ];
   const PROFILE_IMAGE_MAP={"김윤환":{"image":"https://stimg.sooplive.com/COMMENT/0/12635700/62131780225893761.jpg","fallbackImage":"https://stimg.sooplive.com/LOGO/br/brainzerg7/m/brainzerg7.webp","imagePos":"50% 18%"},"김민철":{"image":"https://stimg.sooplive.com/COMMENT/0/12635700/72641781572370255.jpg","fallbackImage":"https://stimg.sooplive.com/LOGO/mi/minchul/m/minchul.webp","imagePos":"50% 50%"},"김지성":{"image":"https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg","fallbackImage":"https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg","imagePos":"50% 50%"},"박준오":{"image":"https://i.namu.wiki/i/clDbjGspehOJ-0HrNr3Wui1OvxLyJkvUWQXSmfI6GudtjRDMnqzjoxv8hUjiUQz17yBB5sKF5xJ6_9pwLmNzUA.webp","fallbackImage":"https://stimg.sooplive.com/LOGO/h7/h78ert/m/h78ert.webp","imagePos":"50% 50%"},"사테":{"image":"/assets/profile/calm-hoonykkk.webp","fallbackImage":"https://stimg.sooplive.com/LOGO/ho/hoonykkk/m/hoonykkk.webp","imagePos":"50% 50%"},"진영화":{"image":"https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg","fallbackImage":"https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg","imagePos":"50% 50%"},"왜냐맨":{"image":"assets/profile/jmc06170.jpg","fallbackImage":"https://stimg.sooplive.com/LOGO/jm/jmc06170/m/jmc06170.webp","imagePos":"50% 50%"},"배성흠":{"image":"https://i.namu.wiki/i/PML0WfgbpjiFTduooaSTeeaOM9OOp6aCdNXm-KzYcUJt9qN1A7F0UQzznCgKf3q688s1993BV2LhFNCb_eIc2A.webp","fallbackImage":"https://stimg.sooplive.com/LOGO/go/goodzerg/m/goodzerg.webp","imagePos":"50% 50%"},"남덕선":{"image":"https://stimg.sooplive.com/COMMENT/0/12635700/64451783504265163.jpg","fallbackImage":"https://stimg.sooplive.com/LOGO/rn/rnaqpdrjf/m/rnaqpdrjf.webp","imagePos":"50% 50%"},"지두두":{"image":"https://stimg.sooplive.com/NORMAL_BBS/0/12635700/98766a18bdc7201da.jpg","fallbackImage":"https://stimg.sooplive.com/LOGO/wj/wjswlgns09/m/wjswlgns09.webp","imagePos":"50% 50%"},"토마토":{"image":"https://i.namu.wiki/i/cksRfkR0q_k8Xewo-oeQXunPGrha_d7oJusX9LUQz4iim1GX9Vwbd_E-N7_-civRXmgCq3B4mzovjXK34f3r5A.webp","fallbackImage":"https://stimg.sooplive.com/LOGO/fr/freshtomato/m/freshtomato.webp","imagePos":"50% 50%"},"햇살":{"image":"https://i.namu.wiki/i/f9F8QwVOLacXyjOnbFHm47n0LeW67WkRsLTjNX7AMMyn-bVjgs2vTO6d2aRg9Sd5wEOsUq4tzM6TKjfOVk4Gew.webp","fallbackImage":"https://stimg.sooplive.com/LOGO/th/thelddl/m/thelddl.webp","imagePos":"50% 50%"},"임조이":{"image":"https://i.namu.wiki/i/tfRPNg8-Qs01kLped_Gmgqlg13RSSkVgllkgHbpC14xwomulsTdot0G2ufB5hXnvAuBew_EMY9v87HwhSHgcQg.webp","fallbackImage":"https://stimg.sooplive.com/LOGO/dl/dlaguswl501/m/dlaguswl501.webp","imagePos":"50% 50%"},"주하랑":{"image":"https://stimg.sooplive.com/NORMAL_BBS/5/20062345/591969f2cc39d1ce4.jpeg","fallbackImage":"https://stimg.sooplive.com/LOGO/fp/fpahsdltu1/m/fpahsdltu1.webp","imagePos":"50% 50%"},"비타밍":{"image":"https://stimg.sooplive.com/COMMENT/0/12635700/33921780227399639.png","fallbackImage":"https://stimg.sooplive.com/LOGO/se/seemin88/m/seemin88.webp","imagePos":"50% 50%"},"먼진":{"image":"https://getfile.fmkorea.com/getfile.php?code=800fbd7fb22cc801b1f97061e3089869&file=https%3A%2F%2Fstimg.sooplive.co.kr%2FNORMAL_BBS%2F5%2F26973815%2F256267baa4c54c6e4.jpeg&","fallbackImage":"https://stimg.sooplive.com/LOGO/2m/2meonjin/m/2meonjin.webp","imagePos":"50% 50%"},"아리송이":{"image":"https://image.fmkorea.com/files/attach/new5/20260311/9580534644_6042994_dfb6f1d1714c67e80e1e06180b28c4e6.jpg.webp","fallbackImage":"https://stimg.sooplive.com/LOGO/vl/vldpfm2/vldpfm2.jpg","imagePos":"50% 50%"},"낭니":{"image":"https://stimg.sooplive.com/COMMENT/0/12635700/62001780139184566.jpg","fallbackImage":"https://stimg.sooplive.com/LOGO/sk/sksmsskdsl10/m/sksmsskdsl10.webp","imagePos":"50% 50%"},"서희":{"image":"https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg","fallbackImage":"https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg","imagePos":"50% 50%"}};
@@ -1030,7 +1566,7 @@
   function profilePosition(name){return profileConfig(name).imagePos||"50% 50%"}
   function has(v){return v!==undefined&&v!==null&&String(v).trim()&&String(v).trim()!=="-"}
   function renderProfileOptions(filter=""){const q=filter.trim();const list=PROFILE_MEMBERS.filter(p=>!q||p.name.includes(q));if(!list.some(p=>p.name===selectedProfileName))selectedProfileName=(list[0]||PROFILE_MEMBERS[0]||{}).name||"";$("profileCount").textContent=PROFILE_MEMBERS.length+"명";$("profileSelect").innerHTML=list.map(p=>`<option value="${esc(p.name)}" ${p.name===selectedProfileName?"selected":""}>${esc(p.name)} · ${esc(p.role||"")}</option>`).join("");renderProfileDetail()}
-  function renderProfileDetail(){const p=PROFILE_MEMBERS.find(x=>x.name===selectedProfileName)||PROFILE_MEMBERS[0];if(!p){$("profileDetail").innerHTML=emptyState();return}const facts=[["생년월일",p.birth],["혈액형",p.blood],["MBTI",p.mbti],["신장",p.height],["방송 데뷔",p.debut]].filter(x=>has(x[1]));$("profileDetail").innerHTML=`<article class="profile-card"><div class="profile-photo-wrap"><img class="profile-photo" src="${safeProfile(profileImage(p.name))}" style="object-position:${esc(profilePosition(p.name))}" onerror="this.onerror=null;this.src='${safeProfile(profileFallbackImage(p.name))}'" alt="${esc(p.name)}" loading="lazy" decoding="async"><span class="profile-role">${esc(p.role||"PROFILE")}</span></div><div class="profile-info"><div class="profile-name">${esc(p.name)}</div><div class="profile-facts">${facts.length?facts.map(x=>`<div class="profile-fact"><span>${esc(x[0])}</span><b>${esc(x[1])}</b></div>`).join(""):emptyState()}</div>${Array.isArray(p.awards)&&p.awards.length?`<div class="awards"><h3>수상경력</h3><ul>${p.awards.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>`:""}</div></article>`}
+  function renderProfileDetail(){const p=PROFILE_MEMBERS.find(x=>x.name===selectedProfileName)||PROFILE_MEMBERS[0];if(!p){$("profileDetail").innerHTML=emptyState();return}const facts=[["입단일",p.joinDate],["생년월일",p.birth],["혈액형",p.blood],["MBTI",p.mbti],["신장",p.height],["방송 데뷔",p.debut]].filter(x=>has(x[1]));$("profileDetail").innerHTML=`<article class="profile-card"><div class="profile-photo-wrap"><img class="profile-photo" src="${safeProfile(profileImage(p.name))}" style="object-position:${esc(profilePosition(p.name))}" onerror="this.onerror=null;this.src='${safeProfile(profileFallbackImage(p.name))}'" alt="${esc(p.name)}" loading="lazy" decoding="async"><span class="profile-role">${esc(p.role||"PROFILE")}</span></div><div class="profile-info"><div class="profile-name">${esc(p.name)}</div><div class="profile-facts">${facts.length?facts.map(x=>`<div class="profile-fact"><span>${esc(x[0])}</span><b>${esc(x[1])}</b></div>`).join(""):emptyState()}</div>${Array.isArray(p.awards)&&p.awards.length?`<div class="awards"><h3>수상경력</h3><ul>${p.awards.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>`:""}</div></article>`}
   function cleanNoticeTitle(v){return String(v||"").replace(/^\s*notice\s*/i,"").replace(/\s+/g," ").trim()}
   function cleanNoticeContent(v){return String(v||"").replace(/^\s*notice\s*/i,"").replace(/\s+\d[\d,]*\s+\d[\d,]*\s+\d[\d,]*\s*$/,"").replace(/\s+/g," ").trim()}
   function cleanNoticeTime(v){const t=String(v||"").trim();if(!t||/^\d+(?:\s+\d+){1,}$/.test(t))return"";return t}
