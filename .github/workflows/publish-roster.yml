@@ -1,0 +1,45 @@
+name: Publish Player Roster
+on:
+  workflow_dispatch:
+    inputs:
+      previous_ref:
+        description: Commit before the roster update (preserves hidden players)
+        required: true
+        default: ceb9e13
+permissions:
+  contents: read
+concurrency:
+  group: collect-tier-data
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Read previous roster identities
+        env:
+          PREVIOUS_REF: ${{ inputs.previous_ref }}
+        run: |
+          git show "$PREVIOUS_REF:data/manual/players.json" > /tmp/previous-players.json
+          node -e "const fs=require('fs');const p=require('/tmp/previous-players.json');fs.appendFileSync(process.env.GITHUB_ENV,'PREVIOUS_ROSTER_IDS='+p.map(x=>x.userId).join(',')+'\n')"
+      - run: node scripts/publish-player-roster.js --apply
+        env:
+          FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL }}

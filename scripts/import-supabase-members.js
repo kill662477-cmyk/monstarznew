@@ -4,26 +4,8 @@
 //   ... --apply
 const { runImport } = require("./_supabase-import-core");
 
-// index.html 의 MEMBERS 와 동일한 원본 (수동 동기화)
-const SOURCE = [
-  { name: "김윤환", userId: "brainzerg7", role: "감독", tier: "Jack", race: "Zerg", youtube: "http://www.youtube.com/@calmtube2" },
-  { name: "사테", userId: "hoonykkk", role: "코치", tier: "King", race: "Terran" },
-  { name: "박준오", userId: "h78ert", role: "코치", tier: "King", race: "Zerg" },
-  { name: "배성흠", userId: "goodzerg", role: "코치", tier: "Jack", race: "Zerg" },
-  { name: "파도튜브", userId: "kthrs9207", role: "코치", tier: "Spade", race: "Protoss" },
-  { name: "김민철", userId: "minchul", role: "코치", tier: "God", race: "Zerg" },
-  { name: "토마토", userId: "freshtomato", role: "학생", tier: "3", race: "Protoss", youtube: "https://www.youtube.com/channel/UCoBw6khRoeei_tgSBueVUXw" },
-  { name: "지두두", userId: "wjswlgns09", role: "학생", tier: "3", race: "Terran" },
-  { name: "햇살", userId: "thelddl", role: "학생", tier: "4", race: "Terran" },
-  { name: "주하랑", userId: "fpahsdltu1", role: "학생", tier: "5", race: "Protoss" },
-  { name: "소주양", userId: "soju2022", role: "학생", tier: "5", race: "Terran" },
-  { name: "임조이", userId: "dlaguswl501", role: "학생", tier: "6", race: "Zerg" },
-  { name: "비타밍", userId: "seemin88", role: "학생", tier: "6", race: "Terran" },
-  { name: "먼진", userId: "2meonjin", role: "학생", tier: "7", race: "Zerg" },
-  { name: "아리송이", userId: "vldpfm2", role: "학생", tier: "7", race: "Protoss" },
-  { name: "진땅콩", userId: "wlswn6565", role: "학생", tier: "8", race: "Protoss" },
-  { name: "낭니", userId: "sksmsskdsl10", role: "학생", tier: "9", race: "Zerg" }
-];
+// PC/모바일과 같은 CALM 명단 원본 사용
+const SOURCE = require('../data/manual/calm-members.json').members.map(row => row.member);
 
 const rows = SOURCE.map(function (m, i) {
   return {

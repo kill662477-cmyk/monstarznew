@@ -1,0 +1,593 @@
+{
+  "updatedAt": "2026-10-23",
+  "sources": [
+    "https://www.playdk.kr/starcraft/tier",
+    "https://eloboard.com/news/2026-10-23"
+  ],
+  "members": [
+    {
+      "member": {
+        "name": "김윤환",
+        "userId": "brainzerg7",
+        "type": "leader",
+        "role": "감독",
+        "tier": "King",
+        "race": "Zerg",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/br/brainzerg7/m/brainzerg7.webp",
+        "stream": "https://www.sooplive.com/station/brainzerg7",
+        "live": "https://play.sooplive.com/brainzerg7",
+        "youtube": "http://www.youtube.com/@calmtube2",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "김윤환",
+        "role": "Head Coach · King",
+        "image": "https://stimg.sooplive.com/COMMENT/0/12635700/62131780225893761.jpg",
+        "imagePos": "50% 18%",
+        "birth": "1989.06.13",
+        "blood": "O형",
+        "mbti": "ENFP",
+        "height": "172cm",
+        "debut": "2017.10.01",
+        "awards": [
+          "SKY 프로리그 2006 후기리그 팀플전 다승왕",
+          "아발론 MSL 2009 우승",
+          "EVER 스타리그 2009 4강",
+          "하나대투증권 MSL 2010 4강",
+          "박카스 스타리그 2011 4강",
+          "SK플래닛 스타크래프트 2 프로리그 12-13 우승",
+          "철구&풀발373배 스타대학대전 2023 4강",
+          "라네트배 스타대학대전 2024 우승"
+        ],
+        "tier": "King",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/br/brainzerg7/m/brainzerg7.webp"
+      }
+    },
+    {
+      "member": {
+        "name": "김민철",
+        "userId": "minchul",
+        "type": "coach",
+        "role": "코치",
+        "tier": "God",
+        "race": "Zerg",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/mi/minchul/m/minchul.webp",
+        "stream": "https://www.sooplive.com/station/minchul",
+        "live": "https://play.sooplive.com/minchul",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "김민철",
+        "image": "https://stimg.sooplive.com/COMMENT/0/12635700/72641781572370255.jpg",
+        "birth": "1991.12.10",
+        "blood": "AB",
+        "height": "170CM",
+        "awards": [],
+        "tier": "God",
+        "role": "Coach · God",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/mi/minchul/m/minchul.webp"
+      }
+    },
+    {
+      "member": {
+        "name": "김지성",
+        "userId": "ho1godme",
+        "type": "coach",
+        "role": "코치",
+        "tier": "God",
+        "race": "Terran",
+        "status": "offline",
+        "profileImage": "https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg",
+        "stream": "https://www.sooplive.com/station/ho1godme",
+        "live": "https://play.sooplive.com/ho1godme",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "김지성",
+        "birth": "1995.08.10",
+        "blood": "O형",
+        "height": "182cm",
+        "awards": [
+          "2022 ASL 시즌14 우승"
+        ],
+        "sources": [
+          "https://php3.ygosu.com/reports/?idx=1543&m2=person",
+          "https://www.hankyung.com/article/202210085287P"
+        ],
+        "tier": "God",
+        "role": "Coach · God",
+        "fallbackImage": "https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg",
+        "image": "https://profile.img.sooplive.co.kr/LOGO/ho/ho1godme/ho1godme.jpg"
+      }
+    },
+    {
+      "member": {
+        "name": "박준오",
+        "userId": "h78ert",
+        "type": "coach",
+        "role": "코치",
+        "tier": "King",
+        "race": "Zerg",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/h7/h78ert/m/h78ert.webp",
+        "stream": "https://www.sooplive.com/station/h78ert",
+        "live": "https://play.sooplive.com/h78ert",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "박준오",
+        "role": "Coach · King",
+        "image": "https://i.namu.wiki/i/clDbjGspehOJ-0HrNr3Wui1OvxLyJkvUWQXSmfI6GudtjRDMnqzjoxv8hUjiUQz17yBB5sKF5xJ6_9pwLmNzUA.webp",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/h7/h78ert/m/h78ert.webp",
+        "imagePos": "50% 50%",
+        "birth": "1992.06.24",
+        "blood": "B형",
+        "mbti": "",
+        "height": "166cm",
+        "debut": "",
+        "awards": [],
+        "tier": "King"
+      }
+    },
+    {
+      "member": {
+        "name": "사테",
+        "userId": "hoonykkk",
+        "type": "coach",
+        "role": "코치",
+        "tier": "King",
+        "race": "Terran",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/ho/hoonykkk/m/hoonykkk.webp",
+        "stream": "https://www.sooplive.com/station/hoonykkk",
+        "live": "https://play.sooplive.com/hoonykkk",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "사테",
+        "role": "Coach · King",
+        "image": "/assets/profile/calm-hoonykkk.webp",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/ho/hoonykkk/m/hoonykkk.webp",
+        "imagePos": "50% 50%",
+        "birth": "1992.07.16",
+        "blood": "",
+        "mbti": "",
+        "height": "",
+        "debut": "",
+        "awards": [],
+        "tier": "King"
+      }
+    },
+    {
+      "member": {
+        "name": "진영화",
+        "userId": "jyh8610",
+        "type": "coach",
+        "role": "코치",
+        "tier": "Jack",
+        "race": "Protoss",
+        "status": "offline",
+        "profileImage": "https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg",
+        "stream": "https://www.sooplive.com/station/jyh8610",
+        "live": "https://play.sooplive.com/jyh8610",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "진영화",
+        "birth": "1990.08.30",
+        "blood": "B형",
+        "height": "174cm",
+        "awards": [
+          "2010 EVER 스타리그 2009 준우승"
+        ],
+        "sources": [
+          "https://ygosu.com/reports/?idx=1002&m2=person",
+          "https://seore.org/w/%EC%A7%84%EC%98%81%ED%99%94"
+        ],
+        "tier": "Jack",
+        "role": "Coach · Jack",
+        "fallbackImage": "https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg",
+        "image": "https://profile.img.sooplive.co.kr/LOGO/jy/jyh8610/jyh8610.jpg"
+      }
+    },
+    {
+      "member": {
+        "name": "왜냐맨",
+        "userId": "jmc06170",
+        "type": "coach",
+        "role": "코치",
+        "tier": "Jack",
+        "race": "Protoss",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/jm/jmc06170/m/jmc06170.webp",
+        "stream": "https://www.sooplive.com/station/jmc06170",
+        "live": "https://play.sooplive.com/jmc06170",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "왜냐맨",
+        "role": "Coach · Jack",
+        "image": "assets/profile/jmc06170.jpg",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/jm/jmc06170/m/jmc06170.webp",
+        "imagePos": "50% 50%",
+        "birth": "1991.06.17",
+        "blood": "",
+        "mbti": "INTP",
+        "height": "",
+        "debut": "",
+        "awards": [],
+        "tier": "Jack"
+      }
+    },
+    {
+      "member": {
+        "name": "배성흠",
+        "userId": "goodzerg",
+        "type": "coach",
+        "role": "코치",
+        "tier": "Jack",
+        "race": "Zerg",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/go/goodzerg/m/goodzerg.webp",
+        "stream": "https://www.sooplive.com/station/goodzerg",
+        "live": "https://play.sooplive.com/goodzerg",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "배성흠",
+        "role": "Coach · Jack",
+        "image": "https://i.namu.wiki/i/PML0WfgbpjiFTduooaSTeeaOM9OOp6aCdNXm-KzYcUJt9qN1A7F0UQzznCgKf3q688s1993BV2LhFNCb_eIc2A.webp",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/go/goodzerg/m/goodzerg.webp",
+        "imagePos": "50% 50%",
+        "birth": "1991.08.17",
+        "blood": "",
+        "mbti": "",
+        "height": "172cm",
+        "debut": "",
+        "awards": [],
+        "tier": "Jack"
+      }
+    },
+    {
+      "member": {
+        "name": "남덕선",
+        "userId": "rnaqpdrjf",
+        "type": "player",
+        "role": "학생",
+        "tier": 2,
+        "race": "Zerg",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/rn/rnaqpdrjf/m/rnaqpdrjf.webp",
+        "stream": "https://www.sooplive.com/station/rnaqpdrjf",
+        "live": "https://play.sooplive.com/rnaqpdrjf",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "남덕선",
+        "role": "2티어 · Player",
+        "tier": 2,
+        "image": "https://stimg.sooplive.com/COMMENT/0/12635700/64451783504265163.jpg",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/rn/rnaqpdrjf/m/rnaqpdrjf.webp",
+        "imagePos": "50% 50%",
+        "birth": "1994.02.27",
+        "blood": "A형",
+        "mbti": "INTP",
+        "height": "162cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "지두두",
+        "userId": "wjswlgns09",
+        "type": "player",
+        "role": "학생",
+        "tier": 3,
+        "race": "Terran",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/wj/wjswlgns09/m/wjswlgns09.webp",
+        "stream": "https://www.sooplive.com/station/wjswlgns09",
+        "live": "https://play.sooplive.com/wjswlgns09",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "지두두",
+        "role": "3티어 · Player",
+        "tier": 3,
+        "image": "https://stimg.sooplive.com/NORMAL_BBS/0/12635700/98766a18bdc7201da.jpg",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/wj/wjswlgns09/m/wjswlgns09.webp",
+        "imagePos": "50% 50%",
+        "birth": "1997.09.01",
+        "blood": "O형",
+        "mbti": "INFP",
+        "height": "158cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "토마토",
+        "userId": "freshtomato",
+        "type": "player",
+        "role": "학생",
+        "tier": 3,
+        "race": "Protoss",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/fr/freshtomato/m/freshtomato.webp",
+        "stream": "https://www.sooplive.com/station/freshtomato",
+        "live": "https://play.sooplive.com/freshtomato",
+        "youtube": "https://www.youtube.com/channel/UCoBw6khRoeei_tgSBueVUXw",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "토마토",
+        "role": "3티어 · Player",
+        "tier": 3,
+        "image": "https://i.namu.wiki/i/cksRfkR0q_k8Xewo-oeQXunPGrha_d7oJusX9LUQz4iim1GX9Vwbd_E-N7_-civRXmgCq3B4mzovjXK34f3r5A.webp",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/fr/freshtomato/m/freshtomato.webp",
+        "imagePos": "50% 50%",
+        "birth": "1999.08.05",
+        "blood": "B형",
+        "mbti": "INTP",
+        "height": "164cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "햇살",
+        "userId": "thelddl",
+        "type": "player",
+        "role": "학생",
+        "tier": 4,
+        "race": "Terran",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/th/thelddl/m/thelddl.webp",
+        "stream": "https://www.sooplive.com/station/thelddl",
+        "live": "https://play.sooplive.com/thelddl",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "햇살",
+        "role": "4티어 · Player",
+        "tier": 4,
+        "image": "https://i.namu.wiki/i/f9F8QwVOLacXyjOnbFHm47n0LeW67WkRsLTjNX7AMMyn-bVjgs2vTO6d2aRg9Sd5wEOsUq4tzM6TKjfOVk4Gew.webp",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/th/thelddl/m/thelddl.webp",
+        "imagePos": "50% 50%",
+        "birth": "1996.11.21",
+        "blood": "O형",
+        "mbti": "ESTJ",
+        "height": "162cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "임조이",
+        "userId": "dlaguswl501",
+        "type": "player",
+        "role": "학생",
+        "tier": 5,
+        "race": "Zerg",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/dl/dlaguswl501/m/dlaguswl501.webp",
+        "stream": "https://www.sooplive.com/station/dlaguswl501",
+        "live": "https://play.sooplive.com/dlaguswl501",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "임조이",
+        "role": "5티어 · Player",
+        "tier": 5,
+        "image": "https://i.namu.wiki/i/tfRPNg8-Qs01kLped_Gmgqlg13RSSkVgllkgHbpC14xwomulsTdot0G2ufB5hXnvAuBew_EMY9v87HwhSHgcQg.webp",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/dl/dlaguswl501/m/dlaguswl501.webp",
+        "imagePos": "50% 50%",
+        "birth": "1998.11.11",
+        "blood": "AB형",
+        "mbti": "ISTP",
+        "height": "166cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "주하랑",
+        "userId": "fpahsdltu1",
+        "type": "player",
+        "role": "학생",
+        "tier": 5,
+        "race": "Protoss",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/fp/fpahsdltu1/m/fpahsdltu1.webp",
+        "stream": "https://www.sooplive.com/station/fpahsdltu1",
+        "live": "https://play.sooplive.com/fpahsdltu1",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "주하랑",
+        "role": "5티어 · Player",
+        "tier": 5,
+        "image": "https://stimg.sooplive.com/NORMAL_BBS/5/20062345/591969f2cc39d1ce4.jpeg",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/fp/fpahsdltu1/m/fpahsdltu1.webp",
+        "imagePos": "50% 50%",
+        "birth": "1999.10.15",
+        "blood": "B형",
+        "mbti": "ISTP",
+        "height": "160cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "비타밍",
+        "userId": "seemin88",
+        "type": "player",
+        "role": "학생",
+        "tier": 6,
+        "race": "Terran",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/se/seemin88/m/seemin88.webp",
+        "stream": "https://www.sooplive.com/station/seemin88",
+        "live": "https://play.sooplive.com/seemin88",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "비타밍",
+        "role": "6티어 · Player",
+        "tier": 6,
+        "image": "https://stimg.sooplive.com/COMMENT/0/12635700/33921780227399639.png",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/se/seemin88/m/seemin88.webp",
+        "imagePos": "50% 50%",
+        "birth": "2000.01.20",
+        "blood": "A형",
+        "mbti": "ESTP",
+        "height": "163cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "먼진",
+        "userId": "2meonjin",
+        "type": "player",
+        "role": "학생",
+        "tier": 6,
+        "race": "Zerg",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/2m/2meonjin/m/2meonjin.webp",
+        "stream": "https://www.sooplive.com/station/2meonjin",
+        "live": "https://play.sooplive.com/2meonjin",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "먼진",
+        "role": "6티어 · Player",
+        "tier": 6,
+        "image": "https://getfile.fmkorea.com/getfile.php?code=800fbd7fb22cc801b1f97061e3089869&file=https%3A%2F%2Fstimg.sooplive.co.kr%2FNORMAL_BBS%2F5%2F26973815%2F256267baa4c54c6e4.jpeg&",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/2m/2meonjin/m/2meonjin.webp",
+        "imagePos": "50% 50%",
+        "birth": "2001.12.01",
+        "blood": "",
+        "mbti": "ISFJ",
+        "height": "168cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "아리송이",
+        "userId": "vldpfm2",
+        "type": "player",
+        "role": "학생",
+        "tier": 6,
+        "race": "Protoss",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/vl/vldpfm2/vldpfm2.jpg",
+        "stream": "https://www.sooplive.com/station/vldpfm2",
+        "live": "https://play.sooplive.com/vldpfm2",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "아리송이",
+        "role": "6티어 · Player",
+        "tier": 6,
+        "image": "https://image.fmkorea.com/files/attach/new5/20260311/9580534644_6042994_dfb6f1d1714c67e80e1e06180b28c4e6.jpg.webp",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/vl/vldpfm2/vldpfm2.jpg",
+        "imagePos": "50% 50%",
+        "birth": "1999.01.02",
+        "blood": "",
+        "mbti": "ISFP",
+        "height": "162cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "낭니",
+        "userId": "sksmsskdsl10",
+        "type": "player",
+        "role": "학생",
+        "tier": 8,
+        "race": "Zerg",
+        "status": "offline",
+        "profileImage": "https://stimg.sooplive.com/LOGO/sk/sksmsskdsl10/m/sksmsskdsl10.webp",
+        "stream": "https://www.sooplive.com/station/sksmsskdsl10",
+        "live": "https://play.sooplive.com/sksmsskdsl10",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "낭니",
+        "role": "8티어 · Player",
+        "tier": 8,
+        "image": "https://stimg.sooplive.com/COMMENT/0/12635700/62001780139184566.jpg",
+        "fallbackImage": "https://stimg.sooplive.com/LOGO/sk/sksmsskdsl10/m/sksmsskdsl10.webp",
+        "imagePos": "50% 50%",
+        "birth": "1999.08.11",
+        "blood": "B형",
+        "mbti": "ISTP",
+        "height": "166cm",
+        "debut": "",
+        "awards": []
+      }
+    },
+    {
+      "member": {
+        "name": "서희",
+        "userId": "omloa00",
+        "type": "player",
+        "role": "유스",
+        "tier": "유스",
+        "race": "Protoss",
+        "status": "offline",
+        "profileImage": "https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg",
+        "stream": "https://www.sooplive.com/station/omloa00",
+        "live": "https://play.sooplive.com/omloa00",
+        "youtube": "#",
+        "profile": "#"
+      },
+      "profile": {
+        "name": "서희",
+        "birth": "2000년",
+        "blood": "B형",
+        "mbti": "INFJ",
+        "height": "170cm",
+        "awards": [],
+        "sources": [
+          "https://eloboard.com/news/2026-10-23",
+          "https://www.sooplive.com/station/omloa00"
+        ],
+        "tier": "유스",
+        "role": "유스 · Player",
+        "fallbackImage": "https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg",
+        "image": "https://stimg.afreecatv.com/LOGO/om/omloa00/omloa00.jpg"
+      }
+    }
+  ]
+}
