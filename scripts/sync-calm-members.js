@@ -12,6 +12,7 @@ function replaceArray(html, marker, rows) {
   return html.slice(0, start) + JSON.stringify(rows, null, 2) + html.slice(end);
 }
 
+let sharedHistory;
 for (const file of ['index.html', 'mobile/index.html']) {
   const target = path.join(root, file);
   let html = fs.readFileSync(target, 'utf8');
@@ -32,7 +33,7 @@ for (const file of ['index.html', 'mobile/index.html']) {
   const historyAt = html.indexOf('const INOUT_HISTORY');
   if (historyAt >= 0) {
     const start = html.indexOf('[', historyAt), end = html.indexOf('];', start) + 1;
-    const history = Function('return ' + html.slice(start, end))();
+    const history = sharedHistory || Function('return ' + html.slice(start, end))();
     for (const admission of admissions) {
       const date = admission.date.slice(2).replaceAll('-', '.');
       let day = history.find(row => row.date === date);
@@ -40,6 +41,7 @@ for (const file of ['index.html', 'mobile/index.html']) {
       if (!day.events.some(event => event.name === admission.name && event.status === 'IN')) day.events.push({name: admission.name, race: admission.race, status: 'IN'});
     }
     history.sort((a, b) => a.date.localeCompare(b.date));
+    sharedHistory = history;
     html = replaceArray(html, 'const INOUT_HISTORY', history);
   }
   fs.writeFileSync(target, html);
