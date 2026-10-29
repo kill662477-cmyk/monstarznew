@@ -9435,7 +9435,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="hub-panel-head">
               <div class="hub-panel-copy"><h3 id="homeVideoTitle">최신 팬튜브</h3></div>
               <div id="homeVideoTabs" class="home-video-tabs" role="tablist" aria-label="홈 영상 유형">
-                <button class="home-video-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-home-youtube-type="sonsilva">손실바</button>
                 <button class="home-video-tab active" type="button" role="tab" aria-selected="true" data-home-youtube-type="longform">팬튜브</button>
                 <button class="home-video-tab" type="button" role="tab" aria-selected="false" data-home-youtube-type="shorts">SHORTS</button>
                 <button class="home-video-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-home-youtube-type="chzcam24">츠캄24</button>
@@ -9589,7 +9588,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="youtube-list-toolbar">
           <div id="youtubeTypeTabs" class="youtube-type-tabs" role="tablist" aria-label="팬튜브 영상 유형">
-            <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-youtube-type="sonsilva">손실바 <span id="youtubeSonsilvaCount">0</span></button>
             <button class="youtube-type-tab active" type="button" role="tab" aria-selected="true" data-youtube-type="longform">팬튜브 <span id="youtubeLongformCount">0</span></button>
             <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" data-youtube-type="shorts">SHORTS <span id="youtubeShortsCount">0</span></button>
             <button class="youtube-type-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-youtube-type="chzcam24">츠캄24 <span class="yt-archive-count" data-archive-count="chzcam24">0</span></button>
@@ -11776,7 +11774,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // 기본: 팬튜브(youtube)
     const targetItem = (youtubeAllItems || []).find(v => getVideoUrl(v) === url);
     if (targetItem) {
-      youtubeTypeFilter = isSonsilvaVideo(targetItem) ? "sonsilva" : isYoutubeShort(targetItem) ? "shorts" : "longform";
+      youtubeTypeFilter = isYoutubeShort(targetItem) ? "shorts" : "longform";
       selectedYoutubeIndex = 0;
       destroyYoutubePlayer();
     }
@@ -11930,7 +11928,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const homeArchiveGroup = getYoutubeArchiveGroup(homeYoutubeTypeFilter);
     if (homeVideoTitle) homeVideoTitle.textContent = homeArchiveGroup
       ? `최신 ${homeArchiveGroup.tabTitle || "영상"}`
-      : (homeYoutubeTypeFilter === "sonsilva" ? "최신 손실바" : homeYoutubeTypeFilter === "shorts" ? "최신 SHORTS" : "최신 팬튜브");
+      : (homeYoutubeTypeFilter === "shorts" ? "최신 SHORTS" : "최신 팬튜브");
     homeVideoTabs?.querySelectorAll("[data-home-youtube-type]").forEach(button => {
       const active = button.dataset.homeYoutubeType === homeYoutubeTypeFilter;
       button.classList.toggle("active", active);
@@ -11940,7 +11938,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function setHomeYoutubeTypeFilter(nextType) {
-    const valid = ["sonsilva", "longform", "shorts"].includes(nextType) || isYoutubeArchiveKey(nextType);
+    const valid = ["longform", "shorts"].includes(nextType) || isYoutubeArchiveKey(nextType);
     if (!valid || nextType === homeYoutubeTypeFilter) return;
     homeYoutubeTypeFilter = nextType;
     renderHomeDashboard();
@@ -11950,7 +11948,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const homeArchiveGroup = getYoutubeArchiveGroup(homeYoutubeTypeFilter);
     if (homeArchiveGroup) return sortYoutubeItems(homeArchiveGroup.items || []).slice(0, 5);
     return sortYoutubeItems(
-      youtubeAllItems.filter(item => matchesYoutubeType(item, homeYoutubeTypeFilter))
+      youtubeAllItems.filter(item => homeYoutubeTypeFilter === "shorts" ? isYoutubeShort(item) : !isYoutubeShort(item))
     ).slice(0, 5);
   }
 
@@ -13798,13 +13796,6 @@ function createMemberCard(member) {
     void selectBojaVideo(selectedBojaIndex, false);
   }
 
-  function isSonsilvaVideo(item) {
-    return item?.channelId === "UCUF7NDYzBA_ezR4XyvzK3Sw" || [item?.name, item?.sourceName, item?.channelTitle].some(value => String(value || "").replace(/\s+/g, "").includes("손실바"));
-  }
-  function matchesYoutubeType(item, type) {
-    if (type === "sonsilva") return isSonsilvaVideo(item);
-    return !isSonsilvaVideo(item) && (type === "shorts" ? isYoutubeShort(item) : !isYoutubeShort(item));
-  }
   function isYoutubeShort(item) {
     const explicit = [item?.isShort, item?.is_short, item?.shorts].find(value => value !== undefined && value !== null && value !== "");
     if (typeof explicit === "boolean") return explicit;
@@ -13862,10 +13853,8 @@ function createMemberCard(member) {
   }
 
   function updateYoutubeTypeTabs() {
-    const shortsCount = youtubeAllItems.filter(item => matchesYoutubeType(item, "shorts")).length;
-    const longformCount = youtubeAllItems.filter(item => matchesYoutubeType(item, "longform")).length;
-    const sonsilvaCount = document.getElementById("youtubeSonsilvaCount");
-    if (sonsilvaCount) sonsilvaCount.textContent = String(youtubeAllItems.filter(isSonsilvaVideo).length);
+    const shortsCount = youtubeAllItems.filter(isYoutubeShort).length;
+    const longformCount = youtubeAllItems.length - shortsCount;
     if (youtubeLongformCount) youtubeLongformCount.textContent = String(longformCount);
     if (youtubeShortsCount) youtubeShortsCount.textContent = String(shortsCount);
     youtubeTypeTabs?.querySelectorAll("[data-archive-count]").forEach(span => {
@@ -13881,7 +13870,7 @@ function createMemberCard(member) {
   }
 
   function setYoutubeTypeFilter(nextType) {
-    const valid = ["sonsilva", "longform", "shorts"].includes(nextType) || isYoutubeArchiveKey(nextType);
+    const valid = ["longform", "shorts"].includes(nextType) || isYoutubeArchiveKey(nextType);
     if (!valid || nextType === youtubeTypeFilter) return;
     youtubeTypeFilter = nextType;
     selectedYoutubeIndex = 0;
@@ -13895,7 +13884,7 @@ function createMemberCard(member) {
     youtubeItems = archiveGroup
       ? sortYoutubeItems(archiveGroup.items || [])
       : sortYoutubeItems(
-          youtubeAllItems.filter(item => matchesYoutubeType(item, youtubeTypeFilter))
+          youtubeAllItems.filter(item => youtubeTypeFilter === "shorts" ? isYoutubeShort(item) : !isYoutubeShort(item))
         ).slice(0, 100);
 
     if (!youtubeItems.length) {
