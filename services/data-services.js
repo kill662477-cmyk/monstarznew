@@ -188,6 +188,13 @@
     return normalizeResult(data, null, false, entry.updatedAt, "static");
   }
 
+  function getVideoFeed(key, url, options) {
+    // New uploads must not stay hidden behind the former 15-minute feed cache.
+    const separator = String(url).includes("?") ? "&" : "?";
+    const feedUrl = url + separator + "feedVersion=2&minute=" + Math.floor(now() / 60000);
+    return fetchJsonCached("videos:v2:" + key, feedUrl, 60000, { cache: "no-store", ...(options || {}) });
+  }
+
   function getMembers(list) {
     const rows = normalizeList(list);
     return fromStatic("members:static", rows, ttl.members);
@@ -584,7 +591,7 @@
     links: getLinks,
     getLinks,
     getVideos,
-    videos: (key, url, options) => fetchJsonCached("videos:" + key, url, ttl.videos, options),
+    videos: getVideoFeed,
     notices: (url, options) => fetchJsonCached("notices", url, ttl.notices, options),
     publicOverrides: getPublicOverrides,
     getPublicOverrides,
